@@ -1,0 +1,55 @@
+import 'dart:ui';
+import '../../../../../../../../../features/auth_page/presentation/auth_gate.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
+import '../../../../../../features/logout_dashboard/presentation/first_screen_logout_dashboard/screens/first_part_in_logout_dashboard.dart';
+import '../../../../../../features/logout_dashboard/presentation/first_screen_logout_dashboard/screens/last_two_button_in_logout_dashboard.dart';
+import '../../../../../../features/auth_page/presentation/pages/login_page/login_page.dart';
+import '../../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
+import '../../../../../../core/theming/colors.dart';
+
+class LogoutDashboard extends StatelessWidget {
+  const LogoutDashboard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: Container(
+          width: 400,
+          height: 300,
+          decoration: BoxDecoration(
+            color: AppColors.scaffoldColor,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            spacing: 10,
+            children: [
+              const FirstPartInLogoutDashboard(),
+              LastTwoButtonInLogoutDashboard(
+                onTapConfirm: () async {
+                  Navigator.pop(context);
+
+                  await context.read<AuthCubit>().logout();
+
+                  if (context.mounted) {
+                    Navigator.push(
+                      context,
+                      NavigateToPageWidget(const AuthGate()),
+                    );
+                  }
+                },
+                onTapCancel: (){},
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
