@@ -31,6 +31,12 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.maintenanceUsersAndCompaniesStatistics:
+      'إحصائية عدد المستخدمين والشركات للصيانة',
+      AppLanguageKeys.currentYearSales: 'مبيعات السنة الحالية',
+      AppLanguageKeys.lastYearSales: 'مبيعات السنة الماضية',
+      AppLanguageKeys.userCarsCount: 'عدد سيارات العملاء',
+      AppLanguageKeys.companyCarsCount: 'عدد سيارات الشركات',
       AppLanguageKeys.searchTheMap: 'البحث في الخريطة',
       AppLanguageKeys.branchNationalAddress: 'العنوان الوطني للفرع',
       AppLanguageKeys.jobLatinName: 'اسم الوظيفة بالإنجليزية',
@@ -538,7 +544,7 @@ class AppLocalizations {
       AppLanguageKeys.nameKey: 'اسم',
       AppLanguageKeys.newUserKey: 'مستخدم جديد',
       AppLanguageKeys.introTextKey:
-          'منصتك المثالية للوصول إلى العملاء وزيادة\n حجوزات مركزك بخدمات السيارات',
+          'تمكين مستقبل عمليات صناعة السيارات',
 
       AppLanguageKeys.internalMaintenanceKey: 'صيانات داخلية',
       AppLanguageKeys.sparePartsKey: 'قطع غيار',
@@ -555,6 +561,10 @@ class AppLocalizations {
       AppLanguageKeys.ordersKey: 'الطلبات',
       AppLanguageKeys.internalServicesKey: 'صيانات وخدمات داخلية',
       AppLanguageKeys.ordersCountKey: 'عدد طلب',
+      AppLanguageKeys.customers: 'العملاء',
+      AppLanguageKeys.companies: 'الشركات',
+      AppLanguageKeys.serviceProviders: 'مزودو الخدمات',
+      AppLanguageKeys.totalSales: 'إجمالي المبيعات',
       AppLanguageKeys.increasePercentKey: 'زيادة 3%',
       AppLanguageKeys.maintenanceAndRepairKey: 'الصيانة والاصلاح',
       AppLanguageKeys.revenueFromOrderKey: 'ايراد من طلب 10054',
@@ -1318,6 +1328,12 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.maintenanceUsersAndCompaniesStatistics:
+      'Maintenance Users and Companies Statistics',
+      AppLanguageKeys.currentYearSales: 'Current Year Sales',
+      AppLanguageKeys.lastYearSales: 'Last Year Sales',
+      AppLanguageKeys.userCarsCount: 'User Cars Count',
+      AppLanguageKeys.companyCarsCount: 'Company Cars Count',
       AppLanguageKeys.searchTheMap: 'Search the Map',
       AppLanguageKeys.branchNationalAddress: 'Branch National Address',
       AppLanguageKeys.jobLatinName: 'Job Name (EN)',
@@ -1837,7 +1853,7 @@ class AppLocalizations {
       AppLanguageKeys.nameKey: 'Name',
       AppLanguageKeys.newUserKey: 'New user',
       AppLanguageKeys.introTextKey:
-          'Your ideal platform to reach customers and increase your center bookings for car services',
+          'Powering the Future of Automotive Operations',
 
       AppLanguageKeys.internalMaintenanceKey: 'Internal Maintenance',
       AppLanguageKeys.sparePartsKey: 'Spare Parts',
@@ -1854,6 +1870,10 @@ class AppLocalizations {
       AppLanguageKeys.ordersKey: 'Orders',
       AppLanguageKeys.internalServicesKey: 'Internal Maintenance & Services',
       AppLanguageKeys.ordersCountKey: 'Orders Count',
+      AppLanguageKeys.customers: 'Customers',
+      AppLanguageKeys.companies: 'Companies',
+      AppLanguageKeys.serviceProviders: 'Service Providers',
+      AppLanguageKeys.totalSales: 'Total Sales',
       AppLanguageKeys.increasePercentKey: 'Increase 3%',
       AppLanguageKeys.maintenanceAndRepairKey: 'Maintenance & Repair',
       AppLanguageKeys.revenueFromOrderKey: 'Revenue from Order #10054',

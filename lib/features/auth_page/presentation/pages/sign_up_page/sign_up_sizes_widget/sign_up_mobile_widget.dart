@@ -1,3 +1,5 @@
+import 'package:web_admin_san/features/auth_page/data/model/create_user_model/admin_details_request.dart';
+
 import '../../../../../../core/theming/assets.dart';
 import '../../../../../../features/auth_page/data/model/create_user_model/create_user_request.dart';
 import '../../../../../../features/auth_page/data/model/create_user_model/employee_wrapper_request.dart';
@@ -157,7 +159,7 @@ class _SignUpMobileWidgetState extends State<SignUpMobileWidget> {
                                             email: emailController.text.trim(),
                                             password: password,
                                             type: UserType.employeeUser,
-                                            employeeDetails: const EmployeeWrapperRequest(),
+                                            adminDetails: const AdminDetailsRequest(),
                                           ),
                                         );
                                   },

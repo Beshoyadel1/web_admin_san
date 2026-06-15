@@ -1,5 +1,5 @@
-import '../../../../../../../../../features/store_page/presentation/bloc/branch_cubit/branch_cubit.dart';
-import '../../../../../../../../../features/store_page/presentation/bloc/branch_cubit/branch_state.dart';
+import '../../../../../features/store_page/presentation/bloc/branch_cubit/branch_cubit.dart';
+import '../../../../../features/store_page/presentation/bloc/branch_cubit/branch_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/pages_widgets/general_widgets/custom_container.dart';

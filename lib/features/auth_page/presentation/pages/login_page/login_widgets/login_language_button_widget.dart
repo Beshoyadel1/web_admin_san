@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/language/language_cubit/language_cubit.dart';
 import '../../../../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../../../../core/language/language_constant.dart';
 import '../../../../../../core/theming/fonts.dart';
@@ -17,12 +18,15 @@ class LoginLanguageButtonWidget extends StatelessWidget {
       child: ButtonWidget(
         text: AppLanguageKeys.languageKey,
         textSize: 17,
-        textColor: AppColors.seaBlueColor,
+        textColor: AppColors.orangeColor,
         fontWeightIndex: FontSelectionData.semiBoldFontFamily,
         borderRadius: 25,
         onTap: () {
-          context.read<AppCubit>().changeAllAppLanguage(
-              context.read<AppCubit>().isAllAppLanguageArabic ? 2 : 1);
+          final cubit = context.read<LanguageCubit>();
+
+          cubit.changeAllAppLanguage(
+            cubit.isAllAppLanguageArabic ? 2 : 1,
+          );
         },
       ),
     );

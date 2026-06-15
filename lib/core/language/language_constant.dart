@@ -19,6 +19,12 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String maintenanceUsersAndCompaniesStatistics =
+      'maintenanceUsersAndCompaniesStatistics';
+  static const String currentYearSales = 'currentYearSales';
+  static const String lastYearSales = 'lastYearSales';
+  static const String userCarsCount = 'userCarsCount';
+  static const String companyCarsCount = 'companyCarsCount';
   static const String searchTheMap = 'searchTheMap';
   static const String branchNationalAddress = 'branchNationalAddress';
   static const String jobLatinName = 'jobLatinName';
@@ -525,6 +531,10 @@ class AppLanguageKeys {
   static const String ordersKey = 'ordersEN';
   static const String internalServicesKey = 'internalServicesEN';
   static const String ordersCountKey = 'ordersCountEN';
+  static const String customers = 'customers';
+  static const String companies = 'companies';
+  static const String serviceProviders = 'serviceProviders';
+  static const String totalSales = 'totalSales';
   static const String increasePercentKey = 'increasePercentEN';
   static const String maintenanceAndRepairKey = 'maintenanceAndRepairEN';
   static const String revenueFromOrderKey = 'revenueFromOrderEN';

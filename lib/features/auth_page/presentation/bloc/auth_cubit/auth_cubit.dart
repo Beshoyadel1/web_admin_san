@@ -314,7 +314,7 @@ class AuthCubit extends Cubit<AuthState> {
           fcmToken: oldUser?.fcmToken,
           currentCarId: oldUser?.currentCarId,
           providerDetails: request.providerDetails ?? oldUser?.providerDetails,
-          employeeDetails: request.employeeDetails ?? oldUser?.employeeDetails,
+          adminDetails: request.adminDetails ?? oldUser?.adminDetails,
         );
 
         // print("========== SAVED USER ==========");

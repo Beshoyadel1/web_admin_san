@@ -29,7 +29,7 @@ class ColumnOfPagesWidget extends StatelessWidget {
                 topRight: Radius.circular(10),
                 bottomRight: Radius.circular(10)),
             color: pageNode.number == appCubit.selectedPageIndex
-                ? AppColors.whiteColor
+                ? AppColors.blackColor
                 : AppColors.transparent,
           ),
           child: ExpansionTileWidget(
@@ -67,10 +67,10 @@ class ColumnOfPagesWidget extends StatelessWidget {
                   topRight: Radius.circular(10),
                   bottomRight: Radius.circular(10)),
               color: pageNode.number == appCubit.selectedPageIndex
-                  ? AppColors.whiteColor
+                  ? AppColors.orangeColor
                   : pageNode.image == null
                       ? AppColors.veryLightOrangeColor.withAlpha(100)
-                      : AppColors.seaBlueColor,
+                      : AppColors.transparent,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,21 +84,23 @@ class ColumnOfPagesWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       spacing: 5,
                       children: [
-                        if (pageNode.image != null && pageNode.image!.isNotEmpty)
+                        if (pageNode.image != null &&
+                            pageNode.image!.isNotEmpty)
                           Image.asset(
                             pageNode.image!,
                             color: pageNode.number == appCubit.selectedPageIndex
-                                ? AppColors.orangeColor
-                                : AppColors.whiteColor,
+                                ? AppColors.whiteColor
+                                : AppColors.orangeColor,
                             height: 18,
                             width: 18,
                           ),
-                        if (pageNode.imageUint8List != null && pageNode.imageUint8List!.isNotEmpty)
+                        if (pageNode.imageUint8List != null &&
+                            pageNode.imageUint8List!.isNotEmpty)
                           Image.memory(
                             pageNode.imageUint8List!,
                             color: pageNode.number == appCubit.selectedPageIndex
-                                ? AppColors.orangeColor
-                                : AppColors.whiteColor,
+                                ? AppColors.whiteColor
+                                : AppColors.orangeColor,
                             height: 18,
                             width: 18,
                           ),
@@ -108,8 +110,8 @@ class ColumnOfPagesWidget extends StatelessWidget {
                             textSize: 14,
                             textColor:
                                 pageNode.number == appCubit.selectedPageIndex
-                                    ? AppColors.orangeColor
-                                    : AppColors.whiteColor,
+                                    ? AppColors.whiteColor
+                                    : AppColors.orangeColor,
                             fontWeightIndex:
                                 FontSelectionData.regularFontFamily,
                           ),

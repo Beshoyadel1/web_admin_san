@@ -32,10 +32,10 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
           backgroundColor: AppColors.veryLightOrangeColor.withAlpha(100),
           iconColor: widget.pages.number == _appCubit.selectedPageIndex
               ? AppColors.secondaryColor
-              : AppColors.whiteColor,
+              : AppColors.orangeColor,
           collapsedIconColor: widget.pages.number == _appCubit.selectedPageIndex
               ? AppColors.secondaryColor
-              : AppColors.whiteColor,
+              : AppColors.orangeColor,
           tilePadding: const EdgeInsetsDirectional.only(start: 5, end: 2),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -46,7 +46,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                 widget.pages.image ?? "",
                 color: widget.pages.number == _appCubit.selectedPageIndex
                     ? AppColors.secondaryColor
-                    : AppColors.whiteColor,
+                    : AppColors.orangeColor,
                 height: 18,
                 width: 18,
               ),
@@ -56,7 +56,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                   textSize: 14,
                   textColor: widget.pages.number == _appCubit.selectedPageIndex
                       ? AppColors.secondaryColor
-                      : AppColors.whiteColor,
+                      : AppColors.orangeColor,
                   fontWeightIndex: FontSelectionData.regularFontFamily,
                 ),
               ),

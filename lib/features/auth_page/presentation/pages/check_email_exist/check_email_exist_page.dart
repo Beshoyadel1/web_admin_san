@@ -53,7 +53,7 @@ class _CheckEmailExistPageState extends State<CheckEmailExistPage> {
                   children: [
                     SizedBox(
                       height: 40,
-                      child: AppBar(backgroundColor: AppColors.seaBlueColor),
+                      child: AppBar(backgroundColor: AppColors.orangeColor),
                     ),
                     Expanded(
                       child: Padding(

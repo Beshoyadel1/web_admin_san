@@ -24,7 +24,7 @@ class LoginWebWidget extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        color: AppColors.seaBlueColor,
+                        color: AppColors.orangeColor,
                         height: 30,
                         width: double.infinity,
                       ),
@@ -43,7 +43,7 @@ class LoginWebWidget extends StatelessWidget {
                                     children: [
                                       const LoginLanguageButtonWidget(),
                                       Image.asset(
-                                        AppImageKeys.sarLogoEmp,
+                                        AppImageKeys.sarLogo,
                                         height: 50,
                                         width: 170,
                                         fit: BoxFit.fill,

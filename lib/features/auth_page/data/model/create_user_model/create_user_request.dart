@@ -27,7 +27,7 @@ class CreateUserRequest {
 
   final AdminDetailsRequest? adminDetails;
   final ProviderDetailsRequest? providerDetails;
-  final EmployeeWrapperRequest? employeeDetails;
+  //final EmployeeWrapperRequest? employeeDetails;
   final CompanyDetailsRequest? companyDetails;
   final DriverDetailsRequest? driverDetails;
 
@@ -49,7 +49,7 @@ class CreateUserRequest {
     this.currentCarId,
     this.adminDetails,
     this.providerDetails,
-    this.employeeDetails,
+   // this.employeeDetails,
     this.companyDetails,
     this.driverDetails,
   });
@@ -122,10 +122,10 @@ class CreateUserRequest {
       )
           : null,
 
-      employeeDetails:
-      EmployeeWrapperRequest.fromJson(
-        json["employeeDetails"],
-      ),
+      // employeeDetails:
+      // EmployeeWrapperRequest.fromJson(
+      //   json["employeeDetails"],
+      // ),
 
       companyDetails:
       json["companyDetails"] != null
@@ -161,7 +161,7 @@ class CreateUserRequest {
       "image": image != null ? base64Encode(image!) : null,
       "adminDetails": adminDetails?.toJson(),
       "providerDetails": providerDetails?.toJson(),
-      "employeeDetails": employeeDetails?.toJson(),
+      //"employeeDetails": employeeDetails?.toJson(),
       "companyDetails": companyDetails?.toJson(),
       "driverDetails": driverDetails?.toJson(),
     };

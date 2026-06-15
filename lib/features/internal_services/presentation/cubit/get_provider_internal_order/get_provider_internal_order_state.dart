@@ -33,8 +33,8 @@ class GetProviderInternalOrderCubit
       final response = await getProviderOrdersFunction(
 
         getProviderOrdersRequest: GetProviderOrdersRequest(
-          providerId: user.employeeDetails?.employeeDetails?.provid,
-          employeeId: user.employeeDetails?.employeeDetails?.id,
+          providerId: 5,
+          employeeId: 5,
           pageNumber: pageNumber ?? 1,
           orderType: orderType,
           serviceId: serviceId,

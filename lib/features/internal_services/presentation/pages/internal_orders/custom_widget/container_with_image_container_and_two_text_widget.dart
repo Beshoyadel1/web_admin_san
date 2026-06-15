@@ -7,12 +7,14 @@ import '../../../../../../core/theming/text_styles.dart';
 class ContainerWithImageContainerAndTwoTextWidget extends StatelessWidget {
   final String title, subTitle;
   final Uint8List? imagePath;
+  final String? imageAsset;
 
   const ContainerWithImageContainerAndTwoTextWidget({
     super.key,
-    required this.imagePath,
+     this.imagePath,
     required this.title,
     required this.subTitle,
+    this.imageAsset,
   });
 
   @override
@@ -37,12 +39,27 @@ class ContainerWithImageContainerAndTwoTextWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: const BoxDecoration(
-              color: AppColors.pinkColor,
+              color: AppColors.orangeColor,
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
             child: imagePath != null
-                ? Image.memory(imagePath!, width: 30)
-                : const SizedBox(width: 30),
+                ? Image.memory(
+              imagePath!,
+              width: 30,
+              height: 30,
+              fit: BoxFit.contain,
+            )
+                : imageAsset != null
+                ? Image.asset(
+              imageAsset!,
+              width: 30,
+              height: 30,
+              fit: BoxFit.contain,
+            )
+                : const SizedBox(
+              width: 30,
+              height: 30,
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(

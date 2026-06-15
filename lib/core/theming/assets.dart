@@ -1,4 +1,5 @@
 class AppImageKeys {
+  static const String logoContainer = 'assets/images/logo_container.png';
 
   //FacilityManagement
   static const String loginImage = 'assets/images/login_image.png';

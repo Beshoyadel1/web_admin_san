@@ -1,5 +1,5 @@
-import '../../../../../../../../../features/store_page/presentation/bloc/work_time_cubit/work_time_cubit.dart';
-import '../../../../../../../../../features/store_page/presentation/bloc/work_time_cubit/work_time_state.dart';
+import '../../../../../features/store_page/presentation/bloc/work_time_cubit/work_time_cubit.dart';
+import '../../../../../features/store_page/presentation/bloc/work_time_cubit/work_time_state.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/language/language_constant.dart';
 import '../../../../../core/pages_widgets/text_form_field_widget.dart';

@@ -135,7 +135,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   final loginRequest = LoginRequest(
                     user: userNameController.text.trim(),
                     password: passwordController.text.trim(),
-                    type: UserType.employeeUser,
+                    type: UserType.adminUser,
                   );
 
                   context

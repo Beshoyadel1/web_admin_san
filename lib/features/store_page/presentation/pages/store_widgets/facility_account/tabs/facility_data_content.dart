@@ -1,9 +1,9 @@
-import 'dart:convert';
+import 'package:web_admin_san/features/auth_page/data/model/create_user_model/admin_details_request.dart';
+
 import '../../../../../../../../../features/auth_page/data/datasource/login_datasource/login_repository.dart';
 import '../../../../../../../../../features/auth_page/data/model/create_user_model/create_user_request.dart';
 import '../../../../../../../../../features/auth_page/data/model/create_user_model/employee_details_request.dart';
 import '../../../../../../../../../features/auth_page/data/model/create_user_model/employee_wrapper_request.dart';
-import '../../../../../../../../../features/auth_page/data/model/create_user_model/provider_details_request.dart';
 import '../../../../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
 import '../../../../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
 import '../../../../../../../../../features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
@@ -55,71 +55,42 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
     final user = await AuthLocalStorage.getUser();
 
     if (user != null) {
-      jobNameController.text = user.employeeDetails?.employeeDetails?.jobname ?? "";
-      jobLatinNameController.text = user.employeeDetails?.employeeDetails?.joblatinname ?? "";
+      jobNameController.text = user.adminDetails?.jobname ?? "";
+      jobLatinNameController.text = user.adminDetails?.joblatinname ?? "";
       phoneController.text = user.phone ?? "";
       emailController.text = user.email ?? "";
       ageController.text = user.age?.toString() ?? "";
       genderController.text = user.gander?.toString() ?? "";
-      dateController.text = OrderFunctions.formatDateFromDateTime(user.joinDate);
+      dateController.text =
+          OrderFunctions.formatDateFromDateTime(user.joinDate);
 
       setState(() {});
     }
   }
+
   void _onUpdate() async {
-
     final user = await AuthLocalStorage.getUser();
-    final facilityCubit =
-    context.read<FacilityTabCubit>();
+    final facilityCubit = context.read<FacilityTabCubit>();
 
-    final oldEmployee =
-        user?.employeeDetails?.employeeDetails;
+    final oldAdmin = user?.adminDetails;
 
     final request = CreateUserRequest(
-
       userid: user?.userid ?? 0,
-
       username: user?.username,
-
       type: user?.type,
-
       phone: safe(phoneController.text),
-
       email: safe(emailController.text),
-
       age: ageController.text.isNotEmpty
           ? int.tryParse(ageController.text)
           : null,
-
       gander: genderController.text.isNotEmpty
           ? int.tryParse(genderController.text)
           : null,
-
-      image:
-      facilityCubit.images['image'] ??
-          user?.image,
-
-      employeeDetails: EmployeeWrapperRequest(
-
-        employeeDetails:
-        EmployeeDetailsRequest(
-
-          id: oldEmployee?.id,
-
-          provid: oldEmployee?.provid,
-
-          jobname: safe(jobNameController.text),
-
-          joblatinname:
-          safe(jobLatinNameController.text),
-
-          branchid:
-          oldEmployee?.branchid,
-        ),
-        serviceIds:
-        user?.employeeDetails
-            ?.serviceIds ??
-            [],
+      image: facilityCubit.images['image'] ?? user?.image,
+      adminDetails: AdminDetailsRequest(
+        id: oldAdmin?.id,
+        jobname: safe(jobNameController.text),
+        joblatinname: safe(jobLatinNameController.text),
       ),
     );
 
@@ -129,9 +100,7 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
     // debugPrint(
     //     jsonEncode(request.toJson()));
 
-    context
-        .read<AuthCubit>()
-        .updateUser(request);
+    context.read<AuthCubit>().updateUser(request);
   }
 
   @override
@@ -140,7 +109,6 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 20),
-
         Wrap(
           spacing: 10,
           runSpacing: 10,
@@ -194,9 +162,7 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
             ),
           ],
         ),
-
         const SizedBox(height: 20),
-
         Wrap(
           spacing: 20,
           runSpacing: 20,
@@ -208,14 +174,10 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
             ),
           ],
         ),
-
         const SizedBox(height: 20),
-
         BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
-
             if (state is AuthUpdateSuccess) {
-
               print("✅ UPDATE SUCCESS");
 
               setState(() => isEditMode = false);
@@ -228,7 +190,6 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
             }
 
             if (state is AuthUpdateError) {
-
               print("❌ UPDATE ERROR => ${state.error}");
 
               ScaffoldMessenger.of(context).showSnackBar(
