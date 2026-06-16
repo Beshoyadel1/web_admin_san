@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/order_services/presentation/cubit/get_order_cubit/get_order_cubit.dart';
+import 'package:web_admin_san/features/order_services/presentation/cubit/get_order_cubit/get_order_state.dart';
 import '../../../../../../../../../../core/theming/colors.dart';
 import '../../../../../../../../../../core/theming/text_styles.dart';
 import '../../../../../../../../../../features/cars_haraj_page/data/model/internal_orders_filter/internal_orders_filter.dart';
@@ -20,32 +22,30 @@ class FilterDesignOrderServicesType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetProviderInternalOrderCubit,
-        GetProviderInternalOrderState>(
+    return BlocBuilder<GetOrderCubit,
+        GetOrderState>(
       builder: (context, state) {
-        if (state is GetProviderInternalOrderLoading) {
+        if (state is GetOrderLoading) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (state is GetProviderInternalOrderSuccess) {
-          final orders = state.orders;
-          if (state.orders.isEmpty) {
-            return const Center(
-              child: TextInAppWidget(
-                text: AppLanguageKeys.empty,
-                textSize: 15,
-                textColor: AppColors.greyColor,
-              ),
-            );
-          }
+        if (state is GetOrderSuccess) {
           return Column(
             children: [
               Expanded(
-                child: ListView.separated(
-                  itemCount: orders.length,
+                child: state.orders.isEmpty
+                    ? const Center(
+                  child: TextInAppWidget(
+                    text: AppLanguageKeys.empty,
+                    textSize: 15,
+                    textColor: AppColors.greyColor,
+                  ),
+                )
+                    : ListView.separated(
+                  itemCount: state.orders.length,
                   separatorBuilder: (_, __) => const SizedBox(height: 5),
                   itemBuilder: (context, index) {
-                    final order = orders[index];
+                    final order = state.orders[index];
 
                     final service = order.services?.isNotEmpty == true
                         ? order.services!.first
@@ -57,36 +57,35 @@ class FilterDesignOrderServicesType extends StatelessWidget {
                     );
 
                     return ContainerOfSecondPartDataContainerInListDataFirstScreenInternalOrdersWidget(
-                        imagePathPart1: service?.image,
-                        titlePart1: serviceTitle,
-                        subTitlePart1: '',
-                        imagePathPart2: AppImageKeys.car501,
-                        textCarPart2: order.branchName ?? "",
-                        titlePart2: order.providerName ?? "",
-                        imagePathPart3: order.providerImage,
-                        titlePart3: AppLanguageKeys.name,
-                        subTitlePart3: order.username ?? "",
-                        status: order.orderStatus,
-                        timePart5: OrderFunctions.formatDate(order.orderDate),
-                        pricePart6: order.totalPrice?.toString() ?? "0",
-                        order: order,
-                        serviceId: CategoryConstants.mobileServices);
+                      imagePathPart1: service?.image,
+                      titlePart1: serviceTitle,
+                      subTitlePart1: '',
+                      imagePathPart2: AppImageKeys.car501,
+                      textCarPart2: order.branchName ?? "",
+                      titlePart2: order.providerName ?? "",
+                      imagePathPart3: order.providerImage,
+                      titlePart3: AppLanguageKeys.name,
+                      subTitlePart3: order.username ?? "",
+                      status: order.orderStatus,
+                      timePart5: OrderFunctions.formatDate(order.orderDate),
+                      pricePart6: order.totalPrice?.toString() ?? "0",
+                      order: order,
+                      serviceId: CategoryConstants.mobileServices,
+                    );
                   },
                 ),
               ),
+
               AppPagination(
                 currentPage: state.currentPage,
-                totalPages: state.pageCount,
+                totalPages: state.totalCount,
                 onPageChanged: (page) {
                   final selectedTab = context.read<TabsCubit>().state;
 
-                  context
-                      .read<GetProviderInternalOrderCubit>()
-                      .loadInternalOrders(
-                        serviceId:1,
-                        pageNumber: page,
-                        orderType: mapOrderType(selectedTab),
-                      );
+                  context.read<GetOrderCubit>().getOrders(
+                    pageNumber: page,
+                    orderType: mapOrderType(selectedTab),
+                  );
                 },
               ),
             ],

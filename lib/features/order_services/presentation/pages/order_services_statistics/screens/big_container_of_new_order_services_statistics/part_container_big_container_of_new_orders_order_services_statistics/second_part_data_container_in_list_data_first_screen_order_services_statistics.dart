@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/order_services/presentation/cubit/get_order_cubit/get_order_cubit.dart';
+import 'package:web_admin_san/features/order_services/presentation/cubit/get_order_cubit/get_order_state.dart';
 import '../../../../../../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../../../../../../core/language/language_constant.dart';
 import '../../../../../../../../../../core/theming/assets.dart';
@@ -36,9 +38,10 @@ class _SecondPartDataContainerInListDataFirstScreenOrderServicesStatisticsState 
         providers: [
           BlocProvider(
             create: (_) =>
-            GetProviderInternalOrderCubit()
-              ..loadInternalOrders(
-                serviceId: widget.serviceId
+            GetOrderCubit()
+              ..getOrders(
+               pageNumber: 1,
+
               ),
           ),
           BlocProvider(
@@ -53,14 +56,14 @@ class _SecondPartDataContainerInListDataFirstScreenOrderServicesStatisticsState 
               );
             }
           },
-          child: BlocBuilder<GetProviderInternalOrderCubit,
-              GetProviderInternalOrderState>(
+          child: BlocBuilder<GetOrderCubit,
+              GetOrderState>(
             builder: (context, state) {
               if (state is GetProviderInternalOrderLoading) {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              if (state is GetProviderInternalOrderSuccess) {
+              if (state is GetOrderSuccess) {
                 final orders = state.orders;
                 if (state.orders.isEmpty) {
                   return const Center(
@@ -108,7 +111,7 @@ class _SecondPartDataContainerInListDataFirstScreenOrderServicesStatisticsState 
                 );
               }
 
-              if (state is GetProviderInternalOrderError) {
+              if (state is GetOrderError) {
                 return Center(child: Text(state.message));
               }
 

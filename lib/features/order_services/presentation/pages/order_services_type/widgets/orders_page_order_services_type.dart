@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/order_services/presentation/cubit/get_order_cubit/get_order_cubit.dart';
 import '../../../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_state.dart';
 import '../../../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
 import '../../../../../../../../../../features/order_services/presentation/pages/order_services_type/widgets/filters_tabs_widget_order_services_type.dart';
@@ -53,9 +54,8 @@ class OrdersPageMobileServicesStatistics extends StatelessWidget {
                   providers: [
                     BlocProvider(create: (_) => TabsCubit()),
                     BlocProvider(
-                      create: (_) => GetProviderInternalOrderCubit()
-                        ..loadInternalOrders(
-                          serviceId: 1,
+                      create: (_) => GetOrderCubit()
+                        ..getOrders(
                           orderType: mapOrderType(0),
                         ),
                     ),

@@ -9,10 +9,14 @@ class WorkTeamCubit extends Cubit<WorkTeamState> {
   WorkTeamCubit() : super(WorkTeamInitial());
 
   Future<void> getTeam() async {
+    if (isClosed) return;
+
     emit(WorkTeamLoading());
 
     try {
       final user = await AuthLocalStorage.getUser();
+
+      if (isClosed) return;
 
       if (user == null) {
         emit(WorkTeamError("User not found"));
@@ -21,14 +25,16 @@ class WorkTeamCubit extends Cubit<WorkTeamState> {
 
       final data = await getWorkTeamChatFunction(
         request: GetWorkTeamChatRequest(
-          user: user.userid??58,
+          user: user.userid ?? 58,
           userType: UserType.providerUser,
         ),
       );
 
-      emit(WorkTeamSuccess(data));
+      if (isClosed) return;
 
+      emit(WorkTeamSuccess(data));
     } catch (e) {
+      if (isClosed) return;
       emit(WorkTeamError(e.toString()));
     }
   }

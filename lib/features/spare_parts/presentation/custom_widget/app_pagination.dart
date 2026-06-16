@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:number_pagination/number_pagination.dart';
 import '../../../../../../../../core/theming/colors.dart';
 
+import 'package:flutter/material.dart';
+import 'package:number_pagination/number_pagination.dart';
+import '../../../../../../../../core/theming/colors.dart';
+
 class AppPagination extends StatelessWidget {
   final int currentPage;
   final int totalPages;
@@ -16,15 +20,18 @@ class AppPagination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (totalPages <= 1) return const SizedBox();
+    if (totalPages <= 1) {
+      return const SizedBox();
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
         child: NumberPagination(
+          key: ValueKey("$currentPage-$totalPages"),
           totalPages: totalPages,
-          currentPage: currentPage,
-          buttonRadius: 25, // circle
+          currentPage: currentPage.clamp(1, totalPages),
+          buttonRadius: 25,
           unSelectedButtonColor: AppColors.greyColor,
           selectedButtonColor: AppColors.orangeColor,
           selectedNumberColor: AppColors.whiteColor,

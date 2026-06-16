@@ -11,7 +11,6 @@ import '../../../core/theming/colors.dart';
 import '../../../core/language/language.dart';
 import '../../../core/setup_git_it.dart';
 
-final GlobalKey<ScaffoldState> scaffoldKeyDrawer = GlobalKey<ScaffoldState>();
 final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
 void main() {

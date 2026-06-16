@@ -32,31 +32,43 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
           backgroundColor: AppColors.veryLightOrangeColor.withAlpha(100),
           iconColor: widget.pages.number == _appCubit.selectedPageIndex
               ? AppColors.secondaryColor
-              : AppColors.orangeColor,
+              : AppColors.whiteColor,
           collapsedIconColor: widget.pages.number == _appCubit.selectedPageIndex
               ? AppColors.secondaryColor
-              : AppColors.orangeColor,
+              : AppColors.whiteColor,
           tilePadding: const EdgeInsetsDirectional.only(start: 5, end: 2),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 5,
             children: [
-              Image.asset(
-                widget.pages.image ?? "",
-                color: widget.pages.number == _appCubit.selectedPageIndex
-                    ? AppColors.secondaryColor
-                    : AppColors.orangeColor,
-                height: 18,
-                width: 18,
-              ),
+              if ((widget.pages.image ?? '').isNotEmpty)
+                Image.asset(
+                  widget.pages.image!,
+                  color: widget.pages.number == _appCubit.selectedPageIndex
+                      ? AppColors.secondaryColor
+                      : AppColors.whiteColor,
+                  height: 18,
+                  width: 18,
+                ),
+
+              if (widget.pages.imageUint8List != null &&
+                  widget.pages.imageUint8List!.isNotEmpty)
+                Image.memory(
+                  widget.pages.imageUint8List!,
+                  color: widget.pages.number == _appCubit.selectedPageIndex
+                      ? AppColors.secondaryColor
+                      : AppColors.whiteColor,
+                  height: 18,
+                  width: 18,
+                ),
               Expanded(
                 child: TextInAppWidget(
                   text: widget.pages.name,
                   textSize: 14,
                   textColor: widget.pages.number == _appCubit.selectedPageIndex
                       ? AppColors.secondaryColor
-                      : AppColors.orangeColor,
+                      : AppColors.whiteColor,
                   fontWeightIndex: FontSelectionData.regularFontFamily,
                 ),
               ),

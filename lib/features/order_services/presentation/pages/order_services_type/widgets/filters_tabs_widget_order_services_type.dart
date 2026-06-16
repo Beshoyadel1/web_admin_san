@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/order_services/presentation/cubit/get_order_cubit/get_order_cubit.dart';
 import '../../../../../../../../../../features/cars_haraj_page/data/model/filter_orders_model/filter_orders_model.dart';
 import '../../../../../../../../../../features/cars_haraj_page/data/model/internal_orders_filter/internal_orders_filter.dart';
 import '../../../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_state.dart';
@@ -37,8 +38,7 @@ class _FiltersTabsWidgetOrderServicesTypeState extends State<FiltersTabsWidgetOr
       if (_tabController.indexIsChanging) {
         final tabIndex = _tabController.index;
         context.read<TabsCubit>().changeTab(tabIndex);
-        context.read<GetProviderInternalOrderCubit>().loadInternalOrders(
-          serviceId: 1,
+        context.read<GetOrderCubit>().getOrders(
           orderType: mapOrderType(tabIndex),
           pageNumber: 1,
         );
@@ -60,9 +60,7 @@ class _FiltersTabsWidgetOrderServicesTypeState extends State<FiltersTabsWidgetOr
               indicator: const BoxDecoration(),
               dividerColor: Colors.transparent,
               tabs: List.generate(widget.filterOptions.length, (index) {
-
                 final isSelected = selectedIndex == index;
-
                 return Tab(
                   child: Container(
                     width: 150,

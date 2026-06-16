@@ -8,9 +8,13 @@ class AdminDashboardStatisticsCubit
   AdminDashboardStatisticsCubit() : super(AdminDashboardStatisticsInitial());
 
   Future<void> getStatistics() async {
+    if (isClosed) return;
+
     emit(AdminDashboardStatisticsLoading());
 
     final data = await getAdminDashboardStatisticsFunction();
+
+    if (isClosed) return;
 
     if (data != null) {
       emit(AdminDashboardStatisticsSuccess(data));

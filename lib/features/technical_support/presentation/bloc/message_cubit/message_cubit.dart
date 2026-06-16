@@ -8,22 +8,35 @@ class MessageCubit extends Cubit<MessageState> {
   MessageCubit() : super(MessageInitial());
 
   Future<void> getMessages() async {
+    if (isClosed) return;
+
     emit(MessageLoading());
 
     try {
       final user = await AuthLocalStorage.getUser();
 
+      if (isClosed) return;
+
       final messages = await getUserMessagesFunction(
         request: GetUserChatsRequest(
-          userId: user?.userid??5,
-          userType: user?.type ??4,
+          userId: user?.userid ?? 5,
+          userType: user?.type ?? 4,
         ),
       );
 
-      emit(MessageSuccess(messages));
+      if (isClosed) return;
 
+      emit(MessageSuccess(messages));
     } catch (e) {
+      if (isClosed) return;
+
       emit(MessageError(e.toString()));
     }
+  }
+
+  @override
+  Future<void> close() {
+    print('MessageCubit CLOSED');
+    return super.close();
   }
 }
