@@ -560,7 +560,7 @@ class AppLocalizations {
       AppLanguageKeys.detailsKey: 'تفاصيل',
       AppLanguageKeys.ordersKey: 'الطلبات',
       AppLanguageKeys.internalServicesKey: 'صيانات وخدمات داخلية',
-      AppLanguageKeys.ordersCountKey: 'عدد طلب',
+      AppLanguageKeys.ordersCountKey: 'عدد طلبات',
       AppLanguageKeys.customers: 'العملاء',
       AppLanguageKeys.companies: 'الشركات',
       AppLanguageKeys.serviceProviders: 'مزودو الخدمات',

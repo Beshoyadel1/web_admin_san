@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   final width = MediaQuery.of(context).size.width;
-    //   print("📱 Screen width = $width");
+      final width = MediaQuery.of(context).size.width;
+      print("📱 Screen width = $width");
     // });
     return BlocProvider(
       create: (BuildContext context) => getIt<AppCubit>(),
