@@ -37,6 +37,13 @@ class ApiConfig {
 
 class ApiLink {
   //User
+  static const String createBanner =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.banner}/CreateBanner";
+  static const String updateBanner =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.banner}/UpdateBanner";
+  static const String deleteBanner =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.banner}/DeleteBanner";
+  //User
   static const String loginUser =
       "${ApiConfig.baseUrlApi}/${ApiConfig.user}/LogInUser";
   static const String createUser =

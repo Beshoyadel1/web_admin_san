@@ -15,6 +15,9 @@ class Network {
   static Future<Response> getData(String url) async {
     return await dio.get(url, options: Options(headers: myHeaders));
   }
+  static Future<Response> postData(String url) async {
+    return await dio.post(url, options: Options(headers: myHeaders));
+  }
 
   static Future<Response> putDataWithBody(var jsonData, String url) async {
     return await dio.put(

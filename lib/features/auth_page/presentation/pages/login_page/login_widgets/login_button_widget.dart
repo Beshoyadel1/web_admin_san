@@ -24,7 +24,6 @@ class LoginButtonWidget extends StatelessWidget {
         width: 500,
         height: 50,
         alignment: Alignment.center,
-
         decoration: BoxDecoration(
           color: AppColors.orangeColor,
           borderRadius: BorderRadius.circular(24),

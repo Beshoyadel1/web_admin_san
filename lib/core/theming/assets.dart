@@ -1,6 +1,9 @@
 class AppImageKeys {
   static const String logoContainer = 'assets/images/logo_container.png';
 
+  static const String testBanner = 'assets/images/test_banner.png';
+  static const String banner = 'assets/images/banner.png';
+
   //FacilityManagement
   static const String loginImage = 'assets/images/login_image.png';
   static const String loginEmp = 'assets/images/login_emp.png';

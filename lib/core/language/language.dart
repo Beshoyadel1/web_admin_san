@@ -31,6 +31,12 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.pleaseSelectImage: 'يرجى اختيار صورة',
+      AppLanguageKeys.pleaseSelectStartDate: 'يرجى اختيار تاريخ البداية',
+      AppLanguageKeys.pleaseSelectEndDate: 'يرجى اختيار تاريخ النهاية',
+      AppLanguageKeys.endDateMustBeAfterStartDate:
+      'يجب أن يكون تاريخ النهاية بعد تاريخ البداية',
+      AppLanguageKeys.cars: 'سيارات',
       AppLanguageKeys.maintenanceUsersAndCompaniesStatistics:
       'إحصائية عدد المستخدمين والشركات للصيانة',
       AppLanguageKeys.currentYearSales: 'مبيعات السنة الحالية',
@@ -843,11 +849,14 @@ class AppLocalizations {
       AppLanguageKeys.bannerImage: 'صورة البنر',
       AppLanguageKeys.bannerSizeNote: 'المقاس المناسب للصورة هو 1108×428 بكسل',
       AppLanguageKeys.uploadImage: 'ارفع صورة',
+      AppLanguageKeys.uploadImageWithData: 'ارفع صورة (jpg.jpeg.gif.png.webp)',
+
       AppLanguageKeys.link: 'الرابط',
       AppLanguageKeys.category: 'تصنيف',
       AppLanguageKeys.storeOffers: 'عروض المتجر',
       AppLanguageKeys.durationFromTo: 'المدة من / الي',
       AppLanguageKeys.createBannerAd: 'إنشاء بانر اعلان',
+      AppLanguageKeys.updateBannerAd: 'تعديل بانر اعلان',
 
       AppLanguageKeys.monthly: 'شهري',
       AppLanguageKeys.daily: 'يومي',
@@ -1328,6 +1337,12 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.pleaseSelectImage: 'Please select an image',
+      AppLanguageKeys.pleaseSelectStartDate: 'Please select start date',
+      AppLanguageKeys.pleaseSelectEndDate: 'Please select end date',
+      AppLanguageKeys.endDateMustBeAfterStartDate:
+      'End date must be after start date',
+      AppLanguageKeys.cars: 'Cars',
       AppLanguageKeys.maintenanceUsersAndCompaniesStatistics:
       'Maintenance Users and Companies Statistics',
       AppLanguageKeys.currentYearSales: 'Current Year Sales',
@@ -2153,11 +2168,14 @@ Providers will be notified of any major changes via the platform or email.
       AppLanguageKeys.bannerSizeNote:
           'Recommended image size is 1108×428 pixels',
       AppLanguageKeys.uploadImage: 'Upload Image',
+      AppLanguageKeys.uploadImageWithData: 'Upload an image (jpg, jpeg, gif, png, webp)',
+
       AppLanguageKeys.link: 'Link',
       AppLanguageKeys.category: 'Category',
       AppLanguageKeys.storeOffers: 'Store Offers',
       AppLanguageKeys.durationFromTo: 'Duration From / To',
       AppLanguageKeys.createBannerAd: 'Create Banner Ad',
+      AppLanguageKeys.updateBannerAd: 'Update Banner Ad',
 
       AppLanguageKeys.monthly: 'Monthly',
       AppLanguageKeys.daily: 'Daily',

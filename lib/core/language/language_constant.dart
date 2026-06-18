@@ -19,6 +19,11 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String pleaseSelectImage = 'pleaseSelectImage';
+  static const String pleaseSelectStartDate = 'pleaseSelectStartDate';
+  static const String pleaseSelectEndDate = 'pleaseSelectEndDate';
+  static const String endDateMustBeAfterStartDate = 'endDateMustBeAfterStartDate';
+  static const String cars = 'cars';
   static const String maintenanceUsersAndCompaniesStatistics =
       'maintenanceUsersAndCompaniesStatistics';
   static const String currentYearSales = 'currentYearSales';
@@ -766,11 +771,14 @@ class AppLanguageKeys {
   static const String bannerImage = 'bannerImage';
   static const String bannerSizeNote = 'bannerSizeNote';
   static const String uploadImage = 'uploadImage';
+  static const String uploadImageWithData = 'uploadImageWithData';
+
   static const String link = 'link';
   static const String category = 'category';
   static const String storeOffers = 'storeOffers';
   static const String durationFromTo = 'durationFromTo';
   static const String createBannerAd = 'createBannerAd';
+  static const String updateBannerAd = 'updateBannerAd';
 
   static const String monthly = 'monthly';
   static const String daily = 'daily';

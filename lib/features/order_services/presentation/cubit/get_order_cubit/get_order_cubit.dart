@@ -10,12 +10,10 @@ class GetOrderCubit extends Cubit<GetOrderState> {
     int? orderType,
     int? pageNumber,
   }) async {
-
     if (!isClosed) {
       emit(GetOrderLoading());
     }
     try {
-
       final response = await getOrdersFunction(
         request: GetOrdersRequest(
           pageNumber: pageNumber,
@@ -25,15 +23,15 @@ class GetOrderCubit extends Cubit<GetOrderState> {
       if (!isClosed) {
         emit(
           GetOrderSuccess(
-            response.orders ?? [],
-            currentPage: response.currentPage ?? 1,
-            pageCount: response.pageCount ?? 1,
-            totalCount: response.totalCount ?? 1,
+            response.orders,
+            currentPage: response.currentPage,
+            pageCount: response.pageCount ,
+            totalCount: response.totalCount,
           ),
         );
       }
+    } catch (e, s) {
 
-    } catch (e) {
       if (!isClosed) {
         emit(GetOrderError(e.toString()));
       }

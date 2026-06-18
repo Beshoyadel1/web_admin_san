@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:web_admin_san/core/language/language.dart';
 import 'package:web_admin_san/features/order_services/presentation/custom_widget/color_title_sub_title_widget.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_statistics/screens/part_two_screen_first_screen_order_services_statistics/container_maintenance_stats/maintenance_stats_pie_chart.dart';
 import '../../../../../../../../../core/language/language_constant.dart';
@@ -29,6 +30,7 @@ class SecondRowInDataInContainerMaintenanceStats
           children: [
             Expanded(
               child: Column(
+                spacing: 10,
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -36,14 +38,13 @@ class SecondRowInDataInContainerMaintenanceStats
                     backgroundColor: AppColors.orangeColor,
                     title: AppLanguageKeys.userCarsCount,
                     subTitle:
-                    maintenanceStats.userCarsCount.toString(),
+                    '${maintenanceStats.userCarsCount} ${AppLocalizations.of(context).translate(AppLanguageKeys.cars)}',
                   ),
-                  const SizedBox(height: 10),
                   ColorTitleSubTitleWidget(
                     backgroundColor: AppColors.seaBlueColor,
                     title: AppLanguageKeys.companyCarsCount,
                     subTitle:
-                    maintenanceStats.companyCarsCount.toString(),
+                    '${maintenanceStats.companyCarsCount} ${AppLocalizations.of(context).translate(AppLanguageKeys.cars)}',
                   ),
                 ],
               ),

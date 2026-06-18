@@ -9,7 +9,7 @@ class GetOrdersRequest {
 
   Map<String, dynamic> toJson() {
     return {
-      "pageNumber": pageNumber,
+      "pageNumber": pageNumber??1,
       "orderType": orderType,
     };
   }

@@ -33,8 +33,7 @@ class FirstRowWithTwoContainerImageAndTwoTextOrderServicesStatistics
 
         final statistics = [
           {
-            "title": AppLocalizations.of(context)
-                .translate(AppLanguageKeys.ordersCountKey),
+            "title": AppLocalizations.of(context).translate(AppLanguageKeys.ordersCountKey),
             "value": summary.totalOrders.toString(),
             "image": AppImageKeys.home,
           },
