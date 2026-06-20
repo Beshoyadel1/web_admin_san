@@ -692,6 +692,7 @@ class AppLocalizations {
       AppLanguageKeys.fillEstablishmentAccountData:
           'قم بملئ بيانات حساب المنشأة',
       AppLanguageKeys.identity: 'الهوية',
+      AppLanguageKeys.nameProvider: 'اسم مزود الخدمة',
       AppLanguageKeys.branches: 'الفروع',
       AppLanguageKeys.workingHours: 'مواعيد العمل',
       AppLanguageKeys.bankAccount: 'حساب البنك',
@@ -2011,6 +2012,7 @@ class AppLocalizations {
       AppLanguageKeys.fillEstablishmentAccountData:
           'Fill in the establishment account data',
       AppLanguageKeys.identity: 'Identity',
+      AppLanguageKeys.nameProvider: 'Provider Name',
       AppLanguageKeys.branches: 'Branches',
       AppLanguageKeys.workingHours: 'Working Hours',
       AppLanguageKeys.bankAccount: 'Bank Account',

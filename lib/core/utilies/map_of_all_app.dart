@@ -1,15 +1,10 @@
-import 'package:web_admin_san/features/banner/presentation/pages/add_advertisements_admin_sun/add_advertisements_admin_sun.dart';
 import 'package:web_admin_san/features/banner/presentation/pages/first_screen_advertisements_admin_sun/first_screen_advertisements_admin_sun.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_statistics/order_services_statistics.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_type/ui/order_services_type_page.dart';
+import 'package:web_admin_san/features/rates/presentation/pages/view_all_provider_rates/view_all_provider_rates.dart';
+import 'package:web_admin_san/features/rates/presentation/pages/view_all_service_rates/view_all_service_rates.dart';
 import '../../../features/communication_and_policies_pages/presentation/pages/first_screen_communication_and_policies_pages/first_screen_communication_and_policies_pages.dart';
-import '../../../features/internal_services/presentation/pages/internal_orders/first_screen_internal_orders/first_screen_internal_orders.dart';
-import '../../../features/internal_services/presentation/pages/internal_services_statistics/Internal_services_page/ui/internal_orders_page.dart';
 import '../../../features/logout_dashboard/presentation/first_screen_logout_dashboard/logout_dashboard.dart';
-import '../../../features/mobile_services/presentation/pages/mobile_services_orders/first_screen_mobile_services_orders/first_screen_mobile_services_orders.dart';
-import '../../../features/mobile_services/presentation/pages/mobile_services_statistics/mobile_services_page/ui/mobile_services_statistics_page.dart';
-import '../../../features/spare_parts/presentation/pages/spare_parts_orders/first_screen_spare_parts_orders/first_screen_spare_parts_orders.dart';
-import '../../../features/spare_parts/presentation/pages/spare_parts_statistics/spare_parts_page/ui/spare_parts_statistics_page.dart';
 import '../../../features/store_page/presentation/pages/store_widgets/facility_account/facility_account.dart';
 import '../../../features/technical_support/presentation/pages/technical_support_emp/technical_support_admin_sun.dart';
 import '../../../core/general_models/pages_model.dart';
@@ -216,6 +211,7 @@ class PagesOfAllApp {
   static const int addBannerPageNumber = 536;
   static const int bannerViewPageNumber = 537;
   static const int bannerMainPageNumber = 538;
+  static const int ratePageNumber = 539;
 
 }
 
@@ -247,14 +243,20 @@ void getPages() {
       page: FirstScreenAdvertisementsAdminSun(),
     ),
     const PageNodeModel(
+      name: AppLanguageKeys.reviews,
+      image: AppImageKeys.star,
+      number: PagesOfAllApp.ratePageNumber,
+      page: ViewAllProviderRates(),
+    ),
+    const PageNodeModel(
         name: AppLanguageKeys.facilityManagementKey,
-        image: AppImageKeys.star,
+        image: AppImageKeys.users,
         number: PagesOfAllApp.securityPageNumber,
         page: FacilityAccount(),
        ),
     const PageNodeModel(
         name: AppLanguageKeys.technicalSupport,
-        image: AppImageKeys.users,
+        image: AppImageKeys.support,
         number: PagesOfAllApp.technicalSupportPageNumber,
         page: TechnicalSupportAdminSun()),
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_admin_san/features/rates/presentation/custom_widget/custom_tab_select_rate_service.dart';
 import '../../../../../../../../../features/internal_services/presentation/cubit/loading_dashboard/loading_dashboard_cubit.dart';
 import '../../../../../../../../../features/internal_services/presentation/cubit/loading_dashboard/loading_dashboard_state.dart';
 import '../../../../../../../../core/language/language.dart';
@@ -20,13 +21,11 @@ class FirstRowWithTwoContainerImageAndTwoText extends StatelessWidget {
 
             const minItemWidth = 220.0;
 
-            int itemsPerRow =
-            (constraints.maxWidth / minItemWidth).floor();
+            int itemsPerRow = (constraints.maxWidth / minItemWidth).floor();
 
             if (itemsPerRow == 0) itemsPerRow = 1;
 
-            final itemWidth =
-                (constraints.maxWidth / itemsPerRow) - 10;
+            final itemWidth = (constraints.maxWidth / itemsPerRow) - 10;
 
             return Wrap(
               spacing: 10,
@@ -38,11 +37,9 @@ class FirstRowWithTwoContainerImageAndTwoText extends StatelessWidget {
 
                 return SizedBox(
                   width: itemWidth,
-                  child: ContainerWithImageContainerAndTwoTextWidget(
+                  child: CustomTabSelectRateService(
                     imagePath: service.image,
                     title: title,
-                    subTitle:
-                    '${service.orderCount ?? 0} ${AppLocalizations.of(context).translate(AppLanguageKeys.order)}',
                   ),
                 );
               }).toList(),

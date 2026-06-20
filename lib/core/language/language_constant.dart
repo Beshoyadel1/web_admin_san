@@ -658,6 +658,7 @@ class AppLanguageKeys {
   static const String fillEstablishmentAccountData =
       'fillEstablishmentAccountData';
   static const String identity = 'identity';
+  static const String nameProvider = 'nameProvider';
   static const String branches = 'branches';
   static const String workingHours = 'workingHours';
   static const String bankAccount = 'bankAccount';

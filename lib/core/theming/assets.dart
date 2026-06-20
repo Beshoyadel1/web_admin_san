@@ -3,6 +3,7 @@ class AppImageKeys {
 
   static const String testBanner = 'assets/images/test_banner.png';
   static const String banner = 'assets/images/banner.png';
+  static const String support = 'assets/images/support.png';
 
   //FacilityManagement
   static const String loginImage = 'assets/images/login_image.png';
