@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/branch_cubit/branch_cubit.dart';
+import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/work_time_cubit/work_time_cubit.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/bank_account_provider/bank_account_provider.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/branches_providers/branches_providers.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/facility_data_content_provider/facility_data_content_provider.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/statistics_providers/statistics_providers.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/working_hours_providers/working_hours_providers.dart';
+import '../../../../../../core/language/language_constant.dart';
+
+class FacilityModelProvider {
+  final String title;
+  final Widget content;
+
+  FacilityModelProvider({required this.title, required this.content});
+}
+
+List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
+      FacilityModelProvider(
+        title: AppLanguageKeys.statistics,
+        content: StatisticsProviders(
+          providerID: providerID,
+        ),
+      ),
+      FacilityModelProvider(
+        title: AppLanguageKeys.facilityDataKey,
+        content: FacilityDataContentProvider(
+          providerID: providerID,
+        ),
+      ),
+      FacilityModelProvider(
+        title: AppLanguageKeys.branches,
+        content: BlocProvider(
+          create: (_) => BranchCubit()..getProviderBranches(
+            providerId:providerID
+          ),
+          child: BranchesProviders(
+            providerID: providerID,
+          ),
+        ),
+      ),
+      FacilityModelProvider(
+        title: AppLanguageKeys.workingHours,
+        content: BlocProvider(
+          create: (context) => UpdateWorkTimeCubit(
+            providerId:providerID
+          ),
+          child: WorkingHoursProviders(
+            providerID: providerID,
+          ),
+        ),
+      ),
+      FacilityModelProvider(
+        title: AppLanguageKeys.bankAccount,
+        content: BankAccountProvider(
+          providerID: providerID,
+        ),
+      ),
+    ];

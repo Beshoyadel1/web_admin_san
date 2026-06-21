@@ -17,8 +17,6 @@ import '../../../../../features/auth_page/data/model/create_user_model/create_us
 import '../../../../../features/auth_page/data/request/login_request/login_request.dart';
 import '../../../../../features/auth_page/domain/validate/facility_validator.dart';
 import '../../../../../features/auth_page/presentation/pages/change_password/change_password_page.dart';
-import '../../../../../features/store_page/presentation/bloc/branch_cubit/branch_cubit.dart';
-import '../../../../../features/store_page/presentation/bloc/work_time_cubit/work_time_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -194,21 +192,21 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> _checkFacilityCompletion(CreateUserRequest user) async {
-    final branchCubit = BranchCubit();
-    final workTimeCubit = UpdateWorkTimeCubit();
+    // final branchCubit = BranchCubit();
+    // final workTimeCubit = UpdateWorkTimeCubit();
 
-    await Future.wait([
-      branchCubit.getProviderBranches(),
-      workTimeCubit.getWorkTimes(),
-    ]);
+    // await Future.wait([
+    //   branchCubit.getProviderBranches(),
+    //   workTimeCubit.getWorkTimes(),
+    // ]);
 
-    print("BRANCHES => ${branchCubit.branches.length}");
-    print("WORK TIMES => ${workTimeCubit.workTimes.length}");
+    // print("BRANCHES => ${branchCubit.branches.length}");
+    // print("WORK TIMES => ${workTimeCubit.workTimes.length}");
 
     final result = FacilityValidator.validate(
       user: user,
-      branchCubit: branchCubit,
-      workTimeCubit: workTimeCubit,
+      // branchCubit: branchCubit,
+      // workTimeCubit: workTimeCubit,
     );
 
     print("IS VALID => ${result.isValid}");
@@ -250,18 +248,18 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthUnauthenticated());
       return;
     }
-    final branchCubit = BranchCubit();
-    final workTimeCubit = UpdateWorkTimeCubit();
+    // final branchCubit = BranchCubit();
+    // final workTimeCubit = UpdateWorkTimeCubit();
 
-    await Future.wait([
-      branchCubit.getProviderBranches(),
-      workTimeCubit.getWorkTimes(),
-    ]);
+    // await Future.wait([
+    //   branchCubit.getProviderBranches(),
+    //   workTimeCubit.getWorkTimes(),
+    // ]);
 
     final result = FacilityValidator.validate(
       user: user,
-      branchCubit: branchCubit,
-      workTimeCubit: workTimeCubit,
+      // branchCubit: branchCubit,
+      // workTimeCubit: workTimeCubit,
     );
 
     if (result.isValid) {

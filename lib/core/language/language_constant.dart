@@ -19,6 +19,8 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String nationalAddressMustBe8CharactersAndDigits =
+      'nationalAddressMustBe8CharactersAndDigits';
   static const String pleaseSelectImage = 'pleaseSelectImage';
   static const String pleaseSelectStartDate = 'pleaseSelectStartDate';
   static const String pleaseSelectEndDate = 'pleaseSelectEndDate';

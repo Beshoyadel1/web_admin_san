@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../../../../../core/theming/image_compressor.dart';
-import '../../../../../../../../../features/store_page/data/model/branch_model/branch_model_dashboard.dart';
-import '../../../../../../../../../features/store_page/data/model/facility_model/facility_model.dart';
 import 'facility_tab_state.dart';
 
 class FacilityTabCubit extends Cubit<FacilityTabState> {
@@ -74,12 +72,12 @@ class FacilityTabCubit extends Cubit<FacilityTabState> {
     emit(ChangeIndexState());
   }
 
-  void nextTab() {
-    if (selectedIndex < facilityTabs.length - 1) {
-      selectedIndex++;
-      emit(ChangeIndexState());
-    }
-  }
+  // void nextTab() {
+  //   if (selectedIndex < facilityTabs.length - 1) {
+  //     selectedIndex++;
+  //     emit(ChangeIndexState());
+  //   }
+  // }
 
   void previousTab() {
     if (selectedIndex > 0) {
@@ -102,34 +100,34 @@ class FacilityTabCubit extends Cubit<FacilityTabState> {
   }
 
   /////////// Branches ///////////
-  final List<BranchModelDashboard> branches = [];
-  int? editingIndex;
-  bool isAddingBranch = true;
+  // final List<BranchModelDashboard> branches = [];
+  // int? editingIndex;
+  // bool isAddingBranch = true;
+  //
+  // void addBranch(BranchModelDashboard branch) {
+  //   branches.add(branch);
+  //   isAddingBranch = false;
+  //   emit(ChangeIndexState());
+  // }
 
-  void addBranch(BranchModelDashboard branch) {
-    branches.add(branch);
-    isAddingBranch = false;
-    emit(ChangeIndexState());
-  }
-
-  void editBranch(int index) {
-    editingIndex = index;
-    isAddingBranch = true;
-    emit(ChangeIndexState());
-  }
-
-  void updateBranch(BranchModelDashboard updatedBranch) {
-    branches[editingIndex!] = updatedBranch;
-    editingIndex = null;
-    isAddingBranch = false;
-    emit(ChangeIndexState());
-  }
-
-  void goToAddBranches() {
-    editingIndex = null;
-    isAddingBranch = true;
-    emit(ChangeIndexState());
-  }
+  // void editBranch(int index) {
+  //   editingIndex = index;
+  //   isAddingBranch = true;
+  //   emit(ChangeIndexState());
+  // }
+  //
+  // void updateBranch(BranchModelDashboard updatedBranch) {
+  //   branches[editingIndex!] = updatedBranch;
+  //   editingIndex = null;
+  //   isAddingBranch = false;
+  //   emit(ChangeIndexState());
+  // }
+  //
+  // void goToAddBranches() {
+  //   editingIndex = null;
+  //   isAddingBranch = true;
+  //   emit(ChangeIndexState());
+  // }
 
   //////////////image//////////////
 

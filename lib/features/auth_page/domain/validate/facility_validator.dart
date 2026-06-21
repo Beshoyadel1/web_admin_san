@@ -1,7 +1,5 @@
 import '../../../../../core/language/language_constant.dart';
 import '../../../../../features/auth_page/data/model/create_user_model/create_user_request.dart';
-import '../../../../../features/store_page/presentation/bloc/branch_cubit/branch_cubit.dart';
-import '../../../../../features/store_page/presentation/bloc/work_time_cubit/work_time_cubit.dart';
 
 
 class FacilityValidationResult {
@@ -17,8 +15,8 @@ class FacilityValidationResult {
 class FacilityValidator {
   static FacilityValidationResult validate({
     required CreateUserRequest user,
-    required BranchCubit branchCubit,
-    required UpdateWorkTimeCubit workTimeCubit,
+    // required BranchCubit branchCubit,
+    // required UpdateWorkTimeCubit workTimeCubit,
   }) {
     final p = user.adminDetails;
 

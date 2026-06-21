@@ -1,6 +1,6 @@
+import 'package:web_admin_san/features/store_page/model/facility_model/facility_model.dart';
 import '../../../../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
 import '../../../../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
-import '../../../../../../../../../features/store_page/data/model/facility_model/facility_model.dart';
 import '../../../../../../../../../features/store_page/presentation/bloc/facility_cubit/facility_tab_cubit/facility_tab_cubit.dart';
 import '../../../../../../../../../features/store_page/presentation/bloc/facility_cubit/facility_tab_cubit/facility_tab_state.dart';
 import '../../../../../../../../../features/store_page/presentation/pages/store_widgets/car_model_widget/widgets/tabs_widget.dart';

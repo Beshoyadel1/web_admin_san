@@ -31,6 +31,8 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.nationalAddressMustBe8CharactersAndDigits:
+      'يجب أن يتكون العنوان الوطني من 8 أحرف وأرقام',
       AppLanguageKeys.pleaseSelectImage: 'يرجى اختيار صورة',
       AppLanguageKeys.pleaseSelectStartDate: 'يرجى اختيار تاريخ البداية',
       AppLanguageKeys.pleaseSelectEndDate: 'يرجى اختيار تاريخ النهاية',
@@ -1338,6 +1340,8 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.nationalAddressMustBe8CharactersAndDigits:
+      'National address must be 8 characters and digits',
       AppLanguageKeys.pleaseSelectImage: 'Please select an image',
       AppLanguageKeys.pleaseSelectStartDate: 'Please select start date',
       AppLanguageKeys.pleaseSelectEndDate: 'Please select end date',

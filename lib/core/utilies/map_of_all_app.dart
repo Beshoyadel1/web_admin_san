@@ -1,6 +1,7 @@
 import 'package:web_admin_san/features/banner/presentation/pages/first_screen_advertisements_admin_sun/first_screen_advertisements_admin_sun.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_statistics/order_services_statistics.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_type/ui/order_services_type_page.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/view_all_providers/view_all_provider.dart';
 import 'package:web_admin_san/features/rates/presentation/pages/view_all_provider_rates/view_all_provider_rates.dart';
 import 'package:web_admin_san/features/rates/presentation/pages/view_all_service_rates/view_all_service_rates.dart';
 import '../../../features/communication_and_policies_pages/presentation/pages/first_screen_communication_and_policies_pages/first_screen_communication_and_policies_pages.dart';
@@ -212,16 +213,13 @@ class PagesOfAllApp {
   static const int bannerViewPageNumber = 537;
   static const int bannerMainPageNumber = 538;
   static const int ratePageNumber = 539;
+  static const int viewAllProvidersNumber = 540;
 
 }
-
-//final services = getIt<EmployeeServicesCubit>().services;
 List<PageNodeModel> appPages = [];
 
 void getPages() {
   appPages.clear();
-  // final services = getIt<EmployeeServicesCubit>().services;
-
   appPages = [
     const PageNodeModel(
       name: AppLanguageKeys.statistics,
@@ -229,12 +227,17 @@ void getPages() {
       number: PagesOfAllApp.dashboardPageNumber,
       page: OrderServicesStatistics(),
     ),
-
     const PageNodeModel(
       name: AppLanguageKeys.ordersSectionKey,
       number: PagesOfAllApp.dashboardOrderPageNumber,
-      image: AppImageKeys.store,
+      image: AppImageKeys.pages,
       page: OrderServicesTypePage(),
+    ),
+    const PageNodeModel(
+      name: AppLanguageKeys.serviceProviders,
+      number: PagesOfAllApp.viewAllProvidersNumber,
+      image: AppImageKeys.store,
+      page: ViewAllProvider(),
     ),
     const PageNodeModel(
       name: AppLanguageKeys.advertisements,
@@ -250,7 +253,7 @@ void getPages() {
     ),
     const PageNodeModel(
         name: AppLanguageKeys.facilityManagementKey,
-        image: AppImageKeys.users,
+        image: AppImageKeys.store,
         number: PagesOfAllApp.securityPageNumber,
         page: FacilityAccount(),
        ),

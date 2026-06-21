@@ -1,4 +1,5 @@
-import '../../../../../../../../../features/store_page/data/model/facility_model/facility_model.dart';
+import 'package:web_admin_san/features/store_page/model/facility_model/facility_model.dart';
+
 import '../../../../../../../../../features/store_page/presentation/bloc/facility_cubit/facility_tab_cubit/facility_tab_cubit.dart';
 import '../../../../../../../../../features/store_page/presentation/bloc/facility_cubit/facility_tab_cubit/facility_tab_state.dart';
 import '../../../../../../../../../features/store_page/presentation/pages/store_widgets/car_model_widget/widgets/tabs_widget.dart';
@@ -57,24 +58,6 @@ class FacilityAccount extends StatelessWidget {
                     onTap: () {},
                   ),
                   const SizedBox(height: 20),
-                  // BlocBuilder<FacilityTabCubit, FacilityTabState>(
-                  //   builder: (context, state) {
-                  //     final cubit = context.read<FacilityTabCubit>();
-                  //     final isLastTab =
-                  //         cubit.selectedIndex == facilityTabs.length - 1;
-                  //     return isLastTab
-                  //         ? NavigatorButton(
-                  //             textGrayButton: AppLanguageKeys.backKey,
-                  //             onTapGrayButton: () => cubit.previousTab(),
-                  //           )
-                  //         : NavigatorButton(
-                  //             textOrangeButton: AppLanguageKeys.nextKey,
-                  //             textGrayButton: AppLanguageKeys.backKey,
-                  //             onTapGrayButton: () => cubit.previousTab(),
-                  //             onTapOrangeButton: () => cubit.nextTab(),
-                  //           );
-                  //   },
-                  // ),
                 ],
               ),
             ),

@@ -16,10 +16,11 @@ class CustomViewAllProviderRates extends StatelessWidget {
         this.nameProvider,
         this.avgRate,
         this.countRate,
-        this.onTapViewRates
+        this.onTapViewRates,
+        this.nameButton
       });
 
-  final String? id,nameProvider,countRate,avgRate;
+  final String? id,nameProvider,countRate,avgRate,nameButton;
   final double? spacing;
   final void Function()? onTapViewRates;
   @override
@@ -74,7 +75,7 @@ class CustomViewAllProviderRates extends StatelessWidget {
           InkWell(
             onTap:onTapViewRates,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
               decoration: BoxDecoration(
                   color: AppColors.whiteColor,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -82,8 +83,8 @@ class CustomViewAllProviderRates extends StatelessWidget {
                       color: AppColors.orangeColor
                   )
               ),
-              child: const TextInAppWidget(
-                text: AppLanguageKeys.viewReviews,
+              child: TextInAppWidget(
+                text: nameButton??AppLanguageKeys.viewReviews,
                 textSize: 12,
                 fontWeightIndex: FontSelectionData.mediumFontFamily,
                 textColor: AppColors.orangeColor,
