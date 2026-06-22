@@ -33,9 +33,20 @@ class ApiConfig {
   static const String serviceProvider = "ServiceProvider";
   static const String workTIme = "WorkTIme";
   static const String branch = "Branch";
+  static const String adminUsers = "AdminUsers";
+
 }
 
 class ApiLink {
+  //users
+  static const String getAllUsers =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllUsers";
+  static const String getUserDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetUserDetails";
+
+  //providers
+  static const String getAllProviders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllProviders";
   //User
   static const String createBanner =
       "${ApiConfig.baseUrlApi}/${ApiConfig.banner}/CreateBanner";

@@ -19,6 +19,10 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String useAsPrimaryAccount = 'useAsPrimaryAccount';
+  static const String replaceCarAccount = 'replaceCarAccount';
+  static const String users = 'users';
+  static const String lastOrderDate = 'lastOrderDate';
   static const String nationalAddressMustBe8CharactersAndDigits =
       'nationalAddressMustBe8CharactersAndDigits';
   static const String pleaseSelectImage = 'pleaseSelectImage';

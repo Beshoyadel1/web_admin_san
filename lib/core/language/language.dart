@@ -31,6 +31,10 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.useAsPrimaryAccount: 'استخدام هذه كحساب رئيسي',
+      AppLanguageKeys.replaceCarAccount: 'استبدال السيارة كحساب',
+      AppLanguageKeys.users: 'المستخدمون',
+      AppLanguageKeys.lastOrderDate: 'تاريخ آخر طلب',
       AppLanguageKeys.nationalAddressMustBe8CharactersAndDigits:
       'يجب أن يتكون العنوان الوطني من 8 أحرف وأرقام',
       AppLanguageKeys.pleaseSelectImage: 'يرجى اختيار صورة',
@@ -1340,6 +1344,10 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.useAsPrimaryAccount: 'Use as Primary Account',
+      AppLanguageKeys.replaceCarAccount: 'Replace Car Account',
+      AppLanguageKeys.users: 'Users',
+      AppLanguageKeys.lastOrderDate: 'Last Order Date',
       AppLanguageKeys.nationalAddressMustBe8CharactersAndDigits:
       'National address must be 8 characters and digits',
       AppLanguageKeys.pleaseSelectImage: 'Please select an image',

@@ -3,7 +3,7 @@ import 'package:web_admin_san/features/order_services/presentation/pages/order_s
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_type/ui/order_services_type_page.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/view_all_providers/view_all_provider.dart';
 import 'package:web_admin_san/features/rates/presentation/pages/view_all_provider_rates/view_all_provider_rates.dart';
-import 'package:web_admin_san/features/rates/presentation/pages/view_all_service_rates/view_all_service_rates.dart';
+import 'package:web_admin_san/features/users/presentation/pages/view_all_users/view_all_users.dart';
 import '../../../features/communication_and_policies_pages/presentation/pages/first_screen_communication_and_policies_pages/first_screen_communication_and_policies_pages.dart';
 import '../../../features/logout_dashboard/presentation/first_screen_logout_dashboard/logout_dashboard.dart';
 import '../../../features/store_page/presentation/pages/store_widgets/facility_account/facility_account.dart';
@@ -214,6 +214,7 @@ class PagesOfAllApp {
   static const int bannerMainPageNumber = 538;
   static const int ratePageNumber = 539;
   static const int viewAllProvidersNumber = 540;
+  static const int viewAllUsersNumber = 541;
 
 }
 List<PageNodeModel> appPages = [];
@@ -232,6 +233,12 @@ void getPages() {
       number: PagesOfAllApp.dashboardOrderPageNumber,
       image: AppImageKeys.pages,
       page: OrderServicesTypePage(),
+    ),
+    const PageNodeModel(
+      name: AppLanguageKeys.users,
+      number: PagesOfAllApp.viewAllUsersNumber,
+      image: AppImageKeys.users,
+      page: ViewAllUsers(),
     ),
     const PageNodeModel(
       name: AppLanguageKeys.serviceProviders,

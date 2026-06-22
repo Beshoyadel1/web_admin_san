@@ -13,12 +13,16 @@ class ProvidersRateCubit extends Cubit<ProvidersRateState> {
     try {
       final result = await getProvidersBasicRateFunction();
 
+      if (isClosed) return;
+
       providers = result;
 
       emit(
         ProvidersRateSuccess(result),
       );
     } catch (e) {
+      if (isClosed) return;
+
       emit(
         ProvidersRateError(
           e.toString(),

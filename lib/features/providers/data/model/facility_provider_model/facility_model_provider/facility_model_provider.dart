@@ -23,12 +23,12 @@ List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
           providerID: providerID,
         ),
       ),
-      FacilityModelProvider(
-        title: AppLanguageKeys.facilityDataKey,
-        content: FacilityDataContentProvider(
-          providerID: providerID,
-        ),
-      ),
+      // FacilityModelProvider(
+      //   title: AppLanguageKeys.facilityDataKey,
+      //   content: FacilityDataContentProvider(
+      //     providerID: providerID,
+      //   ),
+      // ),
       FacilityModelProvider(
         title: AppLanguageKeys.branches,
         content: BlocProvider(
@@ -51,10 +51,10 @@ List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
           ),
         ),
       ),
-      FacilityModelProvider(
-        title: AppLanguageKeys.bankAccount,
-        content: BankAccountProvider(
-          providerID: providerID,
-        ),
-      ),
+      // FacilityModelProvider(
+      //   title: AppLanguageKeys.bankAccount,
+      //   content: BankAccountProvider(
+      //     providerID: providerID,
+      //   ),
+      // ),
     ];

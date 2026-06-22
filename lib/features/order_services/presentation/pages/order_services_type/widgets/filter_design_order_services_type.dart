@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 import 'package:web_admin_san/features/order_services/presentation/cubit/get_order_cubit/get_order_cubit.dart';
 import 'package:web_admin_san/features/order_services/presentation/cubit/get_order_cubit/get_order_state.dart';
 import '../../../../../../../../../../core/theming/colors.dart';
@@ -34,13 +35,7 @@ class FilterDesignOrderServicesType extends StatelessWidget {
             children: [
               Expanded(
                 child: state.orders.isEmpty
-                    ? const Center(
-                  child: TextInAppWidget(
-                    text: AppLanguageKeys.empty,
-                    textSize: 15,
-                    textColor: AppColors.greyColor,
-                  ),
-                )
+                    ? const TextEmptyViewData()
                     : ListView.separated(
                   itemCount: state.orders.length,
                   separatorBuilder: (_, __) => const SizedBox(height: 5),
