@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../../../core/theming/colors.dart';
-import '../../../../../../../../core/theming/text_styles.dart';
-import '../../../../../../../../features/cars_haraj_page/data/model/internal_orders_filter/internal_orders_filter.dart';
-import '../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_cubit.dart';
-import '../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_state.dart';
-import '../../../../../../../../features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
-import '../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
+import 'package:web_admin_san/features/order_services/presentation/custom_widget/app_pagination.dart';
+import '../../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../../core/theming/text_styles.dart';
+import '../../../../../../../../../features/cars_haraj_page/data/model/internal_orders_filter/internal_orders_filter.dart';
+import '../../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_cubit.dart';
+import '../../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_state.dart';
+import '../../../../../../../../../features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
+import '../../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
 import '../../../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/Container_of_second_part_data_container_in_list_data_first_screen_internal_orders_widget.dart';
-import '../../../../../../../../features/spare_parts/presentation/custom_widget/app_pagination.dart';
-import '../../../../../../../core/api/dio_function/api_constants.dart';
-import '../../../../../../../core/theming/assets.dart';
-import '../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../core/theming/assets.dart';
+import '../../../../../../../../core/language/language_constant.dart';
 
-class FilterDesignMobileServicesStatistics extends StatelessWidget {
-  const FilterDesignMobileServicesStatistics({
-    super.key,
-  });
+class FilterDesignProviderOrders extends StatelessWidget {
+  const FilterDesignProviderOrders({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +25,7 @@ class FilterDesignMobileServicesStatistics extends StatelessWidget {
         }
 
         if (state is GetProviderInternalOrderSuccess) {
+
           final orders = state.orders;
           if (state.orders.isEmpty) {
             return const Center(
@@ -70,7 +68,7 @@ class FilterDesignMobileServicesStatistics extends StatelessWidget {
                       timePart5: OrderFunctions.formatDate(order.orderDate),
                       pricePart6: order.totalPrice?.toString() ?? "0",
                       order: order,
-                      serviceId: CategoryConstants.mobileServices
+                      serviceId: order.services?.first.id ,
                     );
                   },
                 ),
@@ -79,16 +77,15 @@ class FilterDesignMobileServicesStatistics extends StatelessWidget {
                 currentPage: state.currentPage,
                 totalPages: state.pageCount,
                 onPageChanged: (page) {
-                  final selectedTab = context.read<TabsCubit>().state;
+                  final selectedTab =
+                      context.read<TabsCubit>().state;
 
                   context
                       .read<GetProviderInternalOrderCubit>()
                       .loadInternalOrders(
-                        serviceId: MainCategoryConstants
-                            .mobileServicesAndTransportationID,
-                        pageNumber: page,
-                        orderType: mapOrderType(selectedTab),
-                      );
+                    pageNumber: page,
+                    orderType: mapOrderType(selectedTab),
+                  );
                 },
               ),
             ],

@@ -19,6 +19,10 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String petrol = 'petrol';
+  static const String diesel = 'diesel';
+  static const String electricity = 'electricity';
+  static const String hybrid = 'hybrid';
   static const String useAsPrimaryAccount = 'useAsPrimaryAccount';
   static const String replaceCarAccount = 'replaceCarAccount';
   static const String users = 'users';

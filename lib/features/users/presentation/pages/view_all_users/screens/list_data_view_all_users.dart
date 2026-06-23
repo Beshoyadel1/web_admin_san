@@ -5,7 +5,7 @@ import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
-import 'package:web_admin_san/features/spare_parts/presentation/custom_widget/app_pagination.dart';
+import 'package:web_admin_san/features/order_services/presentation/custom_widget/app_pagination.dart';
 import 'package:web_admin_san/features/users/presentation/bloc/get_all_users_cubit/get_all_users_cubit.dart';
 import 'package:web_admin_san/features/users/presentation/bloc/get_all_users_cubit/get_all_users_state.dart';
 import 'package:web_admin_san/features/users/presentation/custom_widget/custom_view_all_users_list_widget.dart';

@@ -8,7 +8,7 @@ import 'package:web_admin_san/features/providers/presentation/custom_widget/cust
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/page_details_provider.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/get_all_providers_cubit/get_all_providers_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/get_all_providers_cubit/get_all_providers_state.dart';
-import 'package:web_admin_san/features/spare_parts/presentation/custom_widget/app_pagination.dart';
+import 'package:web_admin_san/features/order_services/presentation/custom_widget/app_pagination.dart';
 
 class ListDataViewAllProvider extends StatelessWidget {
   const ListDataViewAllProvider({super.key});

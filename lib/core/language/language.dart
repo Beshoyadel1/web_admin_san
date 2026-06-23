@@ -31,6 +31,10 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.petrol: 'بنزين',
+      AppLanguageKeys.diesel: 'ديزل',
+      AppLanguageKeys.electricity: 'كهرباء',
+      AppLanguageKeys.hybrid: 'هجين',
       AppLanguageKeys.useAsPrimaryAccount: 'استخدام هذه كحساب رئيسي',
       AppLanguageKeys.replaceCarAccount: 'استبدال السيارة كحساب',
       AppLanguageKeys.users: 'المستخدمون',
@@ -1344,6 +1348,10 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.petrol: 'Petrol',
+      AppLanguageKeys.diesel: 'Diesel',
+      AppLanguageKeys.electricity: 'Electricity',
+      AppLanguageKeys.hybrid: 'Hybrid',
       AppLanguageKeys.useAsPrimaryAccount: 'Use as Primary Account',
       AppLanguageKeys.replaceCarAccount: 'Replace Car Account',
       AppLanguageKeys.users: 'Users',

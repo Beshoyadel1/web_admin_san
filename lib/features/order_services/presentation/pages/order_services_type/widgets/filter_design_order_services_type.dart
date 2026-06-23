@@ -11,7 +11,7 @@ import '../../../../../../../../../../features/internal_services/presentation/cu
 import '../../../../../../../../../../features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import '../../../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
 import '../../../../../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/Container_of_second_part_data_container_in_list_data_first_screen_internal_orders_widget.dart';
-import '../../../../../../../../../../features/spare_parts/presentation/custom_widget/app_pagination.dart';
+import '../../../custom_widget/app_pagination.dart';
 import '../../../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../../../core/theming/assets.dart';
 import '../../../../../../../core/language/language_constant.dart';

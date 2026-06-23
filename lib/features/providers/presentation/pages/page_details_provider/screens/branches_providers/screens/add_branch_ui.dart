@@ -13,8 +13,6 @@ import 'package:web_admin_san/features/providers/presentation/bloc/facility_prov
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/location_provider_cubit/location_provider_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/location_provider_cubit/location_provider_state.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/branches_providers/screens/square_map_provider_widget.dart';
-import 'package:web_admin_san/features/store_page/presentation/pages/store_widgets/square_map_widget.dart';
-
 
 
 class AddBranchUI extends StatefulWidget {
@@ -125,6 +123,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
 
               /// Branch Name
               TextFormFieldWidget(
+                readOnly: true,
                 textFormController: nameController,
                 text: AppLanguageKeys.branchName,
                 hintText: AppLanguageKeys.branchName,
@@ -142,6 +141,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
 
               /// Latin Name
               TextFormFieldWidget(
+                readOnly: true,
                 textFormController: latinController,
                 text: AppLanguageKeys.branchLatinName,
                 hintText: AppLanguageKeys.branchLatinName,
@@ -159,6 +159,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
 
               /// Address Text
               TextFormFieldWidget(
+                readOnly: true,
                 textFormController: addressTextController,
                 text: AppLanguageKeys.addressText,
                 hintText: AppLanguageKeys.addressText,
@@ -176,6 +177,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
 
               /// Address Latin
               TextFormFieldWidget(
+                readOnly: true,
                 textFormController: addressLatinController,
                 text: AppLanguageKeys.addressLatinText,
                 hintText: AppLanguageKeys.addressLatinText,
@@ -192,6 +194,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
               ),
 
               TextFormFieldWidget(
+                readOnly: true,
                 textFormController: nationalAddressController,
                 text: AppLanguageKeys.branchNationalAddress ,
                 hintText: AppLanguageKeys.branchNationalAddress ,
@@ -217,6 +220,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
 
               /// Address
               TextFormFieldWidget(
+                readOnly: true,
                 textFormController: searchTheMapController,
                 text: AppLanguageKeys.searchTheMap,
                 hintText: AppLanguageKeys.searchTheMap,
@@ -255,84 +259,84 @@ class _AddBranchUIState extends State<AddBranchUI> {
                 spacing: 10,
                 runSpacing: 10,
                 children: [
-                  CustomContainer(
-                    isSelected: false,
-                    onTap: isLoading
-                        ? null
-                        : () {
-                      if (nationalAddressController.text.trim().length != 8) {
-                        AppSnackBar.showError(
-                          AppLanguageKeys.nationalAddressMustBe8CharactersAndDigits,
-                        );
-                        return;
-                      }
-                      if (!_formKey.currentState!.validate()) {
-                        AppSnackBar.showError(
-                            AppLanguageKeys.enterYourData);
-                        return;
-                      }
-                      final locationState =
-                          context.read<LocationProviderCubit>().state;
-
-                      if (locationState is! LocationLoaded) {
-                        AppSnackBar.showError(
-                            AppLanguageKeys.enterYourData);
-                        return;
-                      }
-
-                      /// ✅ EDIT
-                      if (editingId != null && branch != null) {
-                        final request = AddBranchRequest(
-                          branchId: branch.branchId,
-                          branchName: nameController.text,
-                          branchLatinName: latinController.text,
-                          lat: locationState.latLng.latitude,
-                          long: locationState.latLng.longitude,
-                          addressText: addressTextController.text,
-                          addressLatinText: addressLatinController.text,
-                          nationalAddress: nationalAddressController.text,
-                          isActive: branch.isActive ?? true,
-                        );
-                        context
-                            .read<BranchCubit>()
-                            .updateBranch(providerId:widget.providerId,request);
-                      }
-
-                      else {
-                        final request = AddBranchRequest(
-                          branchName: nameController.text,
-                          branchLatinName: latinController.text,
-                          lat: locationState.latLng.latitude,
-                          long: locationState.latLng.longitude,
-                          addressText: addressTextController.text,
-                          addressLatinText: addressLatinController.text,
-                          nationalAddress: nationalAddressController.text,
-                          isActive: true,
-                        );
-
-                        context
-                            .read<BranchCubit>()
-                            .addBranch(providerId:widget.providerId,request);
-                      }
-                    },
-                    typeWidget: isLoading
-                        ? const SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: Colors.white,
-                      ),
-                    )
-                        : TextInAppWidget(
-                      text: editingId != null
-                          ? AppLanguageKeys.editKey
-                          : AppLanguageKeys.saveKey,
-                      textSize: 16,
-                      textColor: AppColors.whiteColor,
-                    ),
-                    containerColor: AppColors.orangeColor,
-                  ),
+                  // CustomContainer(
+                  //   isSelected: false,
+                  //   onTap: isLoading
+                  //       ? null
+                  //       : () {
+                  //     if (nationalAddressController.text.trim().length != 8) {
+                  //       AppSnackBar.showError(
+                  //         AppLanguageKeys.nationalAddressMustBe8CharactersAndDigits,
+                  //       );
+                  //       return;
+                  //     }
+                  //     if (!_formKey.currentState!.validate()) {
+                  //       AppSnackBar.showError(
+                  //           AppLanguageKeys.enterYourData);
+                  //       return;
+                  //     }
+                  //     final locationState =
+                  //         context.read<LocationProviderCubit>().state;
+                  //
+                  //     if (locationState is! LocationLoaded) {
+                  //       AppSnackBar.showError(
+                  //           AppLanguageKeys.enterYourData);
+                  //       return;
+                  //     }
+                  //
+                  //     /// ✅ EDIT
+                  //     if (editingId != null && branch != null) {
+                  //       final request = AddBranchRequest(
+                  //         branchId: branch.branchId,
+                  //         branchName: nameController.text,
+                  //         branchLatinName: latinController.text,
+                  //         lat: locationState.latLng.latitude,
+                  //         long: locationState.latLng.longitude,
+                  //         addressText: addressTextController.text,
+                  //         addressLatinText: addressLatinController.text,
+                  //         nationalAddress: nationalAddressController.text,
+                  //         isActive: branch.isActive ?? true,
+                  //       );
+                  //       context
+                  //           .read<BranchCubit>()
+                  //           .updateBranch(providerId:widget.providerId,request);
+                  //     }
+                  //
+                  //     else {
+                  //       final request = AddBranchRequest(
+                  //         branchName: nameController.text,
+                  //         branchLatinName: latinController.text,
+                  //         lat: locationState.latLng.latitude,
+                  //         long: locationState.latLng.longitude,
+                  //         addressText: addressTextController.text,
+                  //         addressLatinText: addressLatinController.text,
+                  //         nationalAddress: nationalAddressController.text,
+                  //         isActive: true,
+                  //       );
+                  //
+                  //       context
+                  //           .read<BranchCubit>()
+                  //           .addBranch(providerId:widget.providerId,request);
+                  //     }
+                  //   },
+                  //   typeWidget: isLoading
+                  //       ? const SizedBox(
+                  //     height: 20,
+                  //     width: 20,
+                  //     child: CircularProgressIndicator(
+                  //       strokeWidth: 2,
+                  //       color: Colors.white,
+                  //     ),
+                  //   )
+                  //       : TextInAppWidget(
+                  //     text: editingId != null
+                  //         ? AppLanguageKeys.editKey
+                  //         : AppLanguageKeys.saveKey,
+                  //     textSize: 16,
+                  //     textColor: AppColors.whiteColor,
+                  //   ),
+                  //   containerColor: AppColors.orangeColor,
+                  // ),
 
                   CustomContainer(
                     isSelected: false,

@@ -14,6 +14,7 @@ class GetProviderInternalOrderCubit
     int? orderType,
     int? serviceId,
     int? pageNumber,
+    int? providerId,
   }) async {
 
     if (!isClosed) {
@@ -21,20 +22,11 @@ class GetProviderInternalOrderCubit
     }
 
     try {
-      final user = await AuthLocalStorage.getUser();
-
-      if (user == null) {
-        if (!isClosed) {
-          emit(const GetProviderInternalOrderError("User not found"));
-        }
-        return;
-      }
 
       final response = await getProviderOrdersFunction(
 
         getProviderOrdersRequest: GetProviderOrdersRequest(
-          providerId: 5,
-          employeeId: 5,
+          providerId:providerId,
           pageNumber: pageNumber ?? 1,
           orderType: orderType,
           serviceId: serviceId,

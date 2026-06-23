@@ -205,26 +205,26 @@ class _WorkingHoursProvidersState extends State<WorkingHoursProviders> {
 
                               const SizedBox(width: 10),
 
-                              Wrap(
-                                spacing: 10,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.edit,
-                                        color: Colors.blue),
-                                    onPressed: () {
-                                      cubit.selectWorkTime(item);
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete,
-                                        color: Colors.red),
-                                    onPressed: () {
-                                      cubit.deleteWorkTime(
-                                          item.worktimeid!);
-                                    },
-                                  ),
-                                ],
-                              ),
+                              // Wrap(
+                              //   spacing: 10,
+                              //   children: [
+                              //     IconButton(
+                              //       icon: const Icon(Icons.edit,
+                              //           color: Colors.blue),
+                              //       onPressed: () {
+                              //        // cubit.selectWorkTime(item);
+                              //       },
+                              //     ),
+                              //     IconButton(
+                              //       icon: const Icon(Icons.delete,
+                              //           color: Colors.red),
+                              //       onPressed: () {
+                              //         // cubit.deleteWorkTime(
+                              //         //     item.worktimeid!);
+                              //       },
+                              //     ),
+                              //   ],
+                              // ),
                             ],
                           ),
                         );
@@ -234,121 +234,124 @@ class _WorkingHoursProvidersState extends State<WorkingHoursProviders> {
                 ),
               ),
 
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.lightGreyColor),
-                ),
-                child: Column(
-                  spacing: 10,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextInAppWidget(
-                      text: cubit.isEditMode
-                          ? AppLanguageKeys.editWorkingHours
-                          : AppLanguageKeys.addWorkingHours,
-                      textSize: 16,
-                      fontWeightIndex: FontSelectionData.mediumFontFamily,
-                      textColor: AppColors.darkColor,
-                    ),
-                    const TextInAppWidget(
-                      text: AppLanguageKeys.selectWorkDaysKey,
-                      textSize: 15,
-                      fontWeightIndex: FontSelectionData.mediumFontFamily,
-                      textColor: AppColors.darkGreyColor,
-                    ),
-
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: List.generate(daysOfWeek.length, (index) {
-                        final isSelected = cubit.selectedDays.contains(index);
-
-                        return CustomContainer(
-                          isSelected: isSelected,
-                          onTap: () => cubit.toggleDay(index),
-                          text: daysOfWeek[index],
-                          containerColor: isSelected
-                              ? AppColors.whiteColor
-                              : AppColors.lightGreyColor,
-                          textColor: isSelected
-                              ? AppColors.orangeColor
-                              : AppColors.darkGreyColor,
-                          border: isSelected
-                              ? Border.all(color: AppColors.orangeColor)
-                              : Border(),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                        );
-
-                      }),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    const TextInAppWidget(
-                      text: AppLanguageKeys.availableTimesKey,
-                      textSize: 18,
-                      fontWeightIndex: FontSelectionData.mediumFontFamily,
-                      textColor: AppColors.darkColor,
-                    ),
-
-                    const TextInAppWidget(
-                      text: AppLanguageKeys.selectAvailableTimeKey,
-                      textSize: 15,
-                      fontWeightIndex: FontSelectionData.mediumFontFamily,
-                      textColor: AppColors.darkGreyColor,
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    const WorkingHoursWidget(),
-
-                    const SizedBox(height: 20),
-
-                    /// ================= BUTTONS =================
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.orangeColor,
-                          ),
-                          onPressed: cubit.isEditMode
-                              ? () => cubit.updateWorkTime(
-                              cubit.selectedWorkTimeId!)
-                              : cubit.createWorkTime,
-                          child: TextInAppWidget(
-                            textSize: 13,
-                            text: cubit.isEditMode
-                                ? AppLanguageKeys.edit
-                                : AppLanguageKeys.create,
-                            textColor: AppColors.whiteColor,
-                          ),
-                        ),
-
-                        const SizedBox(width: 10),
-
-                        if (cubit.isEditMode)
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.orangeColor,
-                            ),
-                            onPressed: cubit.clearSelection,
-                            child: const TextInAppWidget(
-                              text: AppLanguageKeys.cancel,
-                              textSize: 13,
-                              textColor: AppColors.whiteColor,
-                            ),
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   padding: const EdgeInsets.all(12),
+              //   decoration: BoxDecoration(
+              //     color: AppColors.whiteColor,
+              //     borderRadius: BorderRadius.circular(12),
+              //     border: Border.all(color: AppColors.lightGreyColor),
+              //   ),
+              //   child: Column(
+              //     spacing: 10,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       TextInAppWidget(
+              //         text: cubit.isEditMode
+              //             ? AppLanguageKeys.editWorkingHours
+              //             : AppLanguageKeys.addWorkingHours,
+              //         textSize: 16,
+              //         fontWeightIndex: FontSelectionData.mediumFontFamily,
+              //         textColor: AppColors.darkColor,
+              //       ),
+              //       const TextInAppWidget(
+              //         text: AppLanguageKeys.selectWorkDaysKey,
+              //         textSize: 15,
+              //         fontWeightIndex: FontSelectionData.mediumFontFamily,
+              //         textColor: AppColors.darkGreyColor,
+              //       ),
+              //
+              //       Wrap(
+              //         spacing: 10,
+              //         runSpacing: 10,
+              //         children: List.generate(daysOfWeek.length, (index) {
+              //           final isSelected = cubit.selectedDays.contains(index);
+              //
+              //           return CustomContainer(
+              //             isSelected: isSelected,
+              //             onTap: () => cubit.toggleDay(index),
+              //             text: daysOfWeek[index],
+              //             containerColor: isSelected
+              //                 ? AppColors.whiteColor
+              //                 : AppColors.lightGreyColor,
+              //             textColor: isSelected
+              //                 ? AppColors.orangeColor
+              //                 : AppColors.darkGreyColor,
+              //             border: isSelected
+              //                 ? Border.all(color: AppColors.orangeColor)
+              //                 : Border(),
+              //             padding: const EdgeInsets.symmetric(
+              //               horizontal: 8,
+              //               vertical: 4,
+              //             ),
+              //           );
+              //
+              //         }),
+              //       ),
+              //
+              //       const SizedBox(height: 20),
+              //
+              //       const TextInAppWidget(
+              //         text: AppLanguageKeys.availableTimesKey,
+              //         textSize: 18,
+              //         fontWeightIndex: FontSelectionData.mediumFontFamily,
+              //         textColor: AppColors.darkColor,
+              //       ),
+              //
+              //       const TextInAppWidget(
+              //         text: AppLanguageKeys.selectAvailableTimeKey,
+              //         textSize: 15,
+              //         fontWeightIndex: FontSelectionData.mediumFontFamily,
+              //         textColor: AppColors.darkGreyColor,
+              //       ),
+              //
+              //       const SizedBox(height: 10),
+              //
+              //       const WorkingHoursWidget(),
+              //
+              //       const SizedBox(height: 20),
+              //
+              //       /// ================= BUTTONS =================
+              //       Row(
+              //         children: [
+              //           ElevatedButton(
+              //             style: ElevatedButton.styleFrom(
+              //               backgroundColor: AppColors.orangeColor,
+              //             ),
+              //             onPressed: () {
+              //
+              //             },
+              //             // onPressed: cubit.isEditMode
+              //             //     ? () => cubit.updateWorkTime(
+              //             //     cubit.selectedWorkTimeId!)
+              //             //     : cubit.createWorkTime,
+              //             child: TextInAppWidget(
+              //               textSize: 13,
+              //               text: cubit.isEditMode
+              //                   ? AppLanguageKeys.edit
+              //                   : AppLanguageKeys.create,
+              //               textColor: AppColors.whiteColor,
+              //             ),
+              //           ),
+              //
+              //           const SizedBox(width: 10),
+              //
+              //           if (cubit.isEditMode)
+              //             ElevatedButton(
+              //               style: ElevatedButton.styleFrom(
+              //                 backgroundColor: AppColors.orangeColor,
+              //               ),
+              //               onPressed: cubit.clearSelection,
+              //               child: const TextInAppWidget(
+              //                 text: AppLanguageKeys.cancel,
+              //                 textSize: 13,
+              //                 textColor: AppColors.whiteColor,
+              //               ),
+              //             ),
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           );
         },

@@ -23,52 +23,89 @@ class OrderModel {
   final List<ServicePackageModel>? servicePackages;
   final dynamic car;
 
+  // UserOrderModel fields
+  final String? notes;
+  final String? serviceName;
+  final String? serviceLatinName;
+
   OrderModel({
-     this.id,
-     this.userId,
-     this.username,
-     this.userType,
-     this.orderStatus,
-     this.orderDate,
-     this.totalPrice,
-     this.providerId,
-     this.providerName,
-     this.providerLatinName,
-     this.providerImage,
-     this.branchName,
-     this.branchLatinName,
-     this.services,
-     this.provServices,
-     this.servicePackages,
-     this.car,
-    this.branchId
+    this.id,
+    this.userId,
+    this.username,
+    this.userType,
+    this.orderStatus,
+    this.orderDate,
+    this.totalPrice,
+    this.providerId,
+    this.providerName,
+    this.providerLatinName,
+    this.providerImage,
+    this.branchName,
+    this.branchLatinName,
+    this.branchId,
+    this.services,
+    this.provServices,
+    this.servicePackages,
+    this.car,
+
+    this.notes,
+    this.serviceName,
+    this.serviceLatinName,
   });
+
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
-      id: json['id'] ?? 0,
+      // old api
+      id: json['id'] ?? json['orderId'] ?? 0,
+
       userId: json['userid'] ?? 0,
       username: json['username'] ?? '',
       userType: json['usertype'] ?? 0,
-      orderStatus: json['orderstatus'] ?? 0,
-      orderDate: json['orderdate'] ?? '',
-      totalPrice: json['totalprice'] ?? 0,
-      providerId: json['provid'] ?? 0,
-      branchId: json['branchid'] ?? 0,
-      providerName: json['provname'] ?? '',
-      providerLatinName: json['provlatinname'] ?? '',
-      providerImage: json['provimage']!= null ? base64Decode(json["provimage"]) : null,
 
+      orderStatus: json['orderstatus'] ?? json['status'] ?? 0,
+
+      orderDate: json['orderdate'] ?? json['date'] ?? '',
+
+      totalPrice: json['totalprice'] ??
+          json['totalPrice'] ??
+          0,
+
+      providerId: json['provid'] ??
+          json['providerId'] ??
+          0,
+
+      providerName: json['provname'] ??
+          json['providerName'] ??
+          '',
+
+      providerLatinName: json['provlatinname'] ??
+          json['providerLatinName'] ??
+          '',
+
+      providerImage: json['provimage'] != null
+          ? base64Decode(json['provimage'])
+          : json['providerImage'] != null &&
+          json['providerImage'].toString().isNotEmpty
+          ? base64Decode(json['providerImage'])
+          : null,
+
+      branchId: json['branchid'] ?? 0,
       branchName: json['branchname'] ?? '',
       branchLatinName: json['branchlatinname'] ?? '',
 
+      notes: json['notes'] ?? '',
+      serviceName: json['serviceName'] ?? '',
+      serviceLatinName: json['serviceLatinName'] ?? '',
+
       services: (json['services'] as List<dynamic>? ?? [])
-          .map((e) => ServiceModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => ServiceModel.fromJson(e))
           .toList(),
 
       provServices: json['provServices'] ?? [],
 
-      servicePackages: (json['servicePackages'] as List<dynamic>? ?? [])
-          .map((e) => ServicePackageModel.fromJson(e as Map<String, dynamic>))
+      servicePackages:
+      (json['servicePackages'] as List<dynamic>? ?? [])
+          .map((e) => ServicePackageModel.fromJson(e))
           .toList(),
 
       car: json['car'],

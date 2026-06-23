@@ -107,16 +107,16 @@ class BranchesAddedUi extends StatelessWidget {
                         const SizedBox(height: 10),
                         Row(
                           children: [
-                            Expanded(
-                              child: _deleteButton(
-                                context,
-                                branches,
-                                branch,
-                                providerId,
-                                isSmall: true,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
+                            // Expanded(
+                            //   child: _deleteButton(
+                            //     context,
+                            //     branches,
+                            //     branch,
+                            //     providerId,
+                            //     isSmall: true,
+                            //   ),
+                            // ),
+                            // const SizedBox(width: 10),
                             Expanded(
                               child: _editButton(
                                 context,
@@ -173,8 +173,8 @@ class BranchesAddedUi extends StatelessWidget {
                       const Spacer(),
                       Row(
                         children: [
-                          _deleteButton(context, branches, branch,providerId),
-                          const SizedBox(width: 10),
+                          // _deleteButton(context, branches, branch,providerId),
+                          // const SizedBox(width: 10),
                           _editButton(context, branches, branch),
                         ],
                       ),
@@ -186,11 +186,11 @@ class BranchesAddedUi extends StatelessWidget {
           );
         }),
 
-        CustomAddButton(
-          width: 198,
-          text: AppLanguageKeys.addNewBranchKey,
-          onTap: () => context.read<BranchCubit>().goToAdd(),
-        ),
+        // CustomAddButton(
+        //   width: 198,
+        //   text: AppLanguageKeys.addNewBranchKey,
+        //   onTap: () => context.read<BranchCubit>().goToAdd(),
+        // ),
       ],
     );
   }
@@ -201,7 +201,7 @@ Widget _deleteButton(BuildContext context, List branches, branch,int providerId,
   return CustomContainer(
     isSelected: false,
     onTap: () {
-      context.read<BranchCubit>().deleteBranch(branch.branchId!, providerId: providerId);
+     // context.read<BranchCubit>().deleteBranch(branch.branchId!, providerId: providerId);
     },
     containerColor: AppColors.redColor,
     containerWidth: isSmall ? double.infinity : 162,
@@ -241,15 +241,15 @@ Widget _editButton(BuildContext context, List branches, branch,
     typeWidget: const Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-         Icon(
-          Icons.edit,
-          color: AppColors.whiteColor,
-          size: 24,
-        ),
-         SizedBox(width: 6),
+        //  Icon(
+        //   Icons.edit,
+        //   color: AppColors.whiteColor,
+        //   size: 24,
+        // ),
+        //  SizedBox(width: 6),
          Flexible(
           child:TextInAppWidget(
-            text: AppLanguageKeys.editKey,
+            text: AppLanguageKeys.viewAll,
             textSize: 16,
             textColor: AppColors.whiteColor,
             fontWeightIndex: FontSelectionData.boldFontFamily,

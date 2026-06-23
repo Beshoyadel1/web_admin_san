@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../../../features/cars_haraj_page/data/model/filter_orders_model/filter_orders_model.dart';
-import '../../../../../../../../features/cars_haraj_page/data/model/internal_orders_filter/internal_orders_filter.dart';
-import '../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_state.dart';
-import '../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
-import '../../../../../../../../features/mobile_services/presentation/pages/mobile_services_statistics/mobile_services_page/widgets/filter_design_mobile_services_statistics.dart';
-import '../../../../../../../core/api/dio_function/api_constants.dart';
-import '../../../../../../../core/theming/colors.dart';
-import '../../../../../../../core/theming/text_styles.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/order_providers/screens/filter_design_provider_orders.dart';
+import '../../../../../../../../../core/api/dio_function/api_constants.dart';
+import '../../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../../core/theming/text_styles.dart';
+import '../../../../../../../../../features/cars_haraj_page/data/model/filter_orders_model/filter_orders_model.dart';
+import '../../../../../../../../../features/cars_haraj_page/data/model/internal_orders_filter/internal_orders_filter.dart';
+import '../../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_state.dart';
+import '../../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
+import '../../../../../../../../../features/internal_services/presentation/pages/internal_services_statistics/Internal_services_page/widgets/filter_design_internal_orders.dart';
 
-class FiltersTabsWidgetMobileServicesStatistics extends StatefulWidget {
-  const FiltersTabsWidgetMobileServicesStatistics({
+class FiltersTabsProviderWidget extends StatefulWidget {
+  final int providerId;
+  const FiltersTabsProviderWidget({
     super.key,
     required this.filterOptions,
+    required this.providerId
   });
 
   final List<filterOrdersModel> filterOptions;
 
   @override
-  State<FiltersTabsWidgetMobileServicesStatistics> createState() => _FiltersTabsWidgetMobileServicesStatisticsState();
+  State<FiltersTabsProviderWidget> createState() => _FiltersTabsProviderWidgetState();
 }
 
-class _FiltersTabsWidgetMobileServicesStatisticsState extends State<FiltersTabsWidgetMobileServicesStatistics>
+class _FiltersTabsProviderWidgetState extends State<FiltersTabsProviderWidget>
     with SingleTickerProviderStateMixin {
 
   late TabController _tabController;
@@ -40,9 +43,9 @@ class _FiltersTabsWidgetMobileServicesStatisticsState extends State<FiltersTabsW
         context.read<TabsCubit>().changeTab(tabIndex);
 
         context.read<GetProviderInternalOrderCubit>().loadInternalOrders(
-          serviceId: MainCategoryConstants.mobileServicesAndTransportationID,
           orderType: mapOrderType(tabIndex),
           pageNumber: 1,
+          providerId:widget.providerId
         );
       }
     });
@@ -94,7 +97,7 @@ class _FiltersTabsWidgetMobileServicesStatisticsState extends State<FiltersTabsW
                 controller: _tabController,
                 children: List.generate(
                   widget.filterOptions.length,
-                      (index) => const FilterDesignMobileServicesStatistics(),
+                      (index) => const FilterDesignProviderOrders(),
                 ),
               ),
             ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/order_providers/screens/orders_page_provider.dart';
 import '../../../../../../../../../core/cubit/new_orders_cubit/new_orders_cubit.dart';
 import '../../../../../../../../../core/cubit/new_orders_cubit/new_orders_state.dart';
-import '../widgets/orders_page_spare_parts_statistics.dart';
 
-class SparePartsStatisticsPage extends StatelessWidget {
-  const SparePartsStatisticsPage({super.key});
+
+class OrderProviders extends StatelessWidget {
+  final int providerId;
+  const OrderProviders({super.key,required this.providerId});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class SparePartsStatisticsPage extends StatelessWidget {
           //   return const OrderDetailsPage();
           // }
 
-          return OrdersPageSparePartsStatistics(cubit: cubit);
+          return OrdersPageProvider(cubit: cubit,providerId: providerId,);
         },
       ),
     );

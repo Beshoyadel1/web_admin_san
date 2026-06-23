@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:web_admin_san/features/internal_services/data/model/get_provider_orders_model/order_model.dart';
 
 class UserDetailsResponse {
   final UserInfoModel userInfo;
   final List<UserCarModel> cars;
-  final List<UserOrderModel> orders;
+  final List<OrderModel> orders;
 
   UserDetailsResponse({
     required this.userInfo,
@@ -31,7 +32,7 @@ class UserDetailsResponse {
           [],
       orders: (json['orders'] as List?)
           ?.map(
-            (e) => UserOrderModel.fromJson(
+            (e) => OrderModel.fromJson(
           Map<String, dynamic>.from(e),
         ),
       )

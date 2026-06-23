@@ -5,6 +5,7 @@ import 'package:web_admin_san/features/providers/presentation/bloc/facility_prov
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/bank_account_provider/bank_account_provider.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/branches_providers/branches_providers.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/facility_data_content_provider/facility_data_content_provider.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/order_providers/order_providers.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/statistics_providers/statistics_providers.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/working_hours_providers/working_hours_providers.dart';
 import '../../../../../../core/language/language_constant.dart';
@@ -30,11 +31,16 @@ List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
       //   ),
       // ),
       FacilityModelProvider(
+        title: AppLanguageKeys.allOrders,
+        content: OrderProviders(
+          providerId: providerID,
+        ),
+      ),
+      FacilityModelProvider(
         title: AppLanguageKeys.branches,
         content: BlocProvider(
-          create: (_) => BranchCubit()..getProviderBranches(
-            providerId:providerID
-          ),
+          create: (_) =>
+              BranchCubit()..getProviderBranches(providerId: providerID),
           child: BranchesProviders(
             providerID: providerID,
           ),
@@ -43,9 +49,7 @@ List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
       FacilityModelProvider(
         title: AppLanguageKeys.workingHours,
         content: BlocProvider(
-          create: (context) => UpdateWorkTimeCubit(
-            providerId:providerID
-          ),
+          create: (context) => UpdateWorkTimeCubit(providerId: providerID),
           child: WorkingHoursProviders(
             providerID: providerID,
           ),
