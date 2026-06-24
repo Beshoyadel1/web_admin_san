@@ -1,4 +1,4 @@
-import '../../../../../../features/cars_haraj_page/data/model/get_car_brand_models_model/car_brand_data_model.dart';
+import '../../../../../../../features/cars_haraj_page/data/model/get_car_brand_models_model/car_brand_data_model.dart';
 
 abstract class CarBrandState {}
 

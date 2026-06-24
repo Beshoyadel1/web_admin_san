@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import '../../request/update_harage_request/update_harage_request.dart';
+import '../../../../../features/cars_haraj_page/data/request/update_harage_request/update_harage_request.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/pages_widgets/general_widgets/snakbar.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';

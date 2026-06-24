@@ -2,9 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
 import 'package:web_admin_san/core/api/dio_function/dio_controller.dart';
 import 'package:web_admin_san/core/api/dio_function/failures.dart';
-import 'package:web_admin_san/features/users/data/model/get_all_users_models/get_all_users_models.dart';
 import 'package:web_admin_san/features/users/data/model/user_details_model/user_details_model.dart';
-import 'package:web_admin_san/features/users/data/request/get_all_user_request/get_all_user_request.dart';
 import 'package:web_admin_san/features/users/data/request/get_user_details_request/get_user_details_request.dart';
 
 Future<UserDetailsResponse> getUserDetailsFunction({
@@ -18,7 +16,7 @@ Future<UserDetailsResponse> getUserDetailsFunction({
       ApiLink.getUserDetails,
     );
 
-    print("RESPONSE = ${response.data}");
+
 
     final responseData = response.data;
 

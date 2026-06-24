@@ -9,7 +9,8 @@ import 'package:web_admin_san/features/providers/presentation/pages/page_details
 import '../../../../../../../../core/theming/fonts.dart';
 
 class ServicesStatistics extends StatelessWidget {
-  const ServicesStatistics({super.key});
+  final int providerId;
+  const ServicesStatistics({super.key,required this.providerId});
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +20,22 @@ class ServicesStatistics extends StatelessWidget {
       containerWidth:isMobile?double.infinity: 1000,
       isSelected: false,
       onTap: () {},
-      typeWidget: const Column(
+      typeWidget:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextInAppWidget(
+          const  TextInAppWidget(
             text: AppLanguageKeys.internalServicesStatsKey,
             textSize: 16,
             fontWeightIndex: FontSelectionData.regularFontFamily,
           ),
           //SelectDateWidget(),
-          SizedBox(
+          const  SizedBox(
             height: 30,
           ),
-          DonutChartAndLegend(),
-          SizedBox(
+          DonutChartAndLegend(
+            providerId:providerId,
+          ),
+          const SizedBox(
             height: 20,
           ),
         ],

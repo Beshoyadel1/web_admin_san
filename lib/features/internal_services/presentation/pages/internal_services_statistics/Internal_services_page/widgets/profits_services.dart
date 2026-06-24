@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/screens/cars_haraj_statistics_page/screens/aspect_ratio_widget.dart';
 import '../../../../../../../core/language/language_constant.dart';
 import '../../../../../../../core/theming/fonts.dart';
 import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
@@ -35,7 +36,7 @@ class ProfitsServices extends StatelessWidget {
                 ],
               ),
              //  SelectDateWidget(),
-             // AspectRatioWidget(),
+              AspectRatioWidget(),
                SizedBox(
                 height: 10,
               ),

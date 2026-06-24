@@ -21,44 +21,78 @@ class HarageData {
   final CarModel? car;
 
   HarageData({
-     this.id,
-     this.userid,
-     this.usertype,
-     this.isNew,
-     this.releaseDate,
-     this.transmissionType,
-     this.fuelType,
-     this.kilometers,
-     this.description,
-     this.addressText,
-     this.price,
-     this.cost,
-     this.isSold,
-     this.commentsNumber,
-     this.sellDate,
-     this.user,
-     this.car,
+    this.id,
+    this.userid,
+    this.usertype,
+    this.isNew,
+    this.releaseDate,
+    this.transmissionType,
+    this.fuelType,
+    this.kilometers,
+    this.description,
+    this.addressText,
+    this.price,
+    this.cost,
+    this.isSold,
+    this.commentsNumber,
+    this.sellDate,
+    this.user,
+    this.car,
   });
 
-  factory HarageData.fromJson(Map<String, dynamic> json) {
+  factory HarageData.fromJson(
+      Map<String, dynamic> json) {
+
     return HarageData(
-      id: json['id'],
-      userid: json['userid'],
-      usertype: json['usertype'],
-      isNew: json['isnew'],
-      releaseDate: json['releasedate'],
-      transmissionType: json['transmissiontype'],
-      fuelType: json['fueltype'],
-      kilometers: json['kilometers'],
-      description: json['description'],
-      addressText: json['addresstext'],
-      price: json['price'],
-      cost: json['cost'],
-      isSold: json['issold'],
-      commentsNumber: json['commentsnumber'],
-      sellDate: json['selldate'],
-      user: UserModel.fromJson(json['user']),
-      car: CarModel.fromJson(json['car']),
+      id: json['id'] ?? 0,
+
+      userid: json['userid'] ?? 0,
+
+      usertype: json['usertype'] ?? 0,
+
+      isNew: json['isnew'] ?? false,
+
+      releaseDate:
+      json['releasedate']?.toString() ?? "",
+
+      transmissionType:
+      json['transmissiontype'] ?? 0,
+
+      fuelType:
+      json['fueltype'] ?? 0,
+
+      kilometers:
+      json['kilometers'] ?? 0,
+
+      description:
+      json['description']?.toString() ?? "",
+
+      addressText:
+      json['addresstext']?.toString() ?? "",
+
+      price: json['price'] ?? 0,
+
+      cost: json['cost'] ?? 0,
+
+      isSold: json['issold'] ?? false,
+
+      commentsNumber:
+      json['commentsnumber'] ?? 0,
+
+      sellDate:
+      json['selldate']?.toString() ?? "",
+
+      user: json['user'] != null
+          ? UserModel.fromJson(
+          json['user']
+          as Map<String, dynamic>)
+          : null,
+
+      car: json['car'] != null
+          ? CarModel.fromJson(
+          json['car']
+          as Map<String, dynamic>)
+          : null,
     );
   }
 }

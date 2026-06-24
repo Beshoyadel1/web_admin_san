@@ -26,6 +26,7 @@ class TabsWidgetProvider extends StatelessWidget {
           children: List.generate(
             tabs.length,
                 (index) {
+
               final isSelected =
                   context.read<FacilityTabProviderCubit>().selectedIndex == index;
 

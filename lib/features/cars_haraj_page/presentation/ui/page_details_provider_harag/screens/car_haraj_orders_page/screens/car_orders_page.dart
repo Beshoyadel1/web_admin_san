@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../../features/cars_haraj_page/data/model/filter_orders_model/filter_orders_model.dart';
+import '../../../../../../../../../features/cars_haraj_page/presentation/bloc/get_user_harages_cubit/get_user_harages_cubit.dart';
+import 'filters_tabs_car_widget.dart';
+import '../../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
+import '../../../../../../../../../core/cubit/new_orders_cubit/new_orders_cubit.dart';
+import '../../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../../../core/theming/text_styles.dart';
+
+class CarOrdersPage extends StatelessWidget {
+  final int providerID;
+  const CarOrdersPage({super.key, required this.cubit,required this.providerID});
+
+  final NewOrdersCubit cubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomContainer(
+      isSelected: false,
+      onTap: () {},
+      typeWidget: Center(
+        child: Column(
+          spacing: 20,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              runAlignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextInAppWidget(
+                      text: AppLanguageKeys.carAuction,
+                      textSize: 20,
+                      textColor: AppColors.darkColor,
+                    ),
+                    TextInAppWidget(
+                      text: AppLanguageKeys.carsListCurrentAndSold,
+                      textSize: 16,
+                      textColor: AppColors.darkGreyColor,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            Expanded(
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (_) => TabsCubit()),
+                  BlocProvider(
+                    create: (_) => GetUserHaragesCubit()..getUserHarages(pageNumber: 1,userId: providerID),
+                  ),
+                ],
+                child: FiltersTabsCarWidget(
+                  filterOptions: filterOptionsCars,
+                  providerID: providerID,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

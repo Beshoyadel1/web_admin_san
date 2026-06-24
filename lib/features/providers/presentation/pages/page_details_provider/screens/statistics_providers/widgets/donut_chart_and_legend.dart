@@ -9,13 +9,15 @@ import 'package:web_admin_san/features/internal_services/presentation/pages/inte
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_services_statistics/Internal_services_page/widgets/build_legend_item.dart';
 
 class DonutChartAndLegend extends StatelessWidget {
-  const DonutChartAndLegend({super.key});
+  final int providerId;
+  const DonutChartAndLegend({super.key,required this.providerId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => ProviderHarageStatisticsCubit()
         ..loadStatistics(
+          providerId: providerId
         ),
       child: BlocBuilder<ProviderHarageStatisticsCubit, ProviderHarageStatisticsState>(
         builder: (context, state) {

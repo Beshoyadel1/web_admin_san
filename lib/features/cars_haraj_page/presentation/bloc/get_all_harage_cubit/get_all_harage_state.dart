@@ -1,4 +1,4 @@
-import '../../../../../../features/cars_haraj_page/data/response/get_all_harage_response/get_all_harage_response.dart';
+import '../../../../../../../features/cars_haraj_page/data/response/get_all_harage_response/get_all_harage_response.dart';
 
 abstract class GetAllHarageState {}
 

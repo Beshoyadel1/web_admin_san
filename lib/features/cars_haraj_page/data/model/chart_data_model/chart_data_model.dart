@@ -1,5 +1,6 @@
 import 'dart:ui';
 import '../../../../../../features/cars_haraj_page/data/model/get_provider_harage_sold_cars_by_type_model/get_provider_harage_sold_cars_by_type_model.dart';
+
 import '../../../../../../core/language/language_constant.dart';
 import '../../../../../../core/theming/colors.dart';
 

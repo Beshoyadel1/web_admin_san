@@ -43,11 +43,13 @@ class StatisticsProviders extends StatelessWidget {
                   providerId: providerID,
                 ),
                 const EmployeesPerformance(),
-                const Column(
+                 Column(
                   spacing: 5,
                   children: [
-                    ServicesEvaluation(),
-                    ServicesStatistics(),
+                    const ServicesEvaluation(),
+                    ServicesStatistics(
+                      providerId:providerID,
+                    ),
                   ],
                 ),
               ],

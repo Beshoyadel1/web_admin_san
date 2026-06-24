@@ -1,4 +1,4 @@
-import '../../../../../../features/cars_haraj_page/data/model/get_provider_harage_monthly_sales_model/harag_monthly_sale_model.dart';
+import 'package:web_admin_san/features/cars_haraj_page/data/model/get_provider_harage_monthly_sales_model/harag_monthly_sale_model.dart';
 
 class GetProviderHarageMonthlySalesResponse {
   final List<HaragMonthlySaleModel> monthlySales;
@@ -9,10 +9,15 @@ class GetProviderHarageMonthlySalesResponse {
 
   factory GetProviderHarageMonthlySalesResponse.fromJson(
       Map<String, dynamic> json) {
+
+    final data = json['data'];
+
     return GetProviderHarageMonthlySalesResponse(
-      monthlySales: (json['monthlySales'] as List? ?? [])
-          .map((e) => HaragMonthlySaleModel.fromJson(e))
-          .toList(),
+      monthlySales:
+      (data['monthlySales'] as List<dynamic>?)
+          ?.map((e) => HaragMonthlySaleModel.fromJson(e))
+          .toList() ??
+          [],
     );
   }
 }

@@ -31,6 +31,8 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.totalCars: 'إجمالي السيارات',
+      AppLanguageKeys.carsHaraj: 'حراج سيارات',
       AppLanguageKeys.petrol: 'بنزين',
       AppLanguageKeys.diesel: 'ديزل',
       AppLanguageKeys.electricity: 'كهرباء',
@@ -1348,6 +1350,8 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.totalCars: 'Total Cars',
+      AppLanguageKeys.carsHaraj: 'Cars Marketplace',
       AppLanguageKeys.petrol: 'Petrol',
       AppLanguageKeys.diesel: 'Diesel',
       AppLanguageKeys.electricity: 'Electricity',

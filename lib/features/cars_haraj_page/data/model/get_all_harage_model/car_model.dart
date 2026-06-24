@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import '../../../../../../core/language/language_cubit/language_cubit.dart';
+
 import 'package:flutter/cupertino.dart';
+import '../../../../../../core/language/language_cubit/language_cubit.dart';
 
 class CarModel {
   final int? id;

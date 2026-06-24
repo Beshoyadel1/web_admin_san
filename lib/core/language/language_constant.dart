@@ -19,6 +19,8 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String totalCars = 'totalCars';
+  static const String carsHaraj = 'carsHaraj';
   static const String petrol = 'petrol';
   static const String diesel = 'diesel';
   static const String electricity = 'electricity';

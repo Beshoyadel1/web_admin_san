@@ -2,15 +2,25 @@ class UpdateHarageRequest {
   final int? id;
   final int? userId;
   final int? userType;
+
+  final int? carId;
+  final int? carBrandId;
+  final int? carModelId;
+  final int? branchId;
+
   final bool? isNew;
-  final String? releaseDate;
+  final String? date;
+  final dynamic releaseDate;
   final int? transmissionType;
   final int? fuelType;
   final int? kilometers;
+
   final String? description;
   final String? addressText;
+
   final num? price;
   final num? cost;
+
   final bool? isSold;
   final int? commentsNumber;
   final String? sellDate;
@@ -22,7 +32,12 @@ class UpdateHarageRequest {
     this.id,
     this.userId,
     this.userType,
+    this.carId,
+    this.carBrandId,
+    this.carModelId,
+    this.branchId,
     this.isNew,
+    this.date,
     this.releaseDate,
     this.transmissionType,
     this.fuelType,
@@ -39,49 +54,88 @@ class UpdateHarageRequest {
   });
 
   UpdateHarageRequest copyWith({
+    int? id,
     int? userId,
     int? userType,
+    int? carId,
+    int? carBrandId,
+    int? carModelId,
+    int? branchId,
+    bool? isNew,
+    String? date,
+    dynamic releaseDate,
+    int? transmissionType,
+    int? fuelType,
+    int? kilometers,
+    String? description,
+    String? addressText,
+    num? price,
+    num? cost,
+    bool? isSold,
+    int? commentsNumber,
+    String? sellDate,
+    UpdateHarageUser? user,
+    UpdateHarageCar? car,
   }) {
     return UpdateHarageRequest(
-      id: id,
+      id: id ?? this.id,
       userId: userId ?? this.userId,
       userType: userType ?? this.userType,
-      isNew: isNew,
-      releaseDate: releaseDate,
-      transmissionType: transmissionType,
-      fuelType: fuelType,
-      kilometers: kilometers,
-      description: description,
-      addressText: addressText,
-      price: price,
-      cost: cost,
-      isSold: isSold,
-      commentsNumber: commentsNumber,
-      sellDate: sellDate,
-      user: user,
-      car: car,
+      carId: carId ?? this.carId,
+      carBrandId: carBrandId ?? this.carBrandId,
+      carModelId: carModelId ?? this.carModelId,
+      branchId: branchId ?? this.branchId,
+      isNew: isNew ?? this.isNew,
+      date: date ?? this.date,
+      releaseDate: releaseDate ?? this.releaseDate,
+      transmissionType: transmissionType ?? this.transmissionType,
+      fuelType: fuelType ?? this.fuelType,
+      kilometers: kilometers ?? this.kilometers,
+      description: description ?? this.description,
+      addressText: addressText ?? this.addressText,
+      price: price ?? this.price,
+      cost: cost ?? this.cost,
+      isSold: isSold ?? this.isSold,
+      commentsNumber: commentsNumber ?? this.commentsNumber,
+      sellDate: sellDate ?? this.sellDate,
+      user: user ?? this.user,
+      car: car ?? this.car,
     );
   }
+
   factory UpdateHarageRequest.fromJson(Map<String, dynamic> json) {
     return UpdateHarageRequest(
       id: json['id'],
       userId: json['userid'],
       userType: json['usertype'],
+
+      carId: json['carid'],
+      carBrandId: json['carbrandid'],
+      carModelId: json['carmodelid'],
+      branchId: json['branchid'],
+
       isNew: json['isnew'],
+      date: json['date'],
       releaseDate: json['releasedate'],
+
       transmissionType: json['transmissiontype'],
       fuelType: json['fueltype'],
       kilometers: json['kilometers'],
+
       description: json['description'],
       addressText: json['addresstext'],
+
       price: json['price'],
       cost: json['cost'],
+
       isSold: json['issold'],
       commentsNumber: json['commentsnumber'],
       sellDate: json['selldate'],
+
       user: json['user'] != null
           ? UpdateHarageUser.fromJson(json['user'])
           : null,
+
       car: json['car'] != null
           ? UpdateHarageCar.fromJson(json['car'])
           : null,
@@ -90,29 +144,50 @@ class UpdateHarageRequest {
 
   Map<String, dynamic> toJson() {
     return {
-      if (id != null) "id": id,
-      if (userId != null) "userid": userId,
-      if (userType != null) "usertype": userType,
-      if (isNew != null) "isnew": isNew,
-      if (releaseDate != null) "releasedate": releaseDate,
-      if (transmissionType != null)
-        "transmissiontype": transmissionType,
-      if (fuelType != null) "fueltype": fuelType,
-      if (kilometers != null) "kilometers": kilometers,
-      if (description != null) "description": description,
-      if (addressText != null) "addresstext": addressText,
-      if (price != null) "price": price,
-      if (cost != null) "cost": cost,
-      if (isSold != null) "issold": isSold,
-      if (commentsNumber != null)
-        "commentsnumber": commentsNumber,
-      if (sellDate != null) "selldate": sellDate,
+      if (id != null) "ID": id,
+      if (userId != null) "USERID": userId,
+      if (userType != null) "USERTYPE": userType,
 
-      if (user != null) "user": user!.toJson(),
-      if (car != null) "car": car!.toJson(),
+      if (carId != null) "CARID": carId,
+      if (carBrandId != null) "CARBRANDID": carBrandId,
+      if (carModelId != null) "CARMODELID": carModelId,
+      if (branchId != null) "BRANCHID": branchId,
+
+      if (isNew != null) "ISNEW": isNew,
+      if (releaseDate != null) "RELEASEDATE": releaseDate,
+
+      if (transmissionType != null)
+        "TRANSMISSIONTYPE": transmissionType,
+
+      if (fuelType != null)
+        "FUELTYPE": fuelType,
+
+      if (kilometers != null)
+        "KILOMETERS": kilometers,
+
+      if (description != null)
+        "DESCRIPTION": description,
+
+      if (addressText != null)
+        "ADDRESSTEXT": addressText,
+
+      if (price != null)
+        "PRICE": price,
+
+      if (cost != null)
+        "COST": cost,
+
+      if (isSold != null)
+        "ISSOLD": isSold,
+
+      if (sellDate != null)
+        "SELLDATE": sellDate,
+
+      "Images": [],
     };
   }
 }
+
 class UpdateHarageUser {
   final int? id;
   final int? type;
@@ -143,6 +218,7 @@ class UpdateHarageUser {
       branchLatinName: json['branchlatinname'],
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       if (id != null) "id": id,
@@ -156,6 +232,7 @@ class UpdateHarageUser {
     };
   }
 }
+
 class UpdateHarageCar {
   final int? id;
   final String? brandName;
@@ -183,6 +260,7 @@ class UpdateHarageCar {
       carImage: json['carimage'],
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       if (id != null) "id": id,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/screens/car_haraj_orders_page/car_haraj_orders_page.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/screens/cars_haraj_statistics_page/cars_haraj_statistics_page.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/branch_cubit/branch_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/work_time_cubit/work_time_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/bank_account_provider/bank_account_provider.dart';
@@ -16,6 +18,20 @@ class FacilityModelProvider {
 
   FacilityModelProvider({required this.title, required this.content});
 }
+List<FacilityModelProvider> facilityTabsProvidersHarag(int providerID) => [
+  FacilityModelProvider(
+    title: AppLanguageKeys.statistics,
+    content: CarsHarajStatisticsPage(
+      providerID: providerID,
+    ),
+  ),
+  FacilityModelProvider(
+    title: AppLanguageKeys.allOrders,
+    content: CarHarajOrdersPage(
+      providerID: providerID,
+    ),
+  ),
+];
 
 List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
       FacilityModelProvider(

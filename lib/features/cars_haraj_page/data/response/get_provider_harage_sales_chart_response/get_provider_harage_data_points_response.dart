@@ -9,10 +9,15 @@ class GetProviderHarageDataPointsResponse {
 
   factory GetProviderHarageDataPointsResponse.fromJson(
       Map<String, dynamic> json) {
+
+    final data = json['data'];
+
     return GetProviderHarageDataPointsResponse(
-      dataPoints: (json['dataPoints'] as List? ?? [])
-          .map((e) => HaragDataPointsModel.fromJson(e))
-          .toList(),
+      dataPoints:
+      (data['dataPoints'] as List<dynamic>?)
+          ?.map((e) => HaragDataPointsModel.fromJson(e))
+          .toList() ??
+          [],
     );
   }
 }

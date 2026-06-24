@@ -41,6 +41,8 @@ class ApiConfig {
 
 class ApiLink {
   //users
+  static const String getHarageProviders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetHarageProviders";
   static const String getAllUsers =
       "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllUsers";
   static const String getUserDetails =
@@ -169,6 +171,10 @@ class ApiLink {
       "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/DeleteHarage";
   static const String getAllHarage =
       "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetAllHarages";
+
+  static const String getUserHarages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetUserHarages";
+
   static const String getHarage =
       "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetHarage";
   static const String updateHarage =
