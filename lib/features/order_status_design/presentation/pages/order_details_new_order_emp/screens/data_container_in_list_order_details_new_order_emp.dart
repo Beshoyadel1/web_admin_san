@@ -94,7 +94,7 @@ class DataContainerInListOrderDetailsNewOrderEmp extends StatelessWidget {
                             builder: (context, state) {
                               return Stack(
                                 children: [
-                                  ButtonAcceptRejectOrder(order: order),
+                                //  ButtonAcceptRejectOrder(order: order),
 
                                   if (state is OrderStatusLoading)
                                     const Center(child: CircularProgressIndicator()),

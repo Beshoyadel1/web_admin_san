@@ -22,7 +22,6 @@ class OrderModel {
   final List<dynamic>? provServices;
   final List<ServicePackageModel>? servicePackages;
   final dynamic car;
-
   // UserOrderModel fields
   final String? notes;
   final String? serviceName;
@@ -82,7 +81,9 @@ class OrderModel {
           json['providerLatinName'] ??
           '',
 
-      providerImage: json['provimage'] != null
+      providerImage:
+      json['provimage'] != null &&
+          json['provimage'].toString().isNotEmpty
           ? base64Decode(json['provimage'])
           : json['providerImage'] != null &&
           json['providerImage'].toString().isNotEmpty

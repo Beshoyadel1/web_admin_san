@@ -11,8 +11,8 @@ import '../../../../../../../../features/internal_services/presentation/pages/in
 import '../../../../../../../../core/theming/assets.dart';
 import '../../../../../../../../core/language/language_constant.dart';
 
-class FilterDesignProviderOrders extends StatelessWidget {
-  const FilterDesignProviderOrders({super.key});
+class FilterDesignCompaniesOrders extends StatelessWidget {
+  const FilterDesignCompaniesOrders({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class FilterDesignProviderOrders extends StatelessWidget {
 
                   context
                       .read<GetProviderInternalOrderCubit>()
-                      .loadInternalOrders(
+                      .getCompanyOrders(
                     pageNumber: page,
                     orderType: mapOrderType(selectedTab),
                   );

@@ -71,18 +71,18 @@ class DataContainerInListOrderDetailsUnderServiceEmp extends StatelessWidget {
                 builder: (context, state) {
                   return Stack(
                     children: [
-                      ContainerSold(
-                        text: AppLanguageKeys.onTheWay,
-                        backGroundColor: AppColors.orangeColor,
-                        onTap: () {
-                          context.read<OrderStatusCubit>().updateOrderStatus(
-                            updateOrderStatusRequest: UpdateOrderStatusRequest(
-                              orderId: order.id ?? 0,
-                              status: OrderStatus.employeeInRoad,
-                            ),
-                          );
-                        },
-                      ),
+                      // ContainerSold(
+                      //   text: AppLanguageKeys.onTheWay,
+                      //   backGroundColor: AppColors.orangeColor,
+                      //   onTap: () {
+                      //     context.read<OrderStatusCubit>().updateOrderStatus(
+                      //       updateOrderStatusRequest: UpdateOrderStatusRequest(
+                      //         orderId: order.id ?? 0,
+                      //         status: OrderStatus.employeeInRoad,
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
 
                       if (state is OrderStatusLoading)
                         const Center(child: CircularProgressIndicator()),

@@ -26,6 +26,7 @@ class AppImageKeys {
   static const String truckBox = 'assets/images/truck-box.png';
   static const String spare = 'assets/images/spare.png';
   static const String sell = 'assets/images/Sell.png';
+  static const String company = 'assets/images/company.png';
   static const String star = 'assets/images/star.png';
   static const String logout = 'assets/images/log_out.png';
   static const String carServices = 'assets/images/car-serices.png';

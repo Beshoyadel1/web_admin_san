@@ -1,5 +1,6 @@
 import 'package:web_admin_san/features/banner/presentation/pages/first_screen_advertisements_admin_sun/first_screen_advertisements_admin_sun.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/view_car_harag/view_car_harag.dart';
+import 'package:web_admin_san/features/company/presentation/pages/view_all_companies/view_all_companies.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_statistics/order_services_statistics.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_type/ui/order_services_type_page.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/view_all_providers/view_all_provider.dart';
@@ -217,8 +218,9 @@ class PagesOfAllApp {
   static const int viewAllProvidersNumber = 540;
   static const int viewAllUsersNumber = 541;
   static const int viewAllCarsHarajNumber = 542;
+  static const int viewAllCompaniesNumber = 543;
 
-//
+//ViewAllCompanies
 }
 List<PageNodeModel> appPages = [];
 
@@ -236,6 +238,12 @@ void getPages() {
       number: PagesOfAllApp.dashboardOrderPageNumber,
       image: AppImageKeys.pages,
       page: OrderServicesTypePage(),
+    ),
+    const PageNodeModel(
+      name: AppLanguageKeys.companies,
+      number: PagesOfAllApp.viewAllCompaniesNumber,
+      image: AppImageKeys.company,
+      page: ViewAllCompanies(),
     ),
     const PageNodeModel(
       name: AppLanguageKeys.carsHaraj,

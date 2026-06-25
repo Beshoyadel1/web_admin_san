@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/internal_services/data/datasource/get_company_orders_datasource/get_provider_orders_repository.dart';
 import '../../../../../../../../../features/internal_services/data/datasource/get_provider_orders_datasource/get_provider_orders_repository.dart';
 import '../../../../../../../../../features/auth_page/data/datasource/login_datasource/login_repository.dart';
 import '../../../data/request/get_provider_orders_request/get_provider_orders_request.dart';
@@ -27,6 +28,46 @@ class GetProviderInternalOrderCubit
 
         getProviderOrdersRequest: GetProviderOrdersRequest(
           providerId:providerId,
+          pageNumber: pageNumber ?? 1,
+          orderType: orderType,
+          serviceId: serviceId,
+        ),
+      );
+
+      if (!isClosed) {
+        emit(
+
+          GetProviderInternalOrderSuccess(
+            response.data ?? [],
+            currentPage: response.currentPage ?? 1,
+            pageCount: response.pageCount ?? 1,
+            totalCount: response.totalCount ?? 1,
+          ),
+        );
+      }
+
+    } catch (e) {
+      if (!isClosed) {
+        emit(GetProviderInternalOrderError(e.toString()));
+      }
+    }
+  }
+  Future<void> getCompanyOrders({
+    int? orderType,
+    int? serviceId,
+    int? pageNumber,
+    int? companyId,
+  }) async {
+
+    if (!isClosed) {
+      emit(GetProviderInternalOrderLoading());
+    }
+
+    try {
+
+      final response = await getCompanyOrderFunction(
+        getProviderOrdersRequest: GetProviderOrdersRequest(
+          companyId:companyId,
           pageNumber: pageNumber ?? 1,
           orderType: orderType,
           serviceId: serviceId,

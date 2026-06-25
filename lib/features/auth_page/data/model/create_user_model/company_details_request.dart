@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+
 class CompanyDetailsRequest {
   final int? id;
   final String? name;
@@ -7,7 +8,7 @@ class CompanyDetailsRequest {
   final String? vatno;
   final String? cr;
   final int? packageid;
-  final Uint8List? image;
+  final Uint8List? vatimage,crimage,identityimage;
 
   const CompanyDetailsRequest({
     this.id,
@@ -16,7 +17,9 @@ class CompanyDetailsRequest {
     this.vatno,
     this.cr,
     this.packageid,
-    this.image,
+    this.vatimage,
+    this.crimage,
+    this.identityimage
   });
 
   factory CompanyDetailsRequest.fromJson(Map<String, dynamic> json) =>
@@ -27,7 +30,10 @@ class CompanyDetailsRequest {
         vatno: json["vatno"],
         cr: json["cr"],
         packageid: json["packageid"],
-        image: json["image"] != null ? base64Decode(json["image"]) : null,
+        vatimage: json["vatimage"] != null ? base64Decode(json["vatimage"]) : null,
+        crimage: json["crimage"] != null ? base64Decode(json["crimage"]) : null,
+        identityimage: json["identityimage"] != null ? base64Decode(json["identityimage"]) : null,
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,6 +43,8 @@ class CompanyDetailsRequest {
     "vatno": vatno??"",
     "cr": cr??"",
     "packageid": packageid??0,
-    "image": image != null ? base64Encode(image!) : null,
+    "vatimage": vatimage != null ? base64Encode(vatimage!) : null,
+    "crimage": crimage != null ? base64Encode(crimage!) : null,
+    "identityimage": identityimage != null ? base64Encode(identityimage!) : null,
   };
 }

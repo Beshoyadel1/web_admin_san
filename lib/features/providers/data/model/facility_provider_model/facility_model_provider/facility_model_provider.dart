@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/auth_page/data/request/get_user_inf_request/get_user_info_datasource.dart';
+import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/screens/car_haraj_orders_page/car_haraj_orders_page.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/screens/cars_haraj_statistics_page/cars_haraj_statistics_page.dart';
+import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/content_companies/content_companies.dart';
+import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/order_companies/order_companies.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/branch_cubit/branch_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/work_time_cubit/work_time_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/bank_account_provider/bank_account_provider.dart';
@@ -18,20 +22,40 @@ class FacilityModelProvider {
 
   FacilityModelProvider({required this.title, required this.content});
 }
-List<FacilityModelProvider> facilityTabsProvidersHarag(int providerID) => [
+
+List<FacilityModelProvider> facilityTabsCompany(int companyId) => [
   FacilityModelProvider(
-    title: AppLanguageKeys.statistics,
-    content: CarsHarajStatisticsPage(
-      providerID: providerID,
+    title: AppLanguageKeys.facilityDataKey,
+    content: BlocProvider(
+      create: (_) => GetUserInfoCubit()
+        ..getUserInfo(
+            request: GetUserInfoRequest(userId: companyId, userType: 2)),
+      child: ContentCompanies(
+        company: companyId,
+      ),
     ),
-  ),
-  FacilityModelProvider(
+  ), FacilityModelProvider(
     title: AppLanguageKeys.allOrders,
-    content: CarHarajOrdersPage(
-      providerID: providerID,
+    content: OrderCompanies(
+      companyId: companyId,
     ),
   ),
 ];
+List<FacilityModelProvider> facilityTabsProvidersHarag(int providerID) => [
+      FacilityModelProvider(
+        title: AppLanguageKeys.statistics,
+        content: CarsHarajStatisticsPage(
+          providerID: providerID,
+        ),
+      ),
+      FacilityModelProvider(
+        title: AppLanguageKeys.allOrders,
+        content: CarHarajOrdersPage(
+          providerID: providerID,
+        ),
+      ),
+
+    ];
 
 List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
       FacilityModelProvider(
@@ -40,12 +64,17 @@ List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
           providerID: providerID,
         ),
       ),
-      // FacilityModelProvider(
-      //   title: AppLanguageKeys.facilityDataKey,
-      //   content: FacilityDataContentProvider(
-      //     providerID: providerID,
-      //   ),
-      // ),
+      FacilityModelProvider(
+        title: AppLanguageKeys.facilityDataKey,
+        content: BlocProvider(
+          create: (_) => GetUserInfoCubit()
+            ..getUserInfo(
+                request: GetUserInfoRequest(userId: providerID, userType: 4)),
+          child: FacilityDataContentProvider(
+            providerID: providerID,
+          ),
+        ),
+      ),
       FacilityModelProvider(
         title: AppLanguageKeys.allOrders,
         content: OrderProviders(
@@ -71,10 +100,15 @@ List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
           ),
         ),
       ),
-      // FacilityModelProvider(
-      //   title: AppLanguageKeys.bankAccount,
-      //   content: BankAccountProvider(
-      //     providerID: providerID,
-      //   ),
-      // ),
+      FacilityModelProvider(
+        title: AppLanguageKeys.bankAccount,
+        content: BlocProvider(
+          create: (_) => GetUserInfoCubit()
+            ..getUserInfo(
+                request: GetUserInfoRequest(userId: providerID, userType: 4)),
+          child: BankAccountProvider(
+            providerID: providerID,
+          ),
+        ),
+      ),
     ];

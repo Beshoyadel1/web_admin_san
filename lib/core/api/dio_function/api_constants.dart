@@ -41,6 +41,8 @@ class ApiConfig {
 
 class ApiLink {
   //users
+  static const String getAllCompanies =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllCompanies";
   static const String getHarageProviders =
       "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetHarageProviders";
   static const String getAllUsers =
@@ -77,6 +79,9 @@ class ApiLink {
       "${ApiConfig.baseUrlApi}/${ApiConfig.user}/RestoreUser";
   static const String updateUser =
       "${ApiConfig.baseUrlApi}/${ApiConfig.user}/UpdateUser";
+  static const String getUserInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/getUserInfo";
+
 
   //Banner
   static const String getBanners =
