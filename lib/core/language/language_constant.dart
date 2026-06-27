@@ -19,6 +19,15 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String companyId = 'companyId';
+  static const String companyName = 'companyName';
+  static const String type = 'type';
+  static const String plateNumber = 'plateNumber';
+  static const String driverImage = 'driverImage';
+  static const String licenseImage = 'licenseImage';
+  static const String identityImage = 'identityImage';
+  static const String salesCars = 'salesCars';
+  static const String employeeCars = 'employeeCars';
   static const String totalCars = 'totalCars';
   static const String carsHaraj = 'carsHaraj';
   static const String petrol = 'petrol';

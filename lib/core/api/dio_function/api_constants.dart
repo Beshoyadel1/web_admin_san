@@ -36,11 +36,14 @@ class ApiConfig {
   static const String workTIme = "WorkTIme";
   static const String branch = "Branch";
   static const String adminUsers = "AdminUsers";
-
 }
 
 class ApiLink {
   //users
+  static const String getDriverDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/GetDriverDetails";
+  static const String getCompanyCarsWithDrivers =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/GetCompanyCarsWithDrivers";
   static const String getAllCompanies =
       "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllCompanies";
   static const String getHarageProviders =
@@ -122,8 +125,7 @@ class ApiLink {
       "${ApiConfig.baseUrlApi}/${ApiConfig.carGroup}/GetCarGroups";
   static const String getCompanyDrivers =
       "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/GetCompanyDrivers";
-  static const String getDriverDetails =
-      "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/GetDriverDetails";
+
   static const String removeCarFromGroup =
       "${ApiConfig.baseUrlApi}/${ApiConfig.carGroup}/RemoveCarFromGroup";
   static const String updateCarGroup =

@@ -4,7 +4,11 @@ import 'package:web_admin_san/features/auth_page/data/request/get_user_inf_reque
 import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/screens/car_haraj_orders_page/car_haraj_orders_page.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/screens/cars_haraj_statistics_page/cars_haraj_statistics_page.dart';
+import 'package:web_admin_san/features/company/presentation/bloc/get_company_cars_with_drivers_cubit/get_company_cars_with_drivers_cubit.dart';
+import 'package:web_admin_san/features/company/presentation/bloc/get_company_drivers_cubit/get_company_drivers_cubit.dart';
+import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/cars_companies/cars_companies.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/content_companies/content_companies.dart';
+import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/drivers_companies/drivers_companies.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/order_companies/order_companies.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/branch_cubit/branch_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/work_time_cubit/work_time_cubit.dart';
@@ -24,23 +28,43 @@ class FacilityModelProvider {
 }
 
 List<FacilityModelProvider> facilityTabsCompany(int companyId) => [
-  FacilityModelProvider(
-    title: AppLanguageKeys.facilityDataKey,
-    content: BlocProvider(
-      create: (_) => GetUserInfoCubit()
-        ..getUserInfo(
-            request: GetUserInfoRequest(userId: companyId, userType: 2)),
-      child: ContentCompanies(
-        company: companyId,
+      FacilityModelProvider(
+        title: AppLanguageKeys.facilityDataKey,
+        content: BlocProvider(
+          create: (_) => GetUserInfoCubit()
+            ..getUserInfo(
+                request: GetUserInfoRequest(userId: companyId, userType: 2)),
+          child: ContentCompanies(
+            company: companyId,
+          ),
+        ),
       ),
-    ),
-  ), FacilityModelProvider(
-    title: AppLanguageKeys.allOrders,
-    content: OrderCompanies(
-      companyId: companyId,
-    ),
-  ),
-];
+      FacilityModelProvider(
+        title: AppLanguageKeys.allOrders,
+        content: OrderCompanies(
+          companyId: companyId,
+        ),
+      ),
+      FacilityModelProvider(
+        title: AppLanguageKeys.cars,
+        content: BlocProvider(
+          create: (_) => GetCompanyCarsWithDriversCubit()
+            ..getCompanyCarsWithDrivers(companyId: companyId),
+          child: CarsCompanies(
+            companyId: companyId,
+          ),
+        ),
+      ),
+      FacilityModelProvider(
+        title: AppLanguageKeys.drivers,
+        content:BlocProvider(
+          create: (_) => GetCompanyDriversCubit()
+            ..getCompanyDrivers(companyId: companyId),
+          child: const DriversCompanies(),
+        ),
+      ),
+    ];
+
 List<FacilityModelProvider> facilityTabsProvidersHarag(int providerID) => [
       FacilityModelProvider(
         title: AppLanguageKeys.statistics,
@@ -54,7 +78,6 @@ List<FacilityModelProvider> facilityTabsProvidersHarag(int providerID) => [
           providerID: providerID,
         ),
       ),
-
     ];
 
 List<FacilityModelProvider> facilityTabsProviders(int providerID) => [

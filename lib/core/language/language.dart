@@ -31,6 +31,15 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.companyId: 'رقم الشركة',
+      AppLanguageKeys.companyName: 'اسم الشركة',
+      AppLanguageKeys.type: 'النوع',
+      AppLanguageKeys.plateNumber: 'رقم اللوحة',
+      AppLanguageKeys.driverImage: 'صورة السائق',
+      AppLanguageKeys.licenseImage: 'صورة الرخصة',
+      AppLanguageKeys.identityImage: 'صورة الهوية',
+      AppLanguageKeys.salesCars: 'سيارات المبيعات',
+      AppLanguageKeys.employeeCars: 'سيارات الموظفين',
       AppLanguageKeys.totalCars: 'إجمالي السيارات',
       AppLanguageKeys.carsHaraj: 'حراج سيارات',
       AppLanguageKeys.petrol: 'بنزين',
@@ -1350,6 +1359,15 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.companyId: 'Company ID',
+      AppLanguageKeys.companyName: 'Company Name',
+      AppLanguageKeys.type: 'Type',
+      AppLanguageKeys.plateNumber: 'Plate Number',
+      AppLanguageKeys.driverImage: 'Driver Image',
+      AppLanguageKeys.licenseImage: 'License Image',
+      AppLanguageKeys.identityImage: 'Identity Image',
+      AppLanguageKeys.salesCars: 'Sales Cars',
+      AppLanguageKeys.employeeCars: 'Employee Cars',
       AppLanguageKeys.totalCars: 'Total Cars',
       AppLanguageKeys.carsHaraj: 'Cars Marketplace',
       AppLanguageKeys.petrol: 'Petrol',
