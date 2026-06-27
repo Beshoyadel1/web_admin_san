@@ -53,19 +53,20 @@ class ContentDriverDetails extends StatelessWidget {
           );
 
           final activeController = TextEditingController(
-            text: driver.isActive ? AppLanguageKeys.active : AppLanguageKeys.inactive,
+            text: driver.isActive
+                ? AppLanguageKeys.active
+                : AppLanguageKeys.inactive,
           );
 
           final typeController = TextEditingController(
             text: driver.type.toString(),
           );
 
-          final firstCar =
-          driver.cars.isNotEmpty ? driver.cars.first : null;
+          final firstCar = driver.cars.isNotEmpty ? driver.cars.first : null;
 
           final carController = TextEditingController(
             text:
-            "${firstCar?.brand?.brandName ?? ""} ${firstCar?.model?.modelName ?? ""}",
+                "${firstCar?.brand?.brandName ?? ""} ${firstCar?.model?.modelName ?? ""}",
           );
 
           final plateController = TextEditingController(
@@ -73,106 +74,89 @@ class ContentDriverDetails extends StatelessWidget {
           );
 
           return SingleChildScrollView(
+              child: Padding(
+            padding: const EdgeInsetsGeometry.all(10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-
                 Wrap(
                   spacing: 5,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-
                     driver.image != null
                         ? CircleAvatar(
-                      radius: 25,
-                      backgroundImage:
-                      MemoryImage(driver.image!),
-                    )
+                            radius: 25,
+                            backgroundImage: MemoryImage(driver.image!),
+                          )
                         : const CircleAvatar(radius: 25),
-
                     TextInAppWidget(
                       text: driver.name ?? "",
                       textSize: 15,
-                      fontWeightIndex:
-                      FontSelectionData.mediumFontFamily,
+                      fontWeightIndex: FontSelectionData.mediumFontFamily,
                       textColor: AppColors.blackColor,
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 20),
-
                 const TextInAppWidget(
                   text: AppLanguageKeys.personalData,
                   textSize: 15,
-                  fontWeightIndex:
-                  FontSelectionData.mediumFontFamily,
+                  fontWeightIndex: FontSelectionData.mediumFontFamily,
                   textColor: AppColors.orangeColor,
                 ),
-
                 const SizedBox(height: 15),
-
                 Wrap(
                   spacing: 10,
                   runSpacing: 10,
                   children: [
-
                     UserTextFieldWidget(
                       controller: idController,
                       text: AppLanguageKeys.identity,
                       readOnly: true,
                       width: 250,
                     ),
-
                     UserTextFieldWidget(
                       controller: nameController,
                       text: AppLanguageKeys.userName,
                       readOnly: true,
                       width: 250,
                     ),
-
                     UserTextFieldWidget(
                       controller: phoneController,
                       text: AppLanguageKeys.phoneNumber,
                       readOnly: true,
                       width: 250,
                     ),
-
                     UserTextFieldWidget(
                       controller: emailController,
                       text: AppLanguageKeys.email,
                       readOnly: true,
                       width: 250,
                     ),
-
                     UserTextFieldWidget(
                       controller: companyController,
                       text: AppLanguageKeys.companyId,
                       readOnly: true,
                       width: 250,
                     ),
-
                     UserTextFieldWidget(
                       controller: activeController,
                       text: AppLanguageKeys.accountStatus,
                       readOnly: true,
                       width: 250,
                     ),
-
                     UserTextFieldWidget(
                       controller: typeController,
                       text: AppLanguageKeys.type,
                       readOnly: true,
                       width: 250,
                     ),
-
                     UserTextFieldWidget(
                       controller: carController,
                       text: AppLanguageKeys.carModel,
                       readOnly: true,
                       width: 250,
                     ),
-
                     UserTextFieldWidget(
                       controller: plateController,
                       text: AppLanguageKeys.plateNumber,
@@ -181,24 +165,19 @@ class ContentDriverDetails extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 20),
-
                 Wrap(
                   spacing: 20,
                   runSpacing: 20,
                   children: [
-
                     ReadOnlyImageCard(
                       title: AppLanguageKeys.driverImage,
                       image: driver.image,
                     ),
-
                     ReadOnlyImageCard(
                       title: AppLanguageKeys.licenseImage,
                       image: driver.licenseImage,
                     ),
-
                     ReadOnlyImageCard(
                       title: AppLanguageKeys.identityImage,
                       image: driver.identityImage,
@@ -207,7 +186,7 @@ class ContentDriverDetails extends StatelessWidget {
                 ),
               ],
             ),
-          );
+          ));
         }
 
         return const SizedBox();

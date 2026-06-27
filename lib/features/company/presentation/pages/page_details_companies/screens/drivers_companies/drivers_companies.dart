@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/features/company/presentation/bloc/get_driver_details_cubit/get_driver_details_cubit.dart';
 import 'package:web_admin_san/features/company/presentation/custom_widget/widget_design_list_drivers.dart';
 
@@ -64,8 +65,8 @@ class DriversCompanies extends StatelessWidget {
                     onTabDetails: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => BlocProvider(
+                        NavigateToPageWidget(
+                          BlocProvider(
                             create: (_) => GetDriverDetailsCubit()
                               ..getDriverDetails(driverId: driver.id),
                             child: const DriverDetailsPage(),
