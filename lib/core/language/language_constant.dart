@@ -19,6 +19,12 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String completedOrders = 'completedOrders';
+  static const String ordersUnderService = 'ordersUnderService';
+  static const String pendingOrders = 'pendingOrders';
+  static const String fuelConsumptionStatistics = 'fuelConsumptionStatistics';
+  static const String carServicesAndMaintenanceStatistics =
+      'carServicesAndMaintenanceStatistics';
   static const String companyId = 'companyId';
   static const String companyName = 'companyName';
   static const String type = 'type';
@@ -758,7 +764,6 @@ class AppLanguageKeys {
   static const String allOrders = 'allOrders';
   static const String ordersListFromServices = 'ordersListFromServices';
   static const String newOrders = 'newOrders';
-  static const String completedOrders = 'completedOrders';
   static const String search = 'search';
 
   static const String confirm = 'confirm';

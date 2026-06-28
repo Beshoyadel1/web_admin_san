@@ -6,7 +6,7 @@ import '../../../../../../../../../core/theming/text_styles.dart';
 
 class FirstRowInDataInContainerMaintenanceStats
     extends StatelessWidget {
-  const FirstRowInDataInContainerMaintenanceStats({super.key});
+  const FirstRowInDataInContainerMaintenanceStats({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,6 @@ class FirstRowInDataInContainerMaintenanceStats
             textColor: AppColors.blackColor,
           ),
         ),
-        // RowNumberCoinWidget(
-        //     numberText: '450' ,
-        //     sizeText: 15,
-        //     imageSrc: AppImageKeys.coin
-        // ),
       ],
     );
   }

@@ -7,6 +7,7 @@ import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_deta
 import 'package:web_admin_san/features/company/presentation/bloc/get_company_cars_with_drivers_cubit/get_company_cars_with_drivers_cubit.dart';
 import 'package:web_admin_san/features/company/presentation/bloc/get_company_drivers_cubit/get_company_drivers_cubit.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/cars_companies/cars_companies.dart';
+import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/company_statistics/company_statistics.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/content_companies/content_companies.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/drivers_companies/drivers_companies.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/order_companies/order_companies.dart';
@@ -28,6 +29,13 @@ class FacilityModelProvider {
 }
 
 List<FacilityModelProvider> facilityTabsCompany(int companyId) => [
+  //CompanyStatistics
+  FacilityModelProvider(
+    title: AppLanguageKeys.statistics,
+    content: CompanyStatistics(
+      companyId:companyId,
+    ),
+  ),
       FacilityModelProvider(
         title: AppLanguageKeys.facilityDataKey,
         content: BlocProvider(

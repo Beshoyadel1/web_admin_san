@@ -31,6 +31,12 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.ordersUnderService: 'طلبات تحت الخدمة',
+      AppLanguageKeys.pendingOrders: 'طلبات قيد الانتظار',
+      AppLanguageKeys.fuelConsumptionStatistics:
+      'إحصائية استهلاك البترول',
+      AppLanguageKeys.carServicesAndMaintenanceStatistics:
+      'إحصائية خدمات وصيانة السيارات',
       AppLanguageKeys.companyId: 'رقم الشركة',
       AppLanguageKeys.companyName: 'اسم الشركة',
       AppLanguageKeys.type: 'النوع',
@@ -1359,6 +1365,12 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.ordersUnderService: 'Orders Under Service',
+      AppLanguageKeys.pendingOrders: 'Pending Orders',
+      AppLanguageKeys.fuelConsumptionStatistics:
+      'Fuel Consumption Statistics',
+      AppLanguageKeys.carServicesAndMaintenanceStatistics:
+      'Car Services and Maintenance Statistics',
       AppLanguageKeys.companyId: 'Company ID',
       AppLanguageKeys.companyName: 'Company Name',
       AppLanguageKeys.type: 'Type',

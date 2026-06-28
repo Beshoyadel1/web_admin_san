@@ -9,6 +9,8 @@ class GetAllCompaniesCubit extends Cubit<GetAllCompaniesState> {
   Future<void> getAllCompanies({
     required int currentPage,
   }) async {
+    if (isClosed) return;
+
     emit(GetAllCompaniesLoading());
 
     try {
@@ -17,6 +19,8 @@ class GetAllCompaniesCubit extends Cubit<GetAllCompaniesState> {
           pageNumber: currentPage,
         ),
       );
+
+      if (isClosed) return;
 
       emit(
         GetAllCompaniesSuccess(
@@ -27,13 +31,9 @@ class GetAllCompaniesCubit extends Cubit<GetAllCompaniesState> {
         ),
       );
     } catch (e) {
-      print("ERROR = $e");
+      if (isClosed) return;
 
-      emit(
-        GetAllCompaniesError(
-          e.toString(),
-        ),
-      );
+      emit(GetAllCompaniesError(e.toString()));
     }
   }
 }
