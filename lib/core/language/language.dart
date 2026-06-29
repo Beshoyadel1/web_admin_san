@@ -31,6 +31,9 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.totalConsumption: 'إجمالي الاستهلاك',
+      AppLanguageKeys.expectedSpend: 'الإنفاق المتوقع',
+      AppLanguageKeys.consumptionPercentage: 'نسبة الاستهلاك',
       AppLanguageKeys.ordersUnderService: 'طلبات تحت الخدمة',
       AppLanguageKeys.pendingOrders: 'طلبات قيد الانتظار',
       AppLanguageKeys.fuelConsumptionStatistics:
@@ -1365,6 +1368,9 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.totalConsumption: 'Total Consumption',
+      AppLanguageKeys.expectedSpend: 'Expected Spend',
+      AppLanguageKeys.consumptionPercentage: 'Consumption Percentage',
       AppLanguageKeys.ordersUnderService: 'Orders Under Service',
       AppLanguageKeys.pendingOrders: 'Pending Orders',
       AppLanguageKeys.fuelConsumptionStatistics:

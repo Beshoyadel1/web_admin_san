@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/features/company/presentation/custom_widget/text_expended_widget.dart';
-import 'package:web_admin_san/features/order_services/presentation/pages/order_services_statistics/screens/part_two_screen_first_screen_order_services_statistics/container_maintenance_stats/second_row_in_data_in_container_maintenance_stats.dart';
+import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/company_statistics/screens/part_two_screen_first_screen_company_statistics/container_service_chart_company/second_row_in_data_in_container_profits_from_ministry_of_interior_services.dart';
 
 class DataInContainerServiceChartCompany extends StatelessWidget {
   const DataInContainerServiceChartCompany({super.key});
@@ -15,7 +15,7 @@ class DataInContainerServiceChartCompany extends StatelessWidget {
         TextExpendedWidget(
           text: AppLanguageKeys.carServicesAndMaintenanceStatistics,
         ),
-        //SecondRowInDataInContainerMaintenanceStats()
+        SecondRowInDataInContainerProfitsFromMinistryOfInteriorServices()
       ],
     );
   }

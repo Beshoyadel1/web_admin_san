@@ -184,12 +184,18 @@ class BannerCubit extends Cubit<BannerState> {
 
   Future<void> getBanner() async {
     try {
+      if (isClosed) return;
+
       emit(BannerLoading());
 
       banners = await getBannersFunction();
 
+      if (isClosed) return;
+
       emit(BannerSuccess(banners));
     } catch (e) {
+      if (isClosed) return;
+
       emit(BannerError(e.toString()));
     }
   }

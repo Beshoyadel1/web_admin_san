@@ -69,7 +69,7 @@ class FilterDesignOrderServicesType extends StatelessWidget {
 
               AppPagination(
                 currentPage: state.currentPage,
-                totalPages: state.totalCount,
+                totalPages: state.pageCount,
                 onPageChanged: (page) {
                   final selectedTab = context.read<TabsCubit>().state;
 

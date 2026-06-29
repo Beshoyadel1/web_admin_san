@@ -19,6 +19,9 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String totalConsumption = 'totalConsumption';
+  static const String expectedSpend = 'expectedSpend';
+  static const String consumptionPercentage = 'consumptionPercentage';
   static const String completedOrders = 'completedOrders';
   static const String ordersUnderService = 'ordersUnderService';
   static const String pendingOrders = 'pendingOrders';
