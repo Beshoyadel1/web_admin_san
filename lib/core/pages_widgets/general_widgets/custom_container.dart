@@ -42,18 +42,24 @@ class CustomContainer extends StatelessWidget {
       child: Container(
         height: containerHeight,
         width: containerWidth,
-        padding:
-            padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: padding ?? const EdgeInsetsGeometry.all(10),
         decoration: BoxDecoration(
           color: containerColor ?? AppColors.whiteColor,
           border: border ??
               Border.all(
                 color: isSelected
                     ? AppColors.orangeColor
-                    : AppColors.lightGreyColor,
+                    :AppColors.greyColor.withOpacity(0.3),
               ),
           borderRadius: borderRadius ?? BorderRadius.circular(24),
-          boxShadow: boxShadow,
+          boxShadow: boxShadow ??
+              [
+                BoxShadow(
+                  color: AppColors.darkColor.withOpacity(0.1),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
         ),
         child: typeWidget ??
             TextInAppWidget(

@@ -50,20 +50,10 @@ class OrdersPageMobileServicesStatistics extends StatelessWidget {
               ],
             ),
             Expanded(
-                child:  MultiBlocProvider(
-                  providers: [
-                    BlocProvider(create: (_) => TabsCubit()),
-                    BlocProvider(
-                      create: (_) => GetOrderCubit()
-                        ..getOrders(
-                          orderType: mapOrderType(0),
-                        ),
-                    ),
-                  ],
-              child: FiltersTabsWidgetOrderServicesType(
-                filterOptions: filterOrders,
-              ),
-            )),
+                child:  FiltersTabsWidgetOrderServicesType(
+                  filterOptions: filterOrders,
+                ),
+            ),
             // Center(child: NumberIndicator())
           ],
         ),

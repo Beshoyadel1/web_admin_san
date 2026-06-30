@@ -19,7 +19,7 @@ Future<GetAllCompaniesModel> getAllCompaniesProviders({
 
     final bool success = responseData["success"] ?? false;
 
-    print("Data: ${responseData["data"]}");
+    //print("Data: ${responseData["data"]}");
     if (!success) {
       throw Exception(
         responseData["message"] ?? "Something went wrong",

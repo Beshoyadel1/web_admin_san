@@ -19,6 +19,11 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String loading = 'loading';
+  static const String title = 'title';
+  static const String titleEn = 'titleEn';
+  static const String contentText = 'contentText';
+  static const String contentTextEn = 'contentTextEn';
   static const String totalConsumption = 'totalConsumption';
   static const String expectedSpend = 'expectedSpend';
   static const String consumptionPercentage = 'consumptionPercentage';

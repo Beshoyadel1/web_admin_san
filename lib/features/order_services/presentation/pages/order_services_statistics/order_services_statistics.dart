@@ -18,45 +18,57 @@ class OrderServicesStatistics extends StatelessWidget {
     bool isMobile = size.width <= ValuesOfAllApp.mobileWidth + 200;
     return BlocProvider(
       create: (_) => AdminDashboardStatisticsCubit()..getStatistics(),
-      child: Scaffold(
-        backgroundColor: AppColors.scaffoldColor,
-        body: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: SingleChildScrollView(
-                    child: ListDataOrderServicesStatistics(),
-                  ),
-                ),
-              ),
-              if ((!isMobile))
-                const Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: SingleChildScrollView(
-                      child: SizedBox(
-                        width: 500,
-                        child: Column(
-                          spacing: 20,
-                          children: [
-                            ContainerCurrentYearSales(),
-                            ContainerLastYearSales(),
-                            ContainerMaintenanceStats(),
-                          ],
+      child: Builder(
+        builder: (context) {
+          return RefreshIndicator(
+            color: AppColors.orangeColor,
+            onRefresh: () async {
+              await context
+                  .read<AdminDashboardStatisticsCubit>()
+                  .getStatistics();
+            },
+            child: Scaffold(
+              backgroundColor: AppColors.scaffoldColor,
+              body: SafeArea(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: SingleChildScrollView(
+                          child: ListDataOrderServicesStatistics(),
                         ),
                       ),
                     ),
-                  ),
+                    if ((!isMobile))
+                      const Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: SingleChildScrollView(
+                            child: SizedBox(
+                              width: 500,
+                              child: Column(
+                                spacing: 20,
+                                children: [
+                                  ContainerCurrentYearSales(),
+                                  ContainerLastYearSales(),
+                                  ContainerMaintenanceStats(),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
-            ],
-          ),
-        ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

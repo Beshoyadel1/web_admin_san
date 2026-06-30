@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
+import 'package:web_admin_san/core/theming/colors.dart';
 import 'package:web_admin_san/features/company/presentation/bloc/get_driver_details_cubit/get_driver_details_cubit.dart';
 import 'package:web_admin_san/features/company/presentation/custom_widget/widget_design_list_drivers.dart';
 
@@ -11,7 +12,12 @@ import 'package:web_admin_san/features/company/presentation/pages/page_details_c
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 
 class DriversCompanies extends StatelessWidget {
-  const DriversCompanies({super.key});
+  final int companyId;
+
+  const DriversCompanies({
+    super.key,
+    required this.companyId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,46 +42,56 @@ class DriversCompanies extends StatelessWidget {
             return const TextEmptyViewData();
           }
 
-          final isArabic =
-              Directionality.of(context) == TextDirection.rtl;
+          final isArabic = Directionality.of(context) == TextDirection.rtl;
 
-          return SingleChildScrollView(
-            child: Column(
-              spacing: 10,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: List.generate(
-                drivers.length,
-                    (index) {
-                  final driver = drivers[index];
-
-                  final brandName = isArabic
-                      ? (driver.car?.brandName ?? "")
-                      : (driver.car?.brandLatinName ?? "");
-
-                  return WidgetDesignListDrivers(
-                    id: driver.id.toString(),
-                    name: driver.name,
-                    phone: driver.phone,
-                    email: driver.email,
-                    imageUser: driver.image,
-                    imageBrand: driver.car?.image,
-                    plateNo: driver.car?.plateNo,
-                    nameBrandModel:
-                    "$brandName - ${driver.car?.modelName ?? ""}",
-                    onTabDetails: () {
-                      Navigator.push(
-                        context,
-                        NavigateToPageWidget(
-                          BlocProvider(
-                            create: (_) => GetDriverDetailsCubit()
-                              ..getDriverDetails(driverId: driver.id),
-                            child: const DriverDetailsPage(),
-                          ),
-                        ),
-                      );
-                    },
+          return RefreshIndicator(
+            color: AppColors.orangeColor,
+            onRefresh: () async {
+              await context.read<GetCompanyDriversCubit>().getCompanyDrivers(
+                    companyId: companyId,
                   );
-                },
+            },
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                spacing: 10,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: List.generate(
+                  drivers.length,
+                  (index) {
+                    final driver = drivers[index];
+
+                    final brandName = isArabic
+                        ? (driver.car?.brandName ?? "")
+                        : (driver.car?.brandLatinName ?? "");
+
+                    return WidgetDesignListDrivers(
+                      id: driver.id.toString(),
+                      name: driver.name,
+                      phone: driver.phone,
+                      email: driver.email,
+                      imageUser: driver.image,
+                      imageBrand: driver.car?.image,
+                      plateNo: driver.car?.plateNo,
+                      nameBrandModel:
+                          "$brandName - ${driver.car?.modelName ?? ""}",
+                      onTabDetails: () {
+                        Navigator.push(
+                          context,
+                          NavigateToPageWidget(
+                            BlocProvider(
+                              create: (_) => GetDriverDetailsCubit()
+                                ..getDriverDetails(driverId: driver.id),
+                              child: DriverDetailsPage(
+                                driverId: driver.id,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           );

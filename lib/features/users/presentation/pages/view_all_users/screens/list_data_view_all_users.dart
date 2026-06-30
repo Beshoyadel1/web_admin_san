@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/core/language/language_constant.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
@@ -38,57 +39,60 @@ class ListDataViewAllUsers extends StatelessWidget {
             );
           }
 
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.separated(
-                  itemCount: state.users.length,
-                  separatorBuilder: (_, __) => const SizedBox(
-                    height: 20,
-                  ),
-                  itemBuilder: (context, index) {
-                    final user = state.users[index];
+          return CustomContainer(
+              isSelected: false,
+              onTap: () {},
+              typeWidget: Column(
+                children: [
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: state.users.length,
+                      separatorBuilder: (_, __) => const SizedBox(
+                        height: 20,
+                      ),
+                      itemBuilder: (context, index) {
+                        final user = state.users[index];
 
-                    return CustomViewAllUsersListWidget(
-                      id: user.userId.toString(),
-                      nameProvider: user.userName ?? '',
-                      nameButton: AppLanguageKeys.details,
-                      imageProvider: user.image,
-                      lastOrderDate: user.lastOrderProvider != null
-                          ? OrderFunctions.formatDateFromDateTime(
-                              user.lastOrderProvider,
-                            )
-                          : '-',
-                      joinDate: user.joinDate != null
-                          ? OrderFunctions.formatDateFromDateTime(
-                        user.joinDate,
-                      )
-                          : '-',
-                      onTapViewRates: () {
-                        Navigator.push(
-                          context,
-                          NavigateToPageWidget(
-                            PageDetailsUser(
-                              userId: user.userId,
-                            ),
-                          ),
+                        return CustomViewAllUsersListWidget(
+                          id: user.userId.toString(),
+                          nameProvider: user.userName ?? '',
+                          nameButton: AppLanguageKeys.details,
+                          imageProvider: user.image,
+                          lastOrderDate: user.lastOrderProvider != null
+                              ? OrderFunctions.formatDateFromDateTime(
+                                  user.lastOrderProvider,
+                                )
+                              : '-',
+                          joinDate: user.joinDate != null
+                              ? OrderFunctions.formatDateFromDateTime(
+                                  user.joinDate,
+                                )
+                              : '-',
+                          onTapViewRates: () {
+                            Navigator.push(
+                              context,
+                              NavigateToPageWidget(
+                                PageDetailsUser(
+                                  userId: user.userId,
+                                ),
+                              ),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
-                ),
-              ),
-              AppPagination(
-                currentPage: state.currentPage,
-                totalPages: state.pageCount,
-                onPageChanged: (page) {
-                  context.read<GetAllUsersCubit>().getAllUsers(
-                        currentPage: page,
-                      );
-                },
-              ),
-            ],
-          );
+                    ),
+                  ),
+                  AppPagination(
+                    currentPage: state.currentPage,
+                    totalPages: state.pageCount,
+                    onPageChanged: (page) {
+                      context.read<GetAllUsersCubit>().getAllUsers(
+                            currentPage: page,
+                          );
+                    },
+                  ),
+                ],
+              ));
         }
 
         return const SizedBox();

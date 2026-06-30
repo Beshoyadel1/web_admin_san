@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 import 'package:web_admin_san/features/rates/presentation/bloc/providers_rate_cubit/providers_rate_cubit.dart';
@@ -27,31 +28,36 @@ class ListDataViewAllProviderRate extends StatelessWidget {
             );
           }
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: List.generate(
-              state.providers.length,
-              (index) {
-                final providerRate = state.providers[index];
+          return CustomContainer(
+            isSelected: false,
+            onTap: () {},
+            typeWidget: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: List.generate(
+                state.providers.length,
+                    (index) {
+                  final providerRate = state.providers[index];
 
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
-                  child: CustomViewAllProviderRates(
-                    avgRate: providerRate.averageRate.toString(),
-                    countRate: providerRate.rateCount.toString(),
-                    id: providerRate.provider.id.toString(),
-                    nameProvider: providerRate.provider.name,
-                    onTapViewRates: () {
-                      Navigator.push(
-                        context,
-                        NavigateToPageWidget(ViewAllServiceRates(providerModel: providerRate.provider)),
-                      );
-                    },
-                  ),
-                );
-              },
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: CustomViewAllProviderRates(
+                      avgRate: providerRate.averageRate.toString(),
+                      countRate: providerRate.rateCount.toString(),
+                      id: providerRate.provider.id.toString(),
+                      nameProvider: providerRate.provider.name,
+                      onTapViewRates: () {
+                        Navigator.push(
+                          context,
+                          NavigateToPageWidget(ViewAllServiceRates(providerModel: providerRate.provider)),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
           );
+
         }
 
         if (state is ProvidersRateError) {

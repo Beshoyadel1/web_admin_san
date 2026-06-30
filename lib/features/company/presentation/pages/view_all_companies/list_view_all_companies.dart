@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/core/language/language_constant.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/get_harage_providers_cubit/get_harage_providers_cubit.dart';
 import 'package:web_admin_san/features/company/presentation/bloc/get_all_companies_cubit/get_all_companies_cubit.dart';
@@ -39,56 +40,62 @@ class ListViewAllCompanies extends StatelessWidget {
             );
           }
 
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.separated(
-                  itemCount: state.companies.length,
-                  separatorBuilder: (_, __) => const SizedBox(
-                    height: 20,
-                  ),
-                  itemBuilder: (context, index) {
-                    final companies = state.companies[index];
+          return CustomContainer(
+            isSelected: false,
+            onTap: () {},
+            typeWidget: Column(
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: state.companies.length,
+                    separatorBuilder: (_, __) => const SizedBox(
+                      height: 20,
+                    ),
+                    itemBuilder: (context, index) {
+                      final companies = state.companies[index];
 
-                    return WidgetDesignListCompany(
-                      companyId: companies.companyId.toString(),
-                      name: companies.name ?? '',
-                      nameButton: AppLanguageKeys.details,
-                      image: companies.image,
-                      lastOrderDate: companies.lastOrderProvider != null
-                          ? OrderFunctions.formatDateFromDateTime(
-                        companies.lastOrderProvider,
-                      )
-                          : '-',
-                      joiningDate: companies.joinDate != null
-                          ? OrderFunctions.formatDateFromDateTime(
-                        companies.joinDate,
-                      )
-                          : '-',
-                      onTabDetails: () {
-                        Navigator.push(
-                          context,
-                          NavigateToPageWidget(
-                            PageDetailsCompanies(
-                              companyId: companies.companyId??5,
+                      return WidgetDesignListCompany(
+                        companyId: companies.companyId.toString(),
+                        name: companies.name ?? '',
+                        nameButton: AppLanguageKeys.details,
+                        image: companies.image,
+                        lastOrderDate: companies.lastOrderProvider != null
+                            ? OrderFunctions.formatDateFromDateTime(
+                                companies.lastOrderProvider,
+                              )
+                            : '-',
+                        joiningDate: companies.joinDate != null
+                            ? OrderFunctions.formatDateFromDateTime(
+                                companies.joinDate,
+                              )
+                            : '-',
+                        onTabDetails: () {
+                          Navigator.push(
+                            context,
+                            NavigateToPageWidget(
+                              PageDetailsCompanies(
+                                companyId: companies.companyId ?? 5,
+                              ),
                             ),
-                          ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+                AppPagination(
+                  currentPage: state.currentPage,
+                  totalPages: state.pageCount,
+                  onPageChanged: (page) {
+                    context
+                        .read<GetHarageProvidersCubit>()
+                        .getAllHarahProviders(
+                          currentPage: page,
                         );
-                      },
-                    );
                   },
                 ),
-              ),
-              AppPagination(
-                currentPage: state.currentPage,
-                totalPages: state.pageCount,
-                onPageChanged: (page) {
-                  context.read<GetHarageProvidersCubit>().getAllHarahProviders(
-                    currentPage: page,
-                  );
-                },
-              ),
-            ],
+              ],
+            ),
           );
         }
 

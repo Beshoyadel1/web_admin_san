@@ -96,14 +96,11 @@ class ServiceSettingsCubit extends Cubit<ServiceSettingsState> {
           .where((e) => (e.parentId ?? 0) != 0)
           .toList();
 
-      if (childServices.isNotEmpty) {
-        selectedService = childServices.first;
-      }
+      selectedService = null;
+      isAllServicesSelected = true;
 
       emit(
-        ServiceSettingsSuccess(
-          childServices,
-        ),
+        ServiceSettingsSuccess(childServices),
       );
     } catch (e) {
       emit(ServiceSettingsError(e.toString()));

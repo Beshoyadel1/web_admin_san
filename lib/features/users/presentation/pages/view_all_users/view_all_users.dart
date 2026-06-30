@@ -13,7 +13,7 @@ class ViewAllUsers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
       body: SafeArea(
         child: Padding(
@@ -21,7 +21,19 @@ class ViewAllUsers extends StatelessWidget {
           child: BlocProvider(
             create: (_) => GetAllUsersCubit()
               ..getAllUsers(currentPage: 1),
-            child: const ListDataViewAllUsers(),
+            child: Builder(
+              builder: (context) {
+                return RefreshIndicator(
+                  color: AppColors.orangeColor,
+                  onRefresh: () async {
+                    await context
+                        .read<GetAllUsersCubit>()
+                        .getAllUsers(currentPage: 1);
+                  },
+                  child: const ListDataViewAllUsers(),
+                );
+              },
+            ),
           ),
         ),
       ),

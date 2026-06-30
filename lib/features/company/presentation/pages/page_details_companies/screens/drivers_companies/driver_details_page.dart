@@ -3,16 +3,22 @@ import 'package:web_admin_san/core/theming/colors.dart';
 import 'content_driver_details.dart';
 
 class DriverDetailsPage extends StatelessWidget {
-  const DriverDetailsPage({super.key});
+  final int driverId;
 
+  const DriverDetailsPage({
+    super.key,
+    required this.driverId,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
       appBar: AppBar(
-        backgroundColor:  AppColors.scaffoldColor,
+        backgroundColor: AppColors.scaffoldColor,
       ),
-      body: const ContentDriverDetails(),
+      body:  ContentDriverDetails(
+        driverId:driverId,
+      ),
     );
   }
 }

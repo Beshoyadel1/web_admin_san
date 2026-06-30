@@ -11,7 +11,7 @@ class ViewAllProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
       body: SafeArea(
         child: Padding(
@@ -19,7 +19,21 @@ class ViewAllProvider extends StatelessWidget {
           child: BlocProvider(
             create: (_) => GetAllProvidersCubit()
               ..getAllProviders(currentPage: 1),
-            child: const ListDataViewAllProvider(),
+            child: Builder(
+              builder: (context) {
+                return RefreshIndicator(
+                  color: AppColors.orangeColor,
+                  onRefresh: () async {
+                    await context
+                        .read<GetAllProvidersCubit>()
+                        .getAllProviders(
+                      currentPage: 1,
+                    );
+                  },
+                  child: const ListDataViewAllProvider(),
+                );
+              },
+            ),
           ),
         ),
       ),

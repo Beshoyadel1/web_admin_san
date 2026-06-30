@@ -1,27 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'screens/list_data_first_screen_communication_and_policies_pages.dart';
-import '../../../../../../core/utilies/map_of_all_app.dart';
+import 'package:web_admin_san/features/communication_and_policies_pages/presentation/cubit/all_pages_about_cubit/all_pages_about_cubit.dart';
+import 'package:web_admin_san/features/communication_and_policies_pages/presentation/pages/first_screen_communication_and_policies_pages/screens/communication_tabs.dart';
 import '../../../../../../core/theming/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FirstScreenCommunicationAndPoliciesPages extends StatelessWidget {
   const FirstScreenCommunicationAndPoliciesPages({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    bool isMobile = size.width <= ValuesOfAllApp.mobileWidth;
-    bool isTabletCustom = size.width > ValuesOfAllApp.mobileWidth &&
-        size.width <= ValuesOfAllApp.customTabWidth;
-    bool isTab = size.width > ValuesOfAllApp.tabWidth;
-
-    return const Scaffold(
-      backgroundColor: AppColors.scaffoldColor,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: ListDataFirstScreenCommunicationAndPoliciesPages(),
-        ),
+    return BlocProvider(
+      create: (_) => AllPagesAboutCubit()..getAllPagesAbout(),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            backgroundColor: AppColors.scaffoldColor,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: RefreshIndicator(
+                  color: AppColors.orangeColor,
+                  onRefresh: () async {
+                    await context
+                        .read<AllPagesAboutCubit>()
+                        .getAllPagesAbout();
+                  },
+                  child: const SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: CommunicationTabs(),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

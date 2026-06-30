@@ -26,10 +26,7 @@ class ContainerFirstScreenAdvertisementsAdminSun extends StatelessWidget {
           ),
         ],
       ),
-      child: BlocProvider(
-        create: (_) => BannerCubit()..getBanner(),
-        child: const ListDataFirstScreenAdvertisementsAdminSun(),
-      )
+      child: const ListDataFirstScreenAdvertisementsAdminSun(),
     );
   }
 }

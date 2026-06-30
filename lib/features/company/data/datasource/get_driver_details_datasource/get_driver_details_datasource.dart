@@ -38,7 +38,6 @@ Future<GetDriverDetailsModel> getDriverDetailsFunction({
             ),
       );
     }
-
     throw Exception(
       responseOfStatusCode(
         e.response?.statusCode,

@@ -7,7 +7,6 @@ import 'package:web_admin_san/features/providers/presentation/pages/page_details
 import '../../../../../../core/theming/colors.dart';
 import '../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 
-
 class PageDetailsProvider extends StatelessWidget {
   final int providerID;
   const PageDetailsProvider({super.key,required this.providerID});

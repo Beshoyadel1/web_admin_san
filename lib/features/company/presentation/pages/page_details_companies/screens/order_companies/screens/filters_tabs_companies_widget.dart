@@ -98,7 +98,9 @@ class _FiltersTabsCompaniesWidgetState extends State<FiltersTabsCompaniesWidget>
                 controller: _tabController,
                 children: List.generate(
                   widget.filterOptions.length,
-                      (index) => const FilterDesignCompaniesOrders(),
+                      (index) =>  FilterDesignCompaniesOrders(
+                        companyId: widget.companyId,
+                      ),
                 ),
               ),
             ),

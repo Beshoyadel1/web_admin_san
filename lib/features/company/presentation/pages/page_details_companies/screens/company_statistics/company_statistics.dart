@@ -17,47 +17,63 @@ class CompanyStatistics extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     bool isMobile = size.width <= ValuesOfAllApp.mobileWidth + 200;
     return BlocProvider(
-      create: (_) => GetCompanyGeneralStatisticsCubit()..getCompanyGeneralStatistics(companyId: companyId),
-      child: Scaffold(
-        backgroundColor: AppColors.transparent,
-        body: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-               Expanded(
-                flex: 2,
-                child: Padding(
-                  padding:const EdgeInsets.all(20),
-                  child: SingleChildScrollView(
-                    child: ListDataCompanyStatistics(
-                      companyId:companyId,
-                    ),
-                  ),
-                ),
-              ),
-              if ((!isMobile))
-                const Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: SingleChildScrollView(
-                      child: SizedBox(
-                        width: 500,
-                        child: Column(
-                          spacing: 20,
-                          children: [
-                            ContainerPetrolConsumptionCompany(),
-                            ContainerServiceChartCompany(),
-                          ],
+      create: (_) => GetCompanyGeneralStatisticsCubit()
+        ..getCompanyGeneralStatistics(companyId: companyId),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            backgroundColor: AppColors.transparent,
+            body: SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: RefreshIndicator(
+                        color: AppColors.orangeColor,
+                        onRefresh: () async {
+                          await context
+                              .read<GetCompanyGeneralStatisticsCubit>()
+                              .getCompanyGeneralStatistics(
+                            companyId: companyId,
+                          );
+                        },
+                        child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child: ListDataCompanyStatistics(
+                            companyId: companyId,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-            ],
-          ),
-        ),
+                  if (!isMobile)
+                    const Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: SingleChildScrollView(
+                          child: SizedBox(
+                            width: 500,
+                            child: Column(
+                              spacing: 20,
+                              children: [
+                                ContainerPetrolConsumptionCompany(),
+                                ContainerServiceChartCompany(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

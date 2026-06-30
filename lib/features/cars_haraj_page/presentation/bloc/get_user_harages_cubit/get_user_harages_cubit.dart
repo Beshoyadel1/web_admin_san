@@ -17,10 +17,11 @@ class GetUserHaragesCubit extends Cubit<GetUserHaragesState> {
     int? userType,
     int pageNumber = 1,
   }) async {
+    if (isClosed) return;
+
     emit(GetUserHaragesLoading());
 
     try {
-
       final response = await getUserHaragesFunction(
         request: GetUserHaragesRequest(
           userId: userId,
@@ -28,6 +29,8 @@ class GetUserHaragesCubit extends Cubit<GetUserHaragesState> {
           pageNumber: pageNumber,
         ),
       );
+
+      if (isClosed) return;
 
       emit(
         GetUserHaragesSuccess(
@@ -38,6 +41,8 @@ class GetUserHaragesCubit extends Cubit<GetUserHaragesState> {
         ),
       );
     } catch (e) {
+      if (isClosed) return;
+
       emit(
         GetUserHaragesError(
           e is DioException

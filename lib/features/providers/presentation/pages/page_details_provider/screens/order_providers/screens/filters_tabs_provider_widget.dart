@@ -97,7 +97,9 @@ class _FiltersTabsProviderWidgetState extends State<FiltersTabsProviderWidget>
                 controller: _tabController,
                 children: List.generate(
                   widget.filterOptions.length,
-                      (index) => const FilterDesignProviderOrders(),
+                      (index) =>  FilterDesignProviderOrders(
+                        providerId: widget.providerId,
+                      ),
                 ),
               ),
             ),

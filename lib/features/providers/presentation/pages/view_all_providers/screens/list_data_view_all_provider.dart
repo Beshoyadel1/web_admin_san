@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/core/language/language_constant.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
@@ -37,53 +38,58 @@ class ListDataViewAllProvider extends StatelessWidget {
             );
           }
 
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.separated(
-                  itemCount: state.providers.length,
-                  separatorBuilder: (_, __) => const SizedBox(
-                    height: 20,
-                  ),
-                  itemBuilder: (context, index) {
-                    final provider = state.providers[index];
+          return CustomContainer(
+            isSelected: false,
+            onTap: () {},
+            typeWidget:Column(
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: state.providers.length,
+                    separatorBuilder: (_, __) => const SizedBox(
+                      height: 20,
+                    ),
+                    itemBuilder: (context, index) {
+                      final provider = state.providers[index];
 
-                    return CustomViewAllProviderListWidget(
-                      id: provider.providerId.toString(),
-                      nameProvider: provider.name ?? '',
-                      nameButton: AppLanguageKeys.details,
-                      imageProvider: provider.image,
-                      lastOrderDate: provider.lastOrderDate != null
-                          ? OrderFunctions.formatDateFromDateTime(
-                              provider.lastOrderDate,
-                            )
-                          : '-',
-                      orderCount: provider.totalOrders.toString(),
-                      onTapViewRates: () {
-                        Navigator.push(
-                          context,
-                          NavigateToPageWidget(
-                            PageDetailsProvider(
-                              providerID: provider.providerId,
+                      return CustomViewAllProviderListWidget(
+                        id: provider.providerId.toString(),
+                        nameProvider: provider.name ?? '',
+                        nameButton: AppLanguageKeys.details,
+                        imageProvider: provider.image,
+                        lastOrderDate: provider.lastOrderDate != null
+                            ? OrderFunctions.formatDateFromDateTime(
+                          provider.lastOrderDate,
+                        )
+                            : '-',
+                        orderCount: provider.totalOrders.toString(),
+                        onTapViewRates: () {
+                          Navigator.push(
+                            context,
+                            NavigateToPageWidget(
+                              PageDetailsProvider(
+                                providerID: provider.providerId,
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+                AppPagination(
+                  currentPage: state.currentPage,
+                  totalPages: state.pageCount,
+                  onPageChanged: (page) {
+                    context.read<GetAllProvidersCubit>().getAllProviders(
+                      currentPage: page,
                     );
                   },
                 ),
-              ),
-              AppPagination(
-                currentPage: state.currentPage,
-                totalPages: state.pageCount,
-                onPageChanged: (page) {
-                  context.read<GetAllProvidersCubit>().getAllProviders(
-                        currentPage: page,
-                      );
-                },
-              ),
-            ],
+              ],
+            ),
           );
+
         }
 
         return const SizedBox();

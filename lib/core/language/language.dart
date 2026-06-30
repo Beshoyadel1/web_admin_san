@@ -31,6 +31,11 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.loading: 'جاري التحميل...',
+      AppLanguageKeys.title: 'العنوان',
+      AppLanguageKeys.titleEn: 'العنوان EN',
+      AppLanguageKeys.contentText: 'المحتوى',
+      AppLanguageKeys.contentTextEn: 'المحتوى EN',
       AppLanguageKeys.totalConsumption: 'إجمالي الاستهلاك',
       AppLanguageKeys.expectedSpend: 'الإنفاق المتوقع',
       AppLanguageKeys.consumptionPercentage: 'نسبة الاستهلاك',
@@ -1368,6 +1373,11 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.loading: 'Loading...',
+      AppLanguageKeys.title: 'Title',
+      AppLanguageKeys.titleEn: 'Title (EN)',
+      AppLanguageKeys.contentText: 'Content',
+      AppLanguageKeys.contentTextEn: 'Content (EN)',
       AppLanguageKeys.totalConsumption: 'Total Consumption',
       AppLanguageKeys.expectedSpend: 'Expected Spend',
       AppLanguageKeys.consumptionPercentage: 'Consumption Percentage',

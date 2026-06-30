@@ -10,16 +10,31 @@ class ViewAllProviderRates extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: AppColors.scaffoldColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: SingleChildScrollView(child: BlocProvider(
-            create: (_) => ProvidersRateCubit()..getProvidersRates(),
-            child: const ListDataViewAllProviderRate(),
-          )),
-        ),
+    return BlocProvider(
+      create: (_) => ProvidersRateCubit()..getProvidersRates(),
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            backgroundColor: AppColors.scaffoldColor,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: RefreshIndicator(
+                  color: AppColors.orangeColor,
+                  onRefresh: () async {
+                    await context
+                        .read<ProvidersRateCubit>()
+                        .getProvidersRates();
+                  },
+                  child: const SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: ListDataViewAllProviderRate(),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

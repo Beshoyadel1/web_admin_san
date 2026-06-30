@@ -29,13 +29,13 @@ class FacilityModelProvider {
 }
 
 List<FacilityModelProvider> facilityTabsCompany(int companyId) => [
-  //CompanyStatistics
-  FacilityModelProvider(
-    title: AppLanguageKeys.statistics,
-    content: CompanyStatistics(
-      companyId:companyId,
-    ),
-  ),
+      //CompanyStatistics
+      FacilityModelProvider(
+        title: AppLanguageKeys.statistics,
+        content: CompanyStatistics(
+          companyId: companyId,
+        ),
+      ),
       FacilityModelProvider(
         title: AppLanguageKeys.facilityDataKey,
         content: BlocProvider(
@@ -65,10 +65,12 @@ List<FacilityModelProvider> facilityTabsCompany(int companyId) => [
       ),
       FacilityModelProvider(
         title: AppLanguageKeys.drivers,
-        content:BlocProvider(
-          create: (_) => GetCompanyDriversCubit()
-            ..getCompanyDrivers(companyId: companyId),
-          child: const DriversCompanies(),
+        content: BlocProvider(
+          create: (_) =>
+              GetCompanyDriversCubit()..getCompanyDrivers(companyId: companyId),
+          child: DriversCompanies(
+            companyId: companyId,
+          ),
         ),
       ),
     ];
@@ -97,13 +99,8 @@ List<FacilityModelProvider> facilityTabsProviders(int providerID) => [
       ),
       FacilityModelProvider(
         title: AppLanguageKeys.facilityDataKey,
-        content: BlocProvider(
-          create: (_) => GetUserInfoCubit()
-            ..getUserInfo(
-                request: GetUserInfoRequest(userId: providerID, userType: 4)),
-          child: FacilityDataContentProvider(
-            providerID: providerID,
-          ),
+        content: FacilityDataContentProvider(
+          providerID: providerID,
         ),
       ),
       FacilityModelProvider(

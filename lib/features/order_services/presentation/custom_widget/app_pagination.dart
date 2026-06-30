@@ -32,6 +32,8 @@ class AppPagination extends StatelessWidget {
           selectedButtonColor: AppColors.orangeColor,
           selectedNumberColor: AppColors.whiteColor,
           unSelectedNumberColor: AppColors.whiteColor,
+          buttonSelectedBorderColor: AppColors.transparent,
+          buttonUnSelectedBorderColor: AppColors.transparent,
           onPageChanged: onPageChanged,
         ),
       ),

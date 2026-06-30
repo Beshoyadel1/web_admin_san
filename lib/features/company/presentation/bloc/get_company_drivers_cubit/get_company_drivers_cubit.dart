@@ -13,6 +13,8 @@ class GetCompanyDriversCubit extends Cubit<GetCompanyDriversState> {
   Future<void> getCompanyDrivers({
     required int companyId,
   }) async {
+    if (isClosed) return;
+
     emit(GetCompanyDriversLoading());
 
     try {
@@ -22,8 +24,12 @@ class GetCompanyDriversCubit extends Cubit<GetCompanyDriversState> {
         ),
       );
 
+      if (isClosed) return;
+
       emit(GetCompanyDriversSuccess(model!));
     } catch (e) {
+      if (isClosed) return;
+
       emit(GetCompanyDriversFailure(e.toString()));
     }
   }

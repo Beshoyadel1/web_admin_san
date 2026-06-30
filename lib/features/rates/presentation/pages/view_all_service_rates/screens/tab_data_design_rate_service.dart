@@ -35,6 +35,11 @@ class TabDataDesignRateService extends StatelessWidget {
           return const SizedBox();
         }
 
+        if (cubit.selectedService == null && !cubit.isAllServicesSelected) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            cubit.selectAllServices();
+          });
+        }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
