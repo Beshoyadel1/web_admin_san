@@ -1,4 +1,3 @@
-import 'package:web_admin_san/features/providers/data/model/get_all_providers_models/get_all_providers_models/get_all_providers_models.dart';
 import 'package:web_admin_san/features/users/data/model/get_all_users_models/get_all_users_models.dart';
 
 abstract class GetAllUsersState {}

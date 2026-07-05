@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../features/notifications/first_screen_advertisements/screens/data_container_in_list_data_first_screen_notifications.dart';
+
 import '../../../../../../core/theming/colors.dart';
+import '../../../../../../features/notifications/first_screen_advertisements/screens/data_container_in_list_data_first_screen_notifications.dart';
 
 class ListDataFirstScreenNotifications extends StatelessWidget {
   const ListDataFirstScreenNotifications({super.key});

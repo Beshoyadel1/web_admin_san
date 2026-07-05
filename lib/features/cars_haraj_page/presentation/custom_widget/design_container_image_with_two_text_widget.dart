@@ -1,7 +1,8 @@
-import '../../../../../../features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../../../core/theming/colors.dart';
+import '../../../../../../features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
 
 class DesignContainerImageWithTwoTextWidget extends StatelessWidget {
   final String? imagePath, title, subTitle;

@@ -19,6 +19,27 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String insurances = 'insurances';
+  static const String insuranceCompanies = 'insuranceCompanies';
+  static const String allInsuranceCompanies = 'allInsuranceCompanies';
+  static const String paymentMethods = 'paymentMethods';
+  static const String paymentDuration = 'paymentDuration';
+  static const String insuranceMethods = 'insuranceMethods';
+  static const String modelFrom = 'modelFrom';
+  static const String insuranceDirection = 'insuranceDirection';
+  static const String insuranceCategories = 'insuranceCategories';
+  static const String deductiblePercentage = 'deductiblePercentage';
+  static const String startsFrom = 'startsFrom';
+  static const String installments = 'installments';
+  static const String modelTo = 'modelTo';
+  static const String instantApproval = 'instantApproval';
+  static const String personalAccidents = 'personalAccidents';
+  static const String noClaimDiscount = 'noClaimDiscount';
+  static const String maximumLimit = 'maximumLimit';
+  static const String totalInsuranceInstallments = 'totalInsuranceInstallments';
+  static const String transferableBalance = 'transferableBalance';
+  static const String overdueInstallments = 'overdueInstallments';
+  static const String deactivate = 'deactivate';
   static const String loading = 'loading';
   static const String title = 'title';
   static const String titleEn = 'titleEn';
@@ -1079,8 +1100,6 @@ class AppLanguageKeys {
   ////End////
 
   ////Insurance////
-  static const String insuranceOffers = 'insuranceOffers';
-  static const String insuranceOffersOnly = 'insuranceOffers';
   static const String comprehensiveInsurance = 'comprehensiveInsurance';
   static const String thirdPartyInsurance = 'thirdPartyInsurance';
   static const String bestOffer = 'bestOffer';

@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/language/language_cubit/language_cubit.dart';
 import 'package:web_admin_san/core/language/language_cubit/language_states.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
 import 'package:web_admin_san/core/theming/assets.dart';
 import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/statistics_providers_cubit/get_provider_service_statistics_cubit/get_provider_service_statistics_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/statistics_providers_cubit/get_provider_service_statistics_cubit/get_provider_service_statistics_state.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/statistics_providers/widgets/custom_chart.dart';
-import '../../../../../../../../core/theming/fonts.dart';
 
 class ListCustomChart extends StatelessWidget {
   const ListCustomChart({super.key});

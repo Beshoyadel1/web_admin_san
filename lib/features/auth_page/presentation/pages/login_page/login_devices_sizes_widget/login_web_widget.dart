@@ -1,7 +1,8 @@
-import '../../../../../../core/utilies/map_of_all_app.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../../../core/theming/assets.dart';
 import '../../../../../../core/theming/colors.dart';
+import '../../../../../../core/utilies/map_of_all_app.dart';
 import '../login_widgets/login_image.dart';
 import '../login_widgets/login_language_button_widget.dart';
 import '../login_widgets/login_widget.dart';

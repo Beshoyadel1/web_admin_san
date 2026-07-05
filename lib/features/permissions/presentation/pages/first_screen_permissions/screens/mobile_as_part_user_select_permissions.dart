@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import '../../../../../../core/language/language_constant.dart';
+
 import '../../../../../../../features/permissions/presentation/custom_widget/check_box_with_text_widget.dart';
+import '../../../../../../core/language/language_constant.dart';
 
 class MobileAsPartUserSelectPermissions extends StatelessWidget {
   const MobileAsPartUserSelectPermissions({super.key});

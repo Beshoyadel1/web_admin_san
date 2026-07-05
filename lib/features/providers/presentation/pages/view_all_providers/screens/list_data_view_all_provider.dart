@@ -5,11 +5,11 @@ import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_containe
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
-import 'package:web_admin_san/features/providers/presentation/custom_widget/custom_view_all_provider_list_widget.dart';
-import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/page_details_provider.dart';
+import 'package:web_admin_san/features/order_services/presentation/custom_widget/app_pagination.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/get_all_providers_cubit/get_all_providers_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/get_all_providers_cubit/get_all_providers_state.dart';
-import 'package:web_admin_san/features/order_services/presentation/custom_widget/app_pagination.dart';
+import 'package:web_admin_san/features/providers/presentation/custom_widget/custom_view_all_provider_list_widget.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/page_details_provider.dart';
 
 class ListDataViewAllProvider extends StatelessWidget {
   const ListDataViewAllProvider({super.key});

@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import '../../../../../features/auth_page/data/model/create_user_model/employee_wrapper_request.dart';
+
+import 'admin_details_request.dart';
 import 'company_details_request.dart';
 import 'driver_details_request.dart';
-import 'employee_details_request.dart';
 import 'provider_details_request.dart';
-import 'admin_details_request.dart';
 
 class CreateUserRequest {
   final int? userid;

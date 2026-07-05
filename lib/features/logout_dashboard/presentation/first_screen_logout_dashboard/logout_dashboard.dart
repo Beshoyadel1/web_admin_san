@@ -1,13 +1,14 @@
 import 'dart:ui';
-import '../../../../../../../../../features/auth_page/presentation/auth_gate.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../../../../features/auth_page/presentation/auth_gate.dart';
+import '../../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
+import '../../../../../../core/theming/colors.dart';
 import '../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
 import '../../../../../../features/logout_dashboard/presentation/first_screen_logout_dashboard/screens/first_part_in_logout_dashboard.dart';
 import '../../../../../../features/logout_dashboard/presentation/first_screen_logout_dashboard/screens/last_two_button_in_logout_dashboard.dart';
-import '../../../../../../features/auth_page/presentation/pages/login_page/login_page.dart';
-import '../../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
-import '../../../../../../core/theming/colors.dart';
 
 class LogoutDashboard extends StatelessWidget {
   const LogoutDashboard({super.key});

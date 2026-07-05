@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/theming/assets.dart';
 import 'package:web_admin_san/core/theming/colors.dart';
 import 'package:web_admin_san/core/theming/text_styles.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/statistics_providers_cubit/get_provider_total_rate_and_employee_and_balance_cubit/get_provider_total_rate_and_employee_and_balance_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/statistics_providers_cubit/get_provider_total_rate_and_employee_and_balance_cubit/get_provider_total_rate_and_employee_and_balance_state.dart';
-import '../../../../../../../../core/theming/fonts.dart';
+
 import 'employe_widget.dart';
 
 class EmployeesPerformance extends StatelessWidget {

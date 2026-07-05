@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
+import 'package:web_admin_san/core/language/language_cubit/language_cubit.dart';
+
 class ProviderRateModel {
   final ProviderModel provider;
   final int rateCount;
@@ -43,5 +46,13 @@ class ProviderModel {
           ? base64Decode(json['image'])
           : null,
     );
+  }
+  String getTitle(BuildContext context) {
+    final isArabic =
+        LanguageCubit.get(context).isAllAppLanguageArabic;
+
+    return isArabic
+        ? (name ?? "")
+        : (latinName ?? "");
   }
 }

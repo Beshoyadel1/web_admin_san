@@ -11,9 +11,6 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    bool isMobile = size.width <= ValuesOfAllApp.mobileWidth;
-
     return BlocProvider(
       create: (context) => AuthCubit(),
       child: Scaffold(

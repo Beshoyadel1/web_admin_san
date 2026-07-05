@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/setup_git_it.dart';
+
+import '../../../../../core/general_models/pages_model.dart';
 import '../../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../../core/cubit/app_cubit/app_states.dart';
-import '../../../../core/utilies/map_of_all_app.dart';
+import '../../../../core/setup_git_it.dart';
 import '../../../../core/theming/colors.dart';
-import '../../../../main.dart';
-import '../../../../../core/general_models/pages_model.dart';
+import '../../../../core/utilies/map_of_all_app.dart';
 import 'store_widgets/app_bar_for_page.dart';
 import 'store_widgets/dialog_for_back.dart';
 import 'store_widgets/pages_selection_bar.dart';

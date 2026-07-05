@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import '../../../../../../../../../core/utilies/map_of_all_app.dart';
+
 import '../../../../../../../../../core/language/language_constant.dart';
 import '../../../../../../../../../core/theming/colors.dart';
 import '../../../../../../../../../core/theming/fonts.dart';
 import '../../../../../../../../../core/theming/text_styles.dart';
+import '../../../../../../../../../core/utilies/map_of_all_app.dart';
 
 class FirstRowInDataInContainerProfitsFromMinistryOfInteriorServices
     extends StatelessWidget {

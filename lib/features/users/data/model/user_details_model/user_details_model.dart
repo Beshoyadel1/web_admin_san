@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+
 import 'package:web_admin_san/features/internal_services/data/model/get_provider_orders_model/order_model.dart';
 
 class UserDetailsResponse {

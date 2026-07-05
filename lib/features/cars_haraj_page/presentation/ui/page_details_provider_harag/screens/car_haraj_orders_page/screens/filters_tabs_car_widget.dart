@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../../../../features/cars_haraj_page/data/model/filter_orders_model/filter_orders_model.dart';
-import 'filter_design_car_list.dart';
-import '../../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
+
 import '../../../../../../../../../../core/theming/colors.dart';
 import '../../../../../../../../../../core/theming/text_styles.dart';
+import '../../../../../../../../../features/cars_haraj_page/data/model/filter_orders_model/filter_orders_model.dart';
+import '../../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
+import 'filter_design_car_list.dart';
 
 class FiltersTabsCarWidget extends StatefulWidget {
   final int providerID;

@@ -1,20 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/features/auth_page/data/model/create_user_model/admin_details_request.dart';
 
+import '../../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
+import '../../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../../core/theming/text_styles.dart';
 import '../../../../../../../../../features/auth_page/data/datasource/login_datasource/login_repository.dart';
 import '../../../../../../../../../features/auth_page/data/model/create_user_model/create_user_request.dart';
-import '../../../../../../../../../features/auth_page/data/model/create_user_model/employee_details_request.dart';
-import '../../../../../../../../../features/auth_page/data/model/create_user_model/employee_wrapper_request.dart';
 import '../../../../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
 import '../../../../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
 import '../../../../../../../../../features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
 import '../../../../../../../../../features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import '../../../../../../../../../features/store_page/presentation/bloc/facility_cubit/facility_tab_cubit/facility_tab_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
-import '../../../../../../../../../core/language/language_constant.dart';
-import '../../../../../../../../../core/theming/colors.dart';
-import '../../../../../../../../../core/theming/text_styles.dart';
 import '../../general_widgets_in_store/attach_file.dart';
 
 class FacilityDataContent extends StatefulWidget {

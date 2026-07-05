@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:web_admin_san/features/rates/data/model/get_provider_details_rates_model/get_provider_details_rates_model.dart';
-import '../../request/get_provider_details_rates_request/get_provider_details_rates_request.dart';
+
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';
+import '../../request/get_provider_details_rates_request/get_provider_details_rates_request.dart';
 
 Future<ProviderDetailsRatesModel> getProviderDetailsRatesFunction({
   required GetProviderDetailsRatesRequest request,

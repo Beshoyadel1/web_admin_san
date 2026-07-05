@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/snakbar.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/work_time_cubit/work_time_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/work_time_cubit/work_time_state.dart';
-import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/working_hours_providers/screens/working_hours_widget.dart';
+
+import '../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../../core/theming/colors.dart';
 import '../../../../../../../core/theming/fonts.dart';
-import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../../core/theming/text_styles.dart';
-import '../../../../../../../core/language/language_constant.dart';
-import 'package:intl/intl.dart';
 
 class WorkingHoursProviders extends StatefulWidget {
   final int providerID;

@@ -1,18 +1,21 @@
+import 'package:web_admin_san/features/accounts_management/presentation/pages/details_user_accounts_management/details_user_accounts_management.dart';
+import 'package:web_admin_san/features/accounts_management/presentation/pages/view_all_providers_account_management/view_all_providers_account_management.dart';
 import 'package:web_admin_san/features/banner/presentation/pages/first_screen_advertisements_admin_sun/first_screen_advertisements_admin_sun.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/view_car_harag/view_car_harag.dart';
 import 'package:web_admin_san/features/company/presentation/pages/view_all_companies/view_all_companies.dart';
+import 'package:web_admin_san/features/insurance/presentation/pages/view_all_companies_insurance/view_all_companies_insurance.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_statistics/order_services_statistics.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_type/ui/order_services_type_page.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/view_all_providers/view_all_provider.dart';
 import 'package:web_admin_san/features/rates/presentation/pages/view_all_provider_rates/view_all_provider_rates.dart';
 import 'package:web_admin_san/features/users/presentation/pages/view_all_users/view_all_users.dart';
+import '../../../core/general_models/pages_model.dart';
+import '../../../core/language/language_constant.dart';
+import '../../../core/theming/assets.dart';
 import '../../../features/communication_and_policies_pages/presentation/pages/first_screen_communication_and_policies_pages/first_screen_communication_and_policies_pages.dart';
 import '../../../features/logout_dashboard/presentation/first_screen_logout_dashboard/logout_dashboard.dart';
 import '../../../features/store_page/presentation/pages/store_widgets/facility_account/facility_account.dart';
 import '../../../features/technical_support/presentation/pages/technical_support_emp/technical_support_admin_sun.dart';
-import '../../../core/general_models/pages_model.dart';
-import '../../../core/language/language_constant.dart';
-import '../../../core/theming/assets.dart';
 
 class AppStatesApi {
   static const String phoneExist = 'PhoneExist';
@@ -99,7 +102,6 @@ class PagesOfAllApp {
   static const String carModelsPage = 'Car_Models_Page';
   static const int carModelsPageNumber = 314;
 
-  static const String InternalServices = 'Service_Settings_Page';
   static const int internalServicesPageNumber = 315;
 
   static const String sparePage = 'Spare_Page';
@@ -219,8 +221,10 @@ class PagesOfAllApp {
   static const int viewAllUsersNumber = 541;
   static const int viewAllCarsHarajNumber = 542;
   static const int viewAllCompaniesNumber = 543;
+  static const int viewAllCompaniesInsuranceNumber = 544;
+  static const int viewAllAccountManagementNumber = 545;
 
-//ViewAllCompanies
+//FirstScreenAccountsManagementAdminSun
 }
 List<PageNodeModel> appPages = [];
 
@@ -238,6 +242,18 @@ void getPages() {
       number: PagesOfAllApp.dashboardOrderPageNumber,
       image: AppImageKeys.pages,
       page: OrderServicesTypePage(),
+    ),
+    const PageNodeModel(
+      name: AppLanguageKeys.accountManagement,
+      number: PagesOfAllApp.viewAllAccountManagementNumber,
+      image: AppImageKeys.wallet,
+      page: ViewAllProvidersAccountManagement(),
+    ),
+    const PageNodeModel(
+      name: AppLanguageKeys.insurances,
+      number: PagesOfAllApp.viewAllCompaniesInsuranceNumber,
+      image: AppImageKeys.spare,
+      page: ViewAllCompaniesInsurance(),
     ),
     const PageNodeModel(
       name: AppLanguageKeys.companies,

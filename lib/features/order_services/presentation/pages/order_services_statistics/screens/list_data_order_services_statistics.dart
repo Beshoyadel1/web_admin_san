@@ -8,8 +8,6 @@ import 'package:web_admin_san/features/order_services/presentation/pages/order_s
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_statistics/screens/part_two_screen_first_screen_order_services_statistics/container_maintenance_stats/container_maintenance_stats.dart';
 import '../../../../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../../../../core/utilies/map_of_all_app.dart';
-import '../../../../../../features/internal_services/presentation/cubit/loading_dashboard/loading_dashboard_cubit.dart';
-import '../../../../../../features/internal_services/presentation/cubit/loading_dashboard/loading_dashboard_state.dart';
 import '../../../../../../features/order_services/presentation/pages/order_services_statistics/screens/big_container_of_new_order_services_statistics/container_new_order_in_list_data_first_screen_order_services_statistics.dart';
 import '../../../../../../features/order_services/presentation/pages/order_services_statistics/screens/container_image_title_with_sub_title_order_services_statistics/first_row_with_two_container_image_and_two_text_order_services_statistics.dart';
 
@@ -22,9 +20,7 @@ class ListDataOrderServicesStatistics extends StatelessWidget {
     bool isMobileCustom = size.width <= 720;
     bool isMobile = size.width <= ValuesOfAllApp.mobileWidth+200&&
         size.width>720;
-    bool isTabletCustom = size.width > ValuesOfAllApp.mobileWidth &&
-        size.width <= ValuesOfAllApp.customTabWidth;
-    bool isTab = size.width > ValuesOfAllApp.tabWidth;
+
     return BlocBuilder<AdminDashboardStatisticsCubit, AdminDashboardStatisticsState>(
       builder: (context, state) {
         return  Column(

@@ -7,8 +7,6 @@ import 'package:web_admin_san/core/theming/text_styles.dart';
 import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info_cubit/get_user_info_state.dart';
 import 'package:web_admin_san/features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
-import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
-import 'package:web_admin_san/features/providers/presentation/custom_widget/read_only_image_card.dart';
 
 class BankAccountProvider extends StatelessWidget {
   final int providerID;

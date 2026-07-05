@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:web_admin_san/core/language/language_cubit/language_cubit.dart';
 import 'package:web_admin_san/features/rates/data/model/get_provider_details_rates_model/rate_item.dart';
 
 
@@ -29,5 +31,14 @@ class ServiceRates {
           .map((e) => RateItem.fromJson(e))
           .toList(),
     );
+  }
+
+  String getTitle(BuildContext context) {
+    final isArabic =
+        LanguageCubit.get(context).isAllAppLanguageArabic;
+
+    return isArabic
+        ? (name ?? "")
+        : (latinName ?? "");
   }
 }

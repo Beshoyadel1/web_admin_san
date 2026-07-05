@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/pages_widgets/button_widget.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/snakbar.dart';
@@ -8,9 +9,8 @@ import 'package:web_admin_san/core/theming/fonts.dart';
 import 'package:web_admin_san/features/communication_and_policies_pages/data/model/get_all_pages_about_model/get_all_pages_about_model.dart';
 import 'package:web_admin_san/features/communication_and_policies_pages/presentation/cubit/all_pages_about_cubit/all_pages_about_cubit.dart';
 import 'package:web_admin_san/features/communication_and_policies_pages/presentation/cubit/all_pages_about_cubit/all_pages_about_state.dart';
-import 'package:web_admin_san/features/communication_and_policies_pages/presentation/custom_widget/tab_communication_and_policies_widget.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/features/communication_and_policies_pages/presentation/custom_widget/first_name_textfield_personal_data_widget.dart';
+import 'package:web_admin_san/features/communication_and_policies_pages/presentation/custom_widget/tab_communication_and_policies_widget.dart';
 
 class CommunicationTabs extends StatelessWidget {
   const CommunicationTabs({super.key});

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/features/company/data/datasource/get_driver_details_datasource/get_driver_details_datasource.dart';
 import 'package:web_admin_san/features/company/data/model/get_driver_details_model/get_driver_details_model.dart';
 import 'package:web_admin_san/features/company/data/request/get_driver_details_request/get_driver_details_request.dart';
+
 import 'get_driver_details_state.dart';
 
 class GetDriverDetailsCubit extends Cubit<GetDriverDetailsState> {

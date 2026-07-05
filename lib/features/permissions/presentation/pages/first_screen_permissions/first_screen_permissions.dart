@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../features/permissions/presentation/pages/first_screen_permissions/screens/list_data_first_screen_permissions.dart';
+
 import '../../../../../../core/utilies/map_of_all_app.dart';
+import '../../../../../../features/permissions/presentation/pages/first_screen_permissions/screens/list_data_first_screen_permissions.dart';
 
 class FirstScreenPermissions extends StatelessWidget {
   const FirstScreenPermissions({super.key});

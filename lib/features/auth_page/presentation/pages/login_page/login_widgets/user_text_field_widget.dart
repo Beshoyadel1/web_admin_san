@@ -314,12 +314,12 @@ class PhoneTextField extends StatelessWidget {
 
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.darkGreyColor),
+                borderSide: const BorderSide(color: AppColors.darkGreyColor),
               ),
 
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: AppColors.darkGreyColor),
+                borderSide: const BorderSide(color: AppColors.darkGreyColor),
               ),
 
               border: OutlineInputBorder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../../../../features/permissions/presentation/bloc/check_box_with_text_cubit.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/fonts.dart';

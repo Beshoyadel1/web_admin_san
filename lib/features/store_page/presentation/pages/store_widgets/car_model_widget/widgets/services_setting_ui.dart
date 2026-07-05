@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
-import '../../../../../../../core/theming/colors.dart';
-import '../../../../../../../core/theming/text_styles.dart';
-import '../../../../../../../core/theming/fonts.dart';
+
 import '../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../../core/theming/assets.dart';
+import '../../../../../../../core/theming/colors.dart';
+import '../../../../../../../core/theming/fonts.dart';
+import '../../../../../../../core/theming/text_styles.dart';
 
 class ServicesSettingUi extends StatelessWidget {
   const ServicesSettingUi({super.key});

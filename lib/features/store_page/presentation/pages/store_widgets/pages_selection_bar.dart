@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../../../core/cubit/app_cubit/app_states.dart';
 import '../../../../../core/setup_git_it.dart';
-import '../../../../../core/utilies/map_of_all_app.dart';
 import '../../../../../core/theming/assets.dart';
 import '../../../../../core/theming/colors.dart';
+import '../../../../../core/utilies/map_of_all_app.dart';
 import 'column_of_pages_widget.dart';
 
 class PagesSelectionBar extends StatefulWidget {

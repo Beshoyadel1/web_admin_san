@@ -4,8 +4,9 @@ import 'package:web_admin_san/features/providers/data/model/facility_provider_mo
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/facility_tab_provider_cubit/facility_tab_provider_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/facility_tab_provider_cubit/facility_tab_provider_state.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/tabs_widget_provider.dart';
-import '../../../../../../core/theming/colors.dart';
+
 import '../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../core/theming/colors.dart';
 
 class PageDetailsProvider extends StatelessWidget {
   final int providerID;

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import '../../../../../../../../../features/internal_services/data/model/get_provider_orders_model/order_model.dart';
 
 abstract class GetProviderInternalOrderState extends Equatable {

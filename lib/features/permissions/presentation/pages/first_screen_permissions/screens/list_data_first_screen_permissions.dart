@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../features/permissions/presentation/pages/first_screen_permissions/screens/data_container_in_list_data_first_screen_permissions.dart';
+
 import '../../../../../../core/theming/colors.dart';
+import '../../../../../../features/permissions/presentation/pages/first_screen_permissions/screens/data_container_in_list_data_first_screen_permissions.dart';
 
 class ListDataFirstScreenPermissions extends StatelessWidget {
   const ListDataFirstScreenPermissions({super.key});

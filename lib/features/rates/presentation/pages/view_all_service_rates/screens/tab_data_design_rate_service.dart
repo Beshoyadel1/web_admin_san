@@ -74,7 +74,7 @@ class TabDataDesignRateService extends StatelessWidget {
                     },
                     child: CustomTabSelectRateService(
                       imagePath: service.image,
-                      title: service.name ?? '',
+                      title: service.getName(context) ?? '',
                       isSelect: !cubit.isAllServicesSelected &&
                           cubit.selectedService?.id == service.id,
                     ),

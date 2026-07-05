@@ -6,12 +6,11 @@ import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_containe
 import 'package:web_admin_san/core/theming/colors.dart';
 import 'package:web_admin_san/core/theming/text_styles.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/order_companies/screens/filters_tabs_companies_widget.dart';
-import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/order_providers/screens/filters_tabs_provider_widget.dart';
+
 import '../../../../../../../../../features/cars_haraj_page/data/model/filter_orders_model/filter_orders_model.dart';
 import '../../../../../../../../../features/cars_haraj_page/data/model/internal_orders_filter/internal_orders_filter.dart';
 import '../../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_state.dart';
 import '../../../../../../../../../features/internal_services/presentation/cubit/tabs_cubit/tabs_cubit.dart';
-import '../../../../../../../../../features/internal_services/presentation/pages/internal_services_statistics/Internal_services_page/widgets/filters_tabs_widget.dart';
 
 
 

@@ -1,12 +1,13 @@
-import '../../../../../../../../../features/store_page/presentation/bloc/cars_model_cubit/car_model_cubit/car_model_cubit.dart';
-import '../../../../../../../../../features/store_page/presentation/bloc/cars_model_cubit/car_model_cubit/car_model_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../core/theming/colors.dart';
-import '../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+
+import '../../../../../../../../../features/store_page/presentation/bloc/cars_model_cubit/car_model_cubit/car_model_cubit.dart';
+import '../../../../../../../../../features/store_page/presentation/bloc/cars_model_cubit/car_model_cubit/car_model_state.dart';
 import '../../../../../../core/language/language_constant.dart';
-import 'widgets/body_car_model.dart';
+import '../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../core/theming/colors.dart';
 import '../navigator_button.dart';
+import 'widgets/body_car_model.dart';
 
 class CarModelWidget extends StatelessWidget {
   const CarModelWidget({super.key});

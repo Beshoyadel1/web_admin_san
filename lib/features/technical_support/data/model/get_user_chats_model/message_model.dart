@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+
 import 'last_message_model.dart';
 
 class MessageModel {

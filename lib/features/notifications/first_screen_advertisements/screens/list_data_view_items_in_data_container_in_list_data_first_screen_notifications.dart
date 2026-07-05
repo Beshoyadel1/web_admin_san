@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import '../../../../../../core/language/language_constant.dart';
-import '../../../../../../core/theming/assets.dart';
 
 class ListDataViewItemsInDataContainerInListDataFirstScreenNotifications
     extends StatelessWidget {

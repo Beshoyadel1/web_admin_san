@@ -1,5 +1,6 @@
-import '../../../features/internal_services/data/model/new_order_steps_model/new_order_steps_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../features/internal_services/data/model/new_order_steps_model/new_order_steps_model.dart';
 import 'new_orders_state.dart';
 
 class NewOrdersCubit extends Cubit<NewOrdersState> {

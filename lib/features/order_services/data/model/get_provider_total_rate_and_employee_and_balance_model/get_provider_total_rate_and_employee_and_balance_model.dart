@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../core/language/language_cubit/language_cubit.dart';
 
 class GetProviderTotalRateAndEmployeeAndBalanceModel {

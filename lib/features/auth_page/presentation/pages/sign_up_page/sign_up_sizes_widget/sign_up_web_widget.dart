@@ -1,6 +1,6 @@
-import '../../../../../../core/utilies/map_of_all_app.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../core/utilies/map_of_all_app.dart';
 import '../../login_page/login_widgets/login_image.dart';
 import 'sign_up_mobile_widget.dart';
 

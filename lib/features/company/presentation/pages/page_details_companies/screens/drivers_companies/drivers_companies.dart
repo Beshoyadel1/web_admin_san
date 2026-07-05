@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/features/company/presentation/bloc/get_driver_details_cubit/get_driver_details_cubit.dart';
-import 'package:web_admin_san/features/company/presentation/custom_widget/widget_design_list_drivers.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
+import 'package:web_admin_san/core/theming/colors.dart';
 import 'package:web_admin_san/features/company/presentation/bloc/get_company_drivers_cubit/get_company_drivers_cubit.dart';
 import 'package:web_admin_san/features/company/presentation/bloc/get_company_drivers_cubit/get_company_drivers_state.dart';
+import 'package:web_admin_san/features/company/presentation/bloc/get_driver_details_cubit/get_driver_details_cubit.dart';
+import 'package:web_admin_san/features/company/presentation/custom_widget/widget_design_list_drivers.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/drivers_companies/driver_details_page.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 

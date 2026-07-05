@@ -1,20 +1,15 @@
-import '../../../../../../../../../features/order_status_design/presentation/custom_widget/container_return_to_page_setting.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../../../core/api/dio_function/api_constants.dart';
-import '../../../../data/request/update_order_status_request/update_order_status_request.dart';
+
 import '../../../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
+import '../../../../../../../../features/internal_services/data/model/get_provider_orders_model/order_model.dart';
 import '../../../../../../../../features/order_status_design/presentation/cubit/order_status_cubit/order_status_cubit.dart';
 import '../../../../../../../../features/order_status_design/presentation/cubit/order_status_cubit/order_status_state.dart';
-import '../../../../../../../../features/internal_services/data/model/get_provider_orders_model/order_model.dart';
-import '../../../../../../features/order_status_design/presentation/pages/order_details_new_order_emp/screens/custom_container_order.dart';
 import '../../../../../../core/language/language_constant.dart';
-import '../../../../../../features/order_status_design/presentation/custom_widget/container_sold.dart';
 import '../../../../../../features/order_status_design/presentation/custom_widget/title_with_sub_title_in_order_details_emp.dart';
+import '../../../../../../features/order_status_design/presentation/pages/order_details_new_order_emp/screens/custom_container_order.dart';
 import '../../../../../../features/order_status_design/presentation/pages/order_details_under_service_emp/screens/part_left_screen/container_contact_with_customer_order_details_under_service_emp.dart';
 import '../../../../../../features/order_status_design/presentation/pages/order_details_under_service_emp/screens/part_left_screen/data_time_line_tile_order_details_under_service_emp.dart';
-import '../../../../../../core/theming/colors.dart';
 
 class DataContainerInListOrderDetailsUnderServiceEmp extends StatelessWidget {
   final OrderModel order;

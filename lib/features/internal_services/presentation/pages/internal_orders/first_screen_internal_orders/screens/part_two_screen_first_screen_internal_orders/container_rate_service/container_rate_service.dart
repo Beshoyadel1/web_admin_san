@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import '../../../../../../../../../features/internal_services/presentation/pages/internal_orders/first_screen_internal_orders/screens/part_two_screen_first_screen_internal_orders/container_rate_service/data_in_container_rate_service.dart';
+
 import '../../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../../features/internal_services/presentation/pages/internal_orders/first_screen_internal_orders/screens/part_two_screen_first_screen_internal_orders/container_rate_service/data_in_container_rate_service.dart';
 
 class ContainerRateService extends StatelessWidget {
   const ContainerRateService({super.key});

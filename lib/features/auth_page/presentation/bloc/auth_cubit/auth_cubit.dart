@@ -1,6 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/language/language_constant.dart';
 import '../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
@@ -10,17 +14,13 @@ import '../../../../../features/auth_page/data/datasource/check_if_user_exist_or
 import '../../../../../features/auth_page/data/datasource/create_user_datasource/create_user_repository.dart';
 import '../../../../../features/auth_page/data/datasource/login_datasource/login_repository.dart';
 import '../../../../../features/auth_page/data/datasource/update_user_datasource/update_user_repository.dart';
-import '../../../../../features/auth_page/data/request/change_password_request/change_password_request.dart';
-import '../../../../../features/auth_page/data/request/check_if_user_exist_request/check_if_user_exist_request.dart';
-import '../../../../../features/auth_page/data/request/check_if_user_exist_or_not_request/check_if_user_exist_or_not_request.dart';
 import '../../../../../features/auth_page/data/model/create_user_model/create_user_request.dart';
+import '../../../../../features/auth_page/data/request/change_password_request/change_password_request.dart';
+import '../../../../../features/auth_page/data/request/check_if_user_exist_or_not_request/check_if_user_exist_or_not_request.dart';
+import '../../../../../features/auth_page/data/request/check_if_user_exist_request/check_if_user_exist_request.dart';
 import '../../../../../features/auth_page/data/request/login_request/login_request.dart';
 import '../../../../../features/auth_page/domain/validate/facility_validator.dart';
 import '../../../../../features/auth_page/presentation/pages/change_password/change_password_page.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -325,7 +325,7 @@ class AuthCubit extends Cubit<AuthState> {
           ),
         );
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
 
       if (isClosed) return;
 

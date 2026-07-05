@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/features/order_services/data/datasource/get_orders_datasource/get_orders_repository.dart';
 import 'package:web_admin_san/features/order_services/data/request/get_orders_request/get_orders_request.dart';
+
 import 'get_order_state.dart';
 
 class GetOrderCubit extends Cubit<GetOrderState> {
@@ -30,7 +31,7 @@ class GetOrderCubit extends Cubit<GetOrderState> {
           ),
         );
       }
-    } catch (e, s) {
+    } catch (e) {
 
       if (!isClosed) {
         emit(GetOrderError(e.toString()));

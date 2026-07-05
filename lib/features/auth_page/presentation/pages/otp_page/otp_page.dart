@@ -6,7 +6,6 @@ import '../../../../../../core/language/language_constant.dart';
 import '../../../../../../core/theming/fonts.dart';
 import '../../../../../../core/theming/text_styles.dart';
 import '../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
-import 'package:flutter/cupertino.dart';
 
 
 class OtpPage extends StatefulWidget {

@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:web_admin_san/features/banner/data/model/delete_banner_model/delete_banner_model.dart';
+
 import '../../../../../core/api/dio_function/api_constants.dart';
-import '../../../../../core/pages_widgets/general_widgets/snakbar.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';
+import '../../../../../core/pages_widgets/general_widgets/snakbar.dart';
 
 
 Future<void> deleteBannerFunction({

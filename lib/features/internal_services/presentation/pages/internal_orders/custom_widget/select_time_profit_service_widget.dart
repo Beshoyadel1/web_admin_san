@@ -1,9 +1,10 @@
-import '../../../../../../features/permissions/presentation/bloc/option_dashboard_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../../core/theming/colors.dart';
 import '../../../../../../core/theming/fonts.dart';
 import '../../../../../../core/theming/text_styles.dart';
+import '../../../../../../features/permissions/presentation/bloc/option_dashboard_cubit.dart';
 
 class SelectTimeProfitServiceWidget extends StatefulWidget {
   final String hint;

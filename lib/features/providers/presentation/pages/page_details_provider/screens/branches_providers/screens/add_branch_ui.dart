@@ -7,11 +7,9 @@ import 'package:web_admin_san/core/pages_widgets/text_form_field_widget.dart';
 import 'package:web_admin_san/core/theming/colors.dart';
 import 'package:web_admin_san/core/theming/text_styles.dart';
 import 'package:web_admin_san/features/providers/data/model/facility_provider_model/get_provider_branches_model/provider_branch_model.dart';
-import 'package:web_admin_san/features/providers/data/request/facility_provider_request/add_branch_request/add_branch_request.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/branch_cubit/branch_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/branch_cubit/branch_state.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/location_provider_cubit/location_provider_cubit.dart';
-import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/location_provider_cubit/location_provider_state.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/branches_providers/screens/square_map_provider_widget.dart';
 
 

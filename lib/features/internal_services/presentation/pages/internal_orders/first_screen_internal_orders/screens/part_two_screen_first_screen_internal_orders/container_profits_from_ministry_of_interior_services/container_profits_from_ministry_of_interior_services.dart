@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import '../../../../../../../../../features/internal_services/presentation/pages/internal_orders/first_screen_internal_orders/screens/part_two_screen_first_screen_internal_orders/container_profits_from_ministry_of_interior_services/data_in_container_profits_from_ministry_of_interior_services.dart';
+
 import '../../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../../features/internal_services/presentation/pages/internal_orders/first_screen_internal_orders/screens/part_two_screen_first_screen_internal_orders/container_profits_from_ministry_of_interior_services/data_in_container_profits_from_ministry_of_interior_services.dart';
 
 class ContainerProfitsFromMinistryOfInteriorServices extends StatelessWidget {
   const ContainerProfitsFromMinistryOfInteriorServices({super.key});

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../../core/general_models/pages_model.dart';
+
 import '../../../../../core/cubit/app_cubit/app_cubit.dart';
-import 'expansion_tile_widget.dart';
-import 'general_widgets_in_store/function_add_to_opened_pages.dart';
+import '../../../../../core/general_models/pages_model.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/fonts.dart';
 import '../../../../../core/theming/text_styles.dart';
+import 'expansion_tile_widget.dart';
+import 'general_widgets_in_store/function_add_to_opened_pages.dart';
 
 class ColumnOfPagesWidget extends StatelessWidget {
   const ColumnOfPagesWidget({

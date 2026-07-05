@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
-import '../../response/get_provider_harage_sales_chart_response/get_provider_harage_data_points_response.dart';
-import '../../request/get_provider_harage_sales_chart_request/get_provider_harage_sales_chart_request.dart';
+
 import '../../../../../core/api/dio_function/api_constants.dart';
-import '../../../../../core/pages_widgets/general_widgets/snakbar.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';
+import '../../../../../core/pages_widgets/general_widgets/snakbar.dart';
+import '../../request/get_provider_harage_sales_chart_request/get_provider_harage_sales_chart_request.dart';
+import '../../response/get_provider_harage_sales_chart_response/get_provider_harage_data_points_response.dart';
 
 Future<GetProviderHarageDataPointsResponse?> getProviderHarageSalesChartFunction({
   required GetProviderHarageSalesChartRequest getProviderHarageSalesChartRequest,

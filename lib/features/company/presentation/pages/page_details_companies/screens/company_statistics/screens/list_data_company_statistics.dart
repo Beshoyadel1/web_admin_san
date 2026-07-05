@@ -6,8 +6,7 @@ import 'package:web_admin_san/features/company/presentation/pages/page_details_c
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/company_statistics/screens/part_two_screen_first_screen_company_statistics/container_service_chart_company/container_service_chart_company.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/company_statistics/screens/part_two_screen_first_screen_company_statistics/petrol_consumption_company/container_petrol_consumption_company.dart';
 import 'package:web_admin_san/features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_state.dart';
-import 'package:web_admin_san/features/order_services/presentation/cubit/admin_dashboard_statistics_cubit/admin_dashboard_statistics_cubit.dart';
-import 'package:web_admin_san/features/order_services/presentation/cubit/admin_dashboard_statistics_cubit/admin_dashboard_statistics_state.dart';
+
 import '../../../../../../../../core/utilies/map_of_all_app.dart';
 
 class ListDataCompanyStatistics extends StatelessWidget {

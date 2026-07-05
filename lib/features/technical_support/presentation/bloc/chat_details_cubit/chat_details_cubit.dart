@@ -1,11 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../../../../features/technical_support/data/model/get_chat_messages_model/chat_details_model.dart';
-import '../../../../../../../../../features/technical_support/data/datasource/get_chat_messages_datasource/get_chat_messages_repository.dart';
-import '../../../../../../../../../features/technical_support/data/request/get_chat_messages_request/get_chat_messages_request.dart';
-import '../../../../../../../../../features/technical_support/data/datasource/send_message_datasource/send_message_repository.dart';
-import '../../../../../../../../../features/technical_support/data/model/get_chat_messages_model/message_item_model.dart';
-import '../../../../../../../../../features/technical_support/data/request/send_message_request/send_message_request.dart';
+
 import '../../../../../../../../../features/auth_page/data/datasource/login_datasource/login_repository.dart';
+import '../../../../../../../../../features/technical_support/data/datasource/get_chat_messages_datasource/get_chat_messages_repository.dart';
+import '../../../../../../../../../features/technical_support/data/datasource/send_message_datasource/send_message_repository.dart';
+import '../../../../../../../../../features/technical_support/data/model/get_chat_messages_model/chat_details_model.dart';
+import '../../../../../../../../../features/technical_support/data/model/get_chat_messages_model/message_item_model.dart';
+import '../../../../../../../../../features/technical_support/data/request/get_chat_messages_request/get_chat_messages_request.dart';
+import '../../../../../../../../../features/technical_support/data/request/send_message_request/send_message_request.dart';
 import 'chat_details_state.dart';
 
 class ChatDetailsCubit extends Cubit<ChatDetailsState> {

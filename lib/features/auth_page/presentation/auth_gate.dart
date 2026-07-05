@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
 import '../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
 import '../../../../../../features/auth_page/presentation/pages/login_page/login_page.dart';
 import '../../../../../../features/store_page/presentation/pages/store_widgets/facility_account/facility_account_check.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../store_page/presentation/pages/store_page.dart';
 
 class AuthGate extends StatefulWidget {

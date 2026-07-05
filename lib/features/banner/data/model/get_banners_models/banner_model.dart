@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'dart:convert';
-import 'dart:typed_data';
-
 class BannerModel {
   final int? imageId;
   final Uint8List? image;

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+
 import '../../../../../../../../../core/theming/assets.dart';
 
 class SecondRowInDataInContainerRateService extends StatelessWidget {

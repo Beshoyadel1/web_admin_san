@@ -1,5 +1,5 @@
-import '../../../../../../features/cars_haraj_page/data/model/get_all_harage_model/user_model.dart';
 import '../../../../../../features/cars_haraj_page/data/model/get_all_harage_model/car_model.dart';
+import '../../../../../../features/cars_haraj_page/data/model/get_all_harage_model/user_model.dart';
 
 class HarageData {
   final int? id;

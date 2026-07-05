@@ -11,7 +11,8 @@ import '../../../core/theming/colors.dart';
 import '../../../core/language/language.dart';
 import '../../../core/setup_git_it.dart';
 
-final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+final GlobalKey<ScaffoldMessengerState> scaffoldKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 void main() {
   setupGetIt();
@@ -20,9 +21,8 @@ void main() {
       providers: [
         BlocProvider<LanguageCubit>(
           create: (_) =>
-          getIt<LanguageCubit>()..getLanguageFromSharedPreference(),
+              getIt<LanguageCubit>()..getLanguageFromSharedPreference(),
         ),
-
         BlocProvider<AuthCubit>(
           create: (_) => AuthCubit()..init(),
         ),
@@ -37,10 +37,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-      final width = MediaQuery.of(context).size.width;
-      print("📱 Screen width = $width");
-    // });
+    final width = MediaQuery.of(context).size.width;
+    print("📱 Screen width = $width");
     return BlocProvider(
       create: (BuildContext context) => getIt<AppCubit>(),
       child: BlocBuilder<LanguageCubit, LanguageStates>(
@@ -66,7 +64,7 @@ class MyApp extends StatelessWidget {
                 PointerDeviceKind.unknown
               },
             ),
-            title: 'San Employee System',
+            title: 'San Admin System',
             theme: ThemeData(
               scaffoldBackgroundColor: AppColors.lightWhiteColor,
               useMaterial3: true,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../../core/theming/colors.dart';
 
 class HomePageWidget extends StatelessWidget {

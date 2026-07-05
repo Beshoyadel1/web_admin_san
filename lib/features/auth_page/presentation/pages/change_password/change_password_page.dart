@@ -1,17 +1,18 @@
-import '../../../../../features/auth_page/data/request/change_password_request/change_password_request.dart';
-import '../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
-import '../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
-import '../../../../../features/auth_page/presentation/pages/login_page/login_widgets/login_button_widget.dart';
-import '../../../../../features/auth_page/presentation/pages/login_page/login_widgets/login_image.dart';
-import '../../../../../features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../core/language/language_constant.dart';
 import '../../../../../core/pages_widgets/general_widgets/snakbar.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/fonts.dart';
 import '../../../../../core/theming/text_styles.dart';
 import '../../../../../core/utilies/map_of_all_app.dart';
+import '../../../../../features/auth_page/data/request/change_password_request/change_password_request.dart';
+import '../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
+import '../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
+import '../../../../../features/auth_page/presentation/pages/login_page/login_widgets/login_button_widget.dart';
+import '../../../../../features/auth_page/presentation/pages/login_page/login_widgets/login_image.dart';
+import '../../../../../features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
 
 
 

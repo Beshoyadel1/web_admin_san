@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../../../../../features/internal_services/data/model/get_provider_orders_model/order_model.dart';
 import '../../../../../../../../features/order_status_design/presentation/pages/order_details_reject_by_provider_order_emp/screens/list_data_order_details_reject_by_provider_order_emp.dart';
 import '../../../../../../../../features/order_status_design/presentation/pages/order_details_reject_by_provider_order_emp/screens/part_left_screen/data_part_left_screen_order_details_reject_by_provider_order_emp.dart';
-import '../../../../../core/utilies/map_of_all_app.dart';
 import '../../../../../core/theming/colors.dart';
+import '../../../../../core/utilies/map_of_all_app.dart';
 
 class OrderDetailsRejectByProviderOrderEmp extends StatelessWidget {
   final OrderModel order;

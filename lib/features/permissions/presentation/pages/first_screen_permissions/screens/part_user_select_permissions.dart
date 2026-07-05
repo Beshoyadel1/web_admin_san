@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+
 import '../../../../../../../core/utilies/map_of_all_app.dart';
 import '../../../../../../../features/permissions/presentation/pages/first_screen_permissions/screens/mobile_as_part_user_select_permissions.dart';
 import '../../../../../../../features/permissions/presentation/pages/first_screen_permissions/screens/web_as_part_user_select_permissions.dart';
