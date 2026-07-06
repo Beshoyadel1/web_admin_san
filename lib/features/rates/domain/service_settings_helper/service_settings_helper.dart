@@ -1,4 +1,4 @@
-import 'package:web_admin_san/features/rates/data/model/get_services_model/service_setting_model.dart';
+import '../../../../../../features/rates/data/model/get_services_model/service_setting_model.dart';
 
 class ServiceSettingsHelper {
   static List<ServiceSettingModel> filterByParentId({
@@ -14,5 +14,4 @@ class ServiceSettingsHelper {
   }) {
     return isArabic ? service.name ?? '' : service.latinName ?? '';
   }
-
 }

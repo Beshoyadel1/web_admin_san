@@ -13,7 +13,7 @@ import '../../../../../../features/accounts_management/presentation/bloc/wallet_
 import '../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/row_text_icon_orange.dart';
 
 class AccountBalance extends StatelessWidget {
-  final GetAllProvidersModels providerDetailsRequest;
+  final ProviderDetailsRequest providerDetailsRequest;
   const AccountBalance({super.key,required this.providerDetailsRequest});
 
   @override

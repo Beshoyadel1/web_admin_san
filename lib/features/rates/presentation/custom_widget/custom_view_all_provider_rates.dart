@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
-
+import '../../../../../../core/theming/fonts.dart';
+import '../../../../../../features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
 import '../../../../../../core/language/language_constant.dart';
 import '../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../core/theming/assets.dart';

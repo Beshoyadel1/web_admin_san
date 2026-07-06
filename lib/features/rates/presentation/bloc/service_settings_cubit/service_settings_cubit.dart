@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/features/rates/data/datasource/get_services_datasource/get_services_repository.dart';
-import 'package:web_admin_san/features/rates/data/model/get_services_model/service_setting_model.dart';
-import 'package:web_admin_san/features/rates/domain/service_settings_helper/service_settings_helper.dart';
-import 'package:web_admin_san/features/rates/presentation/bloc/service_settings_cubit/service_settings_state.dart';
+import '../../../../../../features/rates/data/datasource/get_services_datasource/get_services_repository.dart';
+import '../../../../../../features/rates/data/model/get_services_model/service_setting_model.dart';
+import '../../../../../../features/rates/domain/service_settings_helper/service_settings_helper.dart';
+import '../../../../../../features/rates/presentation/bloc/service_settings_cubit/service_settings_state.dart';
 
 class ServiceSettingsCubit extends Cubit<ServiceSettingsState> {
   ServiceSettingsCubit() : super(ServiceSettingsInitial());

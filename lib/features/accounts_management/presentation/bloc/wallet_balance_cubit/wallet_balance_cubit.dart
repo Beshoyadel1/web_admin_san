@@ -1,10 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:web_admin_san/features/auth_page/data/model/create_user_model/provider_details_request.dart';
-import 'package:web_admin_san/features/providers/data/model/get_all_providers_models/get_all_providers_models/get_all_providers_models.dart';
 import '../../../../../../../features/accounts_management/data/request/get_wallet_balance_request/get_wallet_balance_request.dart';
 import '../../../../../../../features/accounts_management/presentation/bloc/wallet_balance_cubit/wallet_balance_state.dart';
-import '../../../../../../../features/auth_page/data/datasource/login_datasource/login_repository.dart';
 import '../../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../../core/api/dio_function/failures.dart';
@@ -15,7 +13,7 @@ class WalletBalanceCubit extends Cubit<WalletBalanceState> {
 
   Future<void> getWalletBalance(
   {
-    required GetAllProvidersModels providerDetailsRequest
+    required ProviderDetailsRequest providerDetailsRequest
 }
       ) async {
 
@@ -24,7 +22,7 @@ class WalletBalanceCubit extends Cubit<WalletBalanceState> {
     try {
 
       final request = GetWalletBalanceRequest(
-        userId: providerDetailsRequest.providerId??5,
+        userId: providerDetailsRequest.id??5,
         userType: UserType.providerUser,
       );
 

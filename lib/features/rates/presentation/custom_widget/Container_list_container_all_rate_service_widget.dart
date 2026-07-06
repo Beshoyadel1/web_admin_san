@@ -1,13 +1,5 @@
 import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '../../../../../../core/theming/colors.dart';
-import '../../../../../../core/theming/fonts.dart';
-import '../../../../../../core/theming/text_styles.dart';
-
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../../../../../core/theming/colors.dart';

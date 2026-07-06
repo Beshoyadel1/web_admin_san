@@ -6,7 +6,7 @@ import 'package:web_admin_san/features/providers/data/model/get_all_providers_mo
 import '../../../../../../core/theming/colors.dart';
 
 class ContainerDetailsUserAccountsManagement extends StatelessWidget {
-  final GetAllProvidersModels providerDetailsRequest;
+  final ProviderDetailsRequest providerDetailsRequest;
   const ContainerDetailsUserAccountsManagement({super.key,required this.providerDetailsRequest});
 
   @override

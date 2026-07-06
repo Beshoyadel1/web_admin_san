@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
-import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
-import 'package:web_admin_san/features/rates/presentation/bloc/providers_rate_cubit/providers_rate_cubit.dart';
-import 'package:web_admin_san/features/rates/presentation/bloc/providers_rate_cubit/providers_rate_state.dart';
-import 'package:web_admin_san/features/rates/presentation/custom_widget/custom_view_all_provider_rates.dart';
-import 'package:web_admin_san/features/rates/presentation/pages/view_all_service_rates/view_all_service_rates.dart';
+import '../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
+import '../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
+import '../../../../../../features/rates/presentation/bloc/providers_rate_cubit/providers_rate_cubit.dart';
+import '../../../../../../features/rates/presentation/bloc/providers_rate_cubit/providers_rate_state.dart';
+import '../../../../../../features/rates/presentation/custom_widget/custom_view_all_provider_rates.dart';
+import '../../../../../../features/rates/presentation/pages/view_all_service_rates/view_all_service_rates.dart';
 
 class ListDataViewAllProviderRate extends StatelessWidget {
   const ListDataViewAllProviderRate({super.key});

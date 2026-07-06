@@ -15,7 +15,7 @@ import '../../../../../../../features/internal_services/presentation/cubit/order
 import '../../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 
 class AllProfitsFromPackagesList extends StatelessWidget {
-  final GetAllProvidersModels providerDetailsRequest;
+  final ProviderDetailsRequest providerDetailsRequest;
   const AllProfitsFromPackagesList({super.key,required this.providerDetailsRequest});
 
   @override

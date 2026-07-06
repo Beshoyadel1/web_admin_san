@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/features/rates/data/model/get_providers_basic_rate_models/get_providers_basic_rate_models.dart';
-import 'package:web_admin_san/features/rates/presentation/pages/view_all_service_rates/screens/first_title_in_view_all_service_rate.dart';
-import 'package:web_admin_san/features/rates/presentation/pages/view_all_service_rates/screens/tab_data_design_rate_service.dart';
+import '../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../features/rates/data/model/get_providers_basic_rate_models/get_providers_basic_rate_models.dart';
+import '../../../../../../features/rates/presentation/pages/view_all_service_rates/screens/first_title_in_view_all_service_rate.dart';
+import '../../../../../../features/rates/presentation/pages/view_all_service_rates/screens/tab_data_design_rate_service.dart';
 
 class ListDataViewAllServiceRates extends StatelessWidget {
   final ProviderModel providerModel;

@@ -4,6 +4,9 @@ import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/features/accounts_management/presentation/pages/details_user_accounts_management/details_user_accounts_management.dart';
+import 'package:web_admin_san/features/auth_page/data/model/create_user_model/provider_details_request.dart';
+import 'package:web_admin_san/features/auth_page/data/request/get_user_inf_request/get_user_info_datasource.dart';
+import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 import 'package:web_admin_san/features/order_services/presentation/custom_widget/app_pagination.dart';
@@ -64,16 +67,27 @@ class ListDataViewAllProvidersAccountManagement extends StatelessWidget {
                         )
                             : '-',
                         orderCount: provider.totalOrders.toString(),
-                        onTapViewRates: () {
-                          Navigator.push(
-                            context,
-                            NavigateToPageWidget(
-                              DetailsUserAccountsManagement(
-                               providerDetailsRequest: provider,
+                          onTapViewRates: () async {
+                            final cubit = context.read<GetUserInfoCubit>();
+
+                            await cubit.getUserInfo(
+                              request: GetUserInfoRequest(
+                                userId: provider.providerId,
+                                userType: 4,
                               ),
-                            ),
-                          );
-                        },
+                            );
+
+                            if (context.mounted && cubit.user != null) {
+                              Navigator.push(
+                                context,
+                                NavigateToPageWidget(
+                                  DetailsUserAccountsManagement(
+                                    providerDetailsRequest: cubit.user?.providerDetails??const ProviderDetailsRequest(),
+                                  ),
+                                ),
+                              );
+                            }
+                          }
                       );
                     },
                   ),

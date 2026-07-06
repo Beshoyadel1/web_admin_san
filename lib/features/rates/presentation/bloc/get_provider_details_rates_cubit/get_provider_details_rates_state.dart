@@ -1,6 +1,4 @@
-
-import 'package:web_admin_san/features/rates/data/model/get_provider_details_rates_model/get_provider_details_rates_model.dart';
-
+import '../../../../../../features/rates/data/model/get_provider_details_rates_model/get_provider_details_rates_model.dart';
 abstract class GetProviderDetailsRatesState {}
 
 class GetProviderDetailsRatesInitial

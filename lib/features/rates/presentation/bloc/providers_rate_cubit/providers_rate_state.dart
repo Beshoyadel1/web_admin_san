@@ -1,4 +1,4 @@
-import 'package:web_admin_san/features/rates/data/model/get_providers_basic_rate_models/get_providers_basic_rate_models.dart';
+import '../../../../../../features/rates/data/model/get_providers_basic_rate_models/get_providers_basic_rate_models.dart';
 
 abstract class ProvidersRateState {}
 

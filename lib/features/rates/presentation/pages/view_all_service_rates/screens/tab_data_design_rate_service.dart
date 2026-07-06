@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
-import 'package:web_admin_san/features/rates/data/model/get_providers_basic_rate_models/get_providers_basic_rate_models.dart';
-import 'package:web_admin_san/features/rates/presentation/bloc/get_provider_details_rates_cubit/get_provider_details_rates_cubit.dart';
-import 'package:web_admin_san/features/rates/presentation/bloc/get_provider_details_rates_cubit/get_provider_details_rates_state.dart';
-import 'package:web_admin_san/features/rates/presentation/bloc/service_settings_cubit/service_settings_cubit.dart';
-import 'package:web_admin_san/features/rates/presentation/bloc/service_settings_cubit/service_settings_state.dart';
-import 'package:web_admin_san/features/rates/presentation/custom_widget/Container_list_container_all_rate_service_widget.dart';
-import 'package:web_admin_san/features/rates/presentation/custom_widget/custom_tab_select_rate_service.dart';
-import 'package:web_admin_san/features/rates/presentation/pages/view_all_service_rates/screens/title_total_rate_in_list_data_first_screen_rate.dart';
+import '../../../../../../core/language/language_constant.dart';
+import '../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
+import '../../../../../../features/rates/data/model/get_providers_basic_rate_models/get_providers_basic_rate_models.dart';
+import '../../../../../../features/rates/presentation/bloc/get_provider_details_rates_cubit/get_provider_details_rates_cubit.dart';
+import '../../../../../../features/rates/presentation/bloc/get_provider_details_rates_cubit/get_provider_details_rates_state.dart';
+import '../../../../../../features/rates/presentation/bloc/service_settings_cubit/service_settings_cubit.dart';
+import '../../../../../../features/rates/presentation/bloc/service_settings_cubit/service_settings_state.dart';
+import '../../../../../../features/rates/presentation/custom_widget/Container_list_container_all_rate_service_widget.dart';
+import '../../../../../../features/rates/presentation/custom_widget/custom_tab_select_rate_service.dart';
+import '../../../../../../features/rates/presentation/pages/view_all_service_rates/screens/title_total_rate_in_list_data_first_screen_rate.dart';
 
 class TabDataDesignRateService extends StatelessWidget {
   final ProviderModel providerModel;
