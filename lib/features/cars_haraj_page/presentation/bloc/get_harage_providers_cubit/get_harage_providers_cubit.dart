@@ -9,6 +9,8 @@ class GetHarageProvidersCubit extends Cubit<GetHarageProvidersState> {
   Future<void> getAllHarahProviders({
     required int currentPage,
   }) async {
+    if (isClosed) return;
+
     emit(GetHarageProvidersLoading());
 
     try {
@@ -17,6 +19,8 @@ class GetHarageProvidersCubit extends Cubit<GetHarageProvidersState> {
           pageNumber: currentPage,
         ),
       );
+
+      if (isClosed) return;
 
       emit(
         GetHarageProvidersSuccess(
@@ -27,13 +31,11 @@ class GetHarageProvidersCubit extends Cubit<GetHarageProvidersState> {
         ),
       );
     } catch (e) {
-      print("ERROR = $e");
+      print(e);
 
-      emit(
-        GetHarageProvidersError(
-          e.toString(),
-        ),
-      );
+      if (isClosed) return;
+
+      emit(GetHarageProvidersError(e.toString()));
     }
   }
 }

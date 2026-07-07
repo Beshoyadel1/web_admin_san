@@ -1,0 +1,655 @@
+{
+  "SchemaMetadata": {
+    "ProjectName": "SUN Mobile/Backend Integration",
+    "Description": "Comprehensive test payloads for both Firebase Cloud Messaging (FCM) and SignalR real-time hubs. Use this to construct data mapping, entity models, and JSON deserialization logic in Flutter.",
+    "UserTypes": {
+      "Customer": 1,
+      "Company": 2,
+      "Driver": 3,
+      "Provider": 4,
+      "Employee": 5,
+      "Admin": 6
+    },
+    "SignalRTypes": {
+      "NewOrder": "NewOrder",
+      "UpdateOrderStatus": "UpdateOrderStatus",
+      "NewServiceRequest": "NewServiceRequest",
+      "NewServiceOffer": "NewServiceOffer",
+      "ReceiveMessage": "ReceiveMessage",
+      "ReceiveNotification": "ReceiveNotification",
+      "OpenCloseChat": "OpenCloseChat",
+      "TransferCarOwnership": "TransferCarOwnership"
+    },
+    "NotificationTypes": {
+      "Chat": "chat",
+      "NewOrder": "new_order",
+      "UpdateOrderStatus": "update_order_status",
+      "CancelOrder": "cancel_order",
+      "NewServiceRequest": "new_service_request",
+      "NewServiceOffer": "new_service_offer",
+      "AcceptServiceOffer": "accept_service_offer",
+      "TransferCarOwnership": "transfer_ownership"
+    },
+    "OrderStatuses": {
+      "NewOrderForCompany": -2,
+      "RejectedByCompany": -1,
+      "NewOrderForProvider": 0,
+      "WaitingAppointment": 1,
+      "EmployeeInRoad": 2,
+      "WorkInProgress": 3,
+      "OrderCompleted": 4,
+      "RejectedByProvider": 5,
+      "CancelledByUser": 6
+    }
+  },
+  "NotificationScenarios": [
+    {
+      "Scenario": "Chat Message (chat)",
+      "Channel": "FCM (for Customers & Drivers) and SignalR (for other users via ReceiveMessage)",
+      "NotificationType": "chat",
+      "SignalRMethod": "ReceiveMessage",
+      "RawFcmPayload": {
+        "message": {
+          "token": "d7a8b...fcm_token...",
+          "notification": {
+            "title": "محمد أحمد",
+            "body": "السلام عليكم، هل يمكنك بدء فحص السيارة الآن؟"
+          },
+          "data": {
+            "type": "chat",
+            "id": "1205",
+            "fromuser": "200",
+            "touser": "300",
+            "message": "السلام عليكم، هل يمكنك بدء فحص السيارة الآن؟",
+            "date": "2026-07-06T22:15:30",
+            "viewed": "false",
+            "fromusertype": "1",
+            "tousertype": "4",
+            "isclosed": "false",
+            "fromusername": "محمد أحمد"
+          }
+        }
+      },
+      "RawSignalRPayload": {
+        "UserId": 300,
+        "UserType": 4,
+        "Data": {
+          "title": "محمد أحمد",
+          "body": "السلام عليكم، هل يمكنك بدء فحص السيارة الآن؟",
+          "data": {
+            "type": "chat",
+            "id": "1205",
+            "fromuser": "200",
+            "touser": "300",
+            "message": "السلام عليكم، هل يمكنك بدء فحص السيارة الآن؟",
+            "date": "2026-07-06T22:15:30",
+            "viewed": "false",
+            "fromusertype": "1",
+            "tousertype": "4",
+            "isclosed": "false",
+            "fromusername": "محمد أحمد"
+          }
+        }
+      }
+    },
+    {
+      "Scenario": "New Service Request (new_service_request)",
+      "Channel": "SignalR (sent to all Providers via NewServiceRequest/ReceiveNotification)",
+      "NotificationType": "new_service_request",
+      "SignalRMethod": "NewServiceRequest",
+      "RawSignalRPayload": {
+        "UserId": 0,
+        "UserType": 4,
+        "Data": {
+          "title": "طلب خدمة جديد",
+          "body": "تم إنشاء طلب خدمة جديد.",
+          "data": {
+            "type": "new_service_request",
+            "requestId": "450",
+            "serviceRequestDetailModel": "{\"Request\":{\"ID\":450,\"USERID\":200,\"USERTYPE\":1,\"SERVICEID\":12,\"NOTES\":\"أرجو فحص المحرك بدقة لوجود صوت غريب\",\"PRICE\":150.0,\"APPOINTMENT\":\"2026-07-07T10:00:00\",\"DATE\":\"2026-07-06T22:18:00\",\"CARID\":99,\"LAT\":24.7136,\"LONG\":46.6753},\"User\":{\"USERID\":200,\"USERTYPE\":1,\"USERNAME\":\"محمد أحمد\",\"PHONE\":\"+966501234567\",\"EMAIL\":\"customer@sun.com\",\"IMAGE\":null,\"FCMTOKEN\":\"fcm_token_200\"},\"Car\":{\"ID\":99,\"BRANDNAME\":\"تويوتا\",\"BRANDLATINNAME\":\"Toyota\",\"MODELNAME\":\"كامري\",\"IMAGE\":null,\"PLATENO\":\"أ ب ج 1234\"},\"Service\":{\"ID\":12,\"PARENTID\":1,\"NAME\":\"فحص كمبيوتر\",\"LATINNAME\":\"Computer Diagnostics\",\"IMAGE\":null}}"
+          }
+        }
+      },
+      "DeserializedData": {
+        "type": "new_service_request",
+        "requestId": "450",
+        "serviceRequestDetailModel": {
+          "Request": {
+            "ID": 450,
+            "USERID": 200,
+            "USERTYPE": 1,
+            "SERVICEID": 12,
+            "NOTES": "أرجو فحص المحرك بدقة لوجود صوت غريب",
+            "PRICE": 150.0,
+            "APPOINTMENT": "2026-07-07T10:00:00",
+            "DATE": "2026-07-06T22:18:00",
+            "CARID": 99,
+            "LAT": 24.7136,
+            "LONG": 46.6753
+          },
+          "User": {
+            "USERID": 200,
+            "USERTYPE": 1,
+            "USERNAME": "محمد أحمد",
+            "PHONE": "+966501234567",
+            "EMAIL": "customer@sun.com",
+            "IMAGE": null,
+            "FCMTOKEN": "fcm_token_200"
+          },
+          "Car": {
+            "ID": 99,
+            "BRANDNAME": "تويوتا",
+            "BRANDLATINNAME": "Toyota",
+            "MODELNAME": "كامري",
+            "IMAGE": null,
+            "PLATENO": "أ ب ج 1234"
+          },
+          "Service": {
+            "ID": 12,
+            "PARENTID": 1,
+            "NAME": "فحص كمبيوتر",
+            "LATINNAME": "Computer Diagnostics",
+            "IMAGE": null
+          }
+        }
+      }
+    },
+    {
+      "Scenario": "New Service Offer (new_service_offer)",
+      "Channel": "FCM (if user is Customer/Driver) and SignalR (if other users via NewServiceOffer)",
+      "NotificationType": "new_service_offer",
+      "SignalRMethod": "NewServiceOffer",
+      "RawFcmPayload": {
+        "message": {
+          "token": "fcm_token_200",
+          "notification": {
+            "title": "عرض خدمة جديد",
+            "body": "لقد تلقيت عرض خدمة جديد."
+          },
+          "data": {
+            "type": "new_service_offer",
+            "offerId": "880",
+            "requestId": "450",
+            "serviceRequestOfferDetailModel": "{\"Offer\":{\"ID\":880,\"SERVICEREQUESTID\":450,\"PROVID\":300,\"BRANCHID\":10,\"PRICE\":140.0,\"DATE\":\"2026-07-06T22:20:00\",\"SERVICEID\":12,\"TAXID\":2,\"EMPLOYEEID\":45,\"OFFERSTATUS\":0,\"TOUSERID\":200,\"TOUSERTYPE\":1,\"PROVSERVICEID\":0},\"Provider\":{\"ID\":300,\"NAME\":\"ورشة النور والمحرك\",\"LATINNAME\":\"Al-Noor & Engine Workshop\",\"DESCRIPTION\":\"صيانة عامة وفحص كمبيوتر\",\"LATINDESC\":\"General Maintenance & Diagnostics\",\"EMAIL\":\"alnoor@sun.com\",\"PHONE\":\"+966507654321\",\"IMAGE\":null,\"FCMTOKEN\":\"fcm_token_300\",\"BRANCHID\":10,\"BRANCHNAME\":\"فرع الصناعية القديمة\",\"BRANCHLATINNAME\":\"Old Industrial Branch\",\"SERVICESNAMES\":[{\"Name\":\"فحص كمبيوتر\",\"LatinName\":\"Computer Diagnostics\"}],\"AVERAGERATE\":4.8},\"Employee\":{\"ID\":45,\"NAME\":\"المهندس خالد\",\"PROVID\":300,\"JOBNAME\":\"فني تشخيص\",\"JOBLATINNAME\":\"Diagnostics Technician\",\"BRANCHID\":10,\"EMAIL\":\"khaled.tech@sun.com\",\"PHONE\":\"+966502223334\",\"IMAGE\":null,\"FCMTOKEN\":\"fcm_token_45\"},\"Service\":{\"ID\":12,\"PARENTID\":1,\"NAME\":\"فحص كمبيوتر\",\"LATINNAME\":\"Computer Diagnostics\",\"IMAGE\":null}}"
+          }
+        }
+      },
+      "RawSignalRPayload": {
+        "UserId": 200,
+        "UserType": 1,
+        "Data": {
+          "title": "عرض خدمة جديد",
+          "body": "لقد تلقيت عرض خدمة جديد.",
+          "data": {
+            "type": "new_service_offer",
+            "offerId": "880",
+            "requestId": "450",
+            "serviceRequestOfferDetailModel": "{\"Offer\":{\"ID\":880,\"SERVICEREQUESTID\":450,\"PROVID\":300,\"BRANCHID\":10,\"PRICE\":140.0,\"DATE\":\"2026-07-06T22:20:00\",\"SERVICEID\":12,\"TAXID\":2,\"EMPLOYEEID\":45,\"OFFERSTATUS\":0,\"TOUSERID\":200,\"TOUSERTYPE\":1,\"PROVSERVICEID\":0},\"Provider\":{\"ID\":300,\"NAME\":\"ورشة النور والمحرك\",\"LATINNAME\":\"Al-Noor & Engine Workshop\",\"DESCRIPTION\":\"صيانة عامة وفحص كمبيوتر\",\"LATINDESC\":\"General Maintenance & Diagnostics\",\"EMAIL\":\"alnoor@sun.com\",\"PHONE\":\"+966507654321\",\"IMAGE\":null,\"FCMTOKEN\":\"fcm_token_300\",\"BRANCHID\":10,\"BRANCHNAME\":\"فرع الصناعية القديمة\",\"BRANCHLATINNAME\":\"Old Industrial Branch\",\"SERVICESNAMES\":[{\"Name\":\"فحص كمبيوتر\",\"LatinName\":\"Computer Diagnostics\"}],\"AVERAGERATE\":4.8},\"Employee\":{\"ID\":45,\"NAME\":\"المهندس خالد\",\"PROVID\":300,\"JOBNAME\":\"فني تشخيص\",\"JOBLATINNAME\":\"Diagnostics Technician\",\"BRANCHID\":10,\"EMAIL\":\"khaled.tech@sun.com\",\"PHONE\":\"+966502223334\",\"IMAGE\":null,\"FCMTOKEN\":\"fcm_token_45\"},\"Service\":{\"ID\":12,\"PARENTID\":1,\"NAME\":\"فحص كمبيوتر\",\"LATINNAME\":\"Computer Diagnostics\",\"IMAGE\":null}}"
+          }
+        }
+      },
+      "DeserializedData": {
+        "type": "new_service_offer",
+        "offerId": "880",
+        "requestId": "450",
+        "serviceRequestOfferDetailModel": {
+          "Offer": {
+            "ID": 880,
+            "SERVICEREQUESTID": 450,
+            "PROVID": 300,
+            "BRANCHID": 10,
+            "PRICE": 140.0,
+            "DATE": "2026-07-06T22:20:00",
+            "SERVICEID": 12,
+            "TAXID": 2,
+            "EMPLOYEEID": 45,
+            "OFFERSTATUS": 0,
+            "TOUSERID": 200,
+            "TOUSERTYPE": 1,
+            "PROVSERVICEID": 0
+          },
+          "Provider": {
+            "ID": 300,
+            "NAME": "ورشة النور والمحرك",
+            "LATINNAME": "Al-Noor & Engine Workshop",
+            "DESCRIPTION": "صيانة عامة وفحص كمبيوتر",
+            "LATINDESC": "General Maintenance & Diagnostics",
+            "EMAIL": "alnoor@sun.com",
+            "PHONE": "+966507654321",
+            "IMAGE": null,
+            "FCMTOKEN": "fcm_token_300",
+            "BRANCHID": 10,
+            "BRANCHNAME": "فرع الصناعية القديمة",
+            "BRANCHLATINNAME": "Old Industrial Branch",
+            "SERVICESNAMES": [
+              {
+                "Name": "فحص كمبيوتر",
+                "LatinName": "Computer Diagnostics"
+              }
+            ],
+            "AVERAGERATE": 4.8
+          },
+          "Employee": {
+            "ID": 45,
+            "NAME": "المهندس خالد",
+            "PROVID": 300,
+            "JOBNAME": "فني تشخيص",
+            "JOBLATINNAME": "Diagnostics Technician",
+            "BRANCHID": 10,
+            "EMAIL": "khaled.tech@sun.com",
+            "PHONE": "+966502223334",
+            "IMAGE": null,
+            "FCMTOKEN": "fcm_token_45"
+          },
+          "Service": {
+            "ID": 12,
+            "PARENTID": 1,
+            "NAME": "فحص كمبيوتر",
+            "LATINNAME": "Computer Diagnostics",
+            "IMAGE": null
+          }
+        }
+      }
+    },
+    {
+      "Scenario": "Accept Service Offer (offer_accepted)",
+      "Channel": "FCM (if provider is Customer/Driver) and SignalR (sent to Provider via NewOrder)",
+      "NotificationType": "offer_accepted",
+      "SignalRMethod": "NewOrder",
+      "RawSignalRPayload": {
+        "UserId": 300,
+        "UserType": 4,
+        "Data": {
+          "title": "قبول عرض الخدمة",
+          "body": "تم قبول عرضك للطلب رقم 1002",
+          "data": {
+            "type": "offer_accepted",
+            "orderId": "1002",
+            "offerId": "880",
+            "orderInfo": "{\"ID\":1002,\"USERID\":200,\"USERNAME\":\"محمد أحمد\",\"USERTYPE\":1,\"ORDERSTATUS\":0,\"ORDERDATE\":\"2026-07-06T22:25:00\",\"TOTALPRICE\":161.0,\"BRANCHID\":10,\"PROVID\":300,\"PROVNAME\":\"ورشة النور والمحرك\",\"PROVLATINNAME\":\"Al-Noor & Engine Workshop\",\"PROVIMAGE\":null,\"BRANCHNAME\":\"فرع الصناعية القديمة\",\"BRANCHLATINNAME\":\"Old Industrial Branch\",\"Services\":[{\"ID\":12,\"PARENTID\":1,\"NAME\":\"فحص كمبيوتر\",\"LATINNAME\":\"Computer Diagnostics\",\"IMAGE\":null}],\"ProvServices\":[{\"ID\":180,\"ORDERID\":1002,\"NAME\":\"فحص كمبيوتر\",\"LATINNAME\":\"Computer Diagnostics\",\"PRICE\":140.0,\"TAXPERCENTAGE\":15.0,\"QUANTITY\":1,\"PROVSERVICEID\":0,\"TOTALPRICE\":161.0,\"CARID\":99,\"COST\":100.0}],\"ServicePackages\":[],\"Car\":{\"ID\":99,\"BRANDNAME\":\"تويوتا\",\"BRANDLATINNAME\":\"Toyota\",\"MODELNAME\":\"كامري\",\"IMAGE\":null,\"PLATENO\":\"أ ب ج 1234\"}}"
+          }
+        }
+      },
+      "DeserializedData": {
+        "type": "offer_accepted",
+        "orderId": "1002",
+        "offerId": "880",
+        "orderInfo": {
+          "ID": 1002,
+          "USERID": 200,
+          "USERNAME": "محمد أحمد",
+          "USERTYPE": 1,
+          "ORDERSTATUS": 0,
+          "ORDERDATE": "2026-07-06T22:25:00",
+          "TOTALPRICE": 161.0,
+          "BRANCHID": 10,
+          "PROVID": 300,
+          "PROVNAME": "ورشة النور والمحرك",
+          "PROVLATINNAME": "Al-Noor & Engine Workshop",
+          "PROVIMAGE": null,
+          "BRANCHNAME": "فرع الصناعية القديمة",
+          "BRANCHLATINNAME": "Old Industrial Branch",
+          "Services": [
+            {
+              "ID": 12,
+              "PARENTID": 1,
+              "NAME": "فحص كمبيوتر",
+              "LATINNAME": "Computer Diagnostics",
+              "IMAGE": null
+            }
+          ],
+          "ProvServices": [
+            {
+              "ID": 180,
+              "ORDERID": 1002,
+              "NAME": "فحص كمبيوتر",
+              "LATINNAME": "Computer Diagnostics",
+              "PRICE": 140.0,
+              "TAXPERCENTAGE": 15.0,
+              "QUANTITY": 1,
+              "PROVSERVICEID": 0,
+              "TOTALPRICE": 161.0,
+              "CARID": 99,
+              "COST": 100.0
+            }
+          ],
+          "ServicePackages": [],
+          "Car": {
+            "ID": 99,
+            "BRANDNAME": "تويوتا",
+            "BRANDLATINNAME": "Toyota",
+            "MODELNAME": "كامري",
+            "IMAGE": null,
+            "PLATENO": "أ ب ج 1234"
+          }
+        }
+      }
+    },
+    {
+      "Scenario": "New Order (new_order)",
+      "Channel": "FCM (if provider is Customer/Driver) and SignalR (sent to Provider via NewOrder)",
+      "NotificationType": "new_order",
+      "SignalRMethod": "NewOrder",
+      "RawSignalRPayload": {
+        "UserId": 300,
+        "UserType": 4,
+        "Data": {
+          "title": "طلب جديد",
+          "body": "لديك طلب جديد رقم 1003",
+          "data": {
+            "type": "new_order",
+            "orderId": "1003",
+            "orderInfo": "{\"ID\":1003,\"USERID\":200,\"USERNAME\":\"محمد أحمد\",\"USERTYPE\":1,\"ORDERSTATUS\":0,\"ORDERDATE\":\"2026-07-06T22:30:00\",\"TOTALPRICE\":230.0,\"BRANCHID\":10,\"PROVID\":300,\"PROVNAME\":\"ورشة النور والمحرك\",\"PROVLATINNAME\":\"Al-Noor & Engine Workshop\",\"PROVIMAGE\":null,\"BRANCHNAME\":\"فرع الصناعية القديمة\",\"BRANCHLATINNAME\":\"Old Industrial Branch\",\"Services\":[{\"ID\":14,\"PARENTID\":1,\"NAME\":\"تغيير زيت المحرك\",\"LATINNAME\":\"Engine Oil Change\",\"IMAGE\":null}],\"ProvServices\":[{\"ID\":181,\"ORDERID\":1003,\"NAME\":\"تغيير زيت المحرك\",\"LATINNAME\":\"Engine Oil Change\",\"PRICE\":200.0,\"TAXPERCENTAGE\":15.0,\"QUANTITY\":1,\"PROVSERVICEID\":0,\"TOTALPRICE\":230.0,\"CARID\":99,\"COST\":120.0}],\"ServicePackages\":[],\"Car\":{\"ID\":99,\"BRANDNAME\":\"تويوتا\",\"BRANDLATINNAME\":\"Toyota\",\"MODELNAME\":\"كامري\",\"IMAGE\":null,\"PLATENO\":\"أ ب ج 1234\"}}"
+          }
+        }
+      },
+      "DeserializedData": {
+        "type": "new_order",
+        "orderId": "1003",
+        "orderInfo": {
+          "ID": 1003,
+          "USERID": 200,
+          "USERNAME": "محمد أحمد",
+          "USERTYPE": 1,
+          "ORDERSTATUS": 0,
+          "ORDERDATE": "2026-07-06T22:30:00",
+          "TOTALPRICE": 230.0,
+          "BRANCHID": 10,
+          "PROVID": 300,
+          "PROVNAME": "ورشة النور والمحرك",
+          "PROVLATINNAME": "Al-Noor & Engine Workshop",
+          "PROVIMAGE": null,
+          "BRANCHNAME": "فرع الصناعية القديمة",
+          "BRANCHLATINNAME": "Old Industrial Branch",
+          "Services": [
+            {
+              "ID": 14,
+              "PARENTID": 1,
+              "NAME": "تغيير زيت المحرك",
+              "LATINNAME": "Engine Oil Change",
+              "IMAGE": null
+            }
+          ],
+          "ProvServices": [
+            {
+              "ID": 181,
+              "ORDERID": 1003,
+              "NAME": "تغيير زيت المحرك",
+              "LATINNAME": "Engine Oil Change",
+              "PRICE": 200.0,
+              "TAXPERCENTAGE": 15.0,
+              "QUANTITY": 1,
+              "PROVSERVICEID": 0,
+              "TOTALPRICE": 230.0,
+              "CARID": 99,
+              "COST": 120.0
+            }
+          ],
+          "ServicePackages": [],
+          "Car": {
+            "ID": 99,
+            "BRANDNAME": "تويوتا",
+            "BRANDLATINNAME": "Toyota",
+            "MODELNAME": "كامري",
+            "IMAGE": null,
+            "PLATENO": "أ ب ج 1234"
+          }
+        }
+      }
+    },
+    {
+      "Scenario": "Update Order Status (order_status)",
+      "Channel": "FCM (if target user is Customer/Driver) and SignalR (if other users via UpdateOrderStatus)",
+      "NotificationType": "order_status",
+      "SignalRMethod": "UpdateOrderStatus",
+      "RawFcmPayload": {
+        "message": {
+          "token": "fcm_token_200",
+          "notification": {
+            "title": "تحديث حالة الطلب",
+            "body": "تم تغيير حالة طلبك رقم 1003"
+          },
+          "data": {
+            "type": "order_status",
+            "orderId": "1003",
+            "status": "2",
+            "orderInfo": "{\"ID\":1003,\"USERID\":200,\"USERNAME\":\"محمد أحمد\",\"USERTYPE\":1,\"ORDERSTATUS\":2,\"ORDERDATE\":\"2026-07-06T22:30:00\",\"TOTALPRICE\":230.0,\"BRANCHID\":10,\"PROVID\":300,\"PROVNAME\":\"ورشة النور والمحرك\",\"PROVLATINNAME\":\"Al-Noor & Engine Workshop\",\"PROVIMAGE\":null,\"BRANCHNAME\":\"فرع الصناعية القديمة\",\"BRANCHLATINNAME\":\"Old Industrial Branch\",\"Services\":[{\"ID\":14,\"PARENTID\":1,\"NAME\":\"تغيير زيت المحرك\",\"LATINNAME\":\"Engine Oil Change\",\"IMAGE\":null}],\"ProvServices\":[{\"ID\":181,\"ORDERID\":1003,\"NAME\":\"تغيير زيت المحرك\",\"LATINNAME\":\"Engine Oil Change\",\"PRICE\":200.0,\"TAXPERCENTAGE\":15.0,\"QUANTITY\":1,\"PROVSERVICEID\":0,\"TOTALPRICE\":230.0,\"CARID\":99,\"COST\":120.0}],\"ServicePackages\":[],\"Car\":{\"ID\":99,\"BRANDNAME\":\"تويوتا\",\"BRANDLATINNAME\":\"Toyota\",\"MODELNAME\":\"كامري\",\"IMAGE\":null,\"PLATENO\":\"أ ب ج 1234\"}}"
+          }
+        }
+      },
+      "RawSignalRPayload": {
+        "UserId": 200,
+        "UserType": 1,
+        "Data": {
+          "title": "تحديث حالة الطلب",
+          "body": "تم تغيير حالة طلبك رقم 1003",
+          "data": {
+            "type": "order_status",
+            "orderId": "1003",
+            "status": "2",
+            "orderInfo": "{\"ID\":1003,\"USERID\":200,\"USERNAME\":\"محمد أحمد\",\"USERTYPE\":1,\"ORDERSTATUS\":2,\"ORDERDATE\":\"2026-07-06T22:30:00\",\"TOTALPRICE\":230.0,\"BRANCHID\":10,\"PROVID\":300,\"PROVNAME\":\"ورشة النور والمحرك\",\"PROVLATINNAME\":\"Al-Noor & Engine Workshop\",\"PROVIMAGE\":null,\"BRANCHNAME\":\"فرع الصناعية القديمة\",\"BRANCHLATINNAME\":\"Old Industrial Branch\",\"Services\":[{\"ID\":14,\"PARENTID\":1,\"NAME\":\"تغيير زيت المحرك\",\"LATINNAME\":\"Engine Oil Change\",\"IMAGE\":null}],\"ProvServices\":[{\"ID\":181,\"ORDERID\":1003,\"NAME\":\"تغيير زيت المحرك\",\"LATINNAME\":\"Engine Oil Change\",\"PRICE\":200.0,\"TAXPERCENTAGE\":15.0,\"QUANTITY\":1,\"PROVSERVICEID\":0,\"TOTALPRICE\":230.0,\"CARID\":99,\"COST\":120.0}],\"ServicePackages\":[],\"Car\":{\"ID\":99,\"BRANDNAME\":\"تويوتا\",\"BRANDLATINNAME\":\"Toyota\",\"MODELNAME\":\"كامري\",\"IMAGE\":null,\"PLATENO\":\"أ ب ج 1234\"}}"
+          }
+        }
+      },
+      "DeserializedData": {
+        "type": "order_status",
+        "orderId": "1003",
+        "status": "2",
+        "orderInfo": {
+          "ID": 1003,
+          "USERID": 200,
+          "USERNAME": "محمد أحمد",
+          "USERTYPE": 1,
+          "ORDERSTATUS": 2,
+          "ORDERDATE": "2026-07-06T22:30:00",
+          "TOTALPRICE": 230.0,
+          "BRANCHID": 10,
+          "PROVID": 300,
+          "PROVNAME": "ورشة النور والمحرك",
+          "PROVLATINNAME": "Al-Noor & Engine Workshop",
+          "PROVIMAGE": null,
+          "BRANCHNAME": "فرع الصناعية القديمة",
+          "BRANCHLATINNAME": "Old Industrial Branch",
+          "Services": [
+            {
+              "ID": 14,
+              "PARENTID": 1,
+              "NAME": "تغيير زيت المحرك",
+              "LATINNAME": "Engine Oil Change",
+              "IMAGE": null
+            }
+          ],
+          "ProvServices": [
+            {
+              "ID": 181,
+              "ORDERID": 1003,
+              "NAME": "تغيير زيت المحرك",
+              "LATINNAME": "Engine Oil Change",
+              "PRICE": 200.0,
+              "TAXPERCENTAGE": 15.0,
+              "QUANTITY": 1,
+              "PROVSERVICEID": 0,
+              "TOTALPRICE": 230.0,
+              "CARID": 99,
+              "COST": 120.0
+            }
+          ],
+          "ServicePackages": [],
+          "Car": {
+            "ID": 99,
+            "BRANDNAME": "تويوتا",
+            "BRANDLATINNAME": "Toyota",
+            "MODELNAME": "كامري",
+            "IMAGE": null,
+            "PLATENO": "أ ب ج 1234"
+          }
+        }
+      }
+    },
+    {
+      "Scenario": "Cancel Order (order_cancelled)",
+      "Channel": "FCM (if target user is Customer/Driver) and SignalR (if other users via UpdateOrderStatus)",
+      "NotificationType": "order_cancelled",
+      "SignalRMethod": "UpdateOrderStatus",
+      "RawSignalRPayload": {
+        "UserId": 300,
+        "UserType": 4,
+        "Data": {
+          "title": "إلغاء الطلب",
+          "body": "تم إلغاء الطلب رقم 1003 من قبل العميل",
+          "data": {
+            "type": "order_cancelled",
+            "orderId": "1003",
+            "orderInfo": "{\"ID\":1003,\"USERID\":200,\"USERNAME\":\"محمد أحمد\",\"USERTYPE\":1,\"ORDERSTATUS\":6,\"ORDERDATE\":\"2026-07-06T22:30:00\",\"TOTALPRICE\":230.0,\"BRANCHID\":10,\"PROVID\":300,\"PROVNAME\":\"ورشة النور والمحرك\",\"PROVLATINNAME\":\"Al-Noor & Engine Workshop\",\"PROVIMAGE\":null,\"BRANCHNAME\":\"فرع الصناعية القديمة\",\"BRANCHLATINNAME\":\"Old Industrial Branch\",\"Services\":[{\"ID\":14,\"PARENTID\":1,\"NAME\":\"تغيير زيت المحرك\",\"LATINNAME\":\"Engine Oil Change\",\"IMAGE\":null}],\"ProvServices\":[{\"ID\":181,\"ORDERID\":1003,\"NAME\":\"تغيير زيت المحرك\",\"LATINNAME\":\"Engine Oil Change\",\"PRICE\":200.0,\"TAXPERCENTAGE\":15.0,\"QUANTITY\":1,\"PROVSERVICEID\":0,\"TOTALPRICE\":230.0,\"CARID\":99,\"COST\":120.0}],\"ServicePackages\":[],\"Car\":{\"ID\":99,\"BRANDNAME\":\"تويوتا\",\"BRANDLATINNAME\":\"Toyota\",\"MODELNAME\":\"كامري\",\"IMAGE\":null,\"PLATENO\":\"أ ب ج 1234\"}}"
+          }
+        }
+      },
+      "DeserializedData": {
+        "type": "order_cancelled",
+        "orderId": "1003",
+        "orderInfo": {
+          "ID": 1003,
+          "USERID": 200,
+          "USERNAME": "محمد أحمد",
+          "USERTYPE": 1,
+          "ORDERSTATUS": 6,
+          "ORDERDATE": "2026-07-06T22:30:00",
+          "TOTALPRICE": 230.0,
+          "BRANCHID": 10,
+          "PROVID": 300,
+          "PROVNAME": "ورشة النور والمحرك",
+          "PROVLATINNAME": "Al-Noor & Engine Workshop",
+          "PROVIMAGE": null,
+          "BRANCHNAME": "فرع الصناعية القديمة",
+          "BRANCHLATINNAME": "Old Industrial Branch",
+          "Services": [
+            {
+              "ID": 14,
+              "PARENTID": 1,
+              "NAME": "تغيير زيت المحرك",
+              "LATINNAME": "Engine Oil Change",
+              "IMAGE": null
+            }
+          ],
+          "ProvServices": [
+            {
+              "ID": 181,
+              "ORDERID": 1003,
+              "NAME": "تغيير زيت المحرك",
+              "LATINNAME": "Engine Oil Change",
+              "PRICE": 200.0,
+              "TAXPERCENTAGE": 15.0,
+              "QUANTITY": 1,
+              "PROVSERVICEID": 0,
+              "TOTALPRICE": 230.0,
+              "CARID": 99,
+              "COST": 120.0
+            }
+          ],
+          "ServicePackages": [],
+          "Car": {
+            "ID": 99,
+            "BRANDNAME": "تويوتا",
+            "BRANDLATINNAME": "Toyota",
+            "MODELNAME": "كامري",
+            "IMAGE": null,
+            "PLATENO": "أ ب ج 1234"
+          }
+        }
+      }
+    },
+    {
+      "Scenario": "Transfer Car Ownership (transfer_ownership)",
+      "Channel": "FCM (if new owner is Customer/Driver) and SignalR (if other users via TransferCarOwnership)",
+      "NotificationType": "transfer_ownership",
+      "SignalRMethod": "TransferCarOwnership",
+      "RawFcmPayload": {
+        "message": {
+          "token": "fcm_token_200",
+          "notification": {
+            "title": "نقل ملكية سيارة",
+            "body": "تم نقل ملكية السيارة أ ب ج 1234 إليك من سعد العتيبي."
+          },
+          "data": {
+            "type": "transfer_ownership",
+            "carId": "99",
+            "plateNo": "أ ب ج 1234",
+            "chassisNo": "TRA1234567890",
+            "brandName": "تويوتا",
+            "brandLatinName": "Toyota",
+            "modelName": "كامري",
+            "image": ""
+          }
+        }
+      },
+      "RawSignalRPayload": {
+        "UserId": 200,
+        "UserType": 1,
+        "Data": {
+          "title": "نقل ملكية سيارة",
+          "body": "تم نقل ملكية السيارة أ ب ج 1234 إليك من سعد العتيبي.",
+          "data": {
+            "type": "transfer_ownership",
+            "carId": "99",
+            "plateNo": "أ ب ج 1234",
+            "chassisNo": "TRA1234567890",
+            "brandName": "تويوتا",
+            "brandLatinName": "Toyota",
+            "modelName": "كامري",
+            "image": ""
+          }
+        }
+      }
+    },
+    {
+      "Scenario": "General Database Notification (CreateNotification)",
+      "Channel": "FCM (if target is Customer/Driver) and SignalR (if other users via ReceiveNotification)",
+      "NotificationType": "general",
+      "SignalRMethod": "ReceiveNotification",
+      "RawFcmPayload": {
+        "message": {
+          "token": "fcm_token_200",
+          "notification": {
+            "title": "تنبيه إداري",
+            "body": "تم تفعيل حسابك بنجاح في تطبيق SUN."
+          },
+          "data": {
+            "type": "general",
+            "notificationId": "5001",
+            "notification": "{\"ID\":5001,\"TITLE\":\"تنبيه إداري\",\"LATINTITLE\":\"Administrative Alert\",\"DESCRIPTION\":\"تم تفعيل حسابك بنجاح في تطبيق SUN.\",\"LATINDESC\":\"Your account has been successfully activated in SUN.\",\"TOUSERID\":200,\"TOUSERTYPE\":1,\"FROMUSERID\":0,\"FROMUSERTYPE\":6,\"ISVIEWED\":false,\"DATE\":\"2026-07-06T22:45:00\"}"
+          }
+        }
+      },
+      "RawSignalRPayload": {
+        "UserId": 200,
+        "UserType": 1,
+        "Data": {
+          "title": "تنبيه إداري",
+          "body": "تم تفعيل حسابك بنجاح في تطبيق SUN.",
+          "data": {
+            "type": "general",
+            "notificationId": "5001",
+            "notification": "{\"ID\":5001,\"TITLE\":\"تنبيه إداري\",\"LATINTITLE\":\"Administrative Alert\",\"DESCRIPTION\":\"تم تفعيل حسابك بنجاح في تطبيق SUN.\",\"LATINDESC\":\"Your account has been successfully activated in SUN.\",\"TOUSERID\":200,\"TOUSERTYPE\":1,\"FROMUSERID\":0,\"FROMUSERTYPE\":6,\"ISVIEWED\":false,\"DATE\":\"2026-07-06T22:45:00\"}"
+          }
+        }
+      },
+      "DeserializedData": {
+        "type": "general",
+        "notificationId": "5001",
+        "notification": {
+          "ID": 5001,
+          "TITLE": "تنبيه إداري",
+          "LATINTITLE": "Administrative Alert",
+          "DESCRIPTION": "تم تفعيل حسابك بنجاح في تطبيق SUN.",
+          "LATINDESC": "Your account has been successfully activated in SUN.",
+          "TOUSERID": 200,
+          "TOUSERTYPE": 1,
+          "FROMUSERID": 0,
+          "FROMUSERTYPE": 6,
+          "ISVIEWED": false,
+          "DATE": "2026-07-06T22:45:00"
+        }
+      }
+    }
+  ]
+}

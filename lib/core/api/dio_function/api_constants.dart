@@ -36,9 +36,20 @@ class ApiConfig {
   static const String workTIme = "WorkTIme";
   static const String branch = "Branch";
   static const String adminUsers = "AdminUsers";
+  static const String notification = "Notification";
+
 }
 
 class ApiLink {
+
+  static const String makeNotificationViewed =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/MakeNotificationViewed";
+
+  static const String getUserNotification =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/GetUserNotification";
+
+  static const String getUserNewNotification =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/GetUserNewNotification";
   //users
   static const String getDriverDetails =
       "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/GetDriverDetails";
@@ -352,6 +363,42 @@ class ApiLink {
       "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/UploadCoupon";
 }
 
+class NotificationTopic {
+  static const String customer = "customer";
+
+  static const String company = "company";
+
+  static const String driver = "driver";
+
+  static const String provider = "provider";
+
+  static const String employee = "employee";
+
+  static const String admin = "admin";
+}
+
+ class NotificationTypes {
+  static const String chat = "chat";
+  static const String newOrder = "new_order";
+  static const String updateOrderStatus = "update_order_status";
+  static const String cancelOrder = "cancel_order";
+  static const String newServiceRequest = "new_service_request";
+  static const String newServiceOffer = "new_service_offer";
+  static const String acceptServiceOffer = "accept_service_offer";
+  static const String transferCarOwnership = "transfer_ownership";
+}
+
+class SignalRTypes {
+  static const String newOrder = "NewOrder";
+  static const String updateOrderStatus = "UpdateOrderStatus";
+  static const String newServiceRequest = "NewServiceRequest";
+  static const String newServiceOffer = "NewServiceOffer";
+  static const String receiveMessage = "ReceiveMessage";
+  static const String receiveNotification = "ReceiveNotification";
+  static const String openCloseChat = "OpenCloseChat";
+  static const String transferCarOwnership = "TransferCarOwnership";
+}
+
 class FuelTypeModel {
   final int id;
   final String name;
@@ -361,6 +408,7 @@ class FuelTypeModel {
     required this.name,
   });
 }
+
 class FuelTypes {
   static const FuelTypeModel petrol =
   FuelTypeModel(id: 1, name: AppLanguageKeys.petrol);

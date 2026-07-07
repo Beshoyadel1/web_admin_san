@@ -23,6 +23,7 @@ class FacilityDataContent extends StatefulWidget {
 }
 
 class _FacilityDataContentState extends State<FacilityDataContent> {
+  final idController = TextEditingController();
   final jobNameController = TextEditingController();
   final jobLatinNameController = TextEditingController();
   final phoneController = TextEditingController();
@@ -53,6 +54,7 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
     final user = await AuthLocalStorage.getUser();
 
     if (user != null) {
+      idController.text = user.userid.toString();
       jobNameController.text = user.adminDetails?.jobname ?? "";
       jobLatinNameController.text = user.adminDetails?.joblatinname ?? "";
       phoneController.text = user.phone ?? "";
@@ -111,6 +113,13 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
           spacing: 10,
           runSpacing: 10,
           children: [
+            UserTextFieldWidget(
+              controller: idController,
+              text: AppLanguageKeys.identity,
+              type: UserFieldType.name,
+              readOnly: true,
+              width: 250,
+            ),
             UserTextFieldWidget(
               controller: jobNameController,
               text: AppLanguageKeys.jobName,
