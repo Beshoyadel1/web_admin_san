@@ -1,4 +1,4 @@
-import '../../.../../../../../features/notifications/data/request/get_user_new_notification_request/get_user_new_notification_request.dart';
+import 'package:web_admin_san/features/notifications/data/model/get_user_new_notification_model/get_user_new_notification_model.dart';
 
 abstract class NotificationState {}
 
@@ -7,13 +7,13 @@ class NotificationInitial extends NotificationState {}
 class NotificationLoading extends NotificationState {}
 
 class NotificationSuccess extends NotificationState {
-  final List<GetUserNewNotificationResponse> notifications;
+  final List<NotificationModel> notifications;
 
   NotificationSuccess(this.notifications);
 }
 
 class NotificationNewSuccess extends NotificationState {
-  final GetUserNewNotificationResponse notification;
+  final NotificationModel notification;
 
   NotificationNewSuccess(this.notification);
 }

@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:web_admin_san/core/language/language_constant.dart';
 
 import '../../../../core/theming/colors.dart';
-
 class ApiConfig {
   static const String baseUrlApi = "https://api.sanmotorss.com";
   static const String user = "Users";
@@ -41,7 +40,8 @@ class ApiConfig {
 }
 
 class ApiLink {
-
+  static const String notificationHub =
+      "${ApiConfig.baseUrlApi}/sunStatusHub";
   static const String makeNotificationViewed =
       "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/MakeNotificationViewed";
 
@@ -399,6 +399,15 @@ class SignalRTypes {
   static const String transferCarOwnership = "TransferCarOwnership";
 }
 
+class UserType {
+  static const int appUser = 1;
+  static const int companyUser = 2;
+  static const int driverUser = 3;
+  static const int providerUser = 4;
+  static const int employeeUser = 5;
+  static const int adminUser = 6;
+}
+
 class FuelTypeModel {
   final int id;
   final String name;
@@ -511,15 +520,6 @@ class MainCategoryConstants {
   final List<int> servicePackageSubCategories = [];
 
   final List<int> petrolSubCategories = [CategoryConstants.petrolService];
-}
-
-class UserType {
-  static const int appUser = 1;
-  static const int companyUser = 2;
-  static const int driverUser = 3;
-  static const int providerUser = 4;
-  static const int employeeUser = 5;
-  static const int adminUser = 6;
 }
 
 Color legendColor(int index) {

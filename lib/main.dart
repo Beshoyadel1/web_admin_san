@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:web_admin_san/features/notifications/presentation/bloc/notification_cubit/notification_cubit.dart';
+
 import '../../../features/auth_page/presentation/auth_gate.dart';
 import '../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,9 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (_) => NotificationCubit()..getUserNotification(),
+        ),
         BlocProvider<LanguageCubit>(
           create: (_) =>
               getIt<LanguageCubit>()..getLanguageFromSharedPreference(),

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/signalr/signalr_service.dart';
 
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/language/language_constant.dart';
@@ -47,21 +48,27 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> init() async {
-    print("INIT CALLED");
-
     emit(AuthLoading());
 
     final user = await AuthLocalStorage.getUser();
 
     if (user == null) {
-      print("INIT => AuthUnauthenticated");
       emit(AuthUnauthenticated());
       return;
     }
 
+    if (!SignalRService.instance.isConnected) {
+      try {
+        await SignalRService.instance.connect(
+          hubUrl: ApiLink.notificationHub,
+        );
+      } catch (e) {
+        print("SignalR Init Error => $e");
+      }
+    }
+
     await _checkFacilityCompletion(user);
   }
-
   Timer? _timer;
   int secondsRemaining = 30;
   String otpCode = "";
@@ -170,8 +177,16 @@ class AuthCubit extends Cubit<AuthState> {
     print("LOGIN MESSAGE => ${result.message}");
 
     if (result.success && result.user != null) {
-
       await AuthLocalStorage.saveUser(result.user!);
+
+      // الاتصال بالـ SignalR
+      try {
+        await SignalRService.instance.connect(
+          hubUrl: ApiLink.notificationHub,
+        );
+      } catch (e) {
+        print("SignalR Login Error => $e");
+      }
 
       emit(
         AuthLoginSuccess(
@@ -180,15 +195,25 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       await _checkFacilityCompletion(result.user!);
-
     } else {
-
       emit(
         AuthLoginError(
           result.message,
         ),
       );
     }
+  }
+
+  Future<void> logout() async {
+    print("LOGOUT CALLED");
+
+    emit(AuthLoading());
+
+    await AuthLocalStorage.clearUser();
+    // await SignalRService.instance.disconnect();
+    print("LOGOUT => AuthUnauthenticated");
+
+    emit(AuthUnauthenticated());
   }
 
   Future<void> _checkFacilityCompletion(CreateUserRequest user) async {
@@ -337,17 +362,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> logout() async {
-    print("LOGOUT CALLED");
 
-    emit(AuthLoading());
-
-    await AuthLocalStorage.clearUser();
-
-    print("LOGOUT => AuthUnauthenticated");
-
-    emit(AuthUnauthenticated());
-  }
 
   Future<void> checkEmailExist(
       CheckIfUserExistRequest checkIfUserExistRequest) async {

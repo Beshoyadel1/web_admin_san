@@ -5,7 +5,7 @@ import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';
 
-Future<GetUserNewNotificationResponse> getUserNewNotificationFunction({
+Future<NotificationModel> getUserNewNotificationFunction({
   required GetUserNewNotificationRequest request,
 }) async {
   try {
@@ -15,7 +15,7 @@ Future<GetUserNewNotificationResponse> getUserNewNotificationFunction({
       ApiLink.getUserNewNotification,
     );
 
-    return GetUserNewNotificationResponse.fromJson(
+    return NotificationModel.fromJson(
       response.data,
     );
   } catch (e) {

@@ -17,8 +17,8 @@ class FlutterMapWidget extends StatelessWidget {
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(
-        initialCenter: centerLocation,
-        initialZoom: 13.0,
+        // initialCenter: centerLocation,
+        // initialZoom: 13.0,
       ),
       children: [
         TileLayer(
@@ -40,10 +40,10 @@ class FlutterMapWidget extends StatelessWidget {
         MarkerLayer(
           markers: [
             Marker(
-              width: 60.0,
-              height: 60.0,
+              width: 60,
+              height: 60,
               point: centerLocation,
-              child: Stack(
+              builder: (context) => Stack(
                 alignment: Alignment.center,
                 children: [
                   Container(
@@ -62,25 +62,27 @@ class FlutterMapWidget extends StatelessWidget {
                       shape: BoxShape.circle,
                     ),
                   ),
-                  Container(
+                  const SizedBox(
                     width: 18,
                     height: 18,
-                    decoration: const BoxDecoration(
-                      color: AppColors.orangeColor,
-                      shape: BoxShape.circle,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: AppColors.orangeColor,
+                        shape: BoxShape.circle,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
             Marker(
-              width: 40.0,
-              height: 40.0,
+              width: 40,
+              height: 40,
               point: LatLng(
                 centerLocation.latitude - 0.0064,
                 centerLocation.longitude,
               ),
-              child: Image.asset(
+              builder: (context) => Image.asset(
                 AppImageKeys.carLocation,
                 width: 32,
                 height: 19,

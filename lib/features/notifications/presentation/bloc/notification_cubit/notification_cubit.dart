@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/auth_page/data/datasource/login_datasource/login_repository.dart';
 import '../../../../../../features/notifications/data/datasource/get_user_new_notification_datasource/get_user_new_notification_datasource.dart';
 import '../../../../../../features/notifications/data/datasource/get_user_notification_datasource/get_user_notification_datasource.dart';
 import '../../../../../../features/notifications/data/datasource/make_notification_viewed_datasource/make_notification_viewed_datasource.dart';
@@ -9,65 +10,99 @@ import '../../../../../../features/notifications/presentation/bloc/notification_
 
 class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit() : super(NotificationInitial());
-  GetUserNewNotificationResponse? newNotification;
-  List<GetUserNewNotificationResponse> notifications = [];
+  NotificationModel? newNotification;
+  List<NotificationModel> notifications = [];
+  int get unreadCount =>
+      notifications.where((e) => e.isViewed == false).length;
 
-  Future<void> getUserNewNotification({
-    required int userId,
-    required int userType,
-  }) async {
-    emit(NotificationLoading());
-
-    try {
-      newNotification = await getUserNewNotificationFunction(
-        request: GetUserNewNotificationRequest(
-          userId: userId,
-          userType: userType,
-        ),
-      );
-
-      emit(NotificationNewSuccess(newNotification!));
-    } catch (e) {
-      emit(NotificationError(e.toString()));
+  void safeEmit(NotificationState state) {
+    if (!isClosed) {
+      emit(state);
     }
   }
 
-  Future<void> getUserNotification({
-    required int userId,
-    required int userType,
-  }) async {
-    emit(NotificationLoading());
+  Future<void> getUserNotification() async {
+    if (isClosed) return;
+
+    safeEmit(NotificationLoading());
 
     try {
+      final user = await AuthLocalStorage.getUser();
+
+      if (user == null) {
+        safeEmit(NotificationError("User not found"));
+        return;
+      }
+
       notifications = await getUserNotificationFunction(
         request: GetUserNewNotificationRequest(
-          userId: userId,
-          userType: userType,
+          userId: 4,//user.userid ?? 0,
+          userType:4, //user.type ?? 0,
         ),
       );
 
-      emit(NotificationSuccess(notifications));
+      if (isClosed) return;
+
+      safeEmit(NotificationSuccess(notifications));
     } catch (e) {
-      emit(NotificationError(e.toString()));
+      if (isClosed) return;
+      safeEmit(NotificationError(e.toString()));
     }
   }
-  Future<void> makeNotificationViewed({
-    required int userId,
-    required int userType,
-  }) async {
+
+  Future<void> getUserNewNotification() async {
+    if (isClosed) return;
+
+    safeEmit(NotificationLoading());
+
     try {
-      await makeNotificationViewedFunction(
+      final user = await AuthLocalStorage.getUser();
+
+      if (user == null) {
+        safeEmit(NotificationError("User not found"));
+        return;
+      }
+
+      newNotification = await getUserNewNotificationFunction(
         request: GetUserNewNotificationRequest(
-          userId: userId,
-          userType: userType,
+          userId: 4,//user.userid ?? 0,
+          userType:4, //user.type ?? 0,
         ),
       );
-      await getUserNotification(
-        userId: userId,
-        userType: userType,
-      );
+
+      if (isClosed) return;
+
+      safeEmit(NotificationNewSuccess(newNotification!));
     } catch (e) {
-      emit(NotificationError(e.toString()));
+      if (isClosed) return;
+      safeEmit(NotificationError(e.toString()));
+    }
+  }
+
+  Future<void> makeNotificationViewed() async {
+    if (isClosed) return;
+
+    try {
+      final user = await AuthLocalStorage.getUser();
+
+      if (user == null) {
+        safeEmit(NotificationError("User not found"));
+        return;
+      }
+
+      await makeNotificationViewedFunction(
+        request: GetUserNewNotificationRequest(
+          userId: 4,//user.userid ?? 0,
+          userType:4, //user.type ?? 0,
+        ),
+      );
+
+      if (isClosed) return;
+
+      await getUserNotification();
+    } catch (e) {
+      if (isClosed) return;
+      safeEmit(NotificationError(e.toString()));
     }
   }
 }

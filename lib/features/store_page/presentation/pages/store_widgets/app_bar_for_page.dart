@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/notifications/presentation/pages/notification_popup/notification_popup.dart';
 import '../../../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../../../core/cubit/app_cubit/app_states.dart';
 import '../../../../../core/pages_widgets/button_widget.dart';
@@ -120,24 +121,7 @@ class _AppBarForPageState extends State<AppBarForPage> {
                   ),
                 ),
               ),
-              PopupMenuButton(
-                icon: const Icon(
-                  Icons.notifications,
-                  size: 40,
-                  color: AppColors.blackColor,
-                ),
-                itemBuilder: (context) => [
-                 const  PopupMenuItem(
-                    enabled: false,
-                    padding: EdgeInsets.zero,
-                    child: SizedBox(
-                      width: 350,
-                      height: 400,
-                     // child: ListDataFirstScreenNotifications(),
-                    ),
-                  ),
-                ],
-              ),
+              const NotificationPopup(),
               const SizedBox(width: 10),
 
               const ChangeLanguageButton(),

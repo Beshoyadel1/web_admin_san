@@ -5,7 +5,7 @@ import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';
 
-Future<List<GetUserNewNotificationResponse>> getUserNotificationFunction({
+Future<List<NotificationModel>> getUserNotificationFunction({
   required GetUserNewNotificationRequest request,
 }) async {
   try {
@@ -17,7 +17,7 @@ Future<List<GetUserNewNotificationResponse>> getUserNotificationFunction({
 
     return (response.data as List)
         .map(
-          (e) => GetUserNewNotificationResponse.fromJson(e),
+          (e) => NotificationModel.fromJson(e),
     )
         .toList();
   } catch (e) {
