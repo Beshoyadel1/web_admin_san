@@ -7,11 +7,13 @@ import '../../../../../../features/notifications/data/model/get_user_new_notific
 import '../../../../../../features/notifications/data/request/get_user_new_notification_request/get_user_new_notification_request.dart';
 import '../../../../../../features/notifications/presentation/bloc/notification_cubit/notification_state.dart';
 
-
 class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit() : super(NotificationInitial());
+
   NotificationModel? newNotification;
+
   List<NotificationModel> notifications = [];
+
   int get unreadCount =>
       notifications.where((e) => e.isViewed == false).length;
 
@@ -34,11 +36,36 @@ class NotificationCubit extends Cubit<NotificationState> {
         return;
       }
 
-      notifications = await getUserNotificationFunction(
+      /// إشعارات المستخدم
+      final userNotifications = await getUserNotificationFunction(
         request: GetUserNewNotificationRequest(
-          userId: 4,//user.userid ?? 0,
-          userType:4, //user.type ?? 0,
+          userId: user.userid ?? 0,
+          userType: user.type ?? 0,
         ),
+      );
+
+      /// إشعارات عامة لنفس النوع (userId = 0)
+      final globalNotifications = await getUserNotificationFunction(
+        request: GetUserNewNotificationRequest(
+          userId: 0,
+          userType: user.type ?? 0,
+        ),
+      );
+
+      /// دمج القائمتين
+      notifications = [
+        ...userNotifications,
+        ...globalNotifications,
+      ];
+
+      /// إزالة التكرار حسب الـ ID
+      notifications = {
+        for (final item in notifications) item.id!: item,
+      }.values.toList();
+
+      /// الأحدث أولاً
+      notifications.sort(
+            (a, b) => b.date!.compareTo(a.date!),
       );
 
       if (isClosed) return;
@@ -65,8 +92,8 @@ class NotificationCubit extends Cubit<NotificationState> {
 
       newNotification = await getUserNewNotificationFunction(
         request: GetUserNewNotificationRequest(
-          userId: 4,//user.userid ?? 0,
-          userType:4, //user.type ?? 0,
+          userId: user.userid ?? 0,
+          userType: user.type ?? 0,
         ),
       );
 
@@ -92,8 +119,8 @@ class NotificationCubit extends Cubit<NotificationState> {
 
       await makeNotificationViewedFunction(
         request: GetUserNewNotificationRequest(
-          userId: 4,//user.userid ?? 0,
-          userType:4, //user.type ?? 0,
+          userId: user.userid ?? 0,
+          userType: user.type ?? 0,
         ),
       );
 

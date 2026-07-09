@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:signalr_core/signalr_core.dart';
-import 'package:web_admin_san/features/auth_page/data/datasource/login_datasource/login_repository.dart';
+import '../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
+import '../../../../../../features/auth_page/data/datasource/login_datasource/login_repository.dart';
+import '../../../../../../main.dart';
 
 class SignalRService {
   SignalRService._();
@@ -41,7 +45,7 @@ class SignalRService {
         HttpConnectionOptions(
           transport: HttpTransportType.longPolling,
           logging: (level, message) {
-            print("SIGNALR => $message");
+           // print("SIGNALR => $message");
           },
         ),
       )
@@ -72,28 +76,44 @@ class SignalRService {
         final currentUser = await AuthLocalStorage.getUser();
         if (currentUser == null) return;
 
-        final root = Map<String, dynamic>.from(arguments.first as Map);
+        final root = Map<String, dynamic>.from(arguments.first);
 
-        final int userId = root["userId"] as int;
-        final int userType = root["userType"] as int;
+        final int? userId = root["userId"];
+        final int? userType = root["userType"];
 
-        // تجاهل الإشعار إذا لم يكن لهذا المستخدم
-        if (userId != currentUser.userid ||
-            userType != currentUser.type) {
+        // يجب أن يكون نوع المستخدم مطابقًا
+        if (userType != currentUser.type) {
+          return;
+        }
+
+        // السماح إذا كان:
+        // - إشعار للمستخدم الحالي
+        // - أو إشعار عام (userId = 0)
+        // - أو إشعار عام (userId = null)
+        if (userId != null &&
+            userId != 0 &&
+            userId != currentUser.userid) {
           return;
         }
 
         final notification =
-        Map<String, dynamic>.from(root["data"] as Map);
-
-        print("Title => ${notification["title"]}");
-        print("Body => ${notification["body"]}");
+        Map<String, dynamic>.from(root["data"]);
 
         final data =
-        Map<String, dynamic>.from(notification["data"] as Map);
+        Map<String, dynamic>.from(notification["data"]);
 
-        print(data);
+        final notificationJson = jsonDecode(
+          data["notification"] as String,
+        ) as Map<String, dynamic>;
+
+        final model = NotificationModel.fromJson(notificationJson);
+
+        AppSnackBar.showNotification(
+          title: model.getTitle(scaffoldKey.currentContext!),
+          description: model.getDescription(scaffoldKey.currentContext!),
+        );
       });
+
       _hubConnection!.on("ReceiveMessage", (arguments) {
         print("========== RAW ==========");
         print(arguments);
@@ -114,15 +134,19 @@ class SignalRService {
         print("Title => ${notification["title"]}");
         print("Body => ${notification["body"]}");
 
-        final message = Messages.fromJson(
-          Map<String, dynamic>.from(notification["data"]),
-        );
+        final data =
+        Map<String, dynamic>.from(notification["data"]);
 
-        print("Message => ${message.message}");
+        final notificationModel =
+        NotificationModel.fromJson(data["notification"]);
+
+        print(notificationModel.title);
+        print(notificationModel.description);
       });
 
       _hubConnection!.on("NewOrder", (arguments) {
       });
+
       _hubConnection!.on("UpdateOrderStatus", (arguments) {
       });
       _hubConnection!.on("NewServiceRequest", (arguments) {
@@ -135,26 +159,7 @@ class SignalRService {
       _hubConnection!.on("OpenCloseChat", (arguments) {
       });
 
-
-
-
       await _hubConnection!.start();
-
-      print("=================================");
-      print("✅ SignalR Connected Successfully");
-      print("State => ${_hubConnection!.state}");
-      print("ConnectionId => ${_hubConnection!.connectionId}");
-      print("=================================");
-
-      await Future.delayed(const Duration(seconds: 3));
-
-      try {
-        print("Calling Ping...");
-        final result = await _hubConnection!.invoke("Ping");
-        print("Ping Result => $result");
-      } catch (e) {
-        print("Ping Error => $e");
-      }
 
     } catch (e, s) {
 
@@ -174,65 +179,86 @@ class SignalRService {
 
 }
 
+class NotificationModel {
+  final int id;
+  final String title;
+  final String latinTitle;
+  final String description;
+  final String latinDesc;
+  final int toUserId;
+  final int toUserType;
+  final int fromUserId;
+  final int fromUserType;
+  final bool isViewed;
+  final DateTime date;
 
-class Messages {
-  int? fromuser;
-  int? fromusertype;
-  int? touser;
-  int? tousertype;
-
-  String? message;
-  String? date;
-  String? fromusername;
-
-  bool? viewed;
-  bool? isclosed;
-
-  Uint8List? image;
-
-  Messages({
-    this.fromuser,
-    this.fromusertype,
-    this.touser,
-    this.tousertype,
-    this.message,
-    this.date,
-    this.fromusername,
-    this.viewed,
-    this.isclosed,
-    this.image,
+  NotificationModel({
+    required this.id,
+    required this.title,
+    required this.latinTitle,
+    required this.description,
+    required this.latinDesc,
+    required this.toUserId,
+    required this.toUserType,
+    required this.fromUserId,
+    required this.fromUserType,
+    required this.isViewed,
+    required this.date,
   });
 
-  factory Messages.fromJson(Map<String, dynamic> json) {
-    return Messages(
-      fromuser: json["fromuser"],
-      fromusertype: json["fromusertype"],
-      touser: json["touser"],
-      tousertype: json["tousertype"],
-      message: json["message"],
-      date: json["date"],
-      fromusername: json["fromusername"],
-      viewed: json["viewed"],
-      isclosed: json["isclosed"] ?? true,
-      image: json["image"] != null &&
-          json["image"].toString().isNotEmpty
-          ? base64Decode(json["image"])
-          : null,
+  factory NotificationModel.fromJson(Map<String, dynamic> json) {
+    return NotificationModel(
+      id: json["ID"] ?? 0,
+      title: json["TITLE"] ?? "",
+      latinTitle: json["LATINTITLE"] ?? "",
+      description: json["DESCRIPTION"] ?? "",
+      latinDesc: json["LATINDESC"] ?? "",
+      toUserId: json["TOUSERID"] ?? 0,
+      toUserType: json["TOUSERTYPE"] ?? 0,
+      fromUserId: json["FROMUSERID"] ?? 0,
+      fromUserType: json["FROMUSERTYPE"] ?? 0,
+      isViewed: json["ISVIEWED"] ?? false,
+      date: DateTime.tryParse(json["DATE"] ?? "") ?? DateTime.now(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "fromuser": fromuser,
-      "fromusertype": fromusertype,
-      "touser": touser,
-      "tousertype": tousertype,
-      "message": message,
-      "date": date,
-      "fromusername": fromusername,
-      "viewed": viewed,
-      "isclosed": isclosed,
-      "image": image != null ? base64Encode(image!) : null,
+      "ID": id,
+      "TITLE": title,
+      "LATINTITLE": latinTitle,
+      "DESCRIPTION": description,
+      "LATINDESC": latinDesc,
+      "TOUSERID": toUserId,
+      "TOUSERTYPE": toUserType,
+      "FROMUSERID": fromUserId,
+      "FROMUSERTYPE": fromUserType,
+      "ISVIEWED": isViewed,
+      "DATE": date.toIso8601String(),
     };
+  }
+  bool _isEnglish(BuildContext context) {
+    return Localizations.localeOf(context).languageCode == 'en';
+  }
+
+  String getTitle(BuildContext context) {
+    return _isEnglish(context)
+        ? (latinTitle ?? "")
+        : (title ?? "");
+  }
+
+  String getDescription(BuildContext context) {
+    return _isEnglish(context)
+        ? (latinDesc ?? "")
+        : (description ?? "");
+  }
+
+  String getFormattedDate(BuildContext context) {
+    final locale = Localizations.localeOf(context).languageCode;
+
+    return DateFormat(
+      "dd MMM yyyy • hh:mm a",
+      locale,
+    ).format(date);
   }
 }
