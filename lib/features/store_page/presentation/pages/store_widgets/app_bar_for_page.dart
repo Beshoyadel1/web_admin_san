@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/features/notifications/presentation/pages/notification_popup/notification_popup.dart';
+import '../../../../../features/notifications/presentation/pages/notification_popup/notification_popup.dart';
 import '../../../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../../../core/cubit/app_cubit/app_states.dart';
 import '../../../../../core/pages_widgets/button_widget.dart';

@@ -21,8 +21,7 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKeyDrawer =
-  GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKeyDrawer = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     super.initState();
