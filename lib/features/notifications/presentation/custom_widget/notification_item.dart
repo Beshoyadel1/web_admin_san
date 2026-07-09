@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
-import 'package:web_admin_san/features/notifications/data/model/get_user_new_notification_model/get_user_new_notification_model.dart';
+import '../../../../../../core/theming/colors.dart';
+import '../../../../../../core/theming/fonts.dart';
+import '../../../../../../core/theming/text_styles.dart';
+import '../../../../../../features/notifications/data/model/get_user_new_notification_model/get_user_new_notification_model.dart';
 
 class NotificationItem extends StatelessWidget{
   final NotificationModel notification;

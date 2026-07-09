@@ -1,4 +1,4 @@
-import 'package:web_admin_san/features/notifications/data/model/get_user_new_notification_model/get_user_new_notification_model.dart';
+import '../../../../../../features/notifications/data/model/get_user_new_notification_model/get_user_new_notification_model.dart';
 
 abstract class NotificationState {}
 

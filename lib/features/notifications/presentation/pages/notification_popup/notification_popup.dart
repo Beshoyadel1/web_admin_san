@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
-import 'package:web_admin_san/features/notifications/presentation/bloc/notification_cubit/notification_cubit.dart';
-import 'package:web_admin_san/features/notifications/presentation/bloc/notification_cubit/notification_state.dart';
-import 'package:web_admin_san/features/notifications/presentation/pages/notification_list_widget/notification_list_widget.dart';
+import '../../../../../../core/theming/colors.dart';
+import '../../../../../../core/theming/text_styles.dart';
+import '../../../../../../features/notifications/presentation/bloc/notification_cubit/notification_cubit.dart';
+import '../../../../../../features/notifications/presentation/bloc/notification_cubit/notification_state.dart';
+import '../../../../../../features/notifications/presentation/pages/notification_list_widget/notification_list_widget.dart';
 
 class NotificationPopup extends StatelessWidget {
   const NotificationPopup({super.key});

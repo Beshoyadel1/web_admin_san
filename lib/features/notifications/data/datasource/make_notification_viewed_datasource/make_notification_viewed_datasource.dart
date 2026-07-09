@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:web_admin_san/features/notifications/data/request/get_user_new_notification_request/get_user_new_notification_request.dart';
+import '../../../../../features/notifications/data/request/get_user_new_notification_request/get_user_new_notification_request.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';
