@@ -7,12 +7,13 @@ import '../../../../../features/notifications/presentation/pages/notification_di
 
 class NotificationDialog extends StatelessWidget {
   final NotificationModel notification;
-  final VoidCallback? onView;
+  final VoidCallback? onView,onClose;
 
   const NotificationDialog({
     super.key,
     required this.notification,
     this.onView,
+    this.onClose
   });
 
   @override
@@ -44,9 +45,7 @@ class NotificationDialog extends StatelessWidget {
               const SizedBox(height: 20),
               LastTwoButtonNotificationDialog(
                 onTapView: onView,
-                onTapClose: () {
-                  Navigator.pop(context);
-                },
+                onTapClose:onClose
               ),
             ],
           ),

@@ -106,7 +106,7 @@ class SignalRService {
 
           final model = NotificationModel.fromJson(notificationJson);
 
-          await AudioService.instance.playNotification();
+          await AudioService.instance.startNotificationSound();
 
           final context = navigatorKey.currentContext;
 
@@ -130,7 +130,12 @@ class SignalRService {
             builder: (_) {
               return NotificationDialog(
                 notification: model,
-                onView: () {
+                onClose: () async {
+                  await AudioService.instance.stopNotificationSound();
+                  Navigator.pop(context);
+                },
+                onView: () async {
+                  await AudioService.instance.stopNotificationSound();
                   _isNotificationDialogShowing = false;
 
                   Navigator.of(
