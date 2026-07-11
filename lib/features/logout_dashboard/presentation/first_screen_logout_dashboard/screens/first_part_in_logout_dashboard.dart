@@ -15,13 +15,13 @@ class FirstPartInLogoutDashboard extends StatelessWidget {
     return Column(
       spacing: 20,
       children: [
-        TextInAppWidget(
+        const TextInAppWidget(
           text: AppLanguageKeys.logout,
           textSize: 20,
           fontWeightIndex: FontSelectionData.semiBoldFontFamily,
           textColor: AppColors.blackColor,
         ),
-        TextInAppWidget(
+        const TextInAppWidget(
           text: AppLanguageKeys.confirmLogout,
           textSize: 12,
           fontWeightIndex: FontSelectionData.semiBoldFontFamily,

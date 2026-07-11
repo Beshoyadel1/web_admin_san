@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:signalr_core/signalr_core.dart';
-import '../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
+import '../../../../../../core/audio_service/audio_service.dart';
+import '../../../../../../core/cubit/app_cubit/app_cubit.dart';
+import '../../../../../../core/utilies/map_of_all_app.dart';
+import '../../../../../../features/notifications/presentation/pages/notification_dialog/notification_dialog.dart';
 import '../../../../../../features/auth_page/data/datasource/login_datasource/login_repository.dart';
 import '../../../../../../main.dart';
 
 class SignalRService {
+  bool _isNotificationDialogShowing = false;
+
   SignalRService._();
 
   static final SignalRService instance = SignalRService._();
@@ -56,7 +61,7 @@ class SignalRService {
       _hubConnection!.onclose((error) async {
         print("SignalR Closed => $error");
 
-        await Future.delayed(const Duration(seconds: 5));
+        await Future.delayed(const Duration(seconds: 3));
 
         if (!isConnected) {
           await connect(hubUrl: hubUrl);
@@ -69,49 +74,82 @@ class SignalRService {
       });
 
       /// ================= Notifications =================
-
       _hubConnection!.on("ReceiveNotification", (arguments) async {
-        if (arguments == null || arguments.isEmpty) return;
+        try {
+          if (arguments == null || arguments.isEmpty) return;
 
-        final currentUser = await AuthLocalStorage.getUser();
-        if (currentUser == null) return;
+          final currentUser = await AuthLocalStorage.getUser();
+          if (currentUser == null) return;
 
-        final root = Map<String, dynamic>.from(arguments.first);
+          final root = Map<String, dynamic>.from(arguments.first);
 
-        final int? userId = root["userId"];
-        final int? userType = root["userType"];
+          final int? userId = root["userId"];
+          final int? userType = root["userType"];
 
-        // يجب أن يكون نوع المستخدم مطابقًا
-        if (userType != currentUser.type) {
-          return;
+          if (userType != currentUser.type) return;
+
+          if (userId != null &&
+              userId != 0 &&
+              userId != currentUser.userid) {
+            return;
+          }
+
+          final notification =
+          Map<String, dynamic>.from(root["data"]);
+
+          final data =
+          Map<String, dynamic>.from(notification["data"]);
+
+          final notificationJson = jsonDecode(
+            data["notification"] as String,
+          ) as Map<String, dynamic>;
+
+          final model = NotificationModel.fromJson(notificationJson);
+
+          await AudioService.instance.playNotification();
+
+          final context = navigatorKey.currentContext;
+
+          if (context == null) return;
+
+          if (_isNotificationDialogShowing) {
+            Navigator.of(context, rootNavigator: true).pop();
+
+            _isNotificationDialogShowing = false;
+
+            await Future.delayed(
+              const Duration(milliseconds: 150),
+            );
+          }
+
+          _isNotificationDialogShowing = true;
+
+          await showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) {
+              return NotificationDialog(
+                notification: model,
+                onView: () {
+                  _isNotificationDialogShowing = false;
+
+                  Navigator.of(
+                    context,
+                    rootNavigator: true,
+                  ).pop();
+                  AppCubit.get(context).navigateToPage(PagesOfAllApp.dashboardOrderPageNumber);
+                },
+              );
+            },
+          );
+
+          _isNotificationDialogShowing = false;
+        } catch (e, s) {
+          _isNotificationDialogShowing = false;
+
+          debugPrint("ReceiveNotification Error => $e");
+          debugPrintStack(stackTrace: s);
         }
-
-        // السماح إذا كان:
-        // - إشعار للمستخدم الحالي
-        // - أو إشعار عام (userId = 0)
-        // - أو إشعار عام (userId = null)
-        if (userId != null &&
-            userId != 0 &&
-            userId != currentUser.userid) {
-          return;
-        }
-
-        final notification =
-        Map<String, dynamic>.from(root["data"]);
-
-        final data =
-        Map<String, dynamic>.from(notification["data"]);
-
-        final notificationJson = jsonDecode(
-          data["notification"] as String,
-        ) as Map<String, dynamic>;
-
-        final model = NotificationModel.fromJson(notificationJson);
-
-        AppSnackBar.showNotification(
-          title: model.getTitle(scaffoldKey.currentContext!),
-          description: model.getDescription(scaffoldKey.currentContext!),
-        );
       });
 
       _hubConnection!.on("ReceiveMessage", (arguments) {

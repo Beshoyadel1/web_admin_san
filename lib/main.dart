@@ -13,9 +13,8 @@ import '../../../core/theming/colors.dart';
 import '../../../core/language/language.dart';
 import '../../../core/setup_git_it.dart';
 
-final GlobalKey<ScaffoldMessengerState> scaffoldKey =
-    GlobalKey<ScaffoldMessengerState>();
-
+final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() {
   setupGetIt();
   runApp(
@@ -52,6 +51,7 @@ class MyApp extends StatelessWidget {
         },
         builder: (BuildContext context, state) {
           return MaterialApp(
+            navigatorKey: navigatorKey,
             scaffoldMessengerKey: scaffoldKey,
             supportedLocales: supportedLocales,
             locale: LanguageCubit.get(context).selectedLanguage,
