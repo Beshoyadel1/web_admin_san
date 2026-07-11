@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
 import '../../../../../core/signalr/signalr_service.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/fonts.dart';
