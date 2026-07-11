@@ -6,14 +6,15 @@ import '../../../../../features/notifications/presentation/pages/notification_di
 import '../../../../../features/notifications/presentation/pages/notification_dialog/last_two_button_notification_dialog.dart';
 
 class NotificationDialog extends StatelessWidget {
-  final NotificationModel notification;
+  final String? title,subTitle;
   final VoidCallback? onView,onClose;
 
   const NotificationDialog({
     super.key,
-    required this.notification,
     this.onView,
-    this.onClose
+    this.onClose,
+    this.title,
+    this.subTitle
   });
 
   @override
@@ -40,7 +41,8 @@ class NotificationDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               FirstPartNotificationDialog(
-                notification: notification,
+                title:title ,
+                subTitle:subTitle ,
               ),
               const SizedBox(height: 20),
               LastTwoButtonNotificationDialog(

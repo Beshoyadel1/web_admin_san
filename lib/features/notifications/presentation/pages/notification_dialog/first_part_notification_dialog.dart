@@ -5,11 +5,14 @@ import '../../../../../core/theming/fonts.dart';
 import '../../../../../core/theming/text_styles.dart';
 
 class FirstPartNotificationDialog extends StatelessWidget {
-  final NotificationModel notification;
+  final String? title,subTitle;
+ // final NotificationModel? notification;
 
   const FirstPartNotificationDialog({
     super.key,
-    required this.notification,
+  //   this.notification,
+    this.subTitle,
+    this.title
   });
 
   @override
@@ -26,14 +29,14 @@ class FirstPartNotificationDialog extends StatelessWidget {
           ),
         ),
         TextInAppWidget(
-          text: notification.getTitle(context),
+          text: title??"",
           textSize: 16,
           fontWeightIndex: FontSelectionData.semiBoldFontFamily,
           textColor: AppColors.blackColor,
         ),
 
         TextInAppWidget(
-          text: notification.getDescription(context),
+          text: subTitle??"",
           textSize: 13,
           textAlign: TextAlign.center,
           fontWeightIndex: FontSelectionData.regularFontFamily,
