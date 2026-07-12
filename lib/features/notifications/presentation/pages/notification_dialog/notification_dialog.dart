@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../../../../../core/signalr/signalr_service.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../features/notifications/presentation/pages/notification_dialog/first_part_notification_dialog.dart';
 import '../../../../../features/notifications/presentation/pages/notification_dialog/last_two_button_notification_dialog.dart';

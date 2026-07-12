@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/signalr/signalr_service.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/fonts.dart';
 import '../../../../../core/theming/text_styles.dart';
 
 class FirstPartNotificationDialog extends StatelessWidget {
   final String? title,subTitle;
- // final NotificationModel? notification;
 
   const FirstPartNotificationDialog({
     super.key,
-  //   this.notification,
     this.subTitle,
     this.title
   });

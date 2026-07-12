@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:web_admin_san/core/audio_service/audio_service.dart';
 import 'package:web_admin_san/features/notifications/presentation/bloc/notification_cubit/notification_cubit.dart';
 
 import '../../../features/auth_page/presentation/auth_gate.dart';
@@ -36,19 +37,31 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void reassemble() {
+    super.reassemble();
+
+    AudioService.instance.stopNotificationSound();
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     print("📱 Screen width = $width");
+
     return BlocProvider(
       create: (BuildContext context) => getIt<AppCubit>(),
       child: BlocBuilder<LanguageCubit, LanguageStates>(
-        buildWhen: (previous, current) {
-          return current is ChangeAllAppLanguageState;
-        },
+        buildWhen: (previous, current) =>
+        current is ChangeAllAppLanguageState,
         builder: (BuildContext context, state) {
           return MaterialApp(
             navigatorKey: navigatorKey,
@@ -61,19 +74,7 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            scrollBehavior: const MaterialScrollBehavior().copyWith(
-              dragDevices: {
-                PointerDeviceKind.mouse,
-                PointerDeviceKind.touch,
-                PointerDeviceKind.stylus,
-                PointerDeviceKind.unknown
-              },
-            ),
             title: 'San Admin System',
-            theme: ThemeData(
-              scaffoldBackgroundColor: AppColors.lightWhiteColor,
-              useMaterial3: true,
-            ),
             debugShowCheckedModeBanner: false,
             home: const AuthGate(),
           );

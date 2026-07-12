@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/core/signalr/signalr_service.dart';
-
+import 'package:web_admin_san/features/notifications/data/datasource/signalr_datasource/signalr_service/signalr_service.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/language/language_constant.dart';
 import '../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
@@ -58,13 +56,9 @@ class AuthCubit extends Cubit<AuthState> {
     }
 
     if (!SignalRService.instance.isConnected) {
-      try {
-        await SignalRService.instance.connect(
-          hubUrl: ApiLink.notificationHub,
-        );
-      } catch (e) {
-        print("SignalR Init Error => $e");
-      }
+      await SignalRService.instance.connect(
+        hubUrl: ApiLink.notificationHub,
+      );
     }
 
     await _checkFacilityCompletion(user);
@@ -180,12 +174,10 @@ class AuthCubit extends Cubit<AuthState> {
       await AuthLocalStorage.saveUser(result.user!);
 
       // الاتصال بالـ SignalR
-      try {
+      if (!SignalRService.instance.isConnected) {
         await SignalRService.instance.connect(
           hubUrl: ApiLink.notificationHub,
         );
-      } catch (e) {
-        print("SignalR Login Error => $e");
       }
 
       emit(
