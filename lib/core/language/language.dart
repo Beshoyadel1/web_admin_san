@@ -31,6 +31,7 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.youHaveOrderUpdate: 'لديك تحديث على الطلب.',
       AppLanguageKeys.viewMore: 'عرض المزيد',
       AppLanguageKeys.insurances: 'التأمينات',
       AppLanguageKeys.insuranceCompanies: 'شركات التأمين',
@@ -1393,6 +1394,7 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.youHaveOrderUpdate: 'You have an order update.',
       AppLanguageKeys.viewMore: 'View More',
       AppLanguageKeys.insurances: 'Insurances',
       AppLanguageKeys.insuranceCompanies: 'Insurance Companies',
