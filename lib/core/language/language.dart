@@ -31,6 +31,7 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.viewMore: 'عرض المزيد',
       AppLanguageKeys.insurances: 'التأمينات',
       AppLanguageKeys.insuranceCompanies: 'شركات التأمين',
       AppLanguageKeys.allInsuranceCompanies: 'جميع شركات التأمين الخاصة بالنظام',
@@ -1392,6 +1393,7 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.viewMore: 'View More',
       AppLanguageKeys.insurances: 'Insurances',
       AppLanguageKeys.insuranceCompanies: 'Insurance Companies',
       AppLanguageKeys.allInsuranceCompanies: 'All insurance companies in the system',

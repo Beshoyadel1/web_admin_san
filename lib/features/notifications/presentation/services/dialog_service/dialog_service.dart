@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/features/notifications/presentation/custom_widget/notification_dialog_helper.dart';
-import 'package:web_admin_san/features/notifications/presentation/services/navigation_service/navigation_service.dart';
-import 'package:web_admin_san/features/notifications/presentation/services/notification_audio_service/notification_audio_service.dart';
-import 'package:web_admin_san/main.dart';
+import '../../../../../../features/notifications/presentation/custom_widget/notification_dialog_helper.dart';
+import '../../../../../../features/notifications/presentation/services/navigation_service/navigation_service.dart';
+import '../../../../../../features/notifications/presentation/services/notification_audio_service/notification_audio_service.dart';
+import '../../../../../../main.dart';
 
 class NotificationDialogService {
   BuildContext get context => navigatorKey.currentContext!;

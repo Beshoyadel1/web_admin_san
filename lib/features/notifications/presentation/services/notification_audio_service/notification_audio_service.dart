@@ -1,4 +1,4 @@
-import 'package:web_admin_san/core/audio_service/audio_service.dart';
+import '../../../../../../core/audio_service/audio_service.dart';
 
 class NotificationAudioService {
   const NotificationAudioService();

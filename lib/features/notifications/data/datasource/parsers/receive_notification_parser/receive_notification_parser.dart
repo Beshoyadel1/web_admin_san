@@ -1,7 +1,6 @@
 import 'dart:convert';
-
-import 'package:web_admin_san/features/notifications/data/datasource/parsers/root_parser/root_parser.dart';
-import 'package:web_admin_san/features/notifications/data/model/receive_notification_model/receive_notification_model.dart';
+import '../../../../../../features/notifications/data/datasource/parsers/root_parser/root_parser.dart';
+import '../../../../../../features/notifications/data/model/receive_notification_model/receive_notification_model.dart';
 
 class ReceiveNotificationParser {
   ReceiveNotificationParser({

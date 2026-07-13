@@ -1,5 +1,5 @@
-import 'package:web_admin_san/features/notifications/data/datasource/parsers/root_parser/root_parser.dart';
-import 'package:web_admin_san/features/notifications/data/model/new_order_notifications_model/new_order_notifications_model.dart';
+import '../../../../../../features/notifications/data/datasource/parsers/root_parser/root_parser.dart';
+import '../../../../../../features/notifications/data/model/new_order_notifications_model/new_order_notifications_model.dart';
 
 class NewOrderParser {
   NewOrderParser({

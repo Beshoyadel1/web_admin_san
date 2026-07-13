@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
-import 'package:web_admin_san/features/notifications/data/datasource/parsers/new_order_parser/new_order_parser.dart';
-import 'package:web_admin_san/features/notifications/presentation/services/dialog_service/dialog_service.dart';
-
-import 'package:web_admin_san/features/notifications/presentation/services/navigation_service/navigation_service.dart';
+import '../../../../../../core/language/language_constant.dart';
+import '../../../../../../features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
+import '../../../../../../features/notifications/data/datasource/parsers/new_order_parser/new_order_parser.dart';
+import '../../../../../../features/notifications/presentation/services/dialog_service/dialog_service.dart';
+import '../../../../../../features/notifications/presentation/services/navigation_service/navigation_service.dart';
 
 class NewOrderHandler {
   NewOrderHandler({

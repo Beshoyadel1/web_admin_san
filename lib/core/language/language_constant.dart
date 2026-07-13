@@ -19,6 +19,7 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String viewMore = 'viewMore';
   static const String insurances = 'insurances';
   static const String insuranceCompanies = 'insuranceCompanies';
   static const String allInsuranceCompanies = 'allInsuranceCompanies';

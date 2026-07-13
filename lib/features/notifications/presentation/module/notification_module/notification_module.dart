@@ -1,10 +1,10 @@
-import 'package:web_admin_san/features/notifications/data/datasource/parsers/new_order_parser/new_order_parser.dart';
-import 'package:web_admin_san/features/notifications/data/datasource/parsers/receive_notification_parser/receive_notification_parser.dart';
-import 'package:web_admin_san/features/notifications/data/repository/notification_repository/notification_repository_impl.dart';
-import 'package:web_admin_san/features/notifications/presentation/handlers/new_order_handler/new_order_handler.dart';
-import 'package:web_admin_san/features/notifications/presentation/handlers/receive_notification_handler/receive_notification_handler.dart';
-import 'package:web_admin_san/features/notifications/presentation/services/dialog_service/dialog_service.dart';
-import 'package:web_admin_san/features/notifications/presentation/services/navigation_service/navigation_service.dart';
+import '../../../../../../features/notifications/data/datasource/parsers/new_order_parser/new_order_parser.dart';
+import '../../../../../../features/notifications/data/datasource/parsers/receive_notification_parser/receive_notification_parser.dart';
+import '../../../../../../features/notifications/data/repository/notification_repository/notification_repository_impl.dart';
+import '../../../../../../features/notifications/presentation/handlers/new_order_handler/new_order_handler.dart';
+import '../../../../../../features/notifications/presentation/handlers/receive_notification_handler/receive_notification_handler.dart';
+import '../../../../../../features/notifications/presentation/services/dialog_service/dialog_service.dart';
+import '../../../../../../features/notifications/presentation/services/navigation_service/navigation_service.dart';
 
 class NotificationModule {
   NotificationModule._();
