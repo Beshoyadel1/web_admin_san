@@ -12,7 +12,7 @@ Future<List<ChatDetailsModel>> getChatMessagesFunction({
       request.toJson(),
       ApiLink.getChatMessages,
     );
-
+    print(response.data);
     final List data =
         response.data['data'] ?? [];
 

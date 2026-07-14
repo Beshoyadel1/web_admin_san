@@ -29,20 +29,30 @@ class ChatDetailsCubit extends Cubit<ChatDetailsState> {
 
     try {
       final user = await AuthLocalStorage.getUser();
-      myUserId = user!.userid!;
+
+      print("UserId = ${user?.userid}");
+      print("UserType = ${user?.type}");
+
+      final request = GetChatMessagesRequest(
+        fromUserId: user!.userid!,
+        fromUserType: user.type!,
+        toUserId: toUserId,
+        toUserType: toUserType,
+      );
+
+      print(request.toJson());
 
       final chats = await getChatMessagesFunction(
-        request: GetChatMessagesRequest(
-          fromUserId: user.userid!,
-          fromUserType: user.type!,
-          toUserId: toUserId,
-          toUserType: toUserType,
-        ),
+        request: request,
       );
+
       currentChat = chats.isNotEmpty ? chats.first : null;
+
+      print("Chats length = ${chats.length}");
 
       emit(ChatDetailsSuccess(chats));
     } catch (e) {
+      print(e);
       emit(ChatDetailsError(e.toString()));
     }
   }
