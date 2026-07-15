@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'message_item_model.dart';
 
 class ChatDetailsModel {

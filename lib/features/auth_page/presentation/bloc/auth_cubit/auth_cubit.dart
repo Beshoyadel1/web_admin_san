@@ -22,6 +22,7 @@ import '../../../../../features/auth_page/domain/validate/facility_validator.dar
 import '../../../../../features/auth_page/presentation/pages/change_password/change_password_page.dart';
 import 'auth_state.dart';
 
+
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
@@ -197,14 +198,9 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> logout() async {
-    print("LOGOUT CALLED");
-
     emit(AuthLoading());
-
     await AuthLocalStorage.clearUser();
-    // await SignalRService.instance.disconnect();
-    print("LOGOUT => AuthUnauthenticated");
-
+     SignalRService.instance.disconnect();
     emit(AuthUnauthenticated());
   }
 

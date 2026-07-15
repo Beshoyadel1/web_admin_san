@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../core/api/dio_function/api_constants.dart';
@@ -63,6 +64,9 @@ Future<LoginResult> loginFunction({
       ),
       ApiLink.loginUser,
     );
+
+    debugPrint("LOGIN RESPONSE:");
+    debugPrint(jsonEncode(response.data));
 
     final Map<String, dynamic> body =
         response.data;

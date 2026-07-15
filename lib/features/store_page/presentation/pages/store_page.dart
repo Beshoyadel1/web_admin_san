@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/notifications/presentation/pages/signalR_status_bar/signalR_status_bar.dart';
 
 import '../../../../../core/general_models/pages_model.dart';
 import '../../../../core/cubit/app_cubit/app_cubit.dart';
@@ -85,6 +86,7 @@ class _StorePageState extends State<StorePage> {
             )
           ],
         ),
+        bottomNavigationBar: const SignalRStatusBar(),
       ),
     );
   }

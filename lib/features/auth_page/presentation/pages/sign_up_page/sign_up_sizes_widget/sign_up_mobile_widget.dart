@@ -160,6 +160,7 @@ class _SignUpMobileWidgetState extends State<SignUpMobileWidget> {
                                             password: password,
                                             type: UserType.employeeUser,
                                             adminDetails: const AdminDetailsRequest(),
+                                            fcmToken: ''
                                           ),
                                         );
                                   },

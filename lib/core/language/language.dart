@@ -31,6 +31,13 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.notificationConnected: 'الإشعارات متصلة',
+      AppLanguageKeys.notificationReconnecting:
+      'جارٍ إعادة الاتصال الإشعارات...',
+      AppLanguageKeys.notificationConnecting:
+      'جارٍ الاتصال الإشعارات...',
+      AppLanguageKeys.notificationDisconnectedTapToReconnect:
+      'الإشعارات غير متصلة (اضغط لإعادة الاتصال)',
       AppLanguageKeys.youHaveOrderUpdate: 'لديك تحديث على الطلب.',
       AppLanguageKeys.viewMore: 'عرض المزيد',
       AppLanguageKeys.insurances: 'التأمينات',
@@ -1394,6 +1401,13 @@ class AppLocalizations {
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
       //END//
       //others//
+      AppLanguageKeys.notificationConnected: 'Notification connected',
+      AppLanguageKeys.notificationReconnecting:
+      'Reconnecting to notification ...',
+      AppLanguageKeys.notificationConnecting:
+      'Connecting to notification ...',
+      AppLanguageKeys.notificationDisconnectedTapToReconnect:
+      'Notification disconnected (Tap to reconnect)',
       AppLanguageKeys.youHaveOrderUpdate: 'You have an order update.',
       AppLanguageKeys.viewMore: 'View More',
       AppLanguageKeys.insurances: 'Insurances',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/notifications/presentation/pages/signalR_status_bar/signalR_status_bar.dart';
 
 import '../../../../../core/language/language_constant.dart';
 import '../../../../../core/pages_widgets/general_widgets/snakbar.dart';
@@ -141,7 +142,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               ),
               if(MediaQuery.of(context).size.width > ValuesOfAllApp.mobileWidth) const LoginImage(),
             ],
-          )
+          ),
       ),
     );
   }
