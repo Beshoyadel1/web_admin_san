@@ -110,7 +110,7 @@ class FacilityAccountCheck extends StatelessWidget {
 
                                         context
                                             .read<AuthCubit>()
-                                            .logout();
+                                            .logout(context);
                                       },
                                       containerColor:
                                       AppColors.redColor,

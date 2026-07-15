@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../../../../core/theming/secure_storage.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';
@@ -12,15 +10,11 @@ import '../../../../../features/auth_page/data/model/create_user_model/create_us
 import '../../../../../features/auth_page/data/model/login_model/login_result.dart';
 import '../../request/login_request/login_request.dart';
 
-
 class AuthLocalStorage {
   static const String userKey = "user_data";
-
   static Future<void> saveUser(CreateUserRequest user) async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = json.encode(user.toJson());
-
-    //print("SAVING USER: $jsonString");
 
     await prefs.setString(userKey, jsonString);
   }
@@ -39,8 +33,6 @@ class AuthLocalStorage {
   static Future<bool> isLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
     final data = prefs.getString(userKey);
-
-    //print("CHECK RAW DATA: $data");
 
     return data != null && data.isNotEmpty;
   }
@@ -64,9 +56,6 @@ Future<LoginResult> loginFunction({
       ),
       ApiLink.loginUser,
     );
-
-    debugPrint("LOGIN RESPONSE:");
-    debugPrint(jsonEncode(response.data));
 
     final Map<String, dynamic> body =
         response.data;
@@ -108,6 +97,9 @@ Future<LoginResult> loginFunction({
 
     await AuthLocalStorage.saveUser(
       user,
+    );
+    await SecureStorage.savePassword(
+      loginRequest.password,
     );
 
     return LoginResult(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:signalr_core/signalr_core.dart';
+import 'package:web_admin_san/features/auth_page/data/datasource/login_datasource/login_repository.dart';
 import '../../../../../../core/language/language_constant.dart';
 import '../../../../../../core/theming/colors.dart';
 import '../../../../../../core/theming/fonts.dart';
@@ -44,6 +45,7 @@ class SignalRStatusBar extends StatelessWidget {
           onTap: state == HubConnectionState.disconnected
               ? () async {
             try {
+
               await SignalRService.instance.reconnect();
             } catch (e) {
               debugPrint("Reconnect Error => $e");

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/theming/secure_storage.dart';
 import 'package:web_admin_san/features/notifications/data/datasource/signalr_datasource/signalr_service/signalr_service.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/language/language_constant.dart';
@@ -29,7 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
 
   String phoneNumber = "";
-
+  CreateUserRequest? user;
   bool _isConfirmPasswordObscure = true;
 
   bool get isConfirmPasswordObscure => _isConfirmPasswordObscure;
@@ -49,9 +50,27 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> init() async {
     emit(AuthLoading());
 
-    final user = await AuthLocalStorage.getUser();
+    final localUser = await AuthLocalStorage.getUser();
+    final password = await SecureStorage.getPassword();
 
-    if (user == null) {
+    if (localUser == null || password == null) {
+      emit(AuthUnauthenticated());
+      return;
+    }
+
+    final result = await loginFunction(
+      loginRequest: LoginRequest(
+        user: localUser.email!,
+        password: password,
+        type: UserType.adminUser,
+      ),
+    );
+
+    if (!result.success || result.user == null) {
+      await AuthLocalStorage.clearUser();
+      await SecureStorage.clearPassword();
+      await SignalRService.instance.disconnect();
+
       emit(AuthUnauthenticated());
       return;
     }
@@ -62,8 +81,9 @@ class AuthCubit extends Cubit<AuthState> {
       );
     }
 
-    await _checkFacilityCompletion(user);
+    await _checkFacilityCompletion(result.user!);
   }
+
   Timer? _timer;
   int secondsRemaining = 30;
   String otpCode = "";
@@ -167,14 +187,9 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await loginFunction(
       loginRequest: request,
     );
-
-    print("LOGIN SUCCESS => ${result.success}");
-    print("LOGIN MESSAGE => ${result.message}");
-
     if (result.success && result.user != null) {
       await AuthLocalStorage.saveUser(result.user!);
 
-      // الاتصال بالـ SignalR
       if (!SignalRService.instance.isConnected) {
         await SignalRService.instance.connect(
           hubUrl: ApiLink.notificationHub,
@@ -197,11 +212,15 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> logout() async {
+  Future<void> logout(BuildContext context) async {
     emit(AuthLoading());
     await AuthLocalStorage.clearUser();
-     SignalRService.instance.disconnect();
+    await SignalRService.instance.disconnect();
+    await SecureStorage.clearPassword();
     emit(AuthUnauthenticated());
+    if (context.mounted) {
+      Navigator.pop(context);
+    }
   }
 
   Future<void> _checkFacilityCompletion(CreateUserRequest user) async {
@@ -222,8 +241,8 @@ class AuthCubit extends Cubit<AuthState> {
       // workTimeCubit: workTimeCubit,
     );
 
-    print("IS VALID => ${result.isValid}");
-    print("MISSING FIELDS => ${result.missingFields}");
+    // print("IS VALID => ${result.isValid}");
+    // print("MISSING FIELDS => ${result.missingFields}");
 
     if (result.isValid) {
       emit(AuthAuthenticated());

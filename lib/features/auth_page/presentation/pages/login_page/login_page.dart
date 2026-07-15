@@ -16,7 +16,9 @@ class LoginPage extends StatelessWidget {
           color: AppColors.scaffoldColor,
         ),
         child: const LoginWebWidget(),
+
       ),
+    //  bottomNavigationBar: const SignalRStatusBar(),
     );
   }
 }
