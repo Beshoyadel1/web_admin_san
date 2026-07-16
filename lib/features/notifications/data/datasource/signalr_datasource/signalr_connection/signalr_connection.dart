@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:signalr_core/signalr_core.dart';
-import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
+import '../../../../../../core/api/dio_function/api_constants.dart';
 
 class SignalRConnection {
   SignalRConnection._();

@@ -2,6 +2,7 @@ import '../../../../../../core/cubit/app_cubit/app_cubit.dart';
 import '../../../../../../core/utilies/map_of_all_app.dart';
 import '../../../../../../main.dart';
 
+
 class NotificationNavigationService {
   const NotificationNavigationService();
 

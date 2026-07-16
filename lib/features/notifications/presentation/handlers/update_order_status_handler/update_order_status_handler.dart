@@ -29,7 +29,16 @@ class UpdateOrderStatusHandler {
       if (!await model.canView()) {
         return;
       }
-
+      // final context = navigatorKey.currentContext;
+      //
+      // if (context != null) {
+      //   final appCubit = AppCubit.get(context);
+      //
+      //   if (appCubit.selectedPageIndex ==
+      //       PagesOfAllApp.dashboardPageNumber) {
+      //     return;
+      //   }
+      // }
       await _dialogService.show(
         title: OrderFunctions.formatDate(
           model.data?.data?.orderInfo?.orderDate?.toString() ?? "",

@@ -58,19 +58,6 @@ class _SearchWithListDataChatAdminSunState
             height: 400,
             child: Column(
               children: [
-                // TextFormFieldWidget(
-                //   textFormController: textFormController,
-                //   fillColor: AppColors.greyColorSearch,
-                //   hintText: AppLanguageKeys.searchInMessages,
-                //   hintTextSize: 11,
-                //   hintTextColor: AppColors.darkColor.withOpacity(0.4),
-                //   textSize: 12,
-                //   contentPadding: const EdgeInsets.all(5),
-                //   focusedBorderRadius: BorderRadius.circular(5),
-                //   enabledBorderRadius: BorderRadius.circular(5),
-                // ),
-                // const SizedBox(height: 20),
-
                 Expanded(
                   child: ListView.separated(
                     padding: EdgeInsets.zero,

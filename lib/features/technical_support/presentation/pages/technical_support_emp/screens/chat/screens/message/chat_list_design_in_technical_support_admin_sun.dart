@@ -34,16 +34,17 @@ class ChatListDesignInTechnicalSupportAdminSun extends StatelessWidget {
             final myId = cubit.myUserId ?? 0;
 
             return ListView.separated(
+              reverse: true,
               padding: const EdgeInsets.all(10.0),
               itemCount: messages.length,
               separatorBuilder: (_, __) => const SizedBox(height: 8),
               itemBuilder: (context, index) {
-                final msg = messages[index];
+                final msg = messages[messages.length - 1 - index];
                 final isSender = msg.fromUser == myId;
+
                 return TextDirectionTechnicalSupportAdminSun(
                   textMessage: msg.message,
                   isSender: isSender,
-                  //isSeen: msg.viewed,
                   timeMessage: OrderFunctions.formatTime(msg.date),
                 );
               },
