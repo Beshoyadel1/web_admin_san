@@ -12,10 +12,10 @@ import 'package:web_admin_san/features/providers/presentation/bloc/facility_prov
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/location_provider_cubit/location_provider_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/branches_providers/screens/square_map_provider_widget.dart';
 
-
 class AddBranchUI extends StatefulWidget {
   final int providerId;
-  const AddBranchUI({super.key,required this.providerId});
+
+  const AddBranchUI({super.key, required this.providerId});
 
   @override
   State<AddBranchUI> createState() => _AddBranchUIState();
@@ -65,29 +65,24 @@ class _AddBranchUIState extends State<AddBranchUI> {
 
         if (editingId != null) {
           branch = branches.firstWhere(
-                (e) => e.branchId == editingId,
+            (e) => e.branchId == editingId,
             orElse: () => ProviderBranchModel(),
           );
         }
 
         if (branch != null && editingId != null && !isInit) {
-          nationalAddressController.text =
-              branch.nationalAddress ?? '';
+          nationalAddressController.text = branch.nationalAddress ?? '';
 
-          nameController.text =
-              branch.branchName ?? '';
+          nameController.text = branch.branchName ?? '';
 
-          latinController.text =
-              branch.branchLatinName ?? '';
+          latinController.text = branch.branchLatinName ?? '';
 
-          addressTextController.text =
-              branch.addressText ?? '';
+          addressTextController.text = branch.addressText ?? '';
 
-          addressLatinController.text =
-              branch.addressLatinText ?? '';
+          addressLatinController.text = branch.addressLatinText ?? '';
 
           searchTheMapController.text =
-          "${branch.lat ?? ''}, ${branch.long ?? ''}";
+              "${branch.lat ?? ''}, ${branch.long ?? ''}";
 
           debugPrint(
             'Lat: ${branch.lat} , Long: ${branch.long}',
@@ -98,9 +93,9 @@ class _AddBranchUIState extends State<AddBranchUI> {
               branch.lat != 0 &&
               branch.long != 0) {
             context.read<LocationProviderCubit>().setLocation(
-              branch.lat!,
-              branch.long!,
-            );
+                  branch.lat!,
+                  branch.long!,
+                );
           }
 
           isInit = true;
@@ -112,11 +107,15 @@ class _AddBranchUIState extends State<AddBranchUI> {
             spacing: 20,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextInAppWidget(
-                text: editingId != null
-                    ? AppLanguageKeys.editKey
-                    : AppLanguageKeys.addMainBranchKey,
-                textSize: 20,
+              IconButton(
+                onPressed: () {
+                  context.read<BranchCubit>().back();
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  size: 18,
+                  color: AppColors.darkColor,
+                ),
               ),
 
               /// Branch Name
@@ -131,8 +130,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
                 borderColor: AppColors.darkGreyColor,
                 fillColor: AppColors.whiteColor,
                 textFormHeight: 35,
-                validator: (value) =>
-                value == null || value.isEmpty
+                validator: (value) => value == null || value.isEmpty
                     ? AppLanguageKeys.enterYourData
                     : null,
               ),
@@ -149,8 +147,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
                 borderColor: AppColors.darkGreyColor,
                 fillColor: AppColors.whiteColor,
                 textFormHeight: 35,
-                validator: (value) =>
-                value == null || value.isEmpty
+                validator: (value) => value == null || value.isEmpty
                     ? AppLanguageKeys.enterYourData
                     : null,
               ),
@@ -167,8 +164,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
                 borderColor: AppColors.darkGreyColor,
                 fillColor: AppColors.whiteColor,
                 textFormHeight: 35,
-                validator: (value) =>
-                value == null || value.isEmpty
+                validator: (value) => value == null || value.isEmpty
                     ? AppLanguageKeys.enterYourData
                     : null,
               ),
@@ -185,8 +181,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
                 borderColor: AppColors.darkGreyColor,
                 fillColor: AppColors.whiteColor,
                 textFormHeight: 35,
-                validator: (value) =>
-                value == null || value.isEmpty
+                validator: (value) => value == null || value.isEmpty
                     ? AppLanguageKeys.enterYourData
                     : null,
               ),
@@ -194,8 +189,8 @@ class _AddBranchUIState extends State<AddBranchUI> {
               TextFormFieldWidget(
                 readOnly: true,
                 textFormController: nationalAddressController,
-                text: AppLanguageKeys.branchNationalAddress ,
-                hintText: AppLanguageKeys.branchNationalAddress ,
+                text: AppLanguageKeys.branchNationalAddress,
+                hintText: AppLanguageKeys.branchNationalAddress,
                 isColumn: true,
                 textSize: 16,
                 textColor: AppColors.darkColor,
@@ -209,7 +204,8 @@ class _AddBranchUIState extends State<AddBranchUI> {
                   }
 
                   if (value.trim().length != 8) {
-                    return AppLanguageKeys.nationalAddressMustBe8CharactersAndDigits;
+                    return AppLanguageKeys
+                        .nationalAddressMustBe8CharactersAndDigits;
                   }
 
                   return null;
@@ -228,8 +224,7 @@ class _AddBranchUIState extends State<AddBranchUI> {
                 borderColor: AppColors.darkGreyColor,
                 fillColor: AppColors.whiteColor,
                 textFormHeight: 35,
-                validator: (value) =>
-                value == null || value.isEmpty
+                validator: (value) => value == null || value.isEmpty
                     ? AppLanguageKeys.enterYourData
                     : null,
                 onChanged: (value) {

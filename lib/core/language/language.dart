@@ -28,9 +28,12 @@ class AppLocalizations {
       AppLanguageKeys.orderCompleted: 'تم التسليم',
       AppLanguageKeys.rejectedByProvider: 'تم الرفض من المزود',
       AppLanguageKeys.cancelledByUser: 'تم الإلغاء من العميل',
+      AppLanguageKeys.unknownType: 'نوع غير معروف',
       //END//
 
       //others//
+      AppLanguageKeys.view: 'عرض',
+      AppLanguageKeys.orderDetailsNumber: 'تفاصيل طلب رقم #',
       AppLanguageKeys.notificationConnected: 'الإشعارات متصلة',
       AppLanguageKeys.notificationReconnecting:
       'جارٍ إعادة الاتصال الإشعارات...',
@@ -1399,8 +1402,11 @@ class AppLocalizations {
       AppLanguageKeys.orderCompleted: 'Completed',
       AppLanguageKeys.rejectedByProvider: 'Rejected by Provider',
       AppLanguageKeys.cancelledByUser: 'Cancelled by User',
+      AppLanguageKeys.unknownType: 'Unknown Type',
       //END//
       //others//
+      AppLanguageKeys.view: 'View',
+      AppLanguageKeys.orderDetailsNumber: 'Order Details #',
       AppLanguageKeys.notificationConnected: 'Notification connected',
       AppLanguageKeys.notificationReconnecting:
       'Reconnecting to notification ...',

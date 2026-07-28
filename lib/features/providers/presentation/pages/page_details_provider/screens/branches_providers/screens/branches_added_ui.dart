@@ -249,7 +249,7 @@ Widget _editButton(BuildContext context, List branches, branch,
         //  SizedBox(width: 6),
          Flexible(
           child:TextInAppWidget(
-            text: AppLanguageKeys.viewAll,
+            text: AppLanguageKeys.view,
             textSize: 16,
             textColor: AppColors.whiteColor,
             fontWeightIndex: FontSelectionData.boldFontFamily,

@@ -6,6 +6,7 @@ import 'package:web_admin_san/features/company/presentation/pages/view_all_compa
 import 'package:web_admin_san/features/insurance/presentation/pages/view_all_companies_insurance/view_all_companies_insurance.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_statistics/order_services_statistics.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_type/ui/order_services_type_page.dart';
+import 'package:web_admin_san/features/order_status_design/presentation/pages/order_details/order_details.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/view_all_providers/view_all_provider.dart';
 import 'package:web_admin_san/features/rates/presentation/pages/view_all_provider_rates/view_all_provider_rates.dart';
 import 'package:web_admin_san/features/users/presentation/pages/view_all_users/view_all_users.dart';
@@ -223,6 +224,7 @@ class PagesOfAllApp {
   static const int viewAllCompaniesNumber = 543;
   static const int viewAllCompaniesInsuranceNumber = 544;
   static const int viewAllAccountManagementNumber = 545;
+  static const int testOrderDetails = 546;
 
 //FirstScreenAccountsManagementAdminSun
 }
@@ -231,6 +233,12 @@ List<PageNodeModel> appPages = [];
 void getPages() {
   appPages.clear();
   appPages = [
+    const PageNodeModel(
+      name: 'تفاصيل الطلب',
+      image: AppImageKeys.home,
+      number: PagesOfAllApp.testOrderDetails,
+      page: OrderDetails(),
+    ),
     const PageNodeModel(
       name: AppLanguageKeys.statistics,
       image: AppImageKeys.home,

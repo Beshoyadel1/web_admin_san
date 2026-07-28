@@ -6,7 +6,7 @@ import '../../../../../../../../core/theming/fonts.dart';
 import '../../../../../../../../core/theming/text_styles.dart';
 
 class TitleWithSubTitle extends StatelessWidget {
-  final String? title,subTitle,numberPercentage;
+  final String? title,subTitle,numberPercentage,numberOrderTitle;
   final Color? titleColor,subTitleColor,iconDataColor;
   final double? textSizeTitle,textSizeSubTitle,spacing,iconDataSize;
   final IconData? iconData;
@@ -23,7 +23,8 @@ class TitleWithSubTitle extends StatelessWidget {
     this.iconDataColor,
     this.iconDataSize,
     this.numberPercentage,
-    this.crossAxisAlignment
+    this.crossAxisAlignment,
+    this.numberOrderTitle
   });
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,24 @@ class TitleWithSubTitle extends StatelessWidget {
       spacing: spacing??5,
       crossAxisAlignment: crossAxisAlignment??CrossAxisAlignment.center,
       children: [
+        numberOrderTitle !=null?
+       Row(
+         spacing: 5,
+         children: [
+           TextInAppWidget(
+             text:title??AppLanguageKeys.employeesLogin,
+             textSize: textSizeTitle??18,
+             fontWeightIndex: FontSelectionData.regularFontFamily,
+             textColor:titleColor??AppColors.blackColor,
+           ),
+           TextInAppWidget(
+             text:numberOrderTitle!,
+             textSize: textSizeTitle??18,
+             fontWeightIndex: FontSelectionData.regularFontFamily,
+             textColor:titleColor??AppColors.blackColor,
+           )
+         ],
+       ):
         TextInAppWidget(
           text:title??AppLanguageKeys.employeesLogin,
           textSize: textSizeTitle??18,

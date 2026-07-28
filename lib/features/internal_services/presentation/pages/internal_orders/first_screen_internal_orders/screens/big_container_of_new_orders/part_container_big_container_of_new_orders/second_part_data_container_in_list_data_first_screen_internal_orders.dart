@@ -46,8 +46,7 @@ class _SecondPartDataContainerInListDataFirstScreenInternalOrdersState
           listener: (context, state) {
             if (state is OrderStatusSuccess) {
               context.read<GetProviderInternalOrderCubit>().loadInternalOrders(
-                serviceId:
-                MainCategoryConstants.maintenanceAndInternalServicesID,
+                serviceId: MainCategoryConstants.maintenanceAndInternalServicesID,
               );
             }
           },

@@ -28,16 +28,13 @@ class TabsWidgetDetailsCompanies extends StatelessWidget {
             tabs.length,
                 (index) {
 
-              final isSelected =
-                  context.read<FacilityTabProviderCubit>().selectedIndex == index;
+              final isSelected = context.read<FacilityTabProviderCubit>().selectedIndex == index;
 
               return ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 150),
                 child: CustomContainer(
                   isSelected: isSelected,
-                  onTap: () => context
-                      .read<FacilityTabProviderCubit>()
-                      .selectTab(index),
+                  onTap: () => context.read<FacilityTabProviderCubit>().selectTab(index),
                   text: tabs[index].title,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10,

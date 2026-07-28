@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:web_admin_san/core/language/language_constant.dart';
 
 import '../../../../core/theming/colors.dart';
+
 class ApiConfig {
   static const String baseUrlApi = "https://api.sanmotorss.com";
   static const String user = "Users";
@@ -536,4 +537,70 @@ Color legendColor(int index) {
   ];
 
   return colors[index % colors.length];
+}
+
+class OfferStatus {
+  static const int newOffer = 0;
+  static const int rejected = 1;
+  static const int accepted = 2;
+  static const int canceled = 3;
+}
+class OrderStatusToString {
+  static String toArabic(int status) {
+    return switch (status) {
+      OrderStatus.newOrderForCompany => "قيد الانتظار",
+      OrderStatus.rejectedByCompany => "مرفوض من الشركة",
+      OrderStatus.newOrderForProvider => "طلب جديد",
+      OrderStatus.waitingAppointment => "في انتظار الموعد",
+      OrderStatus.employeeInRoad => "الموظف في الطريق",
+      OrderStatus.workInProgress => "قيد التنفيذ",
+      OrderStatus.orderCompleted => "مكتمل",
+      OrderStatus.rejectedByProvider => "مرفوض من مزود الخدمة",
+      OrderStatus.cancelledByUser => "ملغي",
+      _ => "حالة غير معروفة",
+    };
+  }
+
+  static String toEnglish(int status) {
+    return switch (status) {
+      OrderStatus.newOrderForCompany => "Pending",
+      OrderStatus.rejectedByCompany => "Rejected by Company",
+      OrderStatus.newOrderForProvider => "New Order",
+      OrderStatus.waitingAppointment => "Waiting Appointment",
+      OrderStatus.employeeInRoad => "Employee on Road",
+      OrderStatus.workInProgress => "Work In Progress",
+      OrderStatus.orderCompleted => "Completed",
+      OrderStatus.rejectedByProvider => "Rejected by Service Provider",
+      OrderStatus.cancelledByUser => "Cancelled",
+      _ => "Unknown Status",
+    };
+  }
+}
+class PaymentMethodType {
+  static const int unknown = -1;
+  static const int cash = 0;
+  static const int wallet = 1;
+  static const int mada = 2;
+  static const int visa = 3;
+  static const int applePay = 4;
+  static const int points = 5;
+}
+class PointsTransactionType {
+  static const int receive = 1;
+  static const int useInOrder = 2;
+  static const int send = 3;
+  static const int exchange = 4;
+}
+class TransactionType {
+  static const int refund = 0;
+  static const int acceptWalletBalance = 1;
+  static const int rechargeWallet = 2;
+  static const int acceptSettlement = 3;
+  static const int order = 6;
+  static const int subscription = 7;
+  static const int transferWalletBalance = 8;
+}
+class WalletTransactionType {
+  static const bool deposit = true;
+  static const bool withdrawal = false;
 }

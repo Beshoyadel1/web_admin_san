@@ -15,10 +15,12 @@ class AppLanguageKeys {
   static const String orderCompleted = 'orderCompleted';
   static const String rejectedByProvider = 'rejectedByProvider';
   static const String cancelledByUser = 'cancelledByUser';
-
+  static const String unknownType = 'unknownType';
   //end//
 
   //others//
+  static const String view = 'view';
+  static const String orderDetailsNumber = 'orderDetailsNumber';
   static const String notificationConnected = 'notificationConnected';
   static const String notificationReconnecting = 'notificationReconnecting';
   static const String notificationConnecting = 'notificationConnecting';

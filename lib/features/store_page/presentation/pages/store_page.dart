@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/features/notifications/presentation/pages/signalR_status_bar/signalR_status_bar.dart';
 
 import '../../../../../core/general_models/pages_model.dart';
 import '../../../../core/cubit/app_cubit/app_cubit.dart';
@@ -14,7 +13,6 @@ import 'store_widgets/pages_selection_bar.dart';
 import 'store_widgets/selected_screen_widget.dart';
 
 class StorePage extends StatefulWidget {
-
   const StorePage({super.key});
 
   @override
@@ -22,71 +20,97 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKeyDrawer = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKeyDrawer =
+  GlobalKey<ScaffoldState>();
+
+  final AppCubit _appCubit = getIt<AppCubit>();
+
   @override
   void initState() {
     super.initState();
+
     getPages();
+
     final facilityAccountPage = appPages.firstWhere(
-      (e) => e.number == PagesOfAllApp.dashboardPageNumber,
+          (e) => e.number == PagesOfAllApp.dashboardPageNumber,
     );
+
     final facilityAccountWithID = PageNodeWithIDModel(
       id: facilityAccountPage.number,
       name: facilityAccountPage.name,
       number: facilityAccountPage.number,
       page: facilityAccountPage.page,
     );
-    _appCubit.selectedPageFromOpenedPagesIndex = facilityAccountWithID.id;
-    _appCubit.selectedPageIndex = facilityAccountWithID.id;
-  }
 
-  final AppCubit _appCubit = getIt<AppCubit>();
+    _appCubit.selectedPageFromOpenedPagesIndex =
+        facilityAccountWithID.id;
+
+    _appCubit.selectedPageIndex =
+        facilityAccountWithID.id;
+  }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    bool isMobile = size.width <= ValuesOfAllApp.mobileWidth;
+    final width = MediaQuery.sizeOf(context).width;
+
+    final isMobile =
+        width <= ValuesOfAllApp.mobileWidth;
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, Object? result) async {
-        if (didPop) {
-          return;
-        }
-        final bool shouldPop = await showBackDialog(context: context) ?? false;
-        if (shouldPop) {
+        if (didPop) return;
+
+        final shouldPop =
+            await showBackDialog(context: context) ?? false;
+
+        if (shouldPop && context.mounted) {
           Navigator.of(context).pop();
         }
       },
       child: Scaffold(
-        backgroundColor: AppColors.whiteGreyColor,
         key: _scaffoldKeyDrawer,
-        drawer: const Drawer(width: 256, child: PagesSelectionBar()),
+        backgroundColor: AppColors.whiteGreyColor,
+
+        // Mobile Drawer
+        drawer: isMobile
+            ? const Drawer(
+          width: 256,
+          child: PagesSelectionBar(),
+        )
+            : null,
+
         body: Row(
           children: [
+            // Desktop Sidebar
             if (!isMobile)
               BlocBuilder<AppCubit, AppStates>(
+                bloc: _appCubit, // IMPORTANT
                 buildWhen: (previous, current) {
                   return current is HideMenuState;
                 },
-                builder: (BuildContext context, AppStates state) {
-                  return !_appCubit.isMenuOpen
-                      ? const SizedBox()
-                      : const PagesSelectionBar();
+                builder: (context, state) {
+                  if (!_appCubit.isMenuOpen) {
+                    return const SizedBox.shrink();
+                  }
+
+                  return const PagesSelectionBar();
                 },
               ),
+
             Expanded(
               child: Column(
                 children: [
                   AppBarForPage(
                     scaffoldKey: _scaffoldKeyDrawer,
                   ),
+
                   const SelectedScreenWidget(),
                 ],
               ),
-            )
+            ),
           ],
         ),
-      //  bottomNavigationBar: const SignalRStatusBar(),
       ),
     );
   }

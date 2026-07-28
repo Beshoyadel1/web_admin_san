@@ -60,7 +60,7 @@ class OrdersPageProvider extends StatelessWidget {
                   BlocProvider(
                     create: (_) => GetProviderInternalOrderCubit()
                       ..loadInternalOrders(
-                        orderType: mapOrderType(0),
+                        //orderType: mapOrderType(0),
                         providerId:providerId
                       ),
                   ),
