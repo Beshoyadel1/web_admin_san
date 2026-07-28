@@ -59,6 +59,7 @@ class _FiltersTabsWidgetOrderServicesTypeState extends State<FiltersTabsWidgetOr
               isScrollable: true,
               indicator: const BoxDecoration(),
               dividerColor: Colors.transparent,
+              overlayColor: WidgetStateColor.transparent,
               tabs: List.generate(widget.filterOptions.length, (index) {
                 final isSelected = selectedIndex == index;
                 return Tab(

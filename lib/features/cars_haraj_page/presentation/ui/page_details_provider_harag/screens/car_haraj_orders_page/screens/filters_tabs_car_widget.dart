@@ -53,6 +53,7 @@ class _FiltersTabsCarWidgetState extends State<FiltersTabsCarWidget>
               indicator: const BoxDecoration(),
               tabAlignment: TabAlignment.start,
               dividerColor: Colors.transparent,
+              overlayColor: WidgetStateColor.transparent,
               tabs: List.generate(widget.filterOptions.length, (index) {
 
                 final isSelected = selectedIndex == index;

@@ -90,6 +90,7 @@ class FilterDesignCompaniesOrders extends StatelessWidget {
                       .getCompanyOrders(
                         pageNumber: page,
                         orderType: mapOrderType(selectedTab),
+                    companyId: companyId
                       );
                 },
               ),

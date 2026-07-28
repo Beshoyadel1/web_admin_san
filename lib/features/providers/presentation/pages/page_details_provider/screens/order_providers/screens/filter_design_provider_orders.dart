@@ -76,7 +76,9 @@ class FilterDesignProviderOrders extends StatelessWidget {
                         timePart5: OrderFunctions.formatDate(order.orderDate),
                         pricePart6: order.totalPrice?.toString() ?? "0",
                         order: order,
-                        serviceId: order.services?.first.id,
+
+                        // الصحيح
+                        serviceId: service?.id,
                       );
                     },
                   ),
@@ -86,14 +88,12 @@ class FilterDesignProviderOrders extends StatelessWidget {
                 currentPage: state.currentPage,
                 totalPages: state.pageCount,
                 onPageChanged: (page) {
-                  final selectedTab =
-                      context.read<TabsCubit>().state;
+                  final selectedTab = context.read<TabsCubit>().state;
 
-                  context
-                      .read<GetProviderInternalOrderCubit>()
-                      .loadInternalOrders(
+                  context.read<GetProviderInternalOrderCubit>().loadInternalOrders(
                     pageNumber: page,
                     orderType: mapOrderType(selectedTab),
+                    providerId: providerId, // مهم
                   );
                 },
               ),
