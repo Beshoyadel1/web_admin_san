@@ -70,7 +70,7 @@ class _AppBarForPageState extends State<AppBarForPage> {
 
         // Close mobile drawer
         if (widget.scaffoldKey.currentState?.isDrawerOpen ?? false) {
-          Navigator.of(context).pop();
+          widget.scaffoldKey.currentState?.closeDrawer();
         }
 
         // Show desktop menu

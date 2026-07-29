@@ -43,43 +43,52 @@ class TabDataDesignRateService extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 60,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: state.services.length + 1,
-                separatorBuilder: (_, __) => const SizedBox(width: 10),
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return InkWell(
-                      borderRadius: BorderRadius.circular(20),
-                      onTap: () {
-                        cubit.selectAllServices();
-                      },
-                      child: CustomTabSelectRateService(
-                        title: AppLanguageKeys.allReviews,
-                        isSelect: cubit.isAllServicesSelected,
-                      ),
-                    );
-                  }
+            DefaultTabController(
+              length: state.services.length + 1,
+              initialIndex: cubit.isAllServicesSelected
+                  ? 0
+                  : state.services.indexWhere(
+                    (service) => service.id == cubit.selectedService?.id,
+              ) +
+                  1,
+              child: SizedBox(
+                height: 60,
+                child: TabBar(
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.start,
+                  dividerColor: Colors.transparent,
+                  indicatorColor: Colors.transparent,
+                  overlayColor: WidgetStateColor.transparent,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  labelPadding: const EdgeInsets.only(right: 10),
 
-                  final service = state.services[index - 1];
+                  onTap: (index) {
+                    if (index == 0) {
+                      cubit.selectAllServices();
+                      return;
+                    }
 
-                  return InkWell(
-                    borderRadius: BorderRadius.circular(20),
-                    onTap: () {
-                      cubit.selectService(
-                        service,
-                      );
-                    },
-                    child: CustomTabSelectRateService(
-                      imagePath: service.image,
-                      title: service.getName(context) ?? '',
-                      isSelect: !cubit.isAllServicesSelected &&
-                          cubit.selectedService?.id == service.id,
+                    final service = state.services[index - 1];
+
+                    cubit.selectService(service);
+                  },
+
+                  tabs: [
+                    CustomTabSelectRateService(
+                      title: AppLanguageKeys.allReviews,
+                      isSelect: cubit.isAllServicesSelected,
                     ),
-                  );
-                },
+
+                    ...state.services.map(
+                          (service) => CustomTabSelectRateService(
+                        imagePath: service.image,
+                        title: service.getName(context) ?? '',
+                        isSelect: !cubit.isAllServicesSelected &&
+                            cubit.selectedService?.id == service.id,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 20),

@@ -20,6 +20,7 @@ class CustomTabSelectRateService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 70,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
         color: isSelect?AppColors.orangeColor:AppColors.veryLightGreyColor,
