@@ -44,7 +44,9 @@ class LogoutDashboard extends StatelessWidget {
                     );
                   }
                 },
-                onTapCancel: (){},
+                onTapCancel: (){
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),
