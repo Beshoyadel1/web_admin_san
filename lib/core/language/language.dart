@@ -32,6 +32,13 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.valueAddedTax: 'ضريبة القيمة المضافة',
+      AppLanguageKeys.dubaiPlate: 'لوحة دبي :',
+      AppLanguageKeys.totalVehicle: 'إجمالي المركبة',
+      AppLanguageKeys.dirham: 'درهم',
+      AppLanguageKeys.serviceTypes: 'أنواع الخدمات',
+      AppLanguageKeys.orderDate: 'تاريخ الطلب',
+      AppLanguageKeys.expectedDeliveryDate: 'موعد التسليم المتوقع',
       AppLanguageKeys.view: 'عرض',
       AppLanguageKeys.orderDetailsNumber: 'تفاصيل طلب رقم #',
       AppLanguageKeys.notificationConnected: 'الإشعارات متصلة',
@@ -1405,6 +1412,13 @@ class AppLocalizations {
       AppLanguageKeys.unknownType: 'Unknown Type',
       //END//
       //others//
+      AppLanguageKeys.valueAddedTax: 'Value Added Tax',
+      AppLanguageKeys.dubaiPlate: 'Dubai Plate :',
+      AppLanguageKeys.totalVehicle: 'Total Vehicle',
+      AppLanguageKeys.dirham: 'AED',
+      AppLanguageKeys.serviceTypes: 'Service Types',
+      AppLanguageKeys.orderDate: 'Order Date',
+      AppLanguageKeys.expectedDeliveryDate: 'Expected Delivery Date',
       AppLanguageKeys.view: 'View',
       AppLanguageKeys.orderDetailsNumber: 'Order Details #',
       AppLanguageKeys.notificationConnected: 'Notification connected',

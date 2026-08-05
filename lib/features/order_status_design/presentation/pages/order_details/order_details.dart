@@ -10,9 +10,8 @@ class OrderDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         backgroundColor: AppColors.scaffoldColor,
-        appBar: AppBar(),
         body: const SafeArea(
           child: Padding(
             padding: EdgeInsetsGeometry.all(10),

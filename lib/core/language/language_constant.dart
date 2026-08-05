@@ -19,6 +19,13 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String valueAddedTax = 'valueAddedTax';
+  static const String dubaiPlate = 'dubaiPlate';
+  static const String totalVehicle = 'totalVehicle';
+  static const String dirham = 'dirham';
+  static const String serviceTypes = 'serviceTypes';
+  static const String orderDate = 'orderDate';
+  static const String expectedDeliveryDate = 'expectedDeliveryDate';
   static const String view = 'view';
   static const String orderDetailsNumber = 'orderDetailsNumber';
   static const String notificationConnected = 'notificationConnected';
