@@ -233,12 +233,12 @@ List<PageNodeModel> appPages = [];
 void getPages() {
   appPages.clear();
   appPages = [
-    const PageNodeModel(
-      name: 'تفاصيل الطلب',
-      image: AppImageKeys.home,
-      number: PagesOfAllApp.testOrderDetails,
-      page: OrderDetails(),
-    ),
+    // const PageNodeModel(
+    //   name: 'تفاصيل الطلب',
+    //   image: AppImageKeys.home,
+    //   number: PagesOfAllApp.testOrderDetails,
+    //   page: OrderDetails(),
+    // ),
     const PageNodeModel(
       name: AppLanguageKeys.statistics,
       image: AppImageKeys.home,

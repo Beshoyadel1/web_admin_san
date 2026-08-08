@@ -1,31 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
 import 'package:web_admin_san/core/theming/colors.dart';
 import 'package:web_admin_san/core/theming/fonts.dart';
 import 'package:web_admin_san/core/theming/text_styles.dart';
 
+import 'package:web_admin_san/features/internal_services/data/model/get_provider_orders_model/order_details_model.dart';
+
 class DesignCarDataOrdersWidget extends StatelessWidget {
-  final String? brandName,
-      totalPriceCar,
-      plateNo,
-      nameProServiceCar,
-      taxProServiceCar,
-      priceProServiceCar;
+  final String? brandName;
+  final String? totalPriceCar;
+  final String? plateNo;
+
+  final List<ProvService>? provServices;
+
+  final bool isArabic;
 
   const DesignCarDataOrdersWidget({
     super.key,
     this.brandName,
     this.totalPriceCar,
     this.plateNo,
-    this.nameProServiceCar,
-    this.priceProServiceCar,
-    this.taxProServiceCar,
+    this.provServices,
+    required this.isArabic,
   });
 
   @override
   Widget build(BuildContext context) {
+    final services = provServices ?? [];
+
     return CustomContainer(
       onTap: () {},
       isSelected: true,
@@ -36,6 +41,8 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
       typeWidget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // ================= CAR HEADER =================
+
           LayoutBuilder(
             builder: (context, constraints) {
               final bool isMobile = constraints.maxWidth < 430;
@@ -55,23 +62,28 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                       child: Icon(
                         CupertinoIcons.car_fill,
                         color: AppColors.orangeColor,
-                        //size: 25,
                       ),
                     ),
                   ),
+
                   const SizedBox(width: 10),
+
                   Flexible(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.start,
                       children: [
                         TextInAppWidget(
-                          text: brandName ?? "Bmw M4 Competition",
+                          text: brandName ?? '',
                           textSize: 16,
                           fontWeightIndex:
                           FontSelectionData.boldFontFamily,
-                          textColor: AppColors.blackColor,
+                          textColor:
+                          AppColors.blackColor,
                         ),
+
                         const SizedBox(height: 5),
+
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -79,15 +91,20 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                               text: AppLanguageKeys.dubaiPlate,
                               textSize: 12,
                               fontWeightIndex:
-                              FontSelectionData.mediumFontFamily,
-                              textColor: AppColors.greyColor,
+                              FontSelectionData
+                                  .mediumFontFamily,
+                              textColor:
+                              AppColors.greyColor,
                             ),
+
                             TextInAppWidget(
-                              text: plateNo ?? "5000",
+                              text: plateNo ?? '',
                               textSize: 12,
                               fontWeightIndex:
-                              FontSelectionData.mediumFontFamily,
-                              textColor: AppColors.greyColor,
+                              FontSelectionData
+                                  .mediumFontFamily,
+                              textColor:
+                              AppColors.greyColor,
                             ),
                           ],
                         ),
@@ -109,24 +126,29 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                     FontSelectionData.mediumFontFamily,
                     textColor: AppColors.greyColor,
                   ),
+
                   const SizedBox(height: 5),
+
                   Row(
                     spacing: 5,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextInAppWidget(
-                        text: totalPriceCar ?? "1450",
+                        text: totalPriceCar ?? '0',
                         textSize: 16,
                         fontWeightIndex:
                         FontSelectionData.mediumFontFamily,
-                        textColor: AppColors.orangeColor,
+                        textColor:
+                        AppColors.orangeColor,
                       ),
+
                       const TextInAppWidget(
                         text: AppLanguageKeys.dirham,
                         textSize: 16,
                         fontWeightIndex:
                         FontSelectionData.mediumFontFamily,
-                        textColor: AppColors.orangeColor,
+                        textColor:
+                        AppColors.orangeColor,
                       ),
                     ],
                   ),
@@ -161,8 +183,12 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
           const SizedBox(height: 10),
 
           Divider(
-            color: AppColors.orangeColor.withOpacity(0.3),
+            color:
+            AppColors.orangeColor.withOpacity(0.3),
           ),
+
+          // ================= TABLE HEADER =================
+
           LayoutBuilder(
             builder: (context, constraints) {
               if (constraints.maxWidth > 500) {
@@ -212,15 +238,41 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
           ),
 
           Divider(
-            color: AppColors.orangeColor.withOpacity(0.3),
+            color:
+            AppColors.orangeColor.withOpacity(0.3),
           ),
+
+          // ================= SERVICES =================
+
           SizedBox(
-            height: 200,
+            height: services.length > 4 ? 200 : null,
             child: ListView.separated(
-              itemCount: 3,
+              shrinkWrap: true,
+              physics: services.length > 4
+                  ? const AlwaysScrollableScrollPhysics()
+                  : const NeverScrollableScrollPhysics(),
+
+              itemCount: services.length,
+
               separatorBuilder: (_, __) =>
               const SizedBox(height: 20),
+
               itemBuilder: (context, index) {
+                final service = services[index];
+
+                final String serviceName = isArabic
+                    ? service.name ?? ''
+                    : service.latinname ?? '';
+
+                final String price =
+                    service.price?.toString() ?? '0';
+
+                final String tax =
+                    service.taxpercentage?.toString() ?? '0';
+
+                final String total =
+                    service.totalprice?.toString() ?? '0';
+
                 return LayoutBuilder(
                   builder: (context, constraints) {
                     final bool isMobile =
@@ -231,8 +283,7 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                       CrossAxisAlignment.start,
                       children: [
                         TextInAppWidget(
-                          text: nameProServiceCar ??
-                              'تغير الزيت',
+                          text: serviceName,
                           textSize: 14,
                           fontWeightIndex:
                           FontSelectionData
@@ -240,14 +291,15 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                           textColor:
                           AppColors.greyColor,
                         ),
+
+                        const SizedBox(height: 3),
+
                         Row(
-                          mainAxisSize:
-                          MainAxisSize.min,
+                          spacing: 5,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            TextInAppWidget(
-                              text: taxProServiceCar ??
-                                  AppLanguageKeys
-                                      .taxes,
+                            const TextInAppWidget(
+                              text:AppLanguageKeys.taxes,
                               textSize: 12,
                               fontWeightIndex:
                               FontSelectionData
@@ -255,11 +307,31 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                               textColor:
                               AppColors.orangeColor,
                             ),
-                            const SizedBox(width: 5),
+
                             TextInAppWidget(
-                              text:
-                              priceProServiceCar ??
-                                  "15",
+                              text: '$tax%',
+                              textSize: 12,
+                              fontWeightIndex:
+                              FontSelectionData
+                                  .mediumFontFamily,
+                              textColor:
+                              AppColors.orangeColor,
+                            ),
+
+                            const SizedBox(width: 10),
+
+                            const TextInAppWidget(
+                              text: AppLanguageKeys.price,
+                              textSize: 12,
+                              fontWeightIndex:
+                              FontSelectionData
+                                  .mediumFontFamily,
+                              textColor:
+                              AppColors.orangeColor,
+                            ),
+
+                            TextInAppWidget(
+                              text: price,
                               textSize: 12,
                               fontWeightIndex:
                               FontSelectionData
@@ -273,12 +345,10 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                     );
 
                     final priceWidget = Row(
-                      mainAxisSize:
-                      MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         TextInAppWidget(
-                          text: totalPriceCar ??
-                              "1450",
+                          text: total,
                           textSize: 16,
                           fontWeightIndex:
                           FontSelectionData
@@ -286,7 +356,9 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                           textColor:
                           AppColors.blackColor,
                         ),
+
                         const SizedBox(width: 3),
+
                         const TextInAppWidget(
                           text:
                           AppLanguageKeys.dirham,
@@ -303,11 +375,9 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                     if (!isMobile) {
                       return Row(
                         mainAxisAlignment:
-                        MainAxisAlignment
-                            .spaceBetween,
+                        MainAxisAlignment.spaceBetween,
                         crossAxisAlignment:
-                        CrossAxisAlignment
-                            .start,
+                        CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: serviceWidget,
@@ -317,6 +387,7 @@ class DesignCarDataOrdersWidget extends StatelessWidget {
                         ],
                       );
                     }
+
                     return Wrap(
                       spacing: 20,
                       runSpacing: 10,

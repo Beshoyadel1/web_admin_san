@@ -74,6 +74,7 @@ class FilterDesignCompaniesOrders extends StatelessWidget {
                         pricePart6: order.totalPrice?.toString() ?? "0",
                         order: order,
                         serviceId: order.services?.first.id,
+                        id: order.id.toString(),
                       );
                     },
                   ),

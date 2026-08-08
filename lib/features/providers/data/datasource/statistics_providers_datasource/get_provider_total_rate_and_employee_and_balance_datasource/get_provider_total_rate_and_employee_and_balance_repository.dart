@@ -5,7 +5,6 @@ import 'package:web_admin_san/features/order_services/data/request/get_provider_
 import '../../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../../core/api/dio_function/failures.dart';
-import '../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
 
 Future<GetProviderTotalRateAndEmployeeAndBalanceModel?>
 getProviderTotalRateAndEmployeeAndBalanceFunction({
@@ -18,15 +17,29 @@ getProviderTotalRateAndEmployeeAndBalanceFunction({
       ApiLink.getProviderTotalRateAndEmployeeAndBalance,
     );
 
-    return GetProviderTotalRateAndEmployeeAndBalanceModel.fromJson(
-        response.data);
+    final responseData = response.data;
 
+    final bool success =
+        responseData['success'] ?? false;
+
+    if (!success) {
+      throw Exception(
+        responseData['message'] ??
+            'Something went wrong',
+      );
+    }
+
+    return GetProviderTotalRateAndEmployeeAndBalanceModel
+        .fromJson(responseData);
   } catch (e) {
-    AppSnackBar.showError(
-      e is DioException
-          ? responseOfStatusCode(e.response?.statusCode)
-          : e.toString(),
-    );
-    return null;
+    if (e is DioException) {
+      throw Exception(
+        responseOfStatusCode(
+          e.response?.statusCode,
+        ),
+      );
+    }
+
+    rethrow;
   }
 }

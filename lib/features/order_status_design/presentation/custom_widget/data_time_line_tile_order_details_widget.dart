@@ -1,22 +1,72 @@
 import 'package:flutter/cupertino.dart';
+import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
 
 import '../../../../../../../../core/language/language_constant.dart';
 import '../../../../../../../../features/order_status_design/presentation/custom_widget/time_line_tile_widget.dart';
 import '../../../../../../../core/theming/colors.dart';
 
-class DataTimeLineTileOrderDetailsWidget extends StatelessWidget{
+import 'package:flutter/material.dart';
+
+import '../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../features/order_status_design/presentation/custom_widget/time_line_tile_widget.dart';
+import '../../../../../../../core/theming/colors.dart';
+
+class DataTimeLineTileOrderDetailsWidget extends StatelessWidget {
   final int? orderStatus;
-  const DataTimeLineTileOrderDetailsWidget({super.key,this.orderStatus});
+
+  const DataTimeLineTileOrderDetailsWidget({
+    super.key,
+    this.orderStatus,
+  });
+
+  bool get _isRejected =>
+      orderStatus == OrderStatus.rejectedByCompany ||
+          orderStatus == OrderStatus.rejectedByProvider ||
+          orderStatus == OrderStatus.cancelledByUser;
+
+  int get _currentStep {
+    switch (orderStatus) {
+      case OrderStatus.newOrderForCompany:
+      case OrderStatus.newOrderForProvider:
+        return 0;
+
+      case OrderStatus.waitingAppointment:
+        return 1;
+
+      case OrderStatus.employeeInRoad:
+        return 2;
+
+      case OrderStatus.workInProgress:
+        return 3;
+
+      case OrderStatus.orderCompleted:
+        return 4;
+
+      default:
+        return -1;
+    }
+  }
+
+  Color _stepColor(int step) {
+    if (_isRejected) {
+      return AppColors.greyColor;
+    }
+
+    return _currentStep >= step
+        ? AppColors.orangeColor
+        : AppColors.greyColor;
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsetsGeometry.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         border: Border.all(
-            color: AppColors.orangeColor.withOpacity(0.3)
+          color: AppColors.orangeColor.withOpacity(0.3),
         ),
         boxShadow: [
           BoxShadow(
@@ -26,44 +76,58 @@ class DataTimeLineTileOrderDetailsWidget extends StatelessWidget{
           ),
         ],
       ),
-      child: const Column(
+      child: Column(
         children: [
           TimeLineTileWidget(
             isFirst: true,
-            isIcon: true,
             title: AppLanguageKeys.createNewOrderKey,
+            colorAfterLine: _stepColor(0),
+            colorBorder: _stepColor(0),
+            textColor: _stepColor(0),
+            textColorTitle: _stepColor(0),
           ),
+
           TimeLineTileWidget(
             text: '2',
-            title: AppLanguageKeys.orderInProgress,
-            subTitle: '',
-            colorAfterLine: AppColors.greyColor,
-            textColor: AppColors.greyColor,
-            textColorTitle: AppColors.greyColor,
-            colorBorder: AppColors.greyColor,
+            title: AppLanguageKeys.waitingAppointment,
+            colorBeforeLine: _stepColor(0),
+            colorAfterLine: _stepColor(1),
+            colorBorder: _stepColor(1),
+            textColor: _stepColor(1),
+            textColorTitle: _stepColor(1),
           ),
+
           TimeLineTileWidget(
             text: '3',
-            title: AppLanguageKeys.waitingForInvoicePayment,
-            subTitle: '',
-            colorAfterLine: AppColors.greyColor,
-            colorBeforeLine: AppColors.greyColor,
-            colorBorder: AppColors.greyColor,
-            textColor: AppColors.greyColor,
-            textColorTitle: AppColors.greyColor,
+            title: AppLanguageKeys.onTheWay,
+            colorBeforeLine: _stepColor(1),
+            colorAfterLine: _stepColor(2),
+            colorBorder: _stepColor(2),
+            textColor: _stepColor(2),
+            textColorTitle: _stepColor(2),
           ),
+
+          TimeLineTileWidget(
+            text: '4',
+            title: AppLanguageKeys.workInProgress,
+            colorBeforeLine: _stepColor(2),
+            colorAfterLine: _stepColor(3),
+            colorBorder: _stepColor(3),
+            textColor: _stepColor(3),
+            textColorTitle: _stepColor(3),
+          ),
+
           TimeLineTileWidget(
             isLast: true,
-            text: '4',
-            textColor: AppColors.greyColor,
-            title: AppLanguageKeys.orderArrived,
-            textColorTitle: AppColors.greyColor,
-            subTitle: '',
-            colorBeforeLine: AppColors.greyColor,
-            colorBorder: AppColors.greyColor,
+            text: '5',
+            title: AppLanguageKeys.orderCompleted,
+            colorBeforeLine: _stepColor(3),
+            colorBorder: _stepColor(4),
+            textColor: _stepColor(4),
+            textColorTitle: _stepColor(4),
           ),
         ],
-      ),
+      )
     );
   }
 }

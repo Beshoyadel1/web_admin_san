@@ -32,6 +32,11 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.mada: 'مدى',
+      AppLanguageKeys.visa: 'فيزا',
+      AppLanguageKeys.applePay: 'أبل باي',
+      AppLanguageKeys.cash: 'نقدًا',
+      AppLanguageKeys.unknown: 'غير معروف',
       AppLanguageKeys.valueAddedTax: 'ضريبة القيمة المضافة',
       AppLanguageKeys.dubaiPlate: 'لوحة دبي :',
       AppLanguageKeys.totalVehicle: 'إجمالي المركبة',
@@ -1412,6 +1417,11 @@ class AppLocalizations {
       AppLanguageKeys.unknownType: 'Unknown Type',
       //END//
       //others//
+      AppLanguageKeys.mada: 'Mada',
+      AppLanguageKeys.visa: 'Visa',
+      AppLanguageKeys.applePay: 'Apple Pay',
+      AppLanguageKeys.cash: 'Cash',
+      AppLanguageKeys.unknown: 'Unknown',
       AppLanguageKeys.valueAddedTax: 'Value Added Tax',
       AppLanguageKeys.dubaiPlate: 'Dubai Plate :',
       AppLanguageKeys.totalVehicle: 'Total Vehicle',

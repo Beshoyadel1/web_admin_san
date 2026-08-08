@@ -41,11 +41,11 @@ class DataContainerInListOrderDetailsOrderReceivedEmp extends StatelessWidget {
                 DataTimeLineTileOrderDetailsOrderReceivedEmp()
               ],
             ),
-           ContainerInvoiceWidget(
-            priceInsuranceInstallment: order.totalPrice.toString(),
-            priceTaxes: order.totalPrice.toString(),
-            priceTotal: order.totalPrice.toString(),
-          ),
+          //  ContainerInvoiceWidget(
+          //   priceInsuranceInstallment: order.totalPrice.toString(),
+          //   priceTaxes: order.totalPrice.toString(),
+          //   priceTotal: order.totalPrice.toString(),
+          // ),
         ],
       ),
     );

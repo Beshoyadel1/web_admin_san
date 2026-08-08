@@ -10,7 +10,7 @@ class DesignViewOtherServiceWidget extends StatelessWidget {
   final IconData? iconData;
   final Color? iconDataColor, iconDataBackGroundColor, subTitleColor;
   final String? title, subTitle;
-
+  final bool isMoney;
   const DesignViewOtherServiceWidget(
       {super.key,
       this.iconData,
@@ -18,7 +18,8 @@ class DesignViewOtherServiceWidget extends StatelessWidget {
       this.iconDataBackGroundColor,
       this.title,
       this.subTitle,
-      this.subTitleColor});
+      this.subTitleColor,
+      this.isMoney=false});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class DesignViewOtherServiceWidget extends StatelessWidget {
               CustomContainer(
                 isSelected: false,
                 onTap: () {},
+                border: Border.all(color: AppColors.transparent),
                 typeWidget: Icon(
                   iconData ?? Icons.design_services_sharp,
                   color: iconDataColor ?? AppColors.orangeColor,
@@ -59,6 +61,25 @@ class DesignViewOtherServiceWidget extends StatelessWidget {
                     fontWeightIndex: FontSelectionData.mediumFontFamily,
                     textColor: AppColors.greyColor,
                   ),
+                   isMoney?
+                   Wrap(
+                     spacing: 5,
+                     children: [
+                       TextInAppWidget(
+                         text:subTitle?? AppLanguageKeys.serviceTypes,
+                         textSize: 12,
+                         fontWeightIndex: FontSelectionData.boldFontFamily,
+                         textColor:subTitleColor?? AppColors.greyColor,
+                       ),
+                       TextInAppWidget(
+                         text: AppLanguageKeys.dirham,
+                         textSize: 12,
+                         fontWeightIndex:
+                         FontSelectionData.boldFontFamily,
+                         textColor:subTitleColor?? AppColors.greyColor,
+                       ),
+                     ],
+                   ):
                    TextInAppWidget(
                     text:subTitle?? AppLanguageKeys.serviceTypes,
                     textSize: 12,

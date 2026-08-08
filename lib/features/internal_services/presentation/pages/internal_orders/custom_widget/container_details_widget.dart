@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/order_status_design/presentation/pages/order_details/order_details.dart';
 
 import '../../../../../../../../../features/internal_services/data/model/get_provider_orders_model/order_model.dart';
 import '../../../../../../../../../features/internal_services/presentation/cubit/get_provider_internal_order/get_provider_internal_order_state.dart';
@@ -41,35 +42,14 @@ class ContainerDetailsWidget extends StatelessWidget {
     switch (status) {
       case OrderStatus.newOrderForProvider:
       case OrderStatus.newOrderForCompany:
-        page = OrderDetailsNewOrderEmp(order: order);
-        break;
-
       case OrderStatus.orderCompleted:
-        page = OrderDetailsOrderReceivedEmp(order: order);
-        break;
-
       case OrderStatus.employeeInRoad:
-        page = OrderDetailsOnTheWayEmp(order: order);
-        break;
-
       case OrderStatus.workInProgress:
-        page = OrderDetailsUnderServiceEmp(order: order);
-        break;
-
       case OrderStatus.rejectedByProvider:
-        page = OrderDetailsRejectByProviderOrderEmp(order: order);
-        break;
-
       case OrderStatus.rejectedByCompany:
-        page = OrderDetailsRejectByCompanyOrderEmp(order: order);
-        break;
-
       case OrderStatus.cancelledByUser:
-        page = OrderDetailsCancelOrderEmp(order: order);
-        break;
-
       case OrderStatus.waitingAppointment:
-        page = OrderDetailsWaitingEmp(order: order);
+        page = OrderDetails(order: order);
         break;
 
       default:

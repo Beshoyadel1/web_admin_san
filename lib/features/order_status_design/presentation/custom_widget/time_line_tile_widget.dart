@@ -69,6 +69,7 @@ class TimeLineTileWidget extends StatelessWidget {
         child: Column(
           spacing: 10,
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children:[
             const SizedBox(
               height: 10,

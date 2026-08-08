@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
+
 import 'package:web_admin_san/features/order_services/data/model/get_provider_orders_sales_model/get_provider_orders_sales_model.dart';
 import 'package:web_admin_san/features/order_services/data/request/get_provider_orders_sales_request/get_provider_orders_sales_request.dart';
 
 import '../../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../../core/api/dio_function/failures.dart';
-import '../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
 
-
-Future<GetProviderOrdersSalesModel?> getProviderOrdersSalesFunction({
+Future<GetProviderOrdersSalesModel?>
+getProviderOrdersSalesFunction({
   required GetProviderOrdersSalesRequest request,
 }) async {
   try {
@@ -18,14 +18,30 @@ Future<GetProviderOrdersSalesModel?> getProviderOrdersSalesFunction({
       ApiLink.getProviderOrdersSales,
     );
 
-    return GetProviderOrdersSalesModel.fromJson(response.data);
+    final responseData = response.data;
 
-  } catch (e) {
-    AppSnackBar.showError(
-      e is DioException
-          ? responseOfStatusCode(e.response?.statusCode)
-          : e.toString(),
+    final bool success =
+        responseData['success'] ?? false;
+
+    if (!success) {
+      throw Exception(
+        responseData['message'] ??
+            'Something went wrong',
+      );
+    }
+
+    return GetProviderOrdersSalesModel.fromJson(
+      responseData,
     );
-    return null;
+  } catch (e) {
+    if (e is DioException) {
+      throw Exception(
+        responseOfStatusCode(
+          e.response?.statusCode,
+        ),
+      );
+    }
+
+    rethrow;
   }
 }

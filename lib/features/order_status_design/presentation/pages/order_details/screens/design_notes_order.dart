@@ -7,7 +7,8 @@ import 'package:web_admin_san/core/theming/fonts.dart';
 import 'package:web_admin_san/core/theming/text_styles.dart';
 
 class DesignNotesOrder extends StatelessWidget {
-  const DesignNotesOrder({super.key});
+  final String note;
+  const DesignNotesOrder({super.key,required this.note});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +27,13 @@ class DesignNotesOrder extends StatelessWidget {
             textColor: AppColors.blackColor,
           ),
           TextFormFieldWidget(
-            textFormController:TextEditingController(),
+            textFormController:TextEditingController(
+              text:note
+            ),
             maxLines: 5,
             fillColor: WidgetStateColor.transparent,
             borderColor: AppColors.greyColor.withOpacity(0.5),
+            readOnly: true,
           )
         ],
       ),

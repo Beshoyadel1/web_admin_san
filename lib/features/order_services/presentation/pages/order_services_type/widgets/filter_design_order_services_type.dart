@@ -73,6 +73,7 @@ class FilterDesignOrderServicesType extends StatelessWidget {
                         pricePart6: order.totalPrice?.toString() ?? "0",
                         order: order,
                         serviceId: CategoryConstants.mobileServices,
+                        id:order.id.toString(),
                       );
                     },
                   ),

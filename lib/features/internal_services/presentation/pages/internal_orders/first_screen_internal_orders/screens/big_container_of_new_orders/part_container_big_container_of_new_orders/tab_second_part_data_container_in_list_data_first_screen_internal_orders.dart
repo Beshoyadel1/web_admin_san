@@ -1,6 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
+import 'package:web_admin_san/core/language/language_constant.dart';
+import 'package:web_admin_san/core/theming/colors.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
 
 import '../../../../../../../../../features/internal_services/data/model/get_provider_orders_model/order_model.dart';
 import '../../../../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/Column_date_order_with_time_widget.dart';
@@ -20,7 +23,7 @@ class TabSecondPartDataContainerInListDataFirstScreenInternalOrders
       titlePart3,
       subTitlePart3,
       timePart5,
-      pricePart6;
+      pricePart6,id;
   final int? status,serviceId;
   final Uint8List? imagePathPart1,imagePathPart3;
   final OrderModel order;
@@ -41,6 +44,7 @@ class TabSecondPartDataContainerInListDataFirstScreenInternalOrders
     required this.pricePart6,
     required this.order,
     required this.serviceId,
+    required this.id
   });
 
   @override
@@ -48,6 +52,14 @@ class TabSecondPartDataContainerInListDataFirstScreenInternalOrders
     return Row(
       spacing: 5,
       children: [
+        Expanded(child: TitleWithSubTitle(
+          title: AppLanguageKeys.identity,
+          textSizeTitle: 12,
+          subTitleColor: AppColors.greyColor,
+          titleColor: AppColors.greyColor,
+          subTitle:id,
+          textSizeSubTitle: 10,
+        )),
         Expanded(
           child: RowImageWithTitleWidget(
             imagePath: imagePathPart1,

@@ -107,6 +107,7 @@ class _SecondPartDataContainerInListDataFirstScreenOrderServicesStatisticsState 
                       pricePart6: order.totalPrice?.toString() ?? "0",
                       order: order,
                       serviceId:MainCategoryConstants.mobileServicesAndTransportationID,
+                      id:order.id.toString(),
                     );
                   },
                 );

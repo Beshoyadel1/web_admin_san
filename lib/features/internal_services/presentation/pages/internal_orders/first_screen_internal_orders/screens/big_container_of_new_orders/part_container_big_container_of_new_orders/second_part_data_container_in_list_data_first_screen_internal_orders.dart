@@ -96,6 +96,7 @@ class _SecondPartDataContainerInListDataFirstScreenInternalOrdersState
                       pricePart6: order.totalPrice?.toString() ?? "0",
                       order: order,
                       serviceId:MainCategoryConstants.maintenanceAndInternalServicesID,
+                      id:order.id.toString(),
                     );
                   },
                 );

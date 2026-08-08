@@ -2,17 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
 import 'package:web_admin_san/core/api/dio_function/dio_controller.dart';
 import 'package:web_admin_san/core/api/dio_function/failures.dart';
-import 'package:web_admin_san/features/providers/data/model/facility_provider_model/get_provider_branches_model/provider_branch_model.dart';
-import 'package:web_admin_san/features/providers/data/request/facility_provider_request/get_provider_branches_request/get_provider_branches_request.dart';
+import 'package:web_admin_san/features/internal_services/data/model/get_provider_orders_model/order_details_model.dart';
+import 'package:web_admin_san/features/internal_services/data/request/get_order_details_request/get_order_details_datasource.dart';
 
-Future<List<ProviderBranchModel>> getProviderBranchesFunction({
-  required GetProviderBranchesRequest getProviderBranchesRequest,
+Future<OrderDetailsModel> getOrderDetailsFunction({
+  required GetOrderDetailsDatasource getOrderDetailsDatasource,
 }) async {
   try {
-    final response = await Network.getDataWithBodyAndParams(
+    final response = await Network.postDataWithBodyAndParams(
       {},
-      getProviderBranchesRequest.toJson(),
-      ApiLink.getProviderBranches,
+      getOrderDetailsDatasource.toJson(),
+      ApiLink.getOrderDetails,
     );
 
     final responseData = response.data;
@@ -25,13 +25,10 @@ Future<List<ProviderBranchModel>> getProviderBranchesFunction({
       );
     }
 
-    final List<dynamic> data = responseData["data"] ?? [];
+    final Map<String, dynamic> data =
+    Map<String, dynamic>.from(responseData["data"] ?? {});
 
-    return data
-        .map(
-          (e) => ProviderBranchModel.fromJson(e),
-        )
-        .toList();
+    return OrderDetailsModel.fromJson(data);
   } catch (e) {
     if (e is DioException) {
       final data = e.response?.data;
@@ -50,10 +47,10 @@ Future<List<ProviderBranchModel>> getProviderBranchesFunction({
           e.response?.statusCode,
         ),
       );
-    } else {
-      throw Exception(
-        e.toString(),
-      );
     }
+
+    throw Exception(
+      e.toString(),
+    );
   }
 }

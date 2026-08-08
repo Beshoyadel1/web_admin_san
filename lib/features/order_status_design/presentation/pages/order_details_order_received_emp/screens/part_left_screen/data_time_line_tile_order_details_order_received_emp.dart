@@ -26,26 +26,26 @@ class DataTimeLineTileOrderDetailsOrderReceivedEmp extends StatelessWidget{
         ],
       ),
       child: const Column(
-        children: [
-          TimeLineTileWidget(
-            isFirst: true,
-            isIcon: true,
-            title: AppLanguageKeys.createNewOrderKey,
-          ),
-          TimeLineTileWidget(
-            isIcon: true,
-            title: AppLanguageKeys.orderInProgress,
-          ),
-          TimeLineTileWidget(
-            isIcon: true,
-            title: AppLanguageKeys.waitingForInvoicePayment,
-          ),
-          TimeLineTileWidget(
-            isLast: true,
-            isIcon: true,
-            title: AppLanguageKeys.orderArrived,
-          ),
-        ],
+        // children: [
+        //   TimeLineTileWidget(
+        //     isFirst: true,
+        //     isIcon: true,
+        //     title: AppLanguageKeys.createNewOrderKey,
+        //   ),
+        //   TimeLineTileWidget(
+        //     isIcon: true,
+        //     title: AppLanguageKeys.orderInProgress,
+        //   ),
+        //   TimeLineTileWidget(
+        //     isIcon: true,
+        //     title: AppLanguageKeys.waitingForInvoicePayment,
+        //   ),
+        //   TimeLineTileWidget(
+        //     isLast: true,
+        //     isIcon: true,
+        //     title: AppLanguageKeys.orderArrived,
+        //   ),
+        // ],
       ),
     );
   }

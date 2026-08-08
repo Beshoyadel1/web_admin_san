@@ -1,69 +1,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/features/order_status_design/presentation/custom_widget/design_view_other_service_widget.dart';
-import 'package:web_admin_san/features/order_status_design/presentation/custom_widget/design_view_type_service_widget.dart';
+import 'package:web_admin_san/features/internal_services/data/model/get_provider_orders_model/order_details_model.dart';
+import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
+import 'package:web_admin_san/features/order_status_design/presentation/custom_widget/view_list_data_order_widget.dart';
+
+import 'package:flutter/material.dart';
+
+import 'package:web_admin_san/features/internal_services/data/model/get_provider_orders_model/order_details_model.dart';
+import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
+import 'package:web_admin_san/features/order_status_design/presentation/custom_widget/view_list_data_order_widget.dart';
 
 class ViewListDataOrder extends StatelessWidget {
-  const ViewListDataOrder({super.key});
+  final OrderDetailsModel orderDetailsModel;
+
+  const ViewListDataOrder({
+    super.key,
+    required this.orderDetailsModel,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        int count = 4;
+    final bool isArabic =
+        Localizations.localeOf(context).languageCode == 'ar';
 
-        if (constraints.maxWidth < 500) {
-          count = 1;
-        } else if (constraints.maxWidth < 700) {
-          count = 2;
-        } else if (constraints.maxWidth < 1000) {
-          count = 3;
-        }
+    final List<String> serviceTypes =
+        orderDetailsModel.services
+            ?.map(
+              (service) => isArabic
+              ? service.name ?? ''
+              : service.latinname ?? '',
+        )
+            .where(
+              (service) => service.isNotEmpty,
+        )
+            .toList() ??
+            [];
 
-        final width = (constraints.maxWidth - ((count - 1) * 10)) / count;
-
-        return Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: [
-            SizedBox(
-              width: width,
-              child: const DesignViewTypeServiceWidget(),
-            ),
-            SizedBox(
-              width: width,
-              child: const DesignViewOtherServiceWidget(
-                title: AppLanguageKeys.servicePrice,
-                iconData: Icons.monetization_on,
-                subTitle: "1910",
-                subTitleColor: AppColors.orangeColor,
-              ),
-            ),
-            SizedBox(
-              width: width,
-              child: const DesignViewOtherServiceWidget(
-                title: AppLanguageKeys.orderDate,
-                iconData: Icons.calendar_month,
-                iconDataColor: AppColors.blueColor,
-                iconDataBackGroundColor: AppColors.lightCyanColor,
-                subTitle: "3/11/2000",
-              ),
-            ),
-            SizedBox(
-              width: width,
-              child: const DesignViewOtherServiceWidget(
-                title: AppLanguageKeys.expectedDeliveryDate,
-                iconData: Icons.access_time,
-                iconDataColor: AppColors.greenColor,
-                iconDataBackGroundColor: AppColors.lightGreenColor,
-                subTitle: "3/11/2000",
-              ),
-            ),
-          ],
-        );
-      },
+    return ViewListDataOrderWidget(
+      totalPrice: orderDetailsModel.totalprice?.toString(),
+      appointment: OrderFunctions.formatDateFromDateTime(
+        orderDetailsModel.appointment,
+      ),
+      date: OrderFunctions.formatDateFromDateTime(
+        orderDetailsModel.date,
+      ),
+      serviceTypes: serviceTypes,
     );
   }
 }

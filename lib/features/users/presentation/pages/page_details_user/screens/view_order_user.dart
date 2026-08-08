@@ -81,6 +81,7 @@ class ViewOrderUser extends StatelessWidget {
                     pricePart6: order.totalPrice.toString(),
                     order: order,
                     serviceId: null,
+                    id: order.id.toString(),
                   );
                 },
               );

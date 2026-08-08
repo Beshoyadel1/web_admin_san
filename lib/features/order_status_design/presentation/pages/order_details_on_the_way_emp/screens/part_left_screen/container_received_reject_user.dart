@@ -24,42 +24,42 @@ class ContainerReceivedRejectUser extends StatelessWidget {
       spacing: 5,
       runSpacing: 5,
       children: [
-        /// Work in progress
-        ContainerSold(
-          text: AppLanguageKeys.completedOrders,
-          backGroundColor: AppColors.greenColor,
-          onTap: () {
-            context.read<OrderStatusCubit>().updateOrderStatus(
-              updateOrderStatusRequest: UpdateOrderStatusRequest(
-                orderId: order.id ?? 0,
-                status: OrderStatus.orderCompleted,
-              ),
-            );
-          },
-        ),
-
-        const SizedBox(width: 20),
-
-        /// Waiting appointment
-        ContainerSold(
-          text: AppLanguageKeys.cancelledByUser,
-          backGroundColor: AppColors.redColor,
-          onTap: () {
-            final request = UpdateOrderStatusRequest(
-              orderId: order.id ?? 0,
-              status: OrderStatus.cancelledByUser,
-            );
-
-            // print("========== BUTTON CLICK ==========");
-            // print("Order ID: ${request.orderId}");
-            // print("Status: ${request.status}");
-            // print("=================================");
-
-            context.read<OrderStatusCubit>().updateOrderStatus(
-              updateOrderStatusRequest: request,
-            );
-          },
-        ),
+        // /// Work in progress
+        // ContainerSold(
+        //   text: AppLanguageKeys.completedOrders,
+        //   backGroundColor: AppColors.greenColor,
+        //   onTap: () {
+        //     context.read<OrderStatusCubit>().updateOrderStatus(
+        //       updateOrderStatusRequest: UpdateOrderStatusRequest(
+        //         orderId: order.id ?? 0,
+        //         status: OrderStatus.orderCompleted,
+        //       ),
+        //     );
+        //   },
+        // ),
+        //
+        // const SizedBox(width: 20),
+        //
+        // /// Waiting appointment
+        // ContainerSold(
+        //   text: AppLanguageKeys.cancelledByUser,
+        //   backGroundColor: AppColors.redColor,
+        //   onTap: () {
+        //     final request = UpdateOrderStatusRequest(
+        //       orderId: order.id ?? 0,
+        //       status: OrderStatus.cancelledByUser,
+        //     );
+        //
+        //     // print("========== BUTTON CLICK ==========");
+        //     // print("Order ID: ${request.orderId}");
+        //     // print("Status: ${request.status}");
+        //     // print("=================================");
+        //
+        //     context.read<OrderStatusCubit>().updateOrderStatus(
+        //       updateOrderStatusRequest: request,
+        //     );
+        //   },
+        // ),
       ],
     );
   }

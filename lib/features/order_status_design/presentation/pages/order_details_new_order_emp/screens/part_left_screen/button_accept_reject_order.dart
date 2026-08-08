@@ -24,54 +24,54 @@ class ButtonAcceptRejectOrder extends StatelessWidget {
       spacing: 5,
       runSpacing: 5,
       children: [
-        ContainerSold(
-          text: AppLanguageKeys.workInProgress,
-          backGroundColor: AppColors.lightRedColor,
-          onTap: () {
-            context.read<OrderStatusCubit>().updateOrderStatus(
-              updateOrderStatusRequest: UpdateOrderStatusRequest(
-                orderId: order.id ?? 0,
-                status: OrderStatus.workInProgress,
-              ),
-            );
-          },
-        ),
-
-        const SizedBox(width: 20),
-
-        ContainerSold(
-          text: AppLanguageKeys.waitingAppointment,
-          backGroundColor: AppColors.yelloContainerLoadingColor,
-          onTap: () {
-            final request = UpdateOrderStatusRequest(
-              orderId: order.id ?? 0,
-              status: OrderStatus.waitingAppointment,
-            );
-
-
-            context.read<OrderStatusCubit>().updateOrderStatus(
-              updateOrderStatusRequest: request,
-            );
-          },
-        ),
-
-        const SizedBox(width: 20),
-        ContainerSold(
-          text: AppLanguageKeys.rejectRequest,
-          backGroundColor: AppColors.redColor,
-          onTap: () {
-
-            final request = UpdateOrderStatusRequest(
-              orderId: order.id ?? 0,
-              status: OrderStatus.rejectedByProvider,
-            );
-
-
-            context.read<OrderStatusCubit>().updateOrderStatus(
-              updateOrderStatusRequest: request,
-            );
-          },
-        ),
+        // ContainerSold(
+        //   text: AppLanguageKeys.workInProgress,
+        //   backGroundColor: AppColors.lightRedColor,
+        //   onTap: () {
+        //     context.read<OrderStatusCubit>().updateOrderStatus(
+        //       updateOrderStatusRequest: UpdateOrderStatusRequest(
+        //         orderId: order.id ?? 0,
+        //         status: OrderStatus.workInProgress,
+        //       ),
+        //     );
+        //   },
+        // ),
+        //
+        // const SizedBox(width: 20),
+        //
+        // ContainerSold(
+        //   text: AppLanguageKeys.waitingAppointment,
+        //   backGroundColor: AppColors.yelloContainerLoadingColor,
+        //   onTap: () {
+        //     final request = UpdateOrderStatusRequest(
+        //       orderId: order.id ?? 0,
+        //       status: OrderStatus.waitingAppointment,
+        //     );
+        //
+        //
+        //     context.read<OrderStatusCubit>().updateOrderStatus(
+        //       updateOrderStatusRequest: request,
+        //     );
+        //   },
+        // ),
+        //
+        // const SizedBox(width: 20),
+        // ContainerSold(
+        //   text: AppLanguageKeys.rejectRequest,
+        //   backGroundColor: AppColors.redColor,
+        //   onTap: () {
+        //
+        //     final request = UpdateOrderStatusRequest(
+        //       orderId: order.id ?? 0,
+        //       status: OrderStatus.rejectedByProvider,
+        //     );
+        //
+        //
+        //     context.read<OrderStatusCubit>().updateOrderStatus(
+        //       updateOrderStatusRequest: request,
+        //     );
+        //   },
+        // ),
       ],
     );
   }

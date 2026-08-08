@@ -15,6 +15,7 @@ class AppColors {
   static const Color secondaryColor = Color(0xff003B4A);
   static const Color seaBlueColor = Color(0xff007a8a);
   static const Color lightGreenColor = Color(0xffE9F7F7);
+
   static const Color greenColor = Color(0xff4caf50);
   static const Color defaultColor = Color(0xff7B3673);
   static const Color scaffoldColor = Color(0xfff9faff);

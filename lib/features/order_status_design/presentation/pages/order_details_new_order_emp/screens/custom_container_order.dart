@@ -19,53 +19,53 @@ class CustomContainerOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service =
-    order.services?.isNotEmpty == true ? order.services!.first : null;
-
-    final serviceTitle = OrderFunctions.getServiceTitle(
-      context: context,
-      service: service,
-    );
+    // final service =
+    // order.services?.isNotEmpty == true ? order.services!.first : null;
+    //
+    // final serviceTitle = OrderFunctions.getServiceTitle(
+    //   context: context,
+    //   service: service,
+    // );
 
     return CustomContainer(
       isSelected: false,
       containerWidth: double.infinity,
       onTap: () {},
       borderRadius: BorderRadius.circular(12),
-      typeWidget: Wrap(
-        spacing: 35,
-        runSpacing: 10,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        alignment: WrapAlignment.spaceBetween,
-        children: [
-          ColumnDateOrderWithTimeWidget(
-            title: AppLanguageKeys.identity,
-            time: order.id.toString()
-          ),
-          RowImageWithTitleWidget(
-            isWrap: true,
-            imagePath: service?.image,
-            title: serviceTitle,
-            subTitle: '',
-          ),
-          RowImageWithTitleWidget(
-            isWrap: true,
-            isJob: true,
-            imagePath: order.providerImage,
-            title: AppLanguageKeys.name,
-            subTitle: order.providerName ?? "",
-          ),
-          TextWithContainerStatus(
-            status: order.orderStatus ?? 0,
-          ),
-          ColumnDateOrderWithTimeWidget(
-            time: OrderFunctions.formatDate(order.orderDate),
-          ),
-          ColumnPriceOrderWidget(
-            price: order.totalPrice?.toString() ?? "20",
-          ),
-        ],
-      ),
+      // typeWidget: Wrap(
+      //   spacing: 35,
+      //   runSpacing: 10,
+      //   crossAxisAlignment: WrapCrossAlignment.center,
+      //   alignment: WrapAlignment.spaceBetween,
+      //   children: [
+      //     ColumnDateOrderWithTimeWidget(
+      //       title: AppLanguageKeys.identity,
+      //       time: order.id.toString()
+      //     ),
+      //     RowImageWithTitleWidget(
+      //       isWrap: true,
+      //       imagePath: service?.image,
+      //       title: serviceTitle,
+      //       subTitle: '',
+      //     ),
+      //     RowImageWithTitleWidget(
+      //       isWrap: true,
+      //       isJob: true,
+      //       imagePath: order.providerImage,
+      //       title: AppLanguageKeys.name,
+      //       subTitle: order.providerName ?? "",
+      //     ),
+      //     TextWithContainerStatus(
+      //       status: order.orderStatus ?? 0,
+      //     ),
+      //     ColumnDateOrderWithTimeWidget(
+      //       time: OrderFunctions.formatDate(order.orderDate),
+      //     ),
+      //     ColumnPriceOrderWidget(
+      //       price: order.totalPrice?.toString() ?? "20",
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

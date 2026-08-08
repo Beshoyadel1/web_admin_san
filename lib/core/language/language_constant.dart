@@ -19,6 +19,11 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String mada = 'mada';
+  static const String visa = 'visa';
+  static const String applePay = 'applePay';
+  static const String cash = 'cash';
+  static const String unknown = 'unknown';
   static const String valueAddedTax = 'valueAddedTax';
   static const String dubaiPlate = 'dubaiPlate';
   static const String totalVehicle = 'totalVehicle';

@@ -26,38 +26,38 @@ class DataTimeLineTileOrderDetailsUnderServiceEmp extends StatelessWidget{
         ],
       ),
       child: const Column(
-        children: [
-          TimeLineTileWidget(
-            isFirst: true,
-            isIcon: true,
-            title: AppLanguageKeys.createNewOrderKey,
-          ),
-          TimeLineTileWidget(
-            text: '2',
-            title: AppLanguageKeys.orderInProgress,
-            colorAfterLine: AppColors.greyColor,
-          ),
-          TimeLineTileWidget(
-            text: '3',
-            title: AppLanguageKeys.waitingForInvoicePayment,
-            subTitle: '',
-            colorBeforeLine: AppColors.greyColor,
-            colorAfterLine: AppColors.greyColor,
-            colorBorder: AppColors.greyColor,
-            textColorTitle: AppColors.greyColor,
-            textColor: AppColors.greyColor,
-          ),
-          TimeLineTileWidget(
-            isLast: true,
-            text: '4',
-            textColor: AppColors.greyColor,
-            title: AppLanguageKeys.orderArrived,
-            textColorTitle: AppColors.greyColor,
-            subTitle: '',
-            colorBeforeLine: AppColors.greyColor,
-            colorBorder: AppColors.greyColor,
-          ),
-        ],
+        // children: [
+        //   TimeLineTileWidget(
+        //     isFirst: true,
+        //     isIcon: true,
+        //     title: AppLanguageKeys.createNewOrderKey,
+        //   ),
+        //   TimeLineTileWidget(
+        //     text: '2',
+        //     title: AppLanguageKeys.orderInProgress,
+        //     colorAfterLine: AppColors.greyColor,
+        //   ),
+        //   TimeLineTileWidget(
+        //     text: '3',
+        //     title: AppLanguageKeys.waitingForInvoicePayment,
+        //     subTitle: '',
+        //     colorBeforeLine: AppColors.greyColor,
+        //     colorAfterLine: AppColors.greyColor,
+        //     colorBorder: AppColors.greyColor,
+        //     textColorTitle: AppColors.greyColor,
+        //     textColor: AppColors.greyColor,
+        //   ),
+        //   TimeLineTileWidget(
+        //     isLast: true,
+        //     text: '4',
+        //     textColor: AppColors.greyColor,
+        //     title: AppLanguageKeys.orderArrived,
+        //     textColorTitle: AppColors.greyColor,
+        //     subTitle: '',
+        //     colorBeforeLine: AppColors.greyColor,
+        //     colorBorder: AppColors.greyColor,
+        //   ),
+        // ],
       ),
     );
   }
