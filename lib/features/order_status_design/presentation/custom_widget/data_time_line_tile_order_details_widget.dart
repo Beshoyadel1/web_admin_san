@@ -1,15 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
-
+import '../../../../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../../../../core/language/language_constant.dart';
 import '../../../../../../../../features/order_status_design/presentation/custom_widget/time_line_tile_widget.dart';
 import '../../../../../../../core/theming/colors.dart';
-
 import 'package:flutter/material.dart';
-
-import '../../../../../../../../core/language/language_constant.dart';
-import '../../../../../../../../features/order_status_design/presentation/custom_widget/time_line_tile_widget.dart';
-import '../../../../../../../core/theming/colors.dart';
 
 class DataTimeLineTileOrderDetailsWidget extends StatelessWidget {
   final int? orderStatus;

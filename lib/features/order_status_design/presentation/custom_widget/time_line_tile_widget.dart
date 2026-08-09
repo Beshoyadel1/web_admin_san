@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_tile_plus/timeline_tile_plus.dart';
-
 import '../../../../../../../../core/theming/colors.dart';
 import '../../../../../../../../core/theming/fonts.dart';
 import '../../../../../../../../core/theming/text_styles.dart';

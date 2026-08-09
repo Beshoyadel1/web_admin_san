@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/fonts.dart';
 import '../../../../../core/theming/text_styles.dart';
@@ -11,7 +10,7 @@ class ColumnImageCarWithTwoTextWidget extends StatelessWidget {
   final Color? kindCarColor,nameCarColor;
   final bool isSemiBold;
   final double? textSizeTitle,textSizeSubTitle;
-  ColumnImageCarWithTwoTextWidget({
+  const ColumnImageCarWithTwoTextWidget({super.key,
     required this.imageSrc,
     required this.kindCar,
     required this.nameCar,

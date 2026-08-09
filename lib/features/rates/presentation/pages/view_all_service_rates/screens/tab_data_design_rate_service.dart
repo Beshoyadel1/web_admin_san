@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/rates/presentation/bloc/update_rate_cubit/update_rate_cubit.dart';
+import 'package:web_admin_san/features/rates/presentation/pages/view_all_service_rates/screens/edit_rate_dialog.dart';
 import '../../../../../../core/language/language_constant.dart';
 import '../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 import '../../../../../../features/rates/data/model/get_providers_basic_rate_models/get_providers_basic_rate_models.dart';
@@ -126,7 +128,7 @@ class TabDataDesignRateService extends StatelessWidget {
                             final allRates = rateState.model.rates
                                 .expand(
                                   (service) => service.rates,
-                                )
+                            )
                                 .toList();
 
                             final isMobile = constraints.maxWidth < 700;
@@ -143,16 +145,57 @@ class TabDataDesignRateService extends StatelessWidget {
                               children: allRates
                                   .map(
                                     (rate) => SizedBox(
-                                      width: itemWidth,
-                                      child:
-                                          ContainerListContainerAllRateServiceWidget(
-                                        imagePath: rate.userImage,
-                                        username: rate.username,
-                                        message: rate.message ?? '',
-                                        rate: rate.rate,
-                                      ),
-                                    ),
-                                  )
+                                  width: itemWidth,
+                                  child:
+                                  ContainerListContainerAllRateServiceWidget(
+                                    imagePath: rate.userImage,
+                                    username: rate.username,
+                                    message: rate.message ?? '',
+                                    rate: rate.rate,
+
+                                    onEdit: () async {
+                                      final updated = await showDialog<bool>(
+                                        context: context,
+                                        builder: (_) {
+                                          return BlocProvider(
+                                            create: (_) => UpdateRateCubit(),
+                                            child: EditRateDialog(
+                                              rateId: rate.id,
+                                              orderId: rate.orderId,
+                                              providerId: rate.providerId,
+                                              userId: rate.userId,
+                                              userType: rate.userType,
+                                              serviceId: rate.serviceId,
+                                              currentRate: rate.rate,
+                                              currentMessage: rate.message ?? '',
+                                            ),
+                                          );
+                                        },
+                                      );
+
+                                      if (updated == true && context.mounted) {
+                                        print("🟢 Update Dialog Closed Successfully");
+                                        print("🔄 Refresh Provider Rates");
+                                        print("Provider ID: ${providerModel.id}");
+                                        print(
+                                          "Service ID: ${cubit.isAllServicesSelected ? 0 : cubit.selectedService?.id}",
+                                        );
+
+                                        await context
+                                            .read<GetProviderDetailsRatesCubit>()
+                                            .getProviderDetailsRates(
+                                          providerId: providerModel.id,
+                                          serviceId: cubit.isAllServicesSelected
+                                              ? 0
+                                              : cubit.selectedService?.id ?? 0,
+                                        );
+
+                                        print("✅ Refresh Finished");
+                                      }
+                                    },
+                                  ),
+                                ),
+                              )
                                   .toList(),
                             );
                           },

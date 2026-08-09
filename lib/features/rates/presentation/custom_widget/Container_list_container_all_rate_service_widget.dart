@@ -1,7 +1,9 @@
 import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 import '../../../../../../core/theming/colors.dart';
 import '../../../../../../core/theming/fonts.dart';
 import '../../../../../../core/theming/text_styles.dart';
@@ -12,6 +14,7 @@ class ContainerListContainerAllRateServiceWidget
   final String message;
   final Uint8List? imagePath;
   final double rate;
+  final VoidCallback? onEdit;
 
   const ContainerListContainerAllRateServiceWidget({
     super.key,
@@ -19,6 +22,7 @@ class ContainerListContainerAllRateServiceWidget
     required this.username,
     required this.message,
     required this.rate,
+    this.onEdit,
   });
 
   @override
@@ -47,24 +51,19 @@ class ContainerListContainerAllRateServiceWidget
               imagePath != null
                   ? CircleAvatar(
                 radius: 22,
-                backgroundImage:
-                MemoryImage(imagePath!),
+                backgroundImage: MemoryImage(imagePath!),
               )
                   : CircleAvatar(
                 radius: 22,
-                backgroundColor:
-                AppColors.orangeColor,
+                backgroundColor: AppColors.orangeColor,
                 child: TextInAppWidget(
                   text: username.isNotEmpty
-                      ? username[0]
-                      .toUpperCase()
+                      ? username[0].toUpperCase()
                       : '?',
                   textSize: 14,
-                  textColor:
-                  AppColors.whiteColor,
+                  textColor: AppColors.whiteColor,
                   fontWeightIndex:
-                  FontSelectionData
-                      .mediumFontFamily,
+                  FontSelectionData.mediumFontFamily,
                 ),
               ),
 
@@ -72,17 +71,14 @@ class ContainerListContainerAllRateServiceWidget
 
               Expanded(
                 child: Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextInAppWidget(
                       text: username,
                       textSize: 14,
-                      textColor:
-                      AppColors.blackColor,
+                      textColor: AppColors.blackColor,
                       fontWeightIndex:
-                      FontSelectionData
-                          .mediumFontFamily,
+                      FontSelectionData.mediumFontFamily,
                       maxLines: 1,
                     ),
 
@@ -90,8 +86,7 @@ class ContainerListContainerAllRateServiceWidget
 
                     RatingBarIndicator(
                       rating: rate,
-                      itemBuilder:
-                          (context, index) =>
+                      itemBuilder: (context, index) =>
                       const Icon(
                         Icons.star,
                         color: AppColors.orangeColor,
@@ -103,14 +98,34 @@ class ContainerListContainerAllRateServiceWidget
                 ),
               ),
 
+              // Rate value
               TextInAppWidget(
                 text: rate.toStringAsFixed(1),
                 textSize: 13,
                 textColor: AppColors.orangeColor,
                 fontWeightIndex:
-                FontSelectionData
-                    .mediumFontFamily,
+                FontSelectionData.mediumFontFamily,
               ),
+
+              // Edit button
+              if (onEdit != null) ...[
+                const SizedBox(width: 8),
+
+                IconButton(
+                  onPressed: onEdit,
+                  tooltip: 'Edit Rating',
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(
+                    minWidth: 32,
+                    minHeight: 32,
+                  ),
+                  icon: Icon(
+                    Icons.edit_outlined,
+                    size: 20,
+                    color: AppColors.orangeColor,
+                  ),
+                ),
+              ],
             ],
           ),
 

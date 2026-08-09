@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/features/order_status_design/presentation/custom_widget/design_view_other_service_widget.dart';
-import 'package:web_admin_san/features/order_status_design/presentation/custom_widget/design_view_type_service_widget.dart';
+import '../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../features/order_status_design/presentation/custom_widget/design_view_other_service_widget.dart';
+import '../../../../../../../../features/order_status_design/presentation/custom_widget/design_view_type_service_widget.dart';
 
 class ViewListDataOrderWidget extends StatelessWidget {
   final String? totalPrice,date,appointment;

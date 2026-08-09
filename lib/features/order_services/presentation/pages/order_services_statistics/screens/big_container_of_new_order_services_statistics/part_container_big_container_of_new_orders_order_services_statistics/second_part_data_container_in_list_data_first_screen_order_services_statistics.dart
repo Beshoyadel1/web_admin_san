@@ -42,7 +42,6 @@ class _SecondPartDataContainerInListDataFirstScreenOrderServicesStatisticsState 
             GetOrderCubit()
               ..getOrders(
                pageNumber: 1,
-
               ),
           ),
           BlocProvider(

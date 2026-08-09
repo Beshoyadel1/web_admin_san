@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/pages_widgets/text_form_field_widget.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
-import 'package:web_admin_san/features/order_status_design/presentation/custom_widget/button_with_text_icon.dart';
-import 'package:web_admin_san/features/order_status_design/presentation/custom_widget/user_wallet_button.dart';
+import '../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../core/theming/fonts.dart';
+import '../../../../../../../../core/theming/text_styles.dart';
+import '../../../../../../../../features/order_status_design/presentation/custom_widget/button_with_text_icon.dart';
+import '../../../../../../../../features/order_status_design/presentation/custom_widget/user_wallet_button.dart';
 
 class DesignBillOrderWidget extends StatelessWidget {
   final String? price, tax, totalPrice;

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/features/internal_services/data/model/get_provider_orders_model/order_model.dart';
+import '../../../../../../../../features/internal_services/data/model/get_provider_orders_model/order_model.dart';
 import '../../../../../features/order_status_design/presentation/pages/order_details/screens/list_order_details.dart';
 import '../../../../../core/theming/colors.dart';
 

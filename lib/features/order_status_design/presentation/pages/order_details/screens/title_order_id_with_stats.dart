@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:web_admin_san/features/order_status_design/presentation/custom_widget/title_order_id_with_stats_widget.dart';
+import '../../../../../../../../features/order_status_design/presentation/custom_widget/title_order_id_with_stats_widget.dart';
 
 class TitleOrderIdWithStats extends StatelessWidget {
   final int status;

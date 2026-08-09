@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
+import '../../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../core/theming/fonts.dart';
+import '../../../../../../../../core/theming/text_styles.dart';
 
 class ButtonWithTextIcon extends StatelessWidget {
   final String? text;

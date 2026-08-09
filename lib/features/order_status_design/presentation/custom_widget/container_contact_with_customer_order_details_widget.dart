@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../../../core/theming/fonts.dart';
 import '../../../../../../../../core/theming/text_styles.dart';
 import '../../../../../../../../features/order_status_design/presentation/pages/calling_in_service_request/ui/screens/container_call_in_data_calling_design.dart';

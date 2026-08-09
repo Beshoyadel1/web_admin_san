@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
-import 'package:web_admin_san/core/api/dio_function/dio_controller.dart';
-import 'package:web_admin_san/core/api/dio_function/failures.dart';
-import 'package:web_admin_san/features/internal_services/data/model/get_provider_orders_model/order_details_model.dart';
-import 'package:web_admin_san/features/internal_services/data/request/get_order_details_request/get_order_details_datasource.dart';
+import '../../../../../../../core/api/dio_function/api_constants.dart';
+import '../../../../../../../core/api/dio_function/dio_controller.dart';
+import '../../../../../../../core/api/dio_function/failures.dart';
+import '../../../../../../../features/internal_services/data/model/get_provider_orders_model/order_details_model.dart';
+import '../../../../../../../features/internal_services/data/request/get_order_details_request/get_order_details_datasource.dart';
 
 Future<OrderDetailsModel> getOrderDetailsFunction({
   required GetOrderDetailsDatasource getOrderDetailsDatasource,

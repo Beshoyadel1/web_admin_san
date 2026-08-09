@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
-
-import 'package:web_admin_san/features/internal_services/data/model/get_provider_orders_model/order_details_model.dart';
+import '../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../core/theming/fonts.dart';
+import '../../../../../../../../core/theming/text_styles.dart';
+import '../../../../../../../../features/internal_services/data/model/get_provider_orders_model/order_details_model.dart';
 
 class DesignCarDataOrdersWidget extends StatelessWidget {
   final String? brandName;
