@@ -1,5 +1,7 @@
+import 'package:web_admin_san/core/theming/auth_local_storage.dart';
 import 'package:web_admin_san/features/accounts_management/presentation/pages/details_user_accounts_management/details_user_accounts_management.dart';
 import 'package:web_admin_san/features/accounts_management/presentation/pages/view_all_providers_account_management/view_all_providers_account_management.dart';
+import 'package:web_admin_san/features/approved_centers/presentation/pages/view_all_approved_centers/view_all_approved_centers.dart';
 import 'package:web_admin_san/features/banner/presentation/pages/first_screen_advertisements_admin_sun/first_screen_advertisements_admin_sun.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/view_car_harag/view_car_harag.dart';
 import 'package:web_admin_san/features/company/presentation/pages/view_all_companies/view_all_companies.dart';
@@ -224,92 +226,157 @@ class PagesOfAllApp {
   static const int viewAllCompaniesNumber = 543;
   static const int viewAllCompaniesInsuranceNumber = 544;
   static const int viewAllAccountManagementNumber = 545;
-  static const int testOrderDetails = 546;
+  static const int viewAllApprovedCentersNumber = 546;
+
+//ViewAllApprovedCenters
 
 //FirstScreenAccountsManagementAdminSun
 }
 List<PageNodeModel> appPages = [];
 
-void getPages() {
+Future<void> getPages() async {
   appPages.clear();
+
+  final user = await AuthLocalStorage.getUser();
+
+  final permissions = user?.adminDetails?.permissions;
+
+  // لو مفيش permissions، مفيش صفحات protected تظهر
+  if (permissions == null) {
+    return;
+  }
+
+  bool hasPermission(bool? permission) {
+    return permission == true;
+  }
+
   appPages = [
-    // const PageNodeModel(
-    //   name: 'تفاصيل الطلب',
-    //   image: AppImageKeys.home,
-    //   number: PagesOfAllApp.testOrderDetails,
-    //   page: OrderDetails(),
-    // ),
-    const PageNodeModel(
-      name: AppLanguageKeys.statistics,
-      image: AppImageKeys.home,
-      number: PagesOfAllApp.dashboardPageNumber,
-      page: OrderServicesStatistics(),
-    ),
-    const PageNodeModel(
-      name: AppLanguageKeys.ordersSectionKey,
-      number: PagesOfAllApp.dashboardOrderPageNumber,
-      image: AppImageKeys.pages,
-      page: OrderServicesTypePage(),
-    ),
-    const PageNodeModel(
-      name: AppLanguageKeys.accountManagement,
-      number: PagesOfAllApp.viewAllAccountManagementNumber,
-      image: AppImageKeys.wallet,
-      page: ViewAllProvidersAccountManagement(),
-    ),
-    const PageNodeModel(
-      name: AppLanguageKeys.insurances,
-      number: PagesOfAllApp.viewAllCompaniesInsuranceNumber,
-      image: AppImageKeys.spare,
-      page: ViewAllCompaniesInsurance(),
-    ),
-    const PageNodeModel(
-      name: AppLanguageKeys.companies,
-      number: PagesOfAllApp.viewAllCompaniesNumber,
-      image: AppImageKeys.company,
-      page: ViewAllCompanies(),
-    ),
-    const PageNodeModel(
-      name: AppLanguageKeys.carsHaraj,
-      number: PagesOfAllApp.viewAllCarsHarajNumber,
-      image: AppImageKeys.sell,
-      page: ViewCarHarag(),
-    ),
-    const PageNodeModel(
-      name: AppLanguageKeys.users,
-      number: PagesOfAllApp.viewAllUsersNumber,
-      image: AppImageKeys.users,
-      page: ViewAllUsers(),
-    ),
-    const PageNodeModel(
-      name: AppLanguageKeys.serviceProviders,
-      number: PagesOfAllApp.viewAllProvidersNumber,
-      image: AppImageKeys.store,
-      page: ViewAllProvider(),
-    ),
-    const PageNodeModel(
-      name: AppLanguageKeys.advertisements,
-      image: AppImageKeys.banner,
-      number: PagesOfAllApp.bannerViewPageNumber,
-      page: FirstScreenAdvertisementsAdminSun(),
-    ),
-    const PageNodeModel(
-      name: AppLanguageKeys.reviews,
-      image: AppImageKeys.star,
-      number: PagesOfAllApp.ratePageNumber,
-      page: ViewAllProviderRates(),
-    ),
-    const PageNodeModel(
-        name: AppLanguageKeys.facilityManagementKey,
+    // ================= STATISTICS =================
+
+    if (hasPermission(permissions.statistic))
+      const PageNodeModel(
+        name: AppLanguageKeys.statistics,
+        image: AppImageKeys.home,
+        number: PagesOfAllApp.dashboardPageNumber,
+        page: OrderServicesStatistics(),
+      ),
+
+    // ================= ORDERS =================
+
+    if (hasPermission(permissions.orders))
+      const PageNodeModel(
+        name: AppLanguageKeys.ordersSectionKey,
+        number: PagesOfAllApp.dashboardOrderPageNumber,
+        image: AppImageKeys.pages,
+        page: OrderServicesTypePage(),
+      ),
+
+    // ================= PROVIDERS =================
+
+    if (hasPermission(permissions.providers))
+      const PageNodeModel(
+        name: AppLanguageKeys.serviceProviders,
+        number: PagesOfAllApp.viewAllProvidersNumber,
         image: AppImageKeys.store,
-        number: PagesOfAllApp.securityPageNumber,
-        page: FacilityAccount(),
-       ),
-    const PageNodeModel(
+        page: ViewAllProvider(),
+      ),
+
+    if (hasPermission(permissions.approvals))
+      const PageNodeModel(
+        name: AppLanguageKeys.approvedCenters,
+        number: PagesOfAllApp.viewAllApprovedCentersNumber,
+        image: AppImageKeys.pages,
+        page: ViewAllApprovedCenters(),
+      ),
+
+    // ================= COMPANIES =================
+
+    if (hasPermission(permissions.companies))
+      const PageNodeModel(
+        name: AppLanguageKeys.companies,
+        number: PagesOfAllApp.viewAllCompaniesNumber,
+        image: AppImageKeys.company,
+        page: ViewAllCompanies(),
+      ),
+
+    // ================= INSURANCE =================
+
+    if (hasPermission(permissions.insurance))
+      const PageNodeModel(
+        name: AppLanguageKeys.insurances,
+        number: PagesOfAllApp.viewAllCompaniesInsuranceNumber,
+        image: AppImageKeys.spare,
+        page: ViewAllCompaniesInsurance(),
+      ),
+
+    // ================= CARS HARAJ =================
+
+    if (hasPermission(permissions.harage))
+      const PageNodeModel(
+        name: AppLanguageKeys.carsHaraj,
+        number: PagesOfAllApp.viewAllCarsHarajNumber,
+        image: AppImageKeys.sell,
+        page: ViewCarHarag(),
+      ),
+
+    // ================= USERS =================
+
+    if (hasPermission(permissions.users))
+      const PageNodeModel(
+        name: AppLanguageKeys.users,
+        number: PagesOfAllApp.viewAllUsersNumber,
+        image: AppImageKeys.users,
+        page: ViewAllUsers(),
+      ),
+
+    // ================= ACCOUNT MANAGEMENT =================
+    // ممكن تعتبرها admins أو providers حسب الـ business logic
+
+      const PageNodeModel(
+        name: AppLanguageKeys.accountManagement,
+        number: PagesOfAllApp.viewAllAccountManagementNumber,
+        image: AppImageKeys.wallet,
+        page: ViewAllProvidersAccountManagement(),
+      ),
+
+    // ================= ADVERTISEMENTS =================
+
+    if (hasPermission(permissions.banners))
+      const PageNodeModel(
+        name: AppLanguageKeys.advertisements,
+        image: AppImageKeys.banner,
+        number: PagesOfAllApp.bannerViewPageNumber,
+        page: FirstScreenAdvertisementsAdminSun(),
+      ),
+
+    // ================= REVIEWS / RANKS =================
+
+    if (hasPermission(permissions.ranks))
+      const PageNodeModel(
+        name: AppLanguageKeys.reviews,
+        image: AppImageKeys.star,
+        number: PagesOfAllApp.ratePageNumber,
+        page: ViewAllProviderRates(),
+      ),
+
+    // ================= TECHNICAL SUPPORT =================
+
+    if (hasPermission(permissions.support))
+      const PageNodeModel(
         name: AppLanguageKeys.technicalSupport,
         image: AppImageKeys.support,
         number: PagesOfAllApp.technicalSupportPageNumber,
-        page: TechnicalSupportAdminSun()),
+        page: TechnicalSupportAdminSun(),
+      ),
+
+    // ================= ALWAYS AVAILABLE =================
+
+    const PageNodeModel(
+      name: AppLanguageKeys.myAccount,
+      image: AppImageKeys.users,
+      number: PagesOfAllApp.securityPageNumber,
+      page: FacilityAccount(),
+    ),
 
     const PageNodeModel(
       name: AppLanguageKeys.socialPagesAndPoliciesKey,
@@ -317,6 +384,7 @@ void getPages() {
       number: PagesOfAllApp.pagesPageNumber,
       page: FirstScreenCommunicationAndPoliciesPages(),
     ),
+
     const PageNodeModel(
       name: AppLanguageKeys.logoutKey,
       image: AppImageKeys.logout,

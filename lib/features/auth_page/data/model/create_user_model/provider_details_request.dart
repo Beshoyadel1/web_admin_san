@@ -11,6 +11,7 @@ class ProviderDetailsRequest {
   final String? cr;
   final String? vatno;
   final int? packageid;
+
   final DateTime? subscriptionstartdate;
   final DateTime? subscriptionenddate;
 
@@ -20,6 +21,10 @@ class ProviderDetailsRequest {
   final Uint8List? crimage;
   final Uint8List? vatnoimage;
   final Uint8List? ibanimage;
+
+  final bool? isApproved;
+
+  final dynamic approvalInfo;
 
   const ProviderDetailsRequest({
     this.id,
@@ -38,9 +43,13 @@ class ProviderDetailsRequest {
     this.crimage,
     this.vatnoimage,
     this.ibanimage,
+    this.isApproved,
+    this.approvalInfo,
   });
 
-  factory ProviderDetailsRequest.fromJson(Map<String, dynamic> json) {
+  factory ProviderDetailsRequest.fromJson(
+      Map<String, dynamic> json,
+      ) {
     return ProviderDetailsRequest(
       id: json["id"],
       name: json["name"],
@@ -51,19 +60,39 @@ class ProviderDetailsRequest {
       cr: json["cr"],
       vatno: json["vatno"],
       packageid: json["packageid"],
+
+      subscriptionstartdate:
+      json["subscriptionstartdate"] != null
+          ? DateTime.tryParse(
+        json["subscriptionstartdate"].toString(),
+      )
+          : null,
+
+      subscriptionenddate:
+      json["subscriptionenddate"] != null
+          ? DateTime.tryParse(
+        json["subscriptionenddate"].toString(),
+      )
+          : null,
+
       iban: json["iban"],
       nationaladdress: json["nationaladdress"],
-      subscriptionstartdate: json["subscriptionstartdate"] != null
-          ? DateTime.parse(json["subscriptionstartdate"])
+
+      crimage: json["crimage"] != null
+          ? base64Decode(json["crimage"])
           : null,
-      subscriptionenddate: json["subscriptionenddate"] != null
-          ? DateTime.parse(json["subscriptionenddate"])
+
+      vatnoimage: json["vatnoimage"] != null
+          ? base64Decode(json["vatnoimage"])
           : null,
-      crimage: json["crimage"] != null ? base64Decode(json["crimage"]) : null,
-      vatnoimage:
-          json["vatnoimage"] != null ? base64Decode(json["vatnoimage"]) : null,
-      ibanimage:
-          json["ibanimage"] != null ? base64Decode(json["ibanimage"]) : null,
+
+      ibanimage: json["ibanimage"] != null
+          ? base64Decode(json["ibanimage"])
+          : null,
+
+      isApproved: json["isApproved"],
+
+      approvalInfo: json["approvalInfo"],
     );
   }
 
@@ -78,13 +107,31 @@ class ProviderDetailsRequest {
       "cr": cr ?? "",
       "vatno": vatno ?? "",
       "packageid": packageid ?? 0,
+
+      "subscriptionstartdate":
+      subscriptionstartdate?.toIso8601String(),
+
+      "subscriptionenddate":
+      subscriptionenddate?.toIso8601String(),
+
       "iban": iban ?? "",
       "nationaladdress": nationaladdress ?? "",
-      "subscriptionstartdate": subscriptionstartdate?.toIso8601String(),
-      "subscriptionenddate": subscriptionenddate?.toIso8601String(),
-      "crimage": crimage != null ? base64Encode(crimage!) : null,
-      "vatnoimage": vatnoimage != null ? base64Encode(vatnoimage!) : null,
-      "ibanimage": ibanimage != null ? base64Encode(ibanimage!) : null,
+
+      "crimage": crimage != null
+          ? base64Encode(crimage!)
+          : null,
+
+      "vatnoimage": vatnoimage != null
+          ? base64Encode(vatnoimage!)
+          : null,
+
+      "ibanimage": ibanimage != null
+          ? base64Encode(ibanimage!)
+          : null,
+
+      "isApproved": isApproved ?? false,
+
+      "approvalInfo": approvalInfo,
     };
   }
 }

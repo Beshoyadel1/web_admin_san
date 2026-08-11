@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:web_admin_san/features/rates/data/request/update_rate_request/update_rate_request.dart';
-
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';

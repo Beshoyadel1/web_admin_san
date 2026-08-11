@@ -32,6 +32,12 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.accreditation: 'الاعتماد',
+      AppLanguageKeys.approved: 'معتمد',
+      AppLanguageKeys.notApproved: 'غير معتمد',
+      AppLanguageKeys.approvedCenters: 'المراكز المعتمدة',
+      AppLanguageKeys.profilePicture: 'الصورة الشخصية',
+      AppLanguageKeys.myAccount: 'حسابي',
       AppLanguageKeys.mada: 'مدى',
       AppLanguageKeys.visa: 'فيزا',
       AppLanguageKeys.applePay: 'أبل باي',
@@ -1417,6 +1423,12 @@ class AppLocalizations {
       AppLanguageKeys.unknownType: 'Unknown Type',
       //END//
       //others//
+      AppLanguageKeys.accreditation: 'Accreditation',
+      AppLanguageKeys.approved: 'Approved',
+      AppLanguageKeys.notApproved: 'Not Approved',
+      AppLanguageKeys.approvedCenters: 'Approved Centers',
+      AppLanguageKeys.profilePicture: 'Profile Picture',
+      AppLanguageKeys.myAccount: 'My Account',
       AppLanguageKeys.mada: 'Mada',
       AppLanguageKeys.visa: 'Visa',
       AppLanguageKeys.applePay: 'Apple Pay',

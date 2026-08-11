@@ -21,40 +21,71 @@ class StorePage extends StatefulWidget {
 
 class _StorePageState extends State<StorePage> {
   final GlobalKey<ScaffoldState> _scaffoldKeyDrawer =
-  GlobalKey<ScaffoldState>();
+      GlobalKey<ScaffoldState>();
 
   final AppCubit _appCubit = getIt<AppCubit>();
+
+  bool _isLoadingPages = true;
 
   @override
   void initState() {
     super.initState();
-
-    getPages();
-
-    final facilityAccountPage = appPages.firstWhere(
-          (e) => e.number == PagesOfAllApp.dashboardPageNumber,
-    );
-
-    final facilityAccountWithID = PageNodeWithIDModel(
-      id: facilityAccountPage.number,
-      name: facilityAccountPage.name,
-      number: facilityAccountPage.number,
-      page: facilityAccountPage.page,
-    );
-
-    _appCubit.selectedPageFromOpenedPagesIndex =
-        facilityAccountWithID.id;
-
-    _appCubit.selectedPageIndex =
-        facilityAccountWithID.id;
+    _initializePages();
   }
 
+  Future<void> _initializePages() async {
+    await getPages();
+
+    if (!mounted) return;
+
+    if (appPages.isEmpty) {
+      setState(() {
+        _isLoadingPages = false;
+      });
+      return;
+    }
+
+// Try to open Dashboard if user has permission.
+// Otherwise open the first allowed page.
+    final dashboardPages = appPages.where(
+      (e) => e.number == PagesOfAllApp.dashboardPageNumber,
+    );
+
+    final selectedPage =
+        dashboardPages.isNotEmpty ? dashboardPages.first : appPages.first;
+
+    _appCubit.selectedPageFromOpenedPagesIndex = selectedPage.number;
+
+    _appCubit.selectedPageIndex = selectedPage.number;
+
+    if (mounted) {
+      setState(() {
+        _isLoadingPages = false;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
 
     final isMobile =
         width <= ValuesOfAllApp.mobileWidth;
+
+    if (_isLoadingPages) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if (appPages.isEmpty) {
+      return const Scaffold(
+        body: Center(
+          child: Text('No pages available'),
+        ),
+      );
+    }
 
     return PopScope(
       canPop: false,
@@ -72,7 +103,6 @@ class _StorePageState extends State<StorePage> {
         key: _scaffoldKeyDrawer,
         backgroundColor: AppColors.whiteGreyColor,
 
-        // Mobile Drawer
         drawer: isMobile
             ? const Drawer(
           width: 256,
@@ -82,10 +112,9 @@ class _StorePageState extends State<StorePage> {
 
         body: Row(
           children: [
-            // Desktop Sidebar
             if (!isMobile)
               BlocBuilder<AppCubit, AppStates>(
-                bloc: _appCubit, // IMPORTANT
+                bloc: _appCubit,
                 buildWhen: (previous, current) {
                   return current is HideMenuState;
                 },
@@ -115,3 +144,4 @@ class _StorePageState extends State<StorePage> {
     );
   }
 }
+

@@ -2,29 +2,30 @@ import 'package:web_admin_san/features/providers/data/model/get_all_providers_mo
 
 abstract class GetAllProvidersState {}
 
-class GetAllProvidersInitial
-    extends GetAllProvidersState {}
+class GetAllProvidersInitial extends GetAllProvidersState {}
 
-class GetAllProvidersLoading
-    extends GetAllProvidersState {}
+class GetAllProvidersLoading extends GetAllProvidersState {}
 
-class GetAllProvidersSuccess
-    extends GetAllProvidersState {
+class GetAllProvidersSuccess extends GetAllProvidersState {
   final List<GetAllProvidersModels> providers;
+
+  // providerId -> isApproved
+  final Map<int, bool> providerApproval;
+
   final int currentPage;
   final int pageCount;
   final int totalCount;
 
   GetAllProvidersSuccess({
     required this.providers,
+    required this.providerApproval,
     required this.currentPage,
     required this.pageCount,
     required this.totalCount,
   });
 }
 
-class GetAllProvidersError
-    extends GetAllProvidersState {
+class GetAllProvidersError extends GetAllProvidersState {
   final String error;
 
   GetAllProvidersError(this.error);

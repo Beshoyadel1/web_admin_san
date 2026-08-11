@@ -25,7 +25,9 @@ class OrderServicesStatistics extends StatelessWidget {
             onRefresh: () async {
               await context
                   .read<AdminDashboardStatisticsCubit>()
-                  .getStatistics();
+                  .getStatistics(
+
+              );
             },
             child: Scaffold(
               backgroundColor: AppColors.scaffoldColor,
@@ -52,7 +54,7 @@ class OrderServicesStatistics extends StatelessWidget {
                             child: SizedBox(
                               width: 500,
                               child: Column(
-                                spacing: 20,
+                                spacing: 10,
                                 children: [
                                   ContainerCurrentYearSales(),
                                   ContainerLastYearSales(),

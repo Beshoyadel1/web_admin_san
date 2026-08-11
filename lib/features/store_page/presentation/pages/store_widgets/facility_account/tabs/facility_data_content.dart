@@ -32,6 +32,7 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
   final genderController = TextEditingController();
   final ageController = TextEditingController();
   final dateController = TextEditingController();
+  final userNameController = TextEditingController();
 
   bool isEditMode = false;
   bool isLoaded = false;
@@ -62,6 +63,7 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
       emailController.text = user.email ?? "";
       ageController.text = user.age?.toString() ?? "";
       genderController.text = user.gander?.toString() ?? "";
+      userNameController.text=user.username?.toString()??"";
       dateController.text =
           OrderFunctions.formatDateFromDateTime(user.joinDate);
 
@@ -77,10 +79,16 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
 
     final request = CreateUserRequest(
       userid: user?.userid ?? 0,
-      username: user?.username,
       type: user?.type,
       phone: safe(phoneController.text),
       email: safe(emailController.text),
+      username: safe(userNameController.text),
+      joinDate: user?.joinDate,
+      currentCarId: user?.currentCarId,
+      fcmToken: user?.fcmToken,
+      isActive: user?.isActive,
+      nationality:user?.nationality,
+      referralCode: user?.referralCode,
       age: ageController.text.isNotEmpty
           ? int.tryParse(ageController.text)
           : null,
@@ -92,6 +100,7 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
         id: oldAdmin?.id,
         jobname: safe(jobNameController.text),
         joblatinname: safe(jobLatinNameController.text),
+        permissions: user?.adminDetails?.permissions
       ),
     );
 
@@ -115,6 +124,13 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
           runSpacing: 10,
           children: [
             UserTextFieldWidget(
+              controller: userNameController,
+              text: AppLanguageKeys.username,
+              type: UserFieldType.name,
+              readOnly: !isEditMode,
+              width: 250,
+            ),
+            UserTextFieldWidget(
               controller: idController,
               text: AppLanguageKeys.identity,
               type: UserFieldType.name,
@@ -125,34 +141,34 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
               controller: jobNameController,
               text: AppLanguageKeys.jobName,
               type: UserFieldType.name,
-              readOnly: !isEditMode,
+              readOnly: true,
               width: 250,
             ),
             UserTextFieldWidget(
               controller: jobLatinNameController,
               text: AppLanguageKeys.jobLatinName,
               type: UserFieldType.name,
-              readOnly: !isEditMode,
+              readOnly: true,
               width: 250,
             ),
             UserTextFieldWidget(
               controller: phoneController,
               text: AppLanguageKeys.phoneNumber,
               type: UserFieldType.phone,
-              readOnly: !isEditMode,
+              readOnly: true,
               width: 250,
             ),
             UserTextFieldWidget(
               controller: emailController,
               text: AppLanguageKeys.email,
               type: UserFieldType.email,
-              readOnly: !isEditMode,
+              readOnly: true,
               width: 250,
             ),
             UserTextFieldWidget(
               controller: ageController,
               text: AppLanguageKeys.age,
-              readOnly: !isEditMode,
+              readOnly: true,
               width: 250,
             ),
             UserTextFieldWidget(
@@ -165,20 +181,20 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
               controller: genderController,
               text: AppLanguageKeys.gender,
               type: UserFieldType.gender,
-              readOnly: !isEditMode,
+              readOnly: true,
               width: 250,
             ),
           ],
         ),
         const SizedBox(height: 20),
-        Wrap(
+        const Wrap(
           spacing: 20,
           runSpacing: 20,
           children: [
             AttachImage(
-              title: AppLanguageKeys.ownerIdKey,
+              title: AppLanguageKeys.profilePicture,
               type: 'image',
-              isEditMode: isEditMode,
+              isEditMode: false,
             ),
           ],
         ),

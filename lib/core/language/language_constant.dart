@@ -19,6 +19,12 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String accreditation = 'accreditation';
+  static const String approved = 'approved';
+  static const String notApproved = 'notApproved';
+  static const String approvedCenters = 'approvedCenters';
+  static const String profilePicture = 'profilePicture';
+  static const String myAccount = 'myAccount';
   static const String mada = 'mada';
   static const String visa = 'visa';
   static const String applePay = 'applePay';

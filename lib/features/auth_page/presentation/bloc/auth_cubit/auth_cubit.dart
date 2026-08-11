@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/core/theming/auth_local_storage.dart';
+import 'package:web_admin_san/features/auth_page/data/model/create_user_model/admin_details_request.dart';
+import 'package:web_admin_san/features/auth_page/data/model/create_user_model/provider_details_request.dart';
 import 'package:web_admin_san/features/notifications/data/datasource/signalr_datasource/signalr_service/signalr_service.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/language/language_constant.dart';
@@ -66,24 +68,43 @@ class AuthCubit extends Cubit<AuthState> {
       ),
     );
 
+    // Login API failed
     if (!result.success || result.user == null) {
-      await AuthLocalStorage.clearUser();
-      await AuthLocalStorage.clearPassword();
-      await SignalRService.instance.disconnect();
-
-      emit(AuthUnauthenticated());
+      await _forceLogout();
       return;
     }
 
+    final apiUser = result.user!;
+
+    // Local user must be exactly the same as API user
+    if (!localUser.isSameData(apiUser)) {
+      print("INIT => Local user != API user");
+
+      await _forceLogout();
+      return;
+    }
+
+    print("INIT => Local user == API user");
+
+    // Connect SignalR
     if (!SignalRService.instance.isConnected) {
       await SignalRService.instance.connect(
         hubUrl: ApiLink.notificationHub,
       );
     }
 
-    await _checkFacilityCompletion(result.user!);
+    // Check facility completion
+    await _checkFacilityCompletion(apiUser);
   }
 
+  Future<void> _forceLogout() async {
+    await AuthLocalStorage.clearUser();
+    await AuthLocalStorage.clearPassword();
+
+    await SignalRService.instance.disconnect();
+
+    emit(AuthUnauthenticated());
+  }
   Timer? _timer;
   int secondsRemaining = 30;
   String otpCode = "";
@@ -187,29 +208,34 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await loginFunction(
       loginRequest: request,
     );
-    if (result.success && result.user != null) {
-      await AuthLocalStorage.saveUser(result.user!);
 
-      if (!SignalRService.instance.isConnected) {
-        await SignalRService.instance.connect(
-          hubUrl: ApiLink.notificationHub,
-        );
-      }
-
-      emit(
-        AuthLoginSuccess(
-          message: result.message,
-        ),
-      );
-
-      await _checkFacilityCompletion(result.user!);
-    } else {
+    if (!result.success || result.user == null) {
       emit(
         AuthLoginError(
           result.message,
         ),
       );
+      return;
     }
+
+    final apiUser = result.user!;
+
+    // First login → save API user
+    await AuthLocalStorage.saveUser(apiUser);
+
+    if (!SignalRService.instance.isConnected) {
+      await SignalRService.instance.connect(
+        hubUrl: ApiLink.notificationHub,
+      );
+    }
+
+    emit(
+      AuthLoginSuccess(
+        message: result.message,
+      ),
+    );
+
+    await _checkFacilityCompletion(apiUser);
   }
 
   Future<void> logout(BuildContext context) async {
@@ -222,32 +248,44 @@ class AuthCubit extends Cubit<AuthState> {
       Navigator.pop(context);
     }
   }
+  Future<void> reCheckFacility() async {
+    final user = await AuthLocalStorage.getUser();
 
-  Future<void> _checkFacilityCompletion(CreateUserRequest user) async {
-    // final branchCubit = BranchCubit();
-    // final workTimeCubit = UpdateWorkTimeCubit();
-
-    // await Future.wait([
-    //   branchCubit.getProviderBranches(),
-    //   workTimeCubit.getWorkTimes(),
-    // ]);
-
-    // print("BRANCHES => ${branchCubit.branches.length}");
-    // print("WORK TIMES => ${workTimeCubit.workTimes.length}");
+    if (user == null) {
+      print("RECHECK => AuthUnauthenticated");
+      emit(AuthUnauthenticated());
+      return;
+    }
 
     final result = FacilityValidator.validate(
       user: user,
-      // branchCubit: branchCubit,
-      // workTimeCubit: workTimeCubit,
     );
 
-    // print("IS VALID => ${result.isValid}");
-    // print("MISSING FIELDS => ${result.missingFields}");
-
     if (result.isValid) {
+      await AuthLocalStorage.saveUser(user);
+
       emit(AuthAuthenticated());
     } else {
       emit(AuthIncompleteProfile(result.missingFields));
+    }
+  }
+  Future<void> _checkFacilityCompletion(
+      CreateUserRequest user,
+      ) async {
+    final result = FacilityValidator.validate(
+      user: user,
+    );
+
+    if (result.isValid) {
+      await AuthLocalStorage.saveUser(user);
+
+      emit(AuthAuthenticated());
+    } else {
+      emit(
+        AuthIncompleteProfile(
+          result.missingFields,
+        ),
+      );
     }
   }
 
@@ -272,38 +310,11 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> reCheckFacility() async {
-    final user = await AuthLocalStorage.getUser();
 
-    if (user == null) {
-      print("RECHECK => AuthUnauthenticated");
-      emit(AuthUnauthenticated());
-      return;
-    }
-    // final branchCubit = BranchCubit();
-    // final workTimeCubit = UpdateWorkTimeCubit();
-
-    // await Future.wait([
-    //   branchCubit.getProviderBranches(),
-    //   workTimeCubit.getWorkTimes(),
-    // ]);
-
-    final result = FacilityValidator.validate(
-      user: user,
-      // branchCubit: branchCubit,
-      // workTimeCubit: workTimeCubit,
-    );
-
-    if (result.isValid) {
-      emit(AuthAuthenticated());
-    } else {
-      emit(AuthIncompleteProfile(result.missingFields));
-    }
-  }
 
   Future<void> updateUser(
-    CreateUserRequest request,
-  ) async {
+      CreateUserRequest request,
+      ) async {
     if (isClosed) return;
 
     emit(AuthUpdateLoading());
@@ -311,54 +322,185 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       final oldUser = await AuthLocalStorage.getUser();
 
+      if (oldUser == null) {
+        emit(
+          AuthUpdateError(
+            'User not found',
+          ),
+        );
+        return;
+      }
+
+      // ================= PROVIDER MERGE =================
+
+      final oldProvider = oldUser.providerDetails;
+      final newProvider = request.providerDetails;
+
+      final mergedProvider = newProvider != null
+          ? ProviderDetailsRequest(
+        id: newProvider.id ?? oldProvider?.id,
+        name: newProvider.name ?? oldProvider?.name,
+        latinname:
+        newProvider.latinname ?? oldProvider?.latinname,
+        description:
+        newProvider.description ?? oldProvider?.description,
+        latindesc:
+        newProvider.latindesc ?? oldProvider?.latindesc,
+        provid:
+        newProvider.provid ?? oldProvider?.provid,
+        cr: newProvider.cr ?? oldProvider?.cr,
+        vatno:
+        newProvider.vatno ?? oldProvider?.vatno,
+        packageid:
+        newProvider.packageid ?? oldProvider?.packageid,
+
+        subscriptionstartdate:
+        newProvider.subscriptionstartdate ??
+            oldProvider?.subscriptionstartdate,
+
+        subscriptionenddate:
+        newProvider.subscriptionenddate ??
+            oldProvider?.subscriptionenddate,
+
+        iban:
+        newProvider.iban ?? oldProvider?.iban,
+
+        nationaladdress:
+        newProvider.nationaladdress ??
+            oldProvider?.nationaladdress,
+
+        crimage:
+        newProvider.crimage ??
+            oldProvider?.crimage,
+
+        vatnoimage:
+        newProvider.vatnoimage ??
+            oldProvider?.vatnoimage,
+
+        ibanimage:
+        newProvider.ibanimage ??
+            oldProvider?.ibanimage,
+
+        isApproved:
+        newProvider.isApproved ??
+            oldProvider?.isApproved,
+
+        approvalInfo:
+        newProvider.approvalInfo ??
+            oldProvider?.approvalInfo,
+      )
+          : oldProvider;
+
+      // ================= ADMIN MERGE =================
+
+      final oldAdmin = oldUser.adminDetails;
+      final newAdmin = request.adminDetails;
+
+      final mergedAdmin = newAdmin != null
+          ? AdminDetailsRequest(
+        id: newAdmin.id ?? oldAdmin?.id,
+        jobname:
+        newAdmin.jobname ?? oldAdmin?.jobname,
+        joblatinname:
+        newAdmin.joblatinname ??
+            oldAdmin?.joblatinname,
+        permissions:
+        newAdmin.permissions ??
+            oldAdmin?.permissions,
+      )
+          : oldAdmin;
+
+      // ================= API REQUEST =================
+
+      final mergedRequest = CreateUserRequest(
+        userid: oldUser.userid,
+
+        username:
+        request.username ?? oldUser.username,
+
+        phone:
+        request.phone ?? oldUser.phone,
+
+        email:
+        request.email ?? oldUser.email,
+
+        password:
+        request.password ?? oldUser.password,
+
+        age:
+        request.age ?? oldUser.age,
+
+        gander:
+        request.gander ?? oldUser.gander,
+
+        type:
+        oldUser.type,
+
+        nationality:
+        request.nationality ?? oldUser.nationality,
+
+        isActive:
+        request.isActive ?? oldUser.isActive,
+
+        joinDate:
+        request.joinDate ?? oldUser.joinDate,
+
+        referralCode:
+        request.referralCode ?? oldUser.referralCode,
+
+        image:
+        request.image ?? oldUser.image,
+
+        fcmToken:
+        request.fcmToken ?? oldUser.fcmToken,
+
+        currentCarId:
+        request.currentCarId ?? oldUser.currentCarId,
+
+        providerDetails:
+        mergedProvider,
+
+        adminDetails:
+        mergedAdmin,
+
+        companyDetails:
+        request.companyDetails ??
+            oldUser.companyDetails,
+
+        driverDetails:
+        request.driverDetails ??
+            oldUser.driverDetails,
+      );
+
+      // ================= UPDATE API =================
 
       final result = await updateUserFunction(
-        createUserRequest: request,
+        createUserRequest: mergedRequest,
       );
 
       if (isClosed) return;
 
-
       if (result.success) {
-        final updatedUser = CreateUserRequest(
-          userid: oldUser?.userid,
-          username: request.username ?? oldUser?.username,
-          phone: request.phone ?? oldUser?.phone,
-          email: request.email ?? oldUser?.email,
-          age: request.age ?? oldUser?.age,
-          gander: request.gander ?? oldUser?.gander,
-          image: request.image ?? oldUser?.image,
-          type: oldUser?.type,
-          isActive: oldUser?.isActive,
-          joinDate: oldUser?.joinDate,
-          nationality: request.nationality ?? oldUser?.nationality,
-          referralCode: oldUser?.referralCode,
-          fcmToken: oldUser?.fcmToken,
-          currentCarId: oldUser?.currentCarId,
-          providerDetails: request.providerDetails ?? oldUser?.providerDetails,
-          adminDetails: request.adminDetails ?? oldUser?.adminDetails,
+        // Save the COMPLETE merged user locally
+        await AuthLocalStorage.saveUser(
+          mergedRequest,
         );
 
-        if (result.success) {
-          await AuthLocalStorage.saveUser(updatedUser);
-
-          emit(
-            AuthUpdateSuccess(
-              result.message,
-            ),
-          );
-
-          return;
-        }
-      } else {
         emit(
-          AuthUpdateError(
+          AuthUpdateSuccess(
             result.message,
           ),
         );
-      }
-    } catch (e) {
 
+        return;
+      }
+
+      emit(
+        AuthUpdateError(
+          result.message,
+        ),
+      );
+    } catch (e) {
       if (isClosed) return;
 
       emit(

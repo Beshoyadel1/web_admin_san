@@ -29,14 +29,14 @@ class FacilityValidator {
     }
 
     /// 🔴 Basic data
-    if (!isValid(p?.jobname)) missing.add(AppLanguageKeys.facilityName);
-    if (!isValid(p?.joblatinname)) missing.add(AppLanguageKeys.facilityNameEn);
+    // if (!isValid(p?.jobname)) missing.add(AppLanguageKeys.facilityName);
+    // if (!isValid(p?.joblatinname)) missing.add(AppLanguageKeys.facilityNameEn);
     // if (!isValid(p?.cr)) missing.add(AppLanguageKeys.commercialRecordKey);
     // if (!isValid(p?.vatno)) missing.add(AppLanguageKeys.taxNumber);
-    if (!isValid(user.phone)) missing.add(AppLanguageKeys.phoneNumber);
-    if (!isValid(user.email)) missing.add(AppLanguageKeys.email);
-
-    if (!isValid(user.image?.toString())) missing.add(AppLanguageKeys.ownerIdKey);
+    // if (!isValid(user.phone)) missing.add(AppLanguageKeys.phoneNumber);
+    // if (!isValid(user.email)) missing.add(AppLanguageKeys.email);
+    //
+    // if (!isValid(user.image?.toString())) missing.add(AppLanguageKeys.ownerIdKey);
 
     // /// 🔴 Branch
     // print("BRANCHES TYPE => ${branchCubit.branches.runtimeType}");

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
 import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/theming/assets.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/Container_of_second_part_data_container_in_list_data_first_screen_internal_orders_widget.dart';
@@ -22,14 +23,26 @@ class ListDataContainerOrderCompany extends StatelessWidget {
 
         if (state is GetProviderInternalOrderSuccess) {
 
-          final orders = state.orders;
+          final orders = state.orders
+              .where(
+                (order) =>
+            order.orderStatus == OrderStatus.newOrderForProvider ||
+                order.orderStatus == OrderStatus.newOrderForCompany,
+          )
+              .toList()
+            ..sort(
+                  (a, b) => DateTime.parse(b.orderDate!)
+                  .compareTo(DateTime.parse(a.orderDate!)),
+            );
+
+          final latestOrders = orders.take(5).toList();
           if (state.orders.isEmpty) {
             return const TextEmptyViewData();
           }
           return  ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: orders.length,
+            itemCount: latestOrders.length,
             separatorBuilder: (_, __) => const SizedBox(height: 5),
             itemBuilder: (context, index) {
               final order = orders[index];

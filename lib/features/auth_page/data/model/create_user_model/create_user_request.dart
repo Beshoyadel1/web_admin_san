@@ -28,7 +28,10 @@ class CreateUserRequest {
   //final EmployeeWrapperRequest? employeeDetails;
   final CompanyDetailsRequest? companyDetails;
   final DriverDetailsRequest? driverDetails;
-
+  
+  bool isSameData(CreateUserRequest other) {
+    return jsonEncode(toJson()) == jsonEncode(other.toJson());
+  }
   const CreateUserRequest({
     this.userid,
     this.username,
