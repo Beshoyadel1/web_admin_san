@@ -64,7 +64,7 @@ class _BankAccountContentState extends State<BankAccountContent> {
       phone: user?.phone,
       email: user?.email,
       age: user?.age,
-      gander: user?.gander,
+      gender: user?.gender,
       image: user?.image,
       providerDetails: ProviderDetailsRequest(
         id: oldProvider?.id,

@@ -12,7 +12,7 @@ class CreateUserRequest {
   final String? phone;
   final String? email;
   final String? password;
-  final int? gander;
+  final int? gender;
   final int? age;
   final int? type;
   final String? nationality;
@@ -38,7 +38,7 @@ class CreateUserRequest {
     this.phone,
     this.email,
     this.password,
-    this.gander,
+    this.gender,
     this.age,
     this.type,
     this.nationality,
@@ -71,9 +71,9 @@ class CreateUserRequest {
 
       password: json["password"],
 
-      gander:
+      gender:
       json["gender"] ??
-          json["gander"],
+          json["gender"],
 
       age: json["age"],
 
@@ -150,7 +150,7 @@ class CreateUserRequest {
       "phone": phone ?? "",
       "email": email ?? "",
       "password": password ?? "",
-      "gander": gander ?? 0,
+      "gender": gender ?? 0,
       "age": age ?? 0,
       "type": type ?? 0,
       "nationality": nationality ?? "",

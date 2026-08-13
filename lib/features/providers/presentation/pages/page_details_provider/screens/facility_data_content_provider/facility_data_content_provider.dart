@@ -4,12 +4,14 @@ import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/theming/colors.dart';
 import 'package:web_admin_san/core/theming/fonts.dart';
 import 'package:web_admin_san/core/theming/text_styles.dart';
+import 'package:web_admin_san/features/approved_centers/presentation/bloc/toggle_provider_approval_status_cubit/toggle_provider_approval_status_cubit.dart';
 import 'package:web_admin_san/features/auth_page/data/request/get_user_inf_request/get_user_info_datasource.dart';
 import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info_cubit/get_user_info_cubit.dart';
 import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info_cubit/get_user_info_state.dart';
 import 'package:web_admin_san/features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
 import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import 'package:web_admin_san/features/providers/presentation/custom_widget/read_only_image_card.dart';
+import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/facility_data_content_provider/provider_approval_switch.dart';
 
 class FacilityDataContentProvider extends StatelessWidget {
   final int providerID;
@@ -21,25 +23,32 @@ class FacilityDataContentProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => GetUserInfoCubit()
-        ..getUserInfo(
-          request: GetUserInfoRequest(
-            userId: providerID,
-            userType: 4,
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => GetUserInfoCubit()
+            ..getUserInfo(
+              request: GetUserInfoRequest(
+                userId: providerID,
+                userType: 4,
+              ),
+            ),
         ),
+        BlocProvider(
+          create: (_) => ToggleProviderApprovalStatusCubit(),
+        ),
+      ],
       child: Builder(
         builder: (context) {
           return RefreshIndicator(
             color: AppColors.orangeColor,
             onRefresh: () async {
               await context.read<GetUserInfoCubit>().getUserInfo(
-                request: GetUserInfoRequest(
-                  userId: providerID,
-                  userType: 4,
-                ),
-              );
+                    request: GetUserInfoRequest(
+                      userId: providerID,
+                      userType: 4,
+                    ),
+                  );
             },
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
@@ -58,7 +67,9 @@ class FacilityDataContentProvider extends StatelessWidget {
                     return SizedBox(
                       height: 500,
                       child: Center(
-                        child: Text(state.message),
+                        child: Text(
+                          state.message,
+                        ),
                       ),
                     );
                   }
@@ -69,35 +80,44 @@ class FacilityDataContentProvider extends StatelessWidget {
                     final vatNoController = TextEditingController(
                       text: user.providerDetails?.vatno ?? '',
                     );
+
                     final crController = TextEditingController(
                       text: user.providerDetails?.cr ?? '',
                     );
+
                     final idController = TextEditingController(
                       text: user.userid?.toString() ?? '',
                     );
+
                     final userNameController = TextEditingController(
                       text: user.username ?? '',
                     );
+
                     final phoneController = TextEditingController(
                       text: user.phone ?? '',
                     );
+
                     final emailController = TextEditingController(
                       text: user.email ?? '',
                     );
+
                     final genderController = TextEditingController(
-                      text: user.gander == 0 ? "Male" : "Female",
+                      text: user.gender == 0 ? AppLanguageKeys.male : AppLanguageKeys.female,
                     );
+
                     final ageController = TextEditingController(
                       text: user.age?.toString() ?? '',
                     );
+
                     final nationalAddressController = TextEditingController(
                       text: user.providerDetails?.nationaladdress ?? '',
                     );
+
                     final joinDateController = TextEditingController(
                       text: user.joinDate != null
                           ? OrderFunctions.formatDateFromDateTime(
-                        user.joinDate!,
-                      )
+                              user.joinDate!,
+                            )
                           : '',
                     );
 
@@ -105,35 +125,59 @@ class FacilityDataContentProvider extends StatelessWidget {
                       spacing: 20,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // =========================
+                        // USER HEADER
+                        // =========================
+
                         Wrap(
-                          spacing: 5,
+                          spacing: 20,
+                          runSpacing: 10,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            user.image != null
-                                ? CircleAvatar(
-                              radius: 20,
-                              backgroundImage: MemoryImage(
-                                user.image!,
-                              ),
-                            )
-                                : const CircleAvatar(
-                              radius: 20,
+                            // User Image
+                            Wrap(
+                              spacing: 10,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: [
+                                user.image != null
+                                    ? CircleAvatar(
+                                        radius: 20,
+                                        backgroundImage: MemoryImage(
+                                          user.image!,
+                                        ),
+                                      )
+                                    : const CircleAvatar(
+                                        radius: 20,
+                                      ),
+                                TextInAppWidget(
+                                  text: user.username ?? '',
+                                  textSize: 15,
+                                  fontWeightIndex:
+                                      FontSelectionData.mediumFontFamily,
+                                  textColor: AppColors.blackColor,
+                                ),
+                              ],
                             ),
-                            TextInAppWidget(
-                              text: user.username ?? '',
-                              textSize: 15,
-                              fontWeightIndex:
-                              FontSelectionData.mediumFontFamily,
-                              textColor: AppColors.blackColor,
+
+                            // =========================
+                            // APPROVAL SWITCH
+                            // =========================
+
+                            ProviderApprovalSwitch(
+                              providerId: providerID,
+                              isApproved: user.providerDetails?.isApproved ?? false,
                             ),
                           ],
                         ),
 
+                        // =========================
+                        // PERSONAL DATA
+                        // =========================
+
                         const TextInAppWidget(
                           text: AppLanguageKeys.personalData,
                           textSize: 15,
-                          fontWeightIndex:
-                          FontSelectionData.mediumFontFamily,
+                          fontWeightIndex: FontSelectionData.mediumFontFamily,
                           textColor: AppColors.orangeColor,
                         ),
 
@@ -203,6 +247,10 @@ class FacilityDataContentProvider extends StatelessWidget {
                             ),
                           ],
                         ),
+
+                        // =========================
+                        // DOCUMENTS
+                        // =========================
 
                         Wrap(
                           spacing: 20,

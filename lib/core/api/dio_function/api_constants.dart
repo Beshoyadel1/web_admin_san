@@ -37,10 +37,16 @@ class ApiConfig {
   static const String branch = "Branch";
   static const String adminUsers = "AdminUsers";
   static const String notification = "Notification";
-
+  static const String approval = "Approval";
 }
 
 class ApiLink {
+
+  static const String getApprovedProviders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/GetApprovedProviders";
+
+  static const String toggleProviderApprovalStatus =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/ToggleProviderApprovalStatus";
   static const String notificationHub =
       "${ApiConfig.baseUrlApi}/sunStatusHub";
   static const String makeNotificationViewed =
@@ -545,6 +551,7 @@ class OfferStatus {
   static const int accepted = 2;
   static const int canceled = 3;
 }
+
 class OrderStatusToString {
   static String toArabic(int status) {
     return switch (status) {
@@ -576,6 +583,7 @@ class OrderStatusToString {
     };
   }
 }
+
 class PaymentMethodType {
   static const int unknown = -1;
   static const int cash = 0;
@@ -585,12 +593,14 @@ class PaymentMethodType {
   static const int applePay = 4;
   static const int points = 5;
 }
+
 class PointsTransactionType {
   static const int receive = 1;
   static const int useInOrder = 2;
   static const int send = 3;
   static const int exchange = 4;
 }
+
 class TransactionType {
   static const int refund = 0;
   static const int acceptWalletBalance = 1;
@@ -600,6 +610,7 @@ class TransactionType {
   static const int subscription = 7;
   static const int transferWalletBalance = 8;
 }
+
 class WalletTransactionType {
   static const bool deposit = true;
   static const bool withdrawal = false;

@@ -62,7 +62,7 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
       phoneController.text = user.phone ?? "";
       emailController.text = user.email ?? "";
       ageController.text = user.age?.toString() ?? "";
-      genderController.text = user.gander?.toString() ?? "";
+      genderController.text = user.gender?.toString() ?? "";
       userNameController.text=user.username?.toString()??"";
       dateController.text =
           OrderFunctions.formatDateFromDateTime(user.joinDate);
@@ -89,10 +89,11 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
       isActive: user?.isActive,
       nationality:user?.nationality,
       referralCode: user?.referralCode,
+
       age: ageController.text.isNotEmpty
           ? int.tryParse(ageController.text)
           : null,
-      gander: genderController.text.isNotEmpty
+      gender: genderController.text.isNotEmpty
           ? int.tryParse(genderController.text)
           : null,
       image: facilityCubit.images['image'] ?? user?.image,
@@ -103,12 +104,6 @@ class _FacilityDataContentState extends State<FacilityDataContent> {
         permissions: user?.adminDetails?.permissions
       ),
     );
-
-    // debugPrint(
-    //     "========== REQUEST ==========");
-
-    // debugPrint(
-    //     jsonEncode(request.toJson()));
 
     context.read<AuthCubit>().updateUser(request);
   }

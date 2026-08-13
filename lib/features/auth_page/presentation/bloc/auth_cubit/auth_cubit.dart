@@ -105,6 +105,93 @@ class AuthCubit extends Cubit<AuthState> {
 
     emit(AuthUnauthenticated());
   }
+  Future<void> login(LoginRequest request) async {
+    emit(AuthLoginLoading());
+
+    final result = await loginFunction(
+      loginRequest: request,
+    );
+
+    if (!result.success || result.user == null) {
+      emit(
+        AuthLoginError(
+          result.message,
+        ),
+      );
+      return;
+    }
+
+    final apiUser = result.user!;
+
+    // First login → save API user
+    await AuthLocalStorage.saveUser(apiUser);
+    // Save password for auto-login after restart
+    await AuthLocalStorage.savePassword(request.password);
+
+    if (!SignalRService.instance.isConnected) {
+      await SignalRService.instance.connect(
+        hubUrl: ApiLink.notificationHub,
+      );
+    }
+
+    emit(
+      AuthLoginSuccess(
+        message: result.message,
+      ),
+    );
+
+    await _checkFacilityCompletion(apiUser);
+  }
+
+  Future<void> logout(BuildContext context) async {
+    emit(AuthLoading());
+    _forceLogout();
+    if (context.mounted) {
+      Navigator.pop(context);
+    }
+  }
+  Future<void> reCheckFacility() async {
+    final user = await AuthLocalStorage.getUser();
+
+    if (user == null) {
+      print("RECHECK => AuthUnauthenticated");
+      emit(AuthUnauthenticated());
+      return;
+    }
+
+    final result = FacilityValidator.validate(
+      user: user,
+    );
+
+    if (result.isValid) {
+      await AuthLocalStorage.saveUser(user);
+
+      emit(AuthAuthenticated());
+    } else {
+      emit(AuthIncompleteProfile(result.missingFields));
+    }
+  }
+
+  Future<void> _checkFacilityCompletion(
+      CreateUserRequest user,
+      ) async {
+    final result = FacilityValidator.validate(
+      user: user,
+    );
+
+    if (result.isValid) {
+      await AuthLocalStorage.saveUser(user);
+
+      emit(AuthAuthenticated());
+    } else {
+      emit(
+        AuthIncompleteProfile(
+          result.missingFields,
+        ),
+      );
+    }
+  }
+
   Timer? _timer;
   int secondsRemaining = 30;
   String otpCode = "";
@@ -202,114 +289,11 @@ class AuthCubit extends Cubit<AuthState> {
 
   void showRestPassword() => emit(AuthShowRestPassword());
 
-  Future<void> login(LoginRequest request) async {
-    emit(AuthLoginLoading());
 
-    final result = await loginFunction(
-      loginRequest: request,
-    );
-
-    if (!result.success || result.user == null) {
-      emit(
-        AuthLoginError(
-          result.message,
-        ),
-      );
-      return;
-    }
-
-    final apiUser = result.user!;
-
-    // First login → save API user
-    await AuthLocalStorage.saveUser(apiUser);
-
-    if (!SignalRService.instance.isConnected) {
-      await SignalRService.instance.connect(
-        hubUrl: ApiLink.notificationHub,
-      );
-    }
-
-    emit(
-      AuthLoginSuccess(
-        message: result.message,
-      ),
-    );
-
-    await _checkFacilityCompletion(apiUser);
-  }
-
-  Future<void> logout(BuildContext context) async {
-    emit(AuthLoading());
-    await AuthLocalStorage.clearUser();
-    await SignalRService.instance.disconnect();
-    await AuthLocalStorage.clearPassword();
-    emit(AuthUnauthenticated());
-    if (context.mounted) {
-      Navigator.pop(context);
-    }
-  }
-  Future<void> reCheckFacility() async {
-    final user = await AuthLocalStorage.getUser();
-
-    if (user == null) {
-      print("RECHECK => AuthUnauthenticated");
-      emit(AuthUnauthenticated());
-      return;
-    }
-
-    final result = FacilityValidator.validate(
-      user: user,
-    );
-
-    if (result.isValid) {
-      await AuthLocalStorage.saveUser(user);
-
-      emit(AuthAuthenticated());
-    } else {
-      emit(AuthIncompleteProfile(result.missingFields));
-    }
-  }
-  Future<void> _checkFacilityCompletion(
-      CreateUserRequest user,
-      ) async {
-    final result = FacilityValidator.validate(
-      user: user,
-    );
-
-    if (result.isValid) {
-      await AuthLocalStorage.saveUser(user);
-
-      emit(AuthAuthenticated());
-    } else {
-      emit(
-        AuthIncompleteProfile(
-          result.missingFields,
-        ),
-      );
-    }
-  }
 
   static Future<void> saveUserFromRequest(CreateUserRequest request) async {
     await AuthLocalStorage.saveUser(request);
   }
-
-  Future<void> checkAuth() async {
-    final isLoggedIn = await AuthLocalStorage.isLoggedIn();
-    if (state is AuthUpdateLoading || state is AuthUpdateSuccess) {
-      return;
-    }
-
-    if (state is AuthAuthenticated && isLoggedIn) {
-      return;
-    }
-
-    if (isLoggedIn) {
-      emit(AuthAuthenticated());
-    } else {
-      emit(AuthUnauthenticated());
-    }
-  }
-
 
 
   Future<void> updateUser(
@@ -414,62 +398,38 @@ class AuthCubit extends Cubit<AuthState> {
 
       final mergedRequest = CreateUserRequest(
         userid: oldUser.userid,
-
         username:
         request.username ?? oldUser.username,
-
         phone:
         request.phone ?? oldUser.phone,
-
         email:
         request.email ?? oldUser.email,
-
         password:
         request.password ?? oldUser.password,
-
         age:
         request.age ?? oldUser.age,
-
-        gander:
-        request.gander ?? oldUser.gander,
-
+        gender:
+        request.gender ?? oldUser.gender,
         type:
         oldUser.type,
-
         nationality:
         request.nationality ?? oldUser.nationality,
-
         isActive:
         request.isActive ?? oldUser.isActive,
-
         joinDate:
         request.joinDate ?? oldUser.joinDate,
-
         referralCode:
         request.referralCode ?? oldUser.referralCode,
-
         image:
         request.image ?? oldUser.image,
-
         fcmToken:
         request.fcmToken ?? oldUser.fcmToken,
-
         currentCarId:
         request.currentCarId ?? oldUser.currentCarId,
-
-        providerDetails:
-        mergedProvider,
-
-        adminDetails:
-        mergedAdmin,
-
-        companyDetails:
-        request.companyDetails ??
-            oldUser.companyDetails,
-
-        driverDetails:
-        request.driverDetails ??
-            oldUser.driverDetails,
+        providerDetails: mergedProvider,
+        adminDetails: mergedAdmin,
+        companyDetails: request.companyDetails ?? oldUser.companyDetails,
+        driverDetails: request.driverDetails ?? oldUser.driverDetails,
       );
 
       // ================= UPDATE API =================
@@ -481,11 +441,9 @@ class AuthCubit extends Cubit<AuthState> {
       if (isClosed) return;
 
       if (result.success) {
-        // Save the COMPLETE merged user locally
         await AuthLocalStorage.saveUser(
           mergedRequest,
         );
-
         emit(
           AuthUpdateSuccess(
             result.message,

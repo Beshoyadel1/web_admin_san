@@ -73,7 +73,7 @@ class ContentCompanies extends StatelessWidget {
                   );
 
                   final genderController = TextEditingController(
-                    text: user.gander == 0 ? "Male" : "Female",
+                    text: user.gender == 0 ? "Male" : "Female",
                   );
 
                   final ageController = TextEditingController(

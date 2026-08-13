@@ -1,5 +1,4 @@
 import 'package:web_admin_san/core/theming/auth_local_storage.dart';
-import 'package:web_admin_san/features/accounts_management/presentation/pages/details_user_accounts_management/details_user_accounts_management.dart';
 import 'package:web_admin_san/features/accounts_management/presentation/pages/view_all_providers_account_management/view_all_providers_account_management.dart';
 import 'package:web_admin_san/features/approved_centers/presentation/pages/view_all_approved_centers/view_all_approved_centers.dart';
 import 'package:web_admin_san/features/banner/presentation/pages/first_screen_advertisements_admin_sun/first_screen_advertisements_admin_sun.dart';
@@ -8,7 +7,6 @@ import 'package:web_admin_san/features/company/presentation/pages/view_all_compa
 import 'package:web_admin_san/features/insurance/presentation/pages/view_all_companies_insurance/view_all_companies_insurance.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_statistics/order_services_statistics.dart';
 import 'package:web_admin_san/features/order_services/presentation/pages/order_services_type/ui/order_services_type_page.dart';
-import 'package:web_admin_san/features/order_status_design/presentation/pages/order_details/order_details.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/view_all_providers/view_all_provider.dart';
 import 'package:web_admin_san/features/rates/presentation/pages/view_all_provider_rates/view_all_provider_rates.dart';
 import 'package:web_admin_san/features/users/presentation/pages/view_all_users/view_all_users.dart';
@@ -232,6 +230,7 @@ class PagesOfAllApp {
 
 //FirstScreenAccountsManagementAdminSun
 }
+
 List<PageNodeModel> appPages = [];
 
 Future<void> getPages() async {
@@ -331,7 +330,7 @@ Future<void> getPages() async {
 
     // ================= ACCOUNT MANAGEMENT =================
     // ممكن تعتبرها admins أو providers حسب الـ business logic
-
+    if (hasPermission(permissions.finances))
       const PageNodeModel(
         name: AppLanguageKeys.accountManagement,
         number: PagesOfAllApp.viewAllAccountManagementNumber,

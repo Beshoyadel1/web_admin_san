@@ -139,9 +139,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     type: UserType.adminUser,
                   );
 
-                  context
-                      .read<AuthCubit>()
-                      .login(loginRequest);
+                  context.read<AuthCubit>().login(loginRequest);
                 },
               );
             },
