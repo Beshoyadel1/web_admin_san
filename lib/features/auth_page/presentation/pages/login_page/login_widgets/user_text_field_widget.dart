@@ -27,7 +27,8 @@ class UserTextFieldWidget extends StatelessWidget {
     this.text,
     this.type = UserFieldType.normal,
     this.readOnly = false,
-    this.width
+    this.width,
+    this.maxLines
   });
 
   final TextEditingController controller;
@@ -35,6 +36,8 @@ class UserTextFieldWidget extends StatelessWidget {
   final UserFieldType type;
   final bool readOnly;
   final double? width;
+  final int? maxLines;
+
   @override
   Widget build(BuildContext context) {
     final bool isMobile = MediaQuery.of(context).size.width < 600;
@@ -51,7 +54,10 @@ class UserTextFieldWidget extends StatelessWidget {
           textSize: 16,
           borderColor: AppColors.darkGreyColor,
           fillColor: AppColors.whiteColor,
-          textFormHeight: 35,
+          textFormHeight: maxLines != null && maxLines! > 1
+              ? 120
+              : 35,
+          maxLines: maxLines ?? 1,
         );
       } else {
         child = PhoneTextField(
@@ -87,8 +93,11 @@ class UserTextFieldWidget extends StatelessWidget {
             textSize: 16,
             borderColor: AppColors.darkGreyColor,
             fillColor: AppColors.whiteColor,
-            textFormHeight: 35,
             obscureText: !isVisible,
+            textFormHeight: maxLines != null && maxLines! > 1
+                ? 120
+                : 35,
+            maxLines: maxLines ?? 1,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppLanguageKeys.enterYourData;
@@ -120,8 +129,10 @@ class UserTextFieldWidget extends StatelessWidget {
         textSize: 16,
         borderColor: AppColors.darkGreyColor,
         fillColor: AppColors.whiteColor,
-        textFormHeight: 35,
-
+        textFormHeight: maxLines != null && maxLines! > 1
+            ? 120
+            : 35,
+        maxLines: maxLines ?? 1,
         isDigit: type == UserFieldType.number,
 
         validator: (value) {

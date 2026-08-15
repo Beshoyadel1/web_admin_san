@@ -4,28 +4,55 @@ import '../../../../../../../features/accounts_management/data/datasource/get_pa
 import '../../../../../../../features/accounts_management/data/request/get_package_request/get_package_request.dart';
 import '../../../../../../../features/accounts_management/presentation/bloc/package_cubit/package_state.dart';
 
-class PackageCubit extends Cubit<PackageState> {
-  PackageCubit() : super(PackageInitial());
 
-  Future<void> getPackages({required ProviderDetailsRequest providerDetailsRequest}) async {
-    emit(PackageLoading());
+class PackageCubit extends Cubit<PackageState> {
+  PackageCubit() : super(const PackageInitial());
+
+  Future<void> getPackage({
+    required ProviderDetailsRequest providerDetailsRequest,
+  }) async {
+    if (isClosed) return;
+
+    emit(const PackageLoading());
 
     try {
-      final data = await getPackageFunction(
+      final packageId = providerDetailsRequest.packageid;
+
+      if (packageId == null) {
+        emit(
+          const PackageError(
+            'Package ID is not available',
+          ),
+        );
+        return;
+      }
+
+      final package = await getPackageFunction(
         request: GetPackageRequest(
-          packageID: providerDetailsRequest.packageid??5,
+          packageID: packageId,
         ),
       );
 
+      if (isClosed) return;
+
       emit(
         PackageSuccess(
-          packages: data,
+          package: package,
           startDate: providerDetailsRequest.subscriptionstartdate,
           endDate: providerDetailsRequest.subscriptionenddate,
         ),
       );
     } catch (e) {
-      emit(PackageError(e.toString()));
+      if (isClosed) return;
+
+      final message = e.toString().replaceFirst(
+        'Exception: ',
+        '',
+      );
+
+      emit(
+        PackageError(message),
+      );
     }
   }
 }

@@ -11,6 +11,7 @@ import 'package:web_admin_san/features/company/presentation/pages/page_details_c
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/content_companies/content_companies.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/drivers_companies/drivers_companies.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/order_companies/order_companies.dart';
+import 'package:web_admin_san/features/packages/presentation/pages/page_details_packages/screens/package_data_content/package_data_view.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/branch_cubit/branch_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/work_time_cubit/work_time_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/bank_account_provider/bank_account_provider.dart';
@@ -27,6 +28,15 @@ class FacilityModelProvider {
 
   FacilityModelProvider({required this.title, required this.content});
 }
+
+List<FacilityModelProvider> packageTabDetails(int packageID) => [
+  FacilityModelProvider(
+    title: AppLanguageKeys.details,
+    content: PackageDataContent(
+      packageId: packageID,
+    ),
+  ),
+];
 
 List<FacilityModelProvider> facilityTabsCompany(int companyId) => [
       //CompanyStatistics

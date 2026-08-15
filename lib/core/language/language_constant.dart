@@ -19,6 +19,25 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String providerNo = 'providerNo';
+  static const String createCoupon = 'createCoupon';
+  static const String couponCode = 'couponCode';
+  static const String discountType = 'discountType';
+  static const String discountValue = 'discountValue';
+  static const String isActive = 'isActive';
+  static const String maxDiscountValue = 'maxDiscountValue';
+  static const String minValueToApply = 'minValueToApply';
+  static const String couponStartDate = 'couponStartDate';
+  static const String couponEndDate = 'couponEndDate';
+  static const String usersUseCount = 'usersUseCount';
+  static const String oneUserUseCount = 'oneUserUseCount';
+
+  static const String packageNotFound = 'packageNotFound';
+  static const String packageLatinName = 'packageLatinName';
+  static const String monthPrice = 'monthPrice';
+  static const String packageDisc = 'packageDisc';
+  static const String packageLatinDisc = 'packageLatinDisc';
+
   static const String accreditation = 'accreditation';
   static const String approved = 'approved';
   static const String notApproved = 'notApproved';

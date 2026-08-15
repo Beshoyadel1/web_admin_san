@@ -25,13 +25,11 @@ class ListDataDetailsUserAccountsManagement extends StatelessWidget {
           AccountBalance(
             providerDetailsRequest: providerDetailsRequest,
           ),
-         const PartOfListContainerInFirstScreenAccountsManagementAdminSun(),
+          const PartOfListContainerInFirstScreenAccountsManagementAdminSun(),
           AllProfitsFromPackagesList(
             providerDetailsRequest: providerDetailsRequest,
           ),
-          const  NumberOfTransactionList()
-          // PartOfListContainerInNumberOfTransactionList(),
-          // PartOfListContainerAllProfitFromPackageList()
+           const  NumberOfTransactionList()
         ],
       ),
     );

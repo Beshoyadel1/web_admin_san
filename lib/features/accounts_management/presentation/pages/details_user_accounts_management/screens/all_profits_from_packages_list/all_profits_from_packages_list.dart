@@ -1,22 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:web_admin_san/features/auth_page/data/model/create_user_model/provider_details_request.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
-import 'package:web_admin_san/features/providers/data/model/get_all_providers_models/get_all_providers_models/get_all_providers_models.dart';
+import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
+
 import '../../../../../../../core/language/language_constant.dart';
 import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../../core/theming/colors.dart';
 import '../../../../../../../core/theming/fonts.dart';
 import '../../../../../../../core/theming/text_styles.dart';
+
 import '../../../../../../../features/accounts_management/presentation/bloc/package_cubit/package_cubit.dart';
 import '../../../../../../../features/accounts_management/presentation/bloc/package_cubit/package_state.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../../../features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
-import '../../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 
 class AllProfitsFromPackagesList extends StatelessWidget {
   final ProviderDetailsRequest providerDetailsRequest;
-  const AllProfitsFromPackagesList({super.key,required this.providerDetailsRequest});
+
+  const AllProfitsFromPackagesList({
+    super.key,
+    required this.providerDetailsRequest,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,34 +39,36 @@ class AllProfitsFromPackagesList extends StatelessWidget {
         ),
 
         BlocProvider(
-          create: (_) => PackageCubit()..getPackages(
-              providerDetailsRequest: providerDetailsRequest
-          ),
+          create: (_) => PackageCubit()
+            ..getPackage(
+              providerDetailsRequest: providerDetailsRequest,
+            ),
           child: BlocBuilder<PackageCubit, PackageState>(
             builder: (context, state) {
 
-
               if (state is PackageLoading) {
-                return const CupertinoActivityIndicator();
+                return const Center(
+                  child: CupertinoActivityIndicator(),
+                );
               }
 
-
               if (state is PackageError) {
-                return const Text("Error loading packages");
+                return const TextEmptyViewData(
+                  text: AppLanguageKeys.packageNotFound,
+                );
               }
 
               if (state is PackageSuccess) {
-                final packages = state.packages;
-
-                if (packages.isEmpty) {
-                  return const TextEmptyViewData();
-                }
+                final package = state.package;
 
                 return Container(
+                  width: double.infinity,
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
                     border: Border.all(
                       color: AppColors.greyColor.withOpacity(0.3),
                     ),
@@ -71,75 +80,102 @@ class AllProfitsFromPackagesList extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: packages.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 20),
-                    itemBuilder: (context, index) {
-                      final package = packages[index];
+                  child: CustomContainer(
+                    isSelected: false,
+                    onTap: () {},
+                    borderRadius: BorderRadius.circular(12),
+                    typeWidget: Wrap(
+                      spacing: 30,
+                      runSpacing: 15,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.spaceBetween,
+                      children: [
 
-                      return CustomContainer(
-                        isSelected: false,
-                        onTap: () {},
-                        borderRadius: BorderRadius.circular(12),
-                        typeWidget: Wrap(
-                          spacing: 5,
-                          runSpacing: 5,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          alignment: WrapAlignment.spaceBetween,
-                          children: [
-                            /// Name
-                            TitleWithSubTitle(
-                              title: AppLanguageKeys.packageName,
-                              textSizeTitle: 13,
-                              titleColor: AppColors.greyColor,
-                              subTitle: package.getName(context),
-                              textSizeSubTitle: 12,
-                            ),
-
-                            TitleWithSubTitle(
-                              title: AppLanguageKeys.packageType,
-                              textSizeTitle: 13,
-                              titleColor: AppColors.greyColor,
-                              subTitle: package.getDescription(context),
-                              textSizeSubTitle: 12,
-                            ),
-
-                            TitleWithSubTitle(
-                              title: AppLanguageKeys.annualPrice,
-                              textSizeTitle: 13,
-                              titleColor: AppColors.greyColor,
-                              subTitle: "${package.annualPrice}",
-                              textSizeSubTitle: 12,
-                            ),
-
-                            TitleWithSubTitle(
-                              title: AppLanguageKeys.monthlyPrice,
-                              textSizeTitle: 13,
-                              titleColor: AppColors.greyColor,
-                              subTitle: "${package.monthPrice}",
-                              textSizeSubTitle: 12,
-                            ),
-
-                            TitleWithSubTitle(
-                              title: AppLanguageKeys.subscriptionStartDate,
-                              textSizeTitle: 13,
-                              titleColor: AppColors.greyColor,
-                              subTitle:OrderFunctions.formatDateFromDateTime(state.startDate),
-                              textSizeSubTitle: 12,
-                            ),
-                            TitleWithSubTitle(
-                              title: AppLanguageKeys.subscriptionEndDate,
-                              textSizeTitle: 13,
-                              titleColor: AppColors.greyColor,
-                              subTitle: OrderFunctions.formatDateFromDateTime(state.startDate),
-                              textSizeSubTitle: 12,
-                            ),
-                          ],
+                        SizedBox(
+                          width: 180,
+                          child: TitleWithSubTitle(
+                            title: AppLanguageKeys.packageName,
+                            textSizeTitle: 13,
+                            titleColor: AppColors.greyColor,
+                            subTitle: package.getName(context),
+                            textSizeSubTitle: 12,
+                          ),
                         ),
-                      );
-                    },
+
+                        // =========================
+                        // PACKAGE DESCRIPTION
+                        // =========================
+
+                        SizedBox(
+                          width: 250,
+                          child: TitleWithSubTitle(
+                            title: AppLanguageKeys.packageType,
+                            textSizeTitle: 13,
+                            titleColor: AppColors.greyColor,
+                            subTitle: package.getDescription(context),
+                            textSizeSubTitle: 12,
+                          ),
+                        ),
+
+
+                        SizedBox(
+                          width: 130,
+                          child: TitleWithSubTitle(
+                            title: AppLanguageKeys.annualPrice,
+                            textSizeTitle: 13,
+                            titleColor: AppColors.greyColor,
+                            subTitle: package.annualprice.toString(),
+                            textSizeSubTitle: 12,
+                          ),
+                        ),
+
+
+                        SizedBox(
+                          width: 130,
+                          child: TitleWithSubTitle(
+                            title: AppLanguageKeys.monthlyPrice,
+                            textSizeTitle: 13,
+                            titleColor: AppColors.greyColor,
+                            subTitle: package.monthprice.toString(),
+                            textSizeSubTitle: 12,
+                          ),
+                        ),
+
+
+                        SizedBox(
+                          width: 170,
+                          child: TitleWithSubTitle(
+                            title: AppLanguageKeys.subscriptionStartDate,
+                            textSizeTitle: 13,
+                            titleColor: AppColors.greyColor,
+                            subTitle:
+                            state.startDate != null
+                                ? OrderFunctions.formatDateFromDateTime(
+                              state.startDate,
+                            )
+                                : '-',
+                            textSizeSubTitle: 12,
+                          ),
+                        ),
+
+
+                        SizedBox(
+                          width: 170,
+                          child: TitleWithSubTitle(
+                            title: AppLanguageKeys.subscriptionEndDate,
+                            textSizeTitle: 13,
+                            titleColor: AppColors.greyColor,
+                            subTitle:
+                            state.endDate != null
+                                ? OrderFunctions.formatDateFromDateTime(
+                              state.endDate,
+                            )
+                                : '-',
+                            textSizeSubTitle: 12,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               }

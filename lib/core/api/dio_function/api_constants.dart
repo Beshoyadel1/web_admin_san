@@ -42,6 +42,28 @@ class ApiConfig {
 
 class ApiLink {
 
+  //Coupons
+  static const String updateCoupon =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/UpdateCoupon";
+
+  static const String createCoupon =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/CreateCoupon";
+
+  static const String getAllCoupons =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/GetAllCoupons";
+
+
+  static const String deletePackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.packages}/DeletePackage";
+
+  static const String updatePackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.packages}/UpdatePackage";
+
+  static const String createPackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.packages}/CreatePackage";
+  static const String getPackages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.packages}/GetPackages";
+
   static const String getApprovedProviders =
       "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/GetApprovedProviders";
 

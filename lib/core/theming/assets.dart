@@ -1,4 +1,11 @@
 class AppImageKeys {
+
+  //coupon
+  static const String coupon = 'assets/images/coupon.png';
+
+  //packages
+  static const String packages = 'assets/images/packages.png';
+
   //wallet use
   static const String mada = 'assets/images/mada.png';
   static const String applePay = 'assets/images/applePay.png';

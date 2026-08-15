@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:web_admin_san/features/packages/data/model/get_packages_model/get_packages_model.dart';
 import '../../../../../../../features/accounts_management/data/request/get_package_request/get_package_request.dart';
-import '../../../../../../../features/accounts_management/data/model/get_package_model/package_model_get_package_repository.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
-import '../../../../../core/pages_widgets/general_widgets/snakbar.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';
 
-Future<List<PackageModelGetPackageRepository>> getPackageFunction({
+Future<PackageModel> getPackageFunction({
   required GetPackageRequest request,
 }) async {
   try {
@@ -16,24 +15,34 @@ Future<List<PackageModelGetPackageRepository>> getPackageFunction({
       ApiLink.getPackage,
     );
 
-
     final responseData = response.data;
 
-    final List data = responseData is List
-        ? responseData
-        : responseData['data'] ?? [];
+    final bool success = responseData['success'] ?? false;
 
-    return data
-        .map((e) => PackageModelGetPackageRepository.fromJson(e))
-        .toList();
+    if (!success) {
+      throw Exception(
+        responseData['message']?.toString() ??
+            'Something went wrong',
+      );
+    }
 
-  } catch (e) {
-
-    AppSnackBar.showError(
-      e is DioException
-          ? responseOfStatusCode(e.response?.statusCode)
-          : e.toString(),
+    return PackageModel.fromJson(
+      responseData['data'],
     );
-    return [];
+  } on DioException catch (e) {
+    final data = e.response?.data;
+
+    if (data is Map<String, dynamic>) {
+      throw Exception(
+        data['message']?.toString() ??
+            responseOfStatusCode(e.response?.statusCode),
+      );
+    }
+
+    throw Exception(
+      responseOfStatusCode(
+        e.response?.statusCode,
+      ),
+    );
   }
 }
