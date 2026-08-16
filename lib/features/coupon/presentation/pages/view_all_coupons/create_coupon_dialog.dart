@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
 import 'package:web_admin_san/core/language/language_constant.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/snakbar.dart';
 import 'package:web_admin_san/core/pages_widgets/text_form_field_widget.dart';
 import 'package:web_admin_san/core/theming/colors.dart';
 import 'package:web_admin_san/core/theming/text_styles.dart';
@@ -11,9 +13,14 @@ import 'package:web_admin_san/features/coupon/presentation/bloc/coupon_cubit/cou
 import 'package:web_admin_san/features/coupon/presentation/bloc/coupon_cubit/coupon_state.dart';
 
 class CreateCouponDialog extends StatefulWidget {
+  final CouponWithProviderModel? couponData;
+
   const CreateCouponDialog({
     super.key,
+    this.couponData,
   });
+
+  bool get isEditMode => couponData != null;
 
   @override
   State<CreateCouponDialog> createState() => _CreateCouponDialogState();
@@ -46,13 +53,17 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
   // VALUES
   // =========================================
 
-  int selectedDiscountType = 1;
+  int? selectedDiscountType;
 
   bool isActive = true;
 
   DateTime? startDate;
 
   DateTime? endDate;
+
+  // =========================================
+  // DISPOSE
+  // =========================================
 
   @override
   void dispose() {
@@ -69,20 +80,98 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
 
     super.dispose();
   }
+  @override
+  void initState() {
+    super.initState();
+
+    _loadCouponData();
+  }
+
+  void _loadCouponData() {
+    final data = widget.couponData;
+
+    if (data == null) {
+      return;
+    }
+
+    final coupon = data.coupon;
+
+    couponCodeController.text =
+        coupon.couponCode?.toString() ?? '';
+
+    selectedDiscountType =
+        coupon.discountType;
+
+    discountValueController.text =
+        coupon.discountValue?.toString() ?? '';
+
+    maxDiscountController.text =
+        coupon.maxDiscountValue?.toString() ?? '';
+
+    minValueController.text =
+        coupon.minValueToApply?.toString() ?? '';
+
+    usersUseCountController.text =
+        coupon.usersUseCount?.toString() ?? '';
+
+    oneUserUseCountController.text =
+        coupon.oneUserUseCount?.toString() ?? '';
+
+    isActive =
+        coupon.isActive ?? true;
+
+    startDate =
+        coupon.couponStartDate;
+
+    endDate =
+        coupon.couponEndDate;
+
+    // =========================================
+    // PROVIDERS
+    // =========================================
+
+    for (final controller in providerControllers) {
+      controller.dispose();
+    }
+
+    providerControllers.clear();
+
+    for (final providerId in data.providers) {
+      providerControllers.add(
+        TextEditingController(
+          text: providerId.toString(),
+        ),
+      );
+    }
+
+    if (providerControllers.isEmpty) {
+      providerControllers.add(
+        TextEditingController(),
+      );
+    }
+  }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return BlocListener<CouponCubit, CouponState>(
       listener: (
         context,
         state,
       ) {
-        if (state is CouponCreateSuccess) {
-          Navigator.pop(
-            context,
-            true,
+        if (state is CouponCreateSuccess ||
+            state is CouponUpdateSuccess) {
+
+          if (!mounted) {
+            return;
+          }
+
+          Navigator.of(context).pop(true);
+          return;
+        }
+
+        if (state is CouponFailure) {
+          AppSnackBar.showError(
+            state.message,
           );
         }
       },
@@ -90,14 +179,24 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18),
         ),
-        title: const TextInAppWidget(
-          text: AppLanguageKeys.createCoupon,
+
+        title: TextInAppWidget(
+          text: widget.isEditMode
+              ? AppLanguageKeys.edit
+              : AppLanguageKeys.createCoupon,
           textSize: 20,
           textColor: AppColors.orangeColor,
           isTextCenter: true,
         ),
+
         content: SizedBox(
           width: 550,
+
+          // Important:
+          // Keep actions visible and make
+          // only the content scrollable.
+          height: MediaQuery.of(context).size.height * 0.65,
+
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -106,7 +205,7 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
                 spacing: 15,
                 children: [
                   // =================================
-                  // CODE
+                  // COUPON CODE
                   // =================================
 
                   _field(
@@ -114,7 +213,15 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
                     couponCodeController,
                   ),
 
+                  // =================================
+                  // DISCOUNT TYPE
+                  // =================================
+
                   _discountType(),
+
+                  // =================================
+                  // DISCOUNT VALUE
+                  // =================================
 
                   _field(
                     AppLanguageKeys.discountValue,
@@ -122,11 +229,19 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
                     isDouble: true,
                   ),
 
+                  // =================================
+                  // MAX DISCOUNT
+                  // =================================
+
                   _field(
                     AppLanguageKeys.maxDiscountValue,
                     maxDiscountController,
                     isDouble: true,
                   ),
+
+                  // =================================
+                  // MIN VALUE
+                  // =================================
 
                   _field(
                     AppLanguageKeys.minValueToApply,
@@ -134,11 +249,19 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
                     isDouble: true,
                   ),
 
+                  // =================================
+                  // USERS USE COUNT
+                  // =================================
+
                   _field(
                     AppLanguageKeys.usersUseCount,
                     usersUseCountController,
                     isInt: true,
                   ),
+
+                  // =================================
+                  // ONE USER USE COUNT
+                  // =================================
 
                   _field(
                     AppLanguageKeys.oneUserUseCount,
@@ -146,7 +269,15 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
                     isInt: true,
                   ),
 
+                  // =================================
+                  // PROVIDERS
+                  // =================================
+
                   _buildProviders(),
+
+                  // =================================
+                  // START DATE
+                  // =================================
 
                   _dateField(
                     title: AppLanguageKeys.pleaseSelectStartDate,
@@ -156,6 +287,10 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
                     ),
                   ),
 
+                  // =================================
+                  // END DATE
+                  // =================================
+
                   _dateField(
                     title: AppLanguageKeys.pleaseSelectEndDate,
                     value: endDate,
@@ -163,6 +298,10 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
                       isStart: false,
                     ),
                   ),
+
+                  // =================================
+                  // ACTIVE
+                  // =================================
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -187,6 +326,11 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
             ),
           ),
         ),
+
+        // =========================================
+        // ACTIONS
+        // =========================================
+
         actions: [
           // =================================
           // CANCEL
@@ -214,34 +358,31 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
               final isLoading = state is CouponLoading;
 
               return ElevatedButton(
-                onPressed: isLoading ? null : _submit,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.orangeColor,
-                ),
-                child: isLoading
-                    ? const SizedBox(
-                        width: 18,
-                        height: 18,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      )
-                    : const TextInAppWidget(
-                        text: AppLanguageKeys.create,
-                        textSize: 15,
-                        textColor: AppColors.whiteColor,
-                      ),
-              );
+                  onPressed: isLoading ? null : _submit,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.orangeColor,
+                  ),
+                  child: isLoading
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : TextInAppWidget(
+                          text: widget.isEditMode
+                              ? AppLanguageKeys.edit
+                              : AppLanguageKeys.create,
+                          textSize: 15,
+                          textColor: AppColors.whiteColor,
+                        ));
             },
           ),
         ],
       ),
     );
   }
-
-  // =========================================================
-  // FIELD
-  // =========================================================
 
   Widget _field(
     String title,
@@ -281,9 +422,6 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
     );
   }
 
-  // =========================================================
-  // DISCOUNT TYPE
-  // =========================================================
 
   Widget _discountType() {
     return Column(
@@ -309,26 +447,29 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
           child: DropdownButtonHideUnderline(
             child: DropdownButton<int>(
               value: selectedDiscountType,
+              hint: const TextInAppWidget(
+                text: AppLanguageKeys.chooseTheCategory,
+                textSize: 14,
+                textColor: AppColors.greyColor,
+              ),
               isExpanded: true,
               items: const [
-                DropdownMenuItem(
-                  value: 1,
+                DropdownMenuItem<int>(
+                  value: DiscountType.fixedAmount,
                   child: TextInAppWidget(
-                    text: 'Percentage',
+                    text: AppLanguageKeys.fixedAmount,
                     textSize: 14,
                   ),
                 ),
-                DropdownMenuItem(
-                  value: 2,
+                DropdownMenuItem<int>(
+                  value: DiscountType.percentage,
                   child: TextInAppWidget(
-                    text: 'Fixed',
+                    text: AppLanguageKeys.percentage,
                     textSize: 14,
                   ),
                 ),
               ],
               onChanged: (value) {
-                if (value == null) return;
-
                 setState(() {
                   selectedDiscountType = value;
                 });
@@ -339,10 +480,7 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
       ],
     );
   }
-
-  // =========================================================
-  // DATE FIELD
-  // =========================================================
+  
 
   Widget _dateField({
     required String title,
@@ -376,7 +514,9 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextInAppWidget(
-                  text: value == null ? 'Select date' : _formatDate(value),
+                  text: value == null
+                      ? AppLanguageKeys.selectDate
+                      : _formatDate(value),
                   textSize: 14,
                   textColor:
                       value == null ? AppColors.greyColor : AppColors.darkColor,
@@ -400,25 +540,90 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
   Future<void> _selectDate({
     required bool isStart,
   }) async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: isStart
-          ? startDate ?? DateTime.now()
-          : endDate ?? startDate ?? DateTime.now(),
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2100),
-    );
+    final DateTime today = DateTime.now();
 
-    if (picked == null) return;
+    if (isStart) {
+      // =========================================
+      // SELECT START DATE
+      // =========================================
 
-    setState(() {
-      if (isStart) {
-        startDate = picked;
-      } else {
-        endDate = picked;
+      final picked = await showDatePicker(
+        context: context,
+        initialDate: startDate ?? today,
+        firstDate: DateTime(2020),
+        lastDate: DateTime(2100),
+      );
+
+      if (picked == null) {
+        return;
       }
-    });
+
+      setState(() {
+        startDate = picked;
+
+        // If the new start date is after
+        // the existing end date, clear end date.
+        if (endDate != null &&
+            endDate!.isBefore(
+              picked,
+            )) {
+          endDate = null;
+        }
+      });
+    } else {
+      // =========================================
+      // SELECT END DATE
+      // =========================================
+
+      // If start date is not selected,
+      // don't allow selecting end date.
+      if (startDate == null) {
+        AppSnackBar.showError(
+          AppLanguageKeys.pleaseSelectStartDate,
+        );
+
+        return;
+      }
+
+      final DateTime firstEndDate = DateTime(
+        startDate!.year,
+        startDate!.month,
+        startDate!.day,
+      );
+
+      final picked = await showDatePicker(
+        context: context,
+
+        // Existing end date if valid,
+        // otherwise start date.
+        initialDate: endDate != null &&
+                !endDate!.isBefore(
+                  firstEndDate,
+                )
+            ? endDate!
+            : firstEndDate,
+
+        // IMPORTANT:
+        // End date cannot be before
+        // start date.
+        firstDate: firstEndDate,
+
+        lastDate: DateTime(2100),
+      );
+
+      if (picked == null) {
+        return;
+      }
+
+      setState(() {
+        endDate = picked;
+      });
+    }
   }
+
+  // =========================================================
+  // FORMAT DATE
+  // =========================================================
 
   String _formatDate(
     DateTime date,
@@ -437,7 +642,47 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
       return;
     }
 
-    if (startDate == null || endDate == null) {
+    // =========================================
+    // DISCOUNT TYPE
+    // =========================================
+
+    if (selectedDiscountType == null) {
+      AppSnackBar.showError(
+        AppLanguageKeys.pleaseSelectDiscountType,
+      );
+      return;
+    }
+
+    // =========================================
+    // START DATE
+    // =========================================
+
+    if (startDate == null) {
+      AppSnackBar.showError(
+        AppLanguageKeys.pleaseSelectStartDate,
+      );
+      return;
+    }
+
+    // =========================================
+    // END DATE
+    // =========================================
+
+    if (endDate == null) {
+      AppSnackBar.showError(
+        AppLanguageKeys.pleaseSelectEndDate,
+      );
+      return;
+    }
+
+    // =========================================
+    // DATE VALIDATION
+    // =========================================
+
+    if (endDate!.isBefore(startDate!)) {
+      AppSnackBar.showError(
+        AppLanguageKeys.endDateMustBeAfterStartDate,
+      );
       return;
     }
 
@@ -445,16 +690,91 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
     // PROVIDERS
     // =========================================
 
-    final providers = providerControllers
-        .map(
-          (controller) =>
-          int.tryParse(controller.text.trim()),
-    )
-        .whereType<int>()
-        .where((id) => id > 0)
-        .toList();
+    final List<int> providers = [];
+
+    for (final controller in providerControllers) {
+      final value = controller.text.trim();
+
+      // آخر خانة الإضافة ممكن تكون فاضية
+      if (value.isEmpty) {
+        continue;
+      }
+
+      final providerId = int.tryParse(value);
+
+      if (providerId == null || providerId <= 0) {
+        AppSnackBar.showError(
+          AppLanguageKeys.invalidProviderId,
+        );
+        return;
+      }
+
+      providers.add(providerId);
+    }
 
     if (providers.isEmpty) {
+      AppSnackBar.showError(
+        AppLanguageKeys.pleaseEnterAtLeastOneProvider,
+      );
+      return;
+    }
+
+    // =========================================
+    // BUILD COUPON
+    // =========================================
+
+    final coupon = CouponModel(
+      // Keep ID when editing
+      couponId: widget.couponData?.coupon.couponId,
+
+      couponCode: couponCodeController.text.trim(),
+
+      discountType: selectedDiscountType!,
+
+      discountValue: double.tryParse(
+            discountValueController.text.trim(),
+          ) ??
+          0,
+
+      isActive: isActive,
+
+      maxDiscountValue: double.tryParse(
+            maxDiscountController.text.trim(),
+          ) ??
+          0,
+
+      minValueToApply: double.tryParse(
+            minValueController.text.trim(),
+          ) ??
+          0,
+
+      couponStartDate: startDate,
+
+      couponEndDate: endDate,
+
+      usersUseCount: int.tryParse(
+            usersUseCountController.text.trim(),
+          ) ??
+          0,
+
+      oneUserUseCount: int.tryParse(
+            oneUserUseCountController.text.trim(),
+          ) ??
+          0,
+    );
+
+    // =========================================
+    // EDIT
+    // =========================================
+
+    if (widget.isEditMode) {
+      context.read<CouponCubit>().updateCoupon(
+            couponData: CouponWithProviderModel(
+              coupon: coupon,
+              providers: providers,
+            ),
+          );
+
       return;
     }
 
@@ -463,56 +783,14 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
     // =========================================
 
     context.read<CouponCubit>().createCoupon(
-      coupon: CouponModel(
-        couponCode:
-        couponCodeController.text.trim(),
-
-        discountType:
-        selectedDiscountType,
-
-        discountValue:
-        double.tryParse(
-          discountValueController.text.trim(),
-        ) ??
-            0,
-
-        isActive:
-        isActive,
-
-        maxDiscountValue:
-        double.tryParse(
-          maxDiscountController.text.trim(),
-        ) ??
-            0,
-
-        minValueToApply:
-        double.tryParse(
-          minValueController.text.trim(),
-        ) ??
-            0,
-
-        couponStartDate:
-        startDate,
-
-        couponEndDate:
-        endDate,
-
-        usersUseCount:
-        int.tryParse(
-          usersUseCountController.text.trim(),
-        ) ??
-            0,
-
-        oneUserUseCount:
-        int.tryParse(
-          oneUserUseCountController.text.trim(),
-        ) ??
-            0,
-      ),
-
-      providers: providers,
-    );
+          coupon: coupon,
+          providers: providers,
+        );
   }
+
+  // =========================================================
+  // PROVIDERS
+  // =========================================================
 
   Widget _buildProviders() {
     return Column(
@@ -529,44 +807,52 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
         ...List.generate(
           providerControllers.length,
               (index) {
+            final controller =
+            providerControllers[index];
+
+            final isLast =
+                index == providerControllers.length - 1;
+
+            final canRemove =
+                providerControllers.length > 1;
+
             return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(
+                bottom: 10,
+              ),
               child: Row(
                 children: [
                   Expanded(
                     child: TextFormFieldWidget(
-                      textFormController:
-                      providerControllers[index],
-
+                      textFormController: controller,
                       isDigit: true,
-
-                      hintText: 'Provider ${index + 1}',
-
+                      hintText:
+                      'Provider ${index + 1}',
                       fillColor:
                       AppColors.transparent,
-
                       borderColor:
                       AppColors.darkColor
                           .withOpacity(0.2),
-
                       hintTextSize: 12,
-
                       hintTextColor:
-                      AppColors.orangeColor,
-
+                      AppColors.greyColor,
                       textSize: 15,
 
                       validator: (value) {
-                        if (value == null ||
-                            value.trim().isEmpty) {
-                          return '';
+                        final text =
+                            value?.trim() ?? '';
+
+                        // Empty extra field is allowed
+                        if (text.isEmpty) {
+                          return null;
                         }
 
                         final id =
-                        int.tryParse(value.trim());
+                        int.tryParse(text);
 
                         if (id == null || id <= 0) {
-                          return 'Invalid provider ID';
+                          return AppLanguageKeys
+                              .invalidProviderId;
                         }
 
                         return null;
@@ -576,13 +862,17 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
 
                   const SizedBox(width: 8),
 
+                  // ==========================
                   // REMOVE
-                  if (providerControllers.length > 1)
+                  // ==========================
+
+                  if (canRemove)
                     IconButton(
                       onPressed: () {
                         setState(() {
                           final controller =
-                          providerControllers.removeAt(index);
+                          providerControllers
+                              .removeAt(index);
 
                           controller.dispose();
                         });
@@ -593,9 +883,11 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
                       ),
                     ),
 
+                  // ==========================
                   // ADD
-                  if (index ==
-                      providerControllers.length - 1)
+                  // ==========================
+
+                  if (isLast)
                     IconButton(
                       onPressed: () {
                         setState(() {
@@ -606,7 +898,8 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
                       },
                       icon: const Icon(
                         Icons.add_circle,
-                        color: AppColors.orangeColor,
+                        color:
+                        AppColors.orangeColor,
                       ),
                     ),
                 ],

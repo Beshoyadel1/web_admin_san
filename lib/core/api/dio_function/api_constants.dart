@@ -43,6 +43,9 @@ class ApiConfig {
 class ApiLink {
 
   //Coupons
+  static const String deleteCoupon =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/DeleteCoupon";
+
   static const String updateCoupon =
       "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/UpdateCoupon";
 
@@ -636,4 +639,9 @@ class TransactionType {
 class WalletTransactionType {
   static const bool deposit = true;
   static const bool withdrawal = false;
+}
+
+class DiscountType{
+  static const int fixedAmount = 1;
+  static const int percentage = 2;
 }

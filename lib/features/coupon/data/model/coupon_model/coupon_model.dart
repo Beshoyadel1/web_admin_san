@@ -59,19 +59,19 @@ class CouponModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'couponid': couponId,
-      'couponcode': couponCode,
-      'discounttype': discountType,
-      'discountvalue': discountValue,
-      'isactive': isActive,
-      'maxdiscountvalue': maxDiscountValue,
-      'minvaluetoapply': minValueToApply,
+      'couponid': couponId ?? 0,
+      'couponcode': couponCode ?? '',
+      'discounttype': discountType ?? 0,
+      'discountvalue': discountValue ?? 0,
+      'isactive': isActive ?? true,
+      'maxdiscountvalue': maxDiscountValue ?? 0,
+      'minvaluetoapply': minValueToApply ?? 0,
       'couponstartdate':
       couponStartDate?.toIso8601String(),
       'couponenddate':
       couponEndDate?.toIso8601String(),
-      'usersusecount': usersUseCount,
-      'oneuserusecount': oneUserUseCount,
+      'usersusecount': usersUseCount ?? 0,
+      'oneuserusecount': oneUserUseCount ?? 0,
     };
   }
 
@@ -103,6 +103,7 @@ class CouponModel {
     );
   }
 }
+
 class CouponWithProviderModel {
   final CouponModel coupon;
   final List<int> providers;

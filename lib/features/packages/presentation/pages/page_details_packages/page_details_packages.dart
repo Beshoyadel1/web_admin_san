@@ -25,18 +25,10 @@ class PageDetailsPackages extends StatelessWidget {
         ),
       ),
       backgroundColor: AppColors.scaffoldColor,
-      body: BlocProvider(
-        create: (context) => FacilityTabProviderCubit(),
-        child: BlocBuilder<FacilityTabProviderCubit, FacilityTabProviderState>(
-          buildWhen: (previous, current) => current is ChangeIndexState,
-          builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: PackageDataContent(packageId: packageID),
-            );
-          },
-        ),
-      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: PackageDataContent(packageId: packageID),
+      )
     );
   }
 }

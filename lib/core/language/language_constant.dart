@@ -19,6 +19,21 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String uniqueUsersCount = 'uniqueUsersCount';
+  static const String couponInformation = 'couponInformation';
+  static const String date = 'date';
+  static const String status = 'status';
+  static const String selectDate = 'selectDate';
+  static const String endDateCannotBeBeforeStartDate =
+      'endDateCannotBeBeforeStartDate';
+  static const String pleaseEnterAtLeastOneProvider =
+      'pleaseEnterAtLeastOneProvider';
+  static const String invalidProviderId = 'invalidProviderId';
+  static const String pleaseSelectDiscountType = 'pleaseSelectDiscountType';
+  static const String startDate = 'startDate';
+  static const String endDate = 'endDate';
+  static const String fixedAmount = 'fixedAmount';
+  static const String percentage = 'percentage';
   static const String providerNo = 'providerNo';
   static const String createCoupon = 'createCoupon';
   static const String couponCode = 'couponCode';

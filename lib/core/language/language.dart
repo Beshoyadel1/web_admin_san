@@ -32,6 +32,21 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.uniqueUsersCount: 'عدد المستخدمين الفريدين',
+      AppLanguageKeys.couponInformation: 'معلومات الكوبون',
+      AppLanguageKeys.date: 'التاريخ',
+      AppLanguageKeys.status: 'الحالة',
+      AppLanguageKeys.selectDate: 'يرجى اختيار التاريخ',
+      AppLanguageKeys.endDateCannotBeBeforeStartDate:
+      'لا يمكن أن يكون تاريخ النهاية قبل تاريخ البداية',
+      AppLanguageKeys.pleaseEnterAtLeastOneProvider:
+      'يرجى إدخال مزود خدمة واحد على الأقل',
+      AppLanguageKeys.invalidProviderId: 'رقم مزود الخدمة غير صالح',
+      AppLanguageKeys.pleaseSelectDiscountType: 'يرجى اختيار نوع الخصم',
+      AppLanguageKeys.startDate: 'تاريخ البداية',
+      AppLanguageKeys.endDate: 'تاريخ النهاية',
+      AppLanguageKeys.fixedAmount: 'رقم ثابت',
+      AppLanguageKeys.percentage: 'نسبة',
       AppLanguageKeys.providerNo: 'رقم مزود الخدمة',
       AppLanguageKeys.createCoupon: 'إنشاء كوبون',
       AppLanguageKeys.couponCode: 'كود الكوبون',
@@ -43,7 +58,7 @@ class AppLocalizations {
       AppLanguageKeys.couponStartDate: 'تاريخ بداية الكوبون',
       AppLanguageKeys.couponEndDate: 'تاريخ انتهاء الكوبون',
       AppLanguageKeys.usersUseCount: 'عدد مرات استخدام المستخدمين',
-      AppLanguageKeys.oneUserUseCount: 'عدد مرات استخدام المستخدم الواحد',
+      AppLanguageKeys.oneUserUseCount: 'عدد مرات استخدام المستخدم',
       AppLanguageKeys.packageNotFound: 'لم يتم العثور على الباقة',
       AppLanguageKeys.packageLatinName: 'اسم الباقة بالإنجليزية',
       AppLanguageKeys.monthPrice: 'السعر الشهري',
@@ -1440,6 +1455,21 @@ class AppLocalizations {
       AppLanguageKeys.unknownType: 'Unknown Type',
       //END//
       //others//
+      AppLanguageKeys.uniqueUsersCount: 'Unique Users Count',
+      AppLanguageKeys.couponInformation: 'Coupon Information',
+      AppLanguageKeys.date: 'Date',
+      AppLanguageKeys.status: 'Status',
+      AppLanguageKeys.selectDate: 'Select date',
+      AppLanguageKeys.endDateCannotBeBeforeStartDate:
+      'End date cannot be before start date',
+      AppLanguageKeys.pleaseEnterAtLeastOneProvider:
+      'Please enter at least one provider',
+      AppLanguageKeys.invalidProviderId: 'Invalid provider ID',
+      AppLanguageKeys.pleaseSelectDiscountType: 'Please select discount type',
+      AppLanguageKeys.startDate: 'Start Date',
+      AppLanguageKeys.endDate: 'End Date',
+      AppLanguageKeys.fixedAmount: 'Fixed Amount',
+      AppLanguageKeys.percentage: 'Percentage',
       AppLanguageKeys.providerNo: 'Provider No.',
       AppLanguageKeys.createCoupon: 'Create Coupon',
       AppLanguageKeys.couponCode: 'Coupon Code',

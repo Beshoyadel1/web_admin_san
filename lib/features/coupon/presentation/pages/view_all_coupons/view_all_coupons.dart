@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../core/theming/colors.dart';
 import '../../../../../../features/coupon/presentation/bloc/coupon_cubit/coupon_cubit.dart';
-import '../../../../../../features/coupon/presentation/bloc/coupon_cubit/coupon_state.dart';
 import '../../../../../../features/coupon/presentation/pages/view_all_coupons/create_coupon_dialog.dart';
 import '../../../../../../features/coupon/presentation/pages/view_all_coupons/list_view_all_coupons.dart';
 
@@ -15,8 +13,7 @@ class ViewAllCoupons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CouponCubit()
-        ..getAllCoupons(),
+      create: (_) => CouponCubit()..getAllCoupons(),
 
       child: Builder(
         builder: (context) {
@@ -26,12 +23,10 @@ class ViewAllCoupons extends StatelessWidget {
 
             body: SafeArea(
               child: Padding(
-                padding:
-                const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
 
                 child: RefreshIndicator(
-                  color:
-                  AppColors.orangeColor,
+                  color: AppColors.orangeColor,
 
                   onRefresh: () async {
                     await context
@@ -39,15 +34,10 @@ class ViewAllCoupons extends StatelessWidget {
                         .getAllCoupons();
                   },
 
-                  child:
-                  const ListViewAllCoupons(),
+                  child: const ListViewAllCoupons(),
                 ),
               ),
             ),
-
-            // =========================================
-            // CREATE COUPON
-            // =========================================
 
             floatingActionButton:
             FloatingActionButton(
@@ -58,18 +48,24 @@ class ViewAllCoupons extends StatelessWidget {
                 final result =
                 await showDialog<bool>(
                   context: context,
+                  barrierDismissible: false,
+
                   builder: (_) {
                     return BlocProvider.value(
                       value:
                       context.read<CouponCubit>(),
+
                       child:
                       const CreateCouponDialog(),
                     );
                   },
                 );
 
-                if (result == true &&
-                    context.mounted) {
+                if (!context.mounted) {
+                  return;
+                }
+
+                if (result == true) {
                   await context
                       .read<CouponCubit>()
                       .getAllCoupons();
