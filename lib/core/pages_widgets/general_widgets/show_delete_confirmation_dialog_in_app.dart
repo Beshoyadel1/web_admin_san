@@ -5,7 +5,7 @@ import 'package:web_admin_san/core/theming/text_styles.dart';
 
 import '../../../../../core/theming/colors.dart';
 
-Future<bool?> showDeleteCouponDialog(
+Future<bool?> showDeleteConfirmationDialogInApp(
   BuildContext context,
 ) {
   return showDialog<bool>(

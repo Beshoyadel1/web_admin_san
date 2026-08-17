@@ -8,6 +8,7 @@ class StatisticsCard extends StatelessWidget {
   final StatisticItem item;
 
   const StatisticsCard({
+    super.key,
     required this.item,
   });
 

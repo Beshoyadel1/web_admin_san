@@ -1,5 +1,14 @@
 class AppImageKeys {
+  static const String approved = 'assets/images/approved.png';
+  static const String car = 'assets/images/car.png';
 
+  static const String provider = 'assets/images/provider.png';
+  static const String order = 'assets/images/order.png';
+  static const String insurance = 'assets/images/insurance.png';
+  static const String company = 'assets/images/company.png';
+  static const String rank = 'assets/images/rank.png';
+
+  static const String admin = 'assets/images/admin.png';
   //coupon
   static const String coupon = 'assets/images/coupon.png';
 
@@ -38,7 +47,6 @@ class AppImageKeys {
   static const String truckBox = 'assets/images/truck-box.png';
   static const String spare = 'assets/images/spare.png';
   static const String sell = 'assets/images/Sell.png';
-  static const String company = 'assets/images/company.png';
   static const String star = 'assets/images/star.png';
   static const String logout = 'assets/images/log_out.png';
   static const String carServices = 'assets/images/car-serices.png';

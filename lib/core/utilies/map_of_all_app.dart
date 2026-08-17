@@ -1,5 +1,6 @@
 import 'package:web_admin_san/core/theming/auth_local_storage.dart';
 import 'package:web_admin_san/features/accounts_management/presentation/pages/view_all_providers_account_management/view_all_providers_account_management.dart';
+import 'package:web_admin_san/features/admins/presentation/pages/view_all_admins/view_all_admins.dart';
 import 'package:web_admin_san/features/approved_centers/presentation/pages/view_all_approved_centers/view_all_approved_centers.dart';
 import 'package:web_admin_san/features/banner/presentation/pages/first_screen_advertisements_admin_sun/first_screen_advertisements_admin_sun.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/view_car_harag/view_car_harag.dart';
@@ -229,8 +230,7 @@ class PagesOfAllApp {
   static const int viewAllApprovedCentersNumber = 546;
   static const int viewAllPackagesNumber = 547;
   static const int viewAllCouponNumber = 548;
-
-
+  static const int viewAllAdminsNumber = 549;
 }
 
 List<PageNodeModel> appPages = [];
@@ -242,7 +242,6 @@ Future<void> getPages() async {
 
   final permissions = user?.adminDetails?.permissions;
 
-  // لو مفيش permissions، مفيش صفحات protected تظهر
   if (permissions == null) {
     return;
   }
@@ -252,14 +251,6 @@ Future<void> getPages() async {
   }
 
   appPages = [
-
-    const PageNodeModel(
-      name: AppLanguageKeys.myAccount,
-      image: AppImageKeys.users,
-      number: PagesOfAllApp.securityPageNumber,
-      page: FacilityAccount(),
-    ),
-
     // ================= STATISTICS =================
 
     if (hasPermission(permissions.statistic))
@@ -269,7 +260,33 @@ Future<void> getPages() async {
         number: PagesOfAllApp.dashboardPageNumber,
         page: OrderServicesStatistics(),
       ),
+// ================= ORDERS =================
 
+    if (hasPermission(permissions.orders))
+      const PageNodeModel(
+        name: AppLanguageKeys.orders,
+        number: PagesOfAllApp.dashboardOrderPageNumber,
+        image: AppImageKeys.order,
+        page: OrderServicesTypePage(),
+      ),
+
+    // ================= Profile =================
+
+    const PageNodeModel(
+      name: AppLanguageKeys.myAccount,
+      image: AppImageKeys.users,
+      number: PagesOfAllApp.securityPageNumber,
+      page: FacilityAccount(),
+    ),
+
+    // ================= Admins =================
+    if (hasPermission(permissions.admins))
+      const PageNodeModel(
+        name: AppLanguageKeys.admins,
+        image: AppImageKeys.admin,
+        number: PagesOfAllApp.viewAllAdminsNumber,
+        page: ViewAllAdmins(),
+      ),
     // ================= Packages =================
     if (hasPermission(permissions.packages))
       const PageNodeModel(
@@ -278,6 +295,7 @@ Future<void> getPages() async {
         number: PagesOfAllApp.viewAllPackagesNumber,
         page: ViewAllPackages(),
       ),
+
     // ================= Coupon =================
     if (hasPermission(permissions.coupons))
       const PageNodeModel(
@@ -288,31 +306,23 @@ Future<void> getPages() async {
       ),
 
 
-    // ================= ORDERS =================
-
-    if (hasPermission(permissions.orders))
-      const PageNodeModel(
-        name: AppLanguageKeys.ordersSectionKey,
-        number: PagesOfAllApp.dashboardOrderPageNumber,
-        image: AppImageKeys.pages,
-        page: OrderServicesTypePage(),
-      ),
 
     // ================= PROVIDERS =================
 
     if (hasPermission(permissions.providers))
       const PageNodeModel(
-        name: AppLanguageKeys.serviceProviders,
+        name: AppLanguageKeys.providers,
         number: PagesOfAllApp.viewAllProvidersNumber,
-        image: AppImageKeys.store,
+        image: AppImageKeys.provider,
         page: ViewAllProvider(),
       ),
+    // ================= Approved Centers =================
 
     if (hasPermission(permissions.approvals))
       const PageNodeModel(
         name: AppLanguageKeys.approvedCenters,
         number: PagesOfAllApp.viewAllApprovedCentersNumber,
-        image: AppImageKeys.pages,
+        image: AppImageKeys.approved,
         page: ViewAllApprovedCenters(),
       ),
 
@@ -332,7 +342,7 @@ Future<void> getPages() async {
       const PageNodeModel(
         name: AppLanguageKeys.insurances,
         number: PagesOfAllApp.viewAllCompaniesInsuranceNumber,
-        image: AppImageKeys.spare,
+        image: AppImageKeys.insurance,
         page: ViewAllCompaniesInsurance(),
       ),
 
@@ -342,7 +352,7 @@ Future<void> getPages() async {
       const PageNodeModel(
         name: AppLanguageKeys.carsHaraj,
         number: PagesOfAllApp.viewAllCarsHarajNumber,
-        image: AppImageKeys.sell,
+        image: AppImageKeys.car,
         page: ViewCarHarag(),
       ),
 
@@ -357,37 +367,31 @@ Future<void> getPages() async {
       ),
 
     // ================= ACCOUNT MANAGEMENT =================
-    // ممكن تعتبرها admins أو providers حسب الـ business logic
     if (hasPermission(permissions.finances))
       const PageNodeModel(
-        name: AppLanguageKeys.accountManagement,
+        name: AppLanguageKeys.finances,
         number: PagesOfAllApp.viewAllAccountManagementNumber,
         image: AppImageKeys.wallet,
         page: ViewAllProvidersAccountManagement(),
       ),
 
     // ================= ADVERTISEMENTS =================
-
     if (hasPermission(permissions.banners))
       const PageNodeModel(
-        name: AppLanguageKeys.advertisements,
+        name: AppLanguageKeys.banners,
         image: AppImageKeys.banner,
         number: PagesOfAllApp.bannerViewPageNumber,
         page: FirstScreenAdvertisementsAdminSun(),
       ),
-
     // ================= REVIEWS / RANKS =================
-
     if (hasPermission(permissions.ranks))
       const PageNodeModel(
-        name: AppLanguageKeys.reviews,
-        image: AppImageKeys.star,
+        name: AppLanguageKeys.ranks,
+        image: AppImageKeys.rank,
         number: PagesOfAllApp.ratePageNumber,
         page: ViewAllProviderRates(),
       ),
-
     // ================= TECHNICAL SUPPORT =================
-
     if (hasPermission(permissions.support))
       const PageNodeModel(
         name: AppLanguageKeys.technicalSupport,
@@ -396,6 +400,7 @@ Future<void> getPages() async {
         page: TechnicalSupportAdminSun(),
       ),
 
+    // ================= Social Pages & Policies =================
 
     const PageNodeModel(
       name: AppLanguageKeys.socialPagesAndPoliciesKey,
@@ -403,6 +408,7 @@ Future<void> getPages() async {
       number: PagesOfAllApp.pagesPageNumber,
       page: FirstScreenCommunicationAndPoliciesPages(),
     ),
+    // ================= Logout =================
 
     const PageNodeModel(
       name: AppLanguageKeys.logoutKey,

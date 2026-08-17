@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/build_bold_image.dart';
 import 'package:web_admin_san/core/utilies/map_of_all_app.dart';
 import 'package:web_admin_san/features/logout_dashboard/presentation/first_screen_logout_dashboard/logout_dashboard.dart';
 
@@ -130,13 +131,15 @@ class ColumnOfPagesWidget extends StatelessWidget {
                       children: [
                         if (pageNode.image != null &&
                             pageNode.image!.isNotEmpty)
-                          Image.asset(
-                            pageNode.image!,
-                            color: pageNode.number == appCubit.selectedPageIndex
-                                ? AppColors.whiteColor
-                                : AppColors.orangeColor,
-                            height: 18,
-                            width: 18,
+                          buildBoldImage(
+                            isSelected:
+                            pageNode.number == appCubit.selectedPageIndex,
+                            image: Image.asset(
+                              pageNode.image!,
+                              height: 18,
+                              width: 18,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         if (pageNode.imageUint8List != null &&
                             pageNode.imageUint8List!.isNotEmpty)

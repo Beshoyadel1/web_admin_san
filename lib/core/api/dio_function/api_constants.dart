@@ -41,7 +41,9 @@ class ApiConfig {
 }
 
 class ApiLink {
-
+//admin
+  static const String getAllAdmins =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllAdmins";
   //Coupons
   static const String deleteCoupon =
       "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/DeleteCoupon";

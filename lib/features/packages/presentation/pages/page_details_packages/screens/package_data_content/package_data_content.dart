@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/show_delete_confirmation_dialog_in_app.dart';
 
 import '../../../../../../../core/language/language_constant.dart';
 import '../../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
@@ -505,9 +506,9 @@ class PackageDataViewState extends State<PackageDataView> {
   // DELETE
   // ===================================================
 
-  void _deletePackage(
-    int? packageId,
-  ) {
+  Future<void> _deletePackage(
+      int? packageId,
+      ) async {
     if (packageId == null) {
       AppSnackBar.showError(
         'Package ID is not available',
@@ -515,8 +516,22 @@ class PackageDataViewState extends State<PackageDataView> {
       return;
     }
 
-    context.read<PackagesCubit>().deletePackage(
-          packageId: packageId,
-        );
+    final confirmed =
+    await showDeleteConfirmationDialogInApp(
+      context,
+    );
+
+    // User did not confirm
+    if (confirmed != true) {
+      return;
+    }
+
+    if (!context.mounted) {
+      return;
+    }
+
+    await context.read<PackagesCubit>().deletePackage(
+      packageId: packageId,
+    );
   }
 }

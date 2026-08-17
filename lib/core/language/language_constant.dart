@@ -19,6 +19,20 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String orders = 'orders';
+  static const String providers = 'providers';
+  static const String finances = 'finances';
+  static const String approvals = 'approvals';
+  static const String ranks = 'ranks';
+  static const String support = 'support';
+  static const String banners = 'banners';
+  static const String coupons = 'coupons';
+  static const String harage = 'harage';
+  static const String insurance = 'insurance';
+  static const String noPermissionsAssigned = 'noPermissionsAssigned';
+  static const String adminDetails = 'adminDetails';
+  static const String admins = 'admins';
+  static const String admin = 'admin';
   static const String uniqueUsersCount = 'uniqueUsersCount';
   static const String couponInformation = 'couponInformation';
   static const String date = 'date';

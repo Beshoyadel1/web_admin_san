@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/show_delete_confirmation_dialog_in_app.dart';
 import 'package:web_admin_san/features/coupon/presentation/bloc/coupon_cubit/coupon_cubit.dart';
 import 'package:web_admin_san/features/coupon/presentation/bloc/coupon_cubit/coupon_state.dart';
 import 'package:web_admin_san/features/coupon/presentation/custom_widget/widget_design_list_coupon.dart';
 import 'package:web_admin_san/features/coupon/presentation/pages/page_details_coupons/page_details_coupons.dart';
 import 'package:web_admin_san/features/coupon/presentation/pages/view_all_coupons/create_coupon_dialog.dart';
-import 'package:web_admin_san/features/coupon/presentation/pages/view_all_coupons/show_delete_coupon_dialog.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 
 class ListViewAllCoupons extends StatelessWidget {
@@ -87,153 +87,143 @@ class ListViewAllCoupons extends StatelessWidget {
           // DATA
           // =========================================
 
-          return CustomContainer(
-            isSelected: false,
-            containerWidth: double.infinity,
-            onTap: () {},
+          return ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.only(
+              bottom: 20,
+            ),
+            children: [
+              CustomContainer(
+                isSelected: false,
+                containerWidth: double.infinity,
+                onTap: () {},
 
-            typeWidget: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ...List.generate(
-                  state.coupons.length,
-                      (index) {
-                    final coupon =
-                    state.coupons[index];
+                typeWidget: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(
+                    state.coupons.length,
+                        (index) {
+                      final coupon = state.coupons[index];
 
-                    return Padding(
-                      padding: EdgeInsets.only(
-                        bottom: index ==
-                            state.coupons.length - 1
-                            ? 0
-                            : 20,
-                      ),
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: index == state.coupons.length - 1
+                              ? 0
+                              : 20,
+                        ),
+                        child: WidgetDesignListCoupon(
+                          couponId: coupon.coupon.couponId,
 
-                      child: WidgetDesignListCoupon(
-                        couponId:
-                        coupon.coupon.couponId,
+                          couponCode: coupon.coupon.couponCode,
 
-                        couponCode:
-                        coupon.coupon.couponCode,
+                          discountValue: coupon.coupon.discountValue,
 
-                        discountValue:
-                        coupon.coupon.discountValue,
+                          isActive: coupon.coupon.isActive,
 
-                        isActive:
-                        coupon.coupon.isActive,
+                          startDate: coupon.coupon.couponStartDate,
 
-                        startDate:
-                        coupon.coupon.couponStartDate,
+                          endDate: coupon.coupon.couponEndDate,
 
-                        endDate:
-                        coupon.coupon.couponEndDate,
+                          // =================================
+                          // DETAILS
+                          // =================================
 
-                        // =================================
-                        // DETAILS
-                        // =================================
+                          onTapDetails: () async {
+                            if (coupon.providers.isEmpty) {
+                              return;
+                            }
 
-                        onTapDetails: () async {
-                          if (coupon.providers.isEmpty) {
-                            return;
-                          }
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) {
+                                  return PageDetailsCoupons(
+                                    couponCode:
+                                    coupon.coupon.couponCode ?? '',
+                                    userId: coupon.providers.first,
+                                  );
+                                },
+                              ),
+                            );
 
-                          final result =
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
+                            if (!context.mounted) {
+                              return;
+                            }
+
+                            if (result == true) {
+                              await context
+                                  .read<CouponCubit>()
+                                  .getAllCoupons();
+                            }
+                          },
+
+                          // =================================
+                          // EDIT
+                          // =================================
+
+                          onTapEdit: () async {
+                            final result = await showDialog<bool>(
+                              context: context,
+                              barrierDismissible: false,
                               builder: (_) {
-                                return PageDetailsCoupons(
-                                  couponCode:
-                                  coupon.coupon.couponCode ??
-                                      '',
-                                  userId:
-                                  coupon.providers.first,
+                                return BlocProvider.value(
+                                  value: context.read<CouponCubit>(),
+                                  child: CreateCouponDialog(
+                                    couponData: coupon,
+                                  ),
                                 );
                               },
-                            ),
-                          );
+                            );
 
-                          if (!context.mounted) {
-                            return;
-                          }
+                            if (!context.mounted) {
+                              return;
+                            }
 
-                          if (result == true) {
+                            if (result == true) {
+                              await context
+                                  .read<CouponCubit>()
+                                  .getAllCoupons();
+                            }
+                          },
+
+                          // =================================
+                          // DELETE
+                          // =================================
+
+                          onTapDelete: () async {
+                            final confirmed =
+                            await showDeleteConfirmationDialogInApp(
+                              context,
+                            );
+
+                            if (confirmed != true) {
+                              return;
+                            }
+
+                            final couponId =
+                                coupon.coupon.couponId;
+
+                            if (couponId == null) {
+                              return;
+                            }
+
+                            if (!context.mounted) {
+                              return;
+                            }
+
                             await context
                                 .read<CouponCubit>()
-                                .getAllCoupons();
-                          }
-                        },
-
-                        // =================================
-                        // EDIT
-                        // =================================
-
-                        onTapEdit: () async {
-                          final result =
-                          await showDialog<bool>(
-                            context: context,
-                            barrierDismissible: false,
-
-                            builder: (_) {
-                              return BlocProvider.value(
-                                value: context
-                                    .read<CouponCubit>(),
-
-                                child: CreateCouponDialog(
-                                  couponData: coupon,
-                                ),
-                              );
-                            },
-                          );
-
-                          if (!context.mounted) {
-                            return;
-                          }
-
-                          if (result == true) {
-                            await context
-                                .read<CouponCubit>()
-                                .getAllCoupons();
-                          }
-                        },
-
-                        // =================================
-                        // DELETE
-                        // =================================
-
-                        onTapDelete: () async {
-                          final confirmed =
-                          await showDeleteCouponDialog(
-                            context,
-                          );
-
-                          if (confirmed != true) {
-                            return;
-                          }
-
-                          final couponId =
-                              coupon.coupon.couponId;
-
-                          if (couponId == null) {
-                            return;
-                          }
-
-                          if (!context.mounted) {
-                            return;
-                          }
-
-                          await context
-                              .read<CouponCubit>()
-                              .deleteCoupon(
-                            couponId: couponId,
-                          );
-                        },
-                      ),
-                    );
-                  },
+                                .deleteCoupon(
+                              couponId: couponId,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         }
 

@@ -140,7 +140,7 @@ class _CreatePackageDialogState
                   // =========================
 
                   _field(
-                    AppLanguageKeys.packageLatinName,
+                    AppLanguageKeys.packageLatinDisc,
                     packageLatinDiscController,
                     maxLines: 3,
                   ),
