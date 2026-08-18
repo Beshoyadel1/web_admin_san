@@ -92,12 +92,13 @@ class ListDataViewAllAdmins extends StatelessWidget {
                         email: admin.email ?? '',
                         phone: admin.phone ?? '',
                         image: admin.image,
+                        isActive: admin.isActive??false,
                         joinDate: OrderFunctions.formatDateFromDateTime(
                             admin.joinDate),
-                        onTapDetails: () {
+                        onTapDetails: () async {
                           if (admin.adminId == null) return;
 
-                          Navigator.push(
+                          final result = await Navigator.push(
                             context,
                             NavigateToPageWidget(
                               PageDetailsAdmin(
@@ -105,6 +106,10 @@ class ListDataViewAllAdmins extends StatelessWidget {
                               ),
                             ),
                           );
+
+                          if (result == true && context.mounted) {
+                            await context.read<AdminsCubit>().getAllAdmins(currentPage: 1);
+                          }
                         },
                       );
                     },

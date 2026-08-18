@@ -15,7 +15,17 @@ class PageDetailsProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColors.blackColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
+        ),
+      ),
       backgroundColor: AppColors.scaffoldColor,
       body: BlocProvider(
         create: (context) => FacilityTabProviderCubit(),

@@ -40,7 +40,7 @@ class _DesignTextFieldTechnicalSupportAdminSunState extends State<DesignTextFiel
         borderColor: AppColors.greyColor.withOpacity(0.5),
         hintText:AppLanguageKeys.writeYourMessageHere,
         hintTextColor: AppColors.darkColor,
-        contentPadding: EdgeInsetsGeometry.all(10),
+        contentPadding:const EdgeInsetsGeometry.all(10),
         hintTextSize: 10,
         textSize: 15,
         textFormWidth: 500,

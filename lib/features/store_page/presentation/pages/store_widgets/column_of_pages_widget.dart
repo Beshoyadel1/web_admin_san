@@ -42,16 +42,11 @@ class ColumnOfPagesWidget extends StatelessWidget {
     } else {
       return InkWell(
           onTap: () async {
-            // ============================
-            // Logout
-            // ============================
+
             if (pageNode.number == PagesOfAllApp.logoutPageNumber) {
-              // لو Mobile اقفل الـ Drawer الأول
               if (isMobile) {
                 Navigator.of(context).pop();
               }
-
-              // استنى لحد ما الـ Drawer يقفل
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 if (!context.mounted) return;
 

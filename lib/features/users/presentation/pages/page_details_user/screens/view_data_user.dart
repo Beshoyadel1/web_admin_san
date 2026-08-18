@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/language/language.dart';
 import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/theming/colors.dart';
 import 'package:web_admin_san/core/theming/fonts.dart';
@@ -36,6 +37,11 @@ class ViewDataUser extends StatelessWidget {
             text: user.userId.toString(),
           );
 
+          final isActiveController = TextEditingController(
+            text: user.isActive == true
+                ? AppLocalizations.of(context).translate(AppLanguageKeys.active)
+                : AppLocalizations.of(context).translate(AppLanguageKeys.inactive),
+          );
           final userNameController = TextEditingController(
             text: user.userName,
           );
@@ -148,6 +154,12 @@ class ViewDataUser extends StatelessWidget {
                   UserTextFieldWidget(
                     controller: joinDateController,
                     text: AppLanguageKeys.joiningDate,
+                    readOnly: true,
+                    width: 250,
+                  ),
+                  UserTextFieldWidget(
+                    controller: isActiveController,
+                    text: AppLanguageKeys.status,
                     readOnly: true,
                     width: 250,
                   ),

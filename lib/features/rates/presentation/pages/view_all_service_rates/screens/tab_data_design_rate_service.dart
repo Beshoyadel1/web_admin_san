@@ -142,61 +142,65 @@ class TabDataDesignRateService extends StatelessWidget {
                             return Wrap(
                               spacing: 10,
                               runSpacing: 10,
-                              children: allRates
-                                  .map(
-                                    (rate) => SizedBox(
-                                  width: itemWidth,
-                                  child:
-                                  ContainerListContainerAllRateServiceWidget(
-                                    imagePath: rate.userImage,
-                                    username: rate.username,
-                                    message: rate.message ?? '',
-                                    rate: rate.rate,
+                              children: allRates.map(
+                                    (rate) {
+                                  // ==========================================
+                                  // FIND SERVICE NAME USING serviceId
+                                  // ==========================================
 
-                                    onEdit: () async {
-                                      final updated = await showDialog<bool>(
-                                        context: context,
-                                        builder: (_) {
-                                          return BlocProvider(
-                                            create: (_) => UpdateRateCubit(),
-                                            child: EditRateDialog(
-                                              rateId: rate.id,
-                                              orderId: rate.orderId,
-                                              providerId: rate.providerId,
-                                              userId: rate.userId,
-                                              userType: rate.userType,
-                                              serviceId: rate.serviceId,
-                                              currentRate: rate.rate,
-                                              currentMessage: rate.message ?? '',
-                                            ),
+                                  final service = state.services.cast<dynamic>().firstWhere(
+                                        (service) => service.id == rate.serviceId,
+                                    orElse: () => null,
+                                  );
+
+                                  final serviceName = service?.getName(context) ?? '';
+
+                                  return SizedBox(
+                                    width: itemWidth,
+                                    child: ContainerListContainerAllRateServiceWidget(
+                                      imagePath: rate.userImage,
+                                      username: rate.username,
+                                      message: rate.message ?? '',
+                                      rate: rate.rate,
+
+                                      // SERVICE NAME
+                                      serviceName: serviceName,
+
+                                      onEdit: () async {
+                                        final updated = await showDialog<bool>(
+                                          context: context,
+                                          builder: (_) {
+                                            return BlocProvider(
+                                              create: (_) => UpdateRateCubit(),
+                                              child: EditRateDialog(
+                                                rateId: rate.id,
+                                                orderId: rate.orderId,
+                                                providerId: rate.providerId,
+                                                userId: rate.userId,
+                                                userType: rate.userType,
+                                                serviceId: rate.serviceId,
+                                                currentRate: rate.rate,
+                                                currentMessage: rate.message ?? '',
+                                              ),
+                                            );
+                                          },
+                                        );
+
+                                        if (updated == true && context.mounted) {
+                                          await context
+                                              .read<GetProviderDetailsRatesCubit>()
+                                              .getProviderDetailsRates(
+                                            providerId: providerModel.id,
+                                            serviceId: cubit.isAllServicesSelected
+                                                ? 0
+                                                : cubit.selectedService?.id ?? 0,
                                           );
-                                        },
-                                      );
-
-                                      if (updated == true && context.mounted) {
-                                        print("🟢 Update Dialog Closed Successfully");
-                                        print("🔄 Refresh Provider Rates");
-                                        print("Provider ID: ${providerModel.id}");
-                                        print(
-                                          "Service ID: ${cubit.isAllServicesSelected ? 0 : cubit.selectedService?.id}",
-                                        );
-
-                                        await context
-                                            .read<GetProviderDetailsRatesCubit>()
-                                            .getProviderDetailsRates(
-                                          providerId: providerModel.id,
-                                          serviceId: cubit.isAllServicesSelected
-                                              ? 0
-                                              : cubit.selectedService?.id ?? 0,
-                                        );
-
-                                        print("✅ Refresh Finished");
-                                      }
-                                    },
-                                  ),
-                                ),
-                              )
-                                  .toList(),
+                                        }
+                                      },
+                                    ),
+                                  );
+                                },
+                              ).toList(),
                             );
                           },
                         ),

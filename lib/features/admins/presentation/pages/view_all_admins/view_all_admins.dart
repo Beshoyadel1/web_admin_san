@@ -20,83 +20,52 @@ class ViewAllAdmins extends StatelessWidget {
         ..getAllAdmins(
           currentPage: 1,
         ),
-
       child: Builder(
         builder: (context) {
           return Scaffold(
-            backgroundColor:
-            AppColors.scaffoldColor,
-
+            backgroundColor: AppColors.scaffoldColor,
             body: SafeArea(
               child: Padding(
-                padding:
-                const EdgeInsets.all(20),
-
+                padding: const EdgeInsets.all(20),
                 child: RefreshIndicator(
-                  color:
-                  AppColors.orangeColor,
-
+                  color: AppColors.orangeColor,
                   onRefresh: () async {
-                    await context
-                        .read<AdminsCubit>()
-                        .getAllAdmins(
-                      currentPage: 1,
-                    );
+                    await context.read<AdminsCubit>().getAllAdmins(
+                          currentPage: 1,
+                        );
                   },
-
-                  child:
-                  const ListDataViewAllAdmins(),
+                  child: const ListDataViewAllAdmins(),
                 ),
               ),
             ),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: AppColors.orangeColor,
+              onPressed: () async {
+                final result = await showDialog<bool>(
+                  context: context,
+                  builder: (_) {
+                    return BlocProvider.value(
+                      value: context.read<AdminsCubit>(),
+                      child: const CreateAdminDialog(),
+                    );
+                  },
+                );
 
-            // =====================================================
-            // CREATE ADMIN
-            // =====================================================
+                // =================================================
+                // REFRESH AFTER CREATE
+                // =================================================
 
-            // floatingActionButton:
-            // FloatingActionButton(
-            //   backgroundColor:
-            //   AppColors.orangeColor,
-            //
-            //   onPressed: () async {
-            //
-            //     final result =
-            //     await showDialog<bool>(
-            //       context: context,
-            //
-            //       builder: (_) {
-            //         return BlocProvider.value(
-            //           value:
-            //           context.read<AdminsCubit>(),
-            //
-            //           child:
-            //           const CreateAdminDialog(),
-            //         );
-            //       },
-            //     );
-            //
-            //     // =================================================
-            //     // REFRESH AFTER CREATE
-            //     // =================================================
-            //
-            //     if (result == true &&
-            //         context.mounted) {
-            //
-            //       await context
-            //           .read<AdminsCubit>()
-            //           .getAllAdmins(
-            //         currentPage: 1,
-            //       );
-            //     }
-            //   },
-            //
-            //   child: const Icon(
-            //     Icons.add,
-            //     color:
-            //     AppColors.whiteColor,
-            //   ),
-            // ),
+                if (result == true && context.mounted) {
+                  await context.read<AdminsCubit>().getAllAdmins(
+                        currentPage: 1,
+                      );
+                }
+              },
+              child: const Icon(
+                Icons.add,
+                color: AppColors.whiteColor,
+              ),
+            ),
           );
         },
       ),

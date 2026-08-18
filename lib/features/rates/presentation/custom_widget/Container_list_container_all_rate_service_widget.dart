@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:web_admin_san/core/language/language_constant.dart';
 
 import '../../../../../../core/theming/colors.dart';
 import '../../../../../../core/theming/fonts.dart';
@@ -15,7 +16,7 @@ class ContainerListContainerAllRateServiceWidget
   final Uint8List? imagePath;
   final double rate;
   final VoidCallback? onEdit;
-
+  final String? serviceName;
   const ContainerListContainerAllRateServiceWidget({
     super.key,
     this.imagePath,
@@ -23,6 +24,7 @@ class ContainerListContainerAllRateServiceWidget
     required this.message,
     required this.rate,
     this.onEdit,
+    this.serviceName
   });
 
   @override
@@ -45,7 +47,19 @@ class ContainerListContainerAllRateServiceWidget
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 15,
         children: [
+          if (serviceName != null && serviceName!.isNotEmpty) ...[
+            TextInAppWidget(
+              text: serviceName!,
+              textSize: 13,
+              fontWeightIndex:
+              FontSelectionData.mediumFontFamily,
+              textColor: AppColors.orangeColor,
+              maxLines: 1,
+              isTextCenter: true,
+            ),
+          ],
           Row(
             children: [
               imagePath != null
@@ -113,13 +127,13 @@ class ContainerListContainerAllRateServiceWidget
 
                 IconButton(
                   onPressed: onEdit,
-                  tooltip: 'Edit Rating',
+                  tooltip: AppLanguageKeys.edit,
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(
                     minWidth: 32,
                     minHeight: 32,
                   ),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.edit_outlined,
                     size: 20,
                     color: AppColors.orangeColor,
@@ -128,8 +142,6 @@ class ContainerListContainerAllRateServiceWidget
               ],
             ],
           ),
-
-          const SizedBox(height: 12),
 
           TextInAppWidget(
             text: message,

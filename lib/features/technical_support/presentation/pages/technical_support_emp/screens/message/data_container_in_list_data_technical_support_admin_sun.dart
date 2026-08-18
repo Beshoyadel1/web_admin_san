@@ -11,7 +11,7 @@ class DataContainerInListDataTechnicalSupportAdminSun extends StatelessWidget {
       padding:  EdgeInsets.all(15.0),
       child:  Column(
         spacing: 30,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TitleMessageWithNumberAdminSun(),
           SearchWithListDataChatAdminSun()

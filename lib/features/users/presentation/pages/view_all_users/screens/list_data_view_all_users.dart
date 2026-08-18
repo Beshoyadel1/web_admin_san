@@ -57,6 +57,7 @@ class ListDataViewAllUsers extends StatelessWidget {
                           nameProvider: user.userName ?? '',
                           nameButton: AppLanguageKeys.details,
                           imageProvider: user.image,
+                          isActive: user.isActive,
                           lastOrderDate: user.lastOrderProvider != null
                               ? OrderFunctions.formatDateFromDateTime(
                                   user.lastOrderProvider,

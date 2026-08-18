@@ -58,6 +58,7 @@ class ListViewAllCompanies extends StatelessWidget {
                         companyId: companies.companyId.toString(),
                         name: companies.name ?? '',
                         nameButton: AppLanguageKeys.details,
+                        isActive: companies.isActive,
                         image: companies.image,
                         lastOrderDate: companies.lastOrderProvider != null
                             ? OrderFunctions.formatDateFromDateTime(

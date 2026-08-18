@@ -20,29 +20,21 @@ class CreateAdminDialog extends StatefulWidget {
   });
 
   @override
-  State<CreateAdminDialog> createState() =>
-      _CreateAdminDialogState();
+  State<CreateAdminDialog> createState() => _CreateAdminDialogState();
 }
 
-class _CreateAdminDialogState
-    extends State<CreateAdminDialog> {
-
+class _CreateAdminDialogState extends State<CreateAdminDialog> {
   final _formKey = GlobalKey<FormState>();
 
-  final usernameController =
-  TextEditingController();
+  final usernameController = TextEditingController();
 
-  final phoneController =
-  TextEditingController();
+  final phoneController = TextEditingController();
 
-  final emailController =
-  TextEditingController();
+  final emailController = TextEditingController();
 
-  final passwordController =
-  TextEditingController();
+  final passwordController = TextEditingController();
 
-  final confirmPasswordController =
-  TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -64,11 +56,9 @@ class _CreateAdminDialogState
       return;
     }
 
-    final password =
-    passwordController.text.trim();
+    final password = passwordController.text.trim();
 
-    final confirmPassword =
-    confirmPasswordController.text.trim();
+    final confirmPassword = confirmPasswordController.text.trim();
 
     if (password != confirmPassword) {
       AppSnackBar.showError(
@@ -78,26 +68,12 @@ class _CreateAdminDialogState
     }
 
     final request = CreateUserRequest(
-      username:
-      usernameController.text.trim(),
-
-      phone:
-      phoneController.text.trim(),
-
-      email:
-      emailController.text.trim(),
-
-      password:
-      password,
-
-      // ADMIN
+      username: usernameController.text.trim(),
+      phone: phoneController.text.trim(),
+      email: emailController.text.trim(),
+      password: password,
       type: 6,
-
-      // Empty initially
-      adminDetails:
-      const AdminDetailsRequest(),
-
-      fcmToken: '',
+      adminDetails: const AdminDetailsRequest(),
     );
 
     debugPrint(
@@ -105,8 +81,8 @@ class _CreateAdminDialogState
     );
 
     context.read<AdminsCubit>().createAdmin(
-      request,
-    );
+          request,
+        );
   }
 
   // =========================================================
@@ -117,7 +93,6 @@ class _CreateAdminDialogState
   Widget build(BuildContext context) {
     return BlocListener<AdminsCubit, AdminsState>(
       listener: (context, state) {
-
         // =====================================================
         // SUCCESS
         // =====================================================
@@ -140,11 +115,9 @@ class _CreateAdminDialogState
           );
         }
       },
-
       child: AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius:
-          BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(18),
         ),
 
         title: const TextInAppWidget(
@@ -156,30 +129,23 @@ class _CreateAdminDialogState
 
         content: SizedBox(
           width: 500,
-
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
-
               child: Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.start,
-
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 15,
                 children: [
-
                   // =================================================
                   // USERNAME
                   // =================================================
 
                   UserTextFieldWidget(
                     type: UserFieldType.name,
-                    controller:
-                    usernameController,
-                    text:
-                    AppLanguageKeys.userName,
+                    controller: usernameController,
+                    text: AppLanguageKeys.userName,
+                    fillColor: AppColors.transparent,
                   ),
-
-                  const SizedBox(height: 15),
 
                   // =================================================
                   // PHONE
@@ -187,13 +153,10 @@ class _CreateAdminDialogState
 
                   UserTextFieldWidget(
                     type: UserFieldType.phone,
-                    controller:
-                    phoneController,
-                    text:
-                    AppLanguageKeys.phoneNumber,
+                    controller: phoneController,
+                    text: AppLanguageKeys.phoneNumber,
+                    fillColor: AppColors.transparent,
                   ),
-
-                  const SizedBox(height: 15),
 
                   // =================================================
                   // EMAIL
@@ -201,13 +164,10 @@ class _CreateAdminDialogState
 
                   UserTextFieldWidget(
                     type: UserFieldType.email,
-                    controller:
-                    emailController,
-                    text:
-                    AppLanguageKeys.email,
+                    controller: emailController,
+                    text: AppLanguageKeys.email,
+                    fillColor: AppColors.transparent,
                   ),
-
-                  const SizedBox(height: 15),
 
                   // =================================================
                   // PASSWORD
@@ -215,13 +175,10 @@ class _CreateAdminDialogState
 
                   UserTextFieldWidget(
                     type: UserFieldType.password,
-                    controller:
-                    passwordController,
-                    text:
-                    AppLanguageKeys.password,
+                    controller: passwordController,
+                    text: AppLanguageKeys.password,
+                    fillColor: AppColors.transparent,
                   ),
-
-                  const SizedBox(height: 15),
 
                   // =================================================
                   // CONFIRM PASSWORD
@@ -229,10 +186,9 @@ class _CreateAdminDialogState
 
                   UserTextFieldWidget(
                     type: UserFieldType.password,
-                    controller:
-                    confirmPasswordController,
-                    text:
-                    AppLanguageKeys.confirmPasswordKey,
+                    controller: confirmPasswordController,
+                    text: AppLanguageKeys.confirmPasswordKey,
+                    fillColor: AppColors.transparent,
                   ),
                 ],
               ),
@@ -245,16 +201,13 @@ class _CreateAdminDialogState
         // =========================================================
 
         actions: [
-
           // CANCEL
           TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
-
             child: const TextInAppWidget(
-              text:
-              AppLanguageKeys.cancel,
+              text: AppLanguageKeys.cancel,
               textSize: 14,
             ),
           ),
@@ -262,36 +215,26 @@ class _CreateAdminDialogState
           // CREATE
           BlocBuilder<AdminsCubit, AdminsState>(
             builder: (context, state) {
-
-              final isLoading =
-              state is AdminsCreateLoading;
+              final isLoading = state is AdminsCreateLoading;
 
               return ElevatedButton(
-                onPressed:
-                isLoading ? null : _submit,
-
-                style:
-                ElevatedButton.styleFrom(
-                  backgroundColor:
-                  AppColors.orangeColor,
+                onPressed: isLoading ? null : _submit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.orangeColor,
                 ),
-
                 child: isLoading
                     ? const SizedBox(
-                  width: 18,
-                  height: 18,
-                  child:
-                  CircularProgressIndicator(
-                    strokeWidth: 2,
-                  ),
-                )
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      )
                     : const TextInAppWidget(
-                  text:
-                  AppLanguageKeys.create,
-                  textSize: 14,
-                  textColor:
-                  AppColors.whiteColor,
-                ),
+                        text: AppLanguageKeys.create,
+                        textSize: 14,
+                        textColor: AppColors.whiteColor,
+                      ),
               );
             },
           ),

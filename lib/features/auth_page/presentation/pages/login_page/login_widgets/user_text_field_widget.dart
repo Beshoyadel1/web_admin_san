@@ -28,7 +28,12 @@ class UserTextFieldWidget extends StatelessWidget {
     this.type = UserFieldType.normal,
     this.readOnly = false,
     this.width,
-    this.maxLines
+    this.maxLines,
+
+    // NEW
+    this.borderColor,
+    this.fillColor,
+    this.focusedBorderColor,
   });
 
   final TextEditingController controller;
@@ -38,11 +43,29 @@ class UserTextFieldWidget extends StatelessWidget {
   final double? width;
   final int? maxLines;
 
+  // NEW
+  final Color? borderColor;
+  final Color? fillColor;
+  final Color? focusedBorderColor;
+
   @override
   Widget build(BuildContext context) {
     final bool isMobile = MediaQuery.of(context).size.width < 600;
 
+    final Color finalBorderColor =
+        borderColor ?? AppColors.darkGreyColor;
+
+    final Color finalFillColor =
+        fillColor ?? AppColors.whiteColor;
+
+    final Color finalFocusedBorderColor =
+        focusedBorderColor ?? finalBorderColor;
+
     Widget child;
+
+    // ============================================================
+    // PHONE
+    // ============================================================
 
     if (type == UserFieldType.phone) {
       if (readOnly) {
@@ -52,8 +75,8 @@ class UserTextFieldWidget extends StatelessWidget {
           isColumn: true,
           readOnly: true,
           textSize: 16,
-          borderColor: AppColors.darkGreyColor,
-          fillColor: AppColors.whiteColor,
+          borderColor: finalBorderColor,
+          fillColor: finalFillColor,
           textFormHeight: maxLines != null && maxLines! > 1
               ? 120
               : 35,
@@ -63,23 +86,38 @@ class UserTextFieldWidget extends StatelessWidget {
         child = PhoneTextField(
           controller: controller,
           aboveText: text,
+          borderColor: finalBorderColor,
+          fillColor: finalFillColor,
+          focusedBorderColor: finalFocusedBorderColor,
         );
       }
     }
+
+    // ============================================================
+    // GENDER
+    // ============================================================
 
     else if (type == UserFieldType.gender) {
       child = GenderField(
         controller: controller,
         text: text,
         readOnly: readOnly,
+        borderColor: finalBorderColor,
+        fillColor: finalFillColor,
       );
     }
+
+    // ============================================================
+    // PASSWORD
+    // ============================================================
+
     else if (type == UserFieldType.password) {
       child = BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           final cubit = context.read<AuthCubit>();
 
-          final isConfirm = text == AppLanguageKeys.confirmPasswordKey;
+          final isConfirm =
+              text == AppLanguageKeys.confirmPasswordKey;
 
           final isVisible = isConfirm
               ? cubit.isConfirmPasswordVisible
@@ -91,17 +129,23 @@ class UserTextFieldWidget extends StatelessWidget {
             isColumn: true,
             readOnly: readOnly,
             textSize: 16,
-            borderColor: AppColors.darkGreyColor,
-            fillColor: AppColors.whiteColor,
+
+            // COLORS
+            borderColor: finalBorderColor,
+            fillColor: finalFillColor,
+
             obscureText: !isVisible,
-            textFormHeight: maxLines != null && maxLines! > 1
-                ? 120
-                : 35,
+
+            textFormHeight:
+            maxLines != null && maxLines! > 1 ? 120 : 35,
+
             maxLines: maxLines ?? 1,
+
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppLanguageKeys.enterYourData;
               }
+
               return null;
             },
 
@@ -120,6 +164,11 @@ class UserTextFieldWidget extends StatelessWidget {
         },
       );
     }
+
+    // ============================================================
+    // NORMAL / EMAIL / NAME / NUMBER
+    // ============================================================
+
     else {
       child = TextFormFieldWidget(
         textFormController: controller,
@@ -127,12 +176,16 @@ class UserTextFieldWidget extends StatelessWidget {
         isColumn: true,
         readOnly: readOnly,
         textSize: 16,
-        borderColor: AppColors.darkGreyColor,
-        fillColor: AppColors.whiteColor,
-        textFormHeight: maxLines != null && maxLines! > 1
-            ? 120
-            : 35,
+
+        // COLORS
+        borderColor: finalBorderColor,
+        fillColor: finalFillColor,
+
+        textFormHeight:
+        maxLines != null && maxLines! > 1 ? 120 : 35,
+
         maxLines: maxLines ?? 1,
+
         isDigit: type == UserFieldType.number,
 
         validator: (value) {
@@ -162,7 +215,7 @@ class UserTextFieldWidget extends StatelessWidget {
     }
 
     return SizedBox(
-      width:width ?? (isMobile ? double.infinity : 500),
+      width: width ?? (isMobile ? double.infinity : 500),
       child: child,
     );
   }
@@ -173,11 +226,16 @@ class GenderField extends StatefulWidget {
   final String? text;
   final bool readOnly;
 
+  final Color borderColor;
+  final Color fillColor;
+
   const GenderField({
     super.key,
     required this.controller,
     this.text,
     required this.readOnly,
+    this.borderColor = AppColors.darkGreyColor,
+    this.fillColor = AppColors.whiteColor,
   });
 
   @override
@@ -222,16 +280,16 @@ class _GenderFieldState extends State<GenderField> {
               textSize: 14,
             ),
           ),
-
         Container(
           height: 35,
           padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
-            color: AppColors.whiteColor,
+            color: widget.fillColor,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: AppColors.darkGreyColor),
+            border: Border.all(
+              color: widget.borderColor,
+            ),
           ),
-
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: selectedValue,
@@ -266,7 +324,7 @@ class _GenderFieldState extends State<GenderField> {
               },
             ),
           ),
-        ),
+        )
       ],
     );
   }
@@ -279,11 +337,20 @@ class PhoneTextField extends StatelessWidget {
     required this.controller,
     this.aboveText,
     this.isReadOnly = false,
+
+    // NEW
+    this.borderColor = AppColors.darkGreyColor,
+    this.fillColor = AppColors.whiteColor,
+    this.focusedBorderColor = AppColors.darkGreyColor,
   });
 
   final TextEditingController controller;
   final String? aboveText;
   final bool isReadOnly;
+
+  final Color borderColor;
+  final Color fillColor;
+  final Color focusedBorderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -315,9 +382,10 @@ class PhoneTextField extends StatelessWidget {
             dropdownTextStyle: const TextStyle(fontSize: 14),
             decoration: InputDecoration(
               filled: true,
-              fillColor: AppColors.whiteColor,
+              fillColor: fillColor,
 
               isDense: true,
+
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 10,
                 vertical: 8,
@@ -325,16 +393,24 @@ class PhoneTextField extends StatelessWidget {
 
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.darkGreyColor),
+                borderSide: BorderSide(
+                  color: borderColor,
+                ),
               ),
 
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.darkGreyColor),
+                borderSide: BorderSide(
+                  color: focusedBorderColor,
+                  width: 1.5,
+                ),
               ),
 
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: borderColor,
+                ),
               ),
             ),
 

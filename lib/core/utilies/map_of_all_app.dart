@@ -239,19 +239,62 @@ Future<void> getPages() async {
   appPages.clear();
 
   final user = await AuthLocalStorage.getUser();
-
   final permissions = user?.adminDetails?.permissions;
 
+  // ============================================================
+  // NO PERMISSIONS OBJECT
+  // ============================================================
+  //
+  // لو الـ permissions object نفسه غير موجود
+  // اعتبره Full Access.
+  //
   if (permissions == null) {
+    appPages = _getAllPages();
     return;
   }
+
+  // ============================================================
+  // CHECK IF ALL PERMISSIONS ARE NULL
+  // ============================================================
+
+  final allPermissionsAreNull =
+      permissions.statistic == null &&
+          permissions.orders == null &&
+          permissions.admins == null &&
+          permissions.packages == null &&
+          permissions.coupons == null &&
+          permissions.providers == null &&
+          permissions.approvals == null &&
+          permissions.companies == null &&
+          permissions.insurance == null &&
+          permissions.harage == null &&
+          permissions.users == null &&
+          permissions.finances == null &&
+          permissions.banners == null &&
+          permissions.ranks == null &&
+          permissions.support == null;
+
+  // ============================================================
+  // ALL NULL = FULL ACCESS
+  // ============================================================
+
+  if (allPermissionsAreNull) {
+    appPages = _getAllPages();
+    return;
+  }
+
+  // ============================================================
+  // NORMAL ADMIN = USE PERMISSIONS
+  // ============================================================
 
   bool hasPermission(bool? permission) {
     return permission == true;
   }
 
   appPages = [
-    // ================= STATISTICS =================
+    // ==========================================================
+    // STATISTICS
+    // ==========================================================
 
     if (hasPermission(permissions.statistic))
       const PageNodeModel(
@@ -260,7 +303,10 @@ Future<void> getPages() async {
         number: PagesOfAllApp.dashboardPageNumber,
         page: OrderServicesStatistics(),
       ),
-// ================= ORDERS =================
+
+    // ==========================================================
+    // ORDERS
+    // ==========================================================
 
     if (hasPermission(permissions.orders))
       const PageNodeModel(
@@ -270,7 +316,9 @@ Future<void> getPages() async {
         page: OrderServicesTypePage(),
       ),
 
-    // ================= Profile =================
+    // ==========================================================
+    // PROFILE - NO PERMISSION
+    // ==========================================================
 
     const PageNodeModel(
       name: AppLanguageKeys.myAccount,
@@ -279,7 +327,10 @@ Future<void> getPages() async {
       page: FacilityAccount(),
     ),
 
-    // ================= Admins =================
+    // ==========================================================
+    // ADMINS
+    // ==========================================================
+
     if (hasPermission(permissions.admins))
       const PageNodeModel(
         name: AppLanguageKeys.admins,
@@ -287,7 +338,11 @@ Future<void> getPages() async {
         number: PagesOfAllApp.viewAllAdminsNumber,
         page: ViewAllAdmins(),
       ),
-    // ================= Packages =================
+
+    // ==========================================================
+    // PACKAGES
+    // ==========================================================
+
     if (hasPermission(permissions.packages))
       const PageNodeModel(
         name: AppLanguageKeys.packages,
@@ -296,7 +351,10 @@ Future<void> getPages() async {
         page: ViewAllPackages(),
       ),
 
-    // ================= Coupon =================
+    // ==========================================================
+    // COUPONS
+    // ==========================================================
+
     if (hasPermission(permissions.coupons))
       const PageNodeModel(
         name: AppLanguageKeys.coupon,
@@ -305,9 +363,9 @@ Future<void> getPages() async {
         page: ViewAllCoupons(),
       ),
 
-
-
-    // ================= PROVIDERS =================
+    // ==========================================================
+    // PROVIDERS
+    // ==========================================================
 
     if (hasPermission(permissions.providers))
       const PageNodeModel(
@@ -316,7 +374,10 @@ Future<void> getPages() async {
         image: AppImageKeys.provider,
         page: ViewAllProvider(),
       ),
-    // ================= Approved Centers =================
+
+    // ==========================================================
+    // APPROVED CENTERS
+    // ==========================================================
 
     if (hasPermission(permissions.approvals))
       const PageNodeModel(
@@ -326,7 +387,9 @@ Future<void> getPages() async {
         page: ViewAllApprovedCenters(),
       ),
 
-    // ================= COMPANIES =================
+    // ==========================================================
+    // COMPANIES
+    // ==========================================================
 
     if (hasPermission(permissions.companies))
       const PageNodeModel(
@@ -336,7 +399,9 @@ Future<void> getPages() async {
         page: ViewAllCompanies(),
       ),
 
-    // ================= INSURANCE =================
+    // ==========================================================
+    // INSURANCE
+    // ==========================================================
 
     if (hasPermission(permissions.insurance))
       const PageNodeModel(
@@ -346,7 +411,9 @@ Future<void> getPages() async {
         page: ViewAllCompaniesInsurance(),
       ),
 
-    // ================= CARS HARAJ =================
+    // ==========================================================
+    // CARS HARAJ
+    // ==========================================================
 
     if (hasPermission(permissions.harage))
       const PageNodeModel(
@@ -356,7 +423,9 @@ Future<void> getPages() async {
         page: ViewCarHarag(),
       ),
 
-    // ================= USERS =================
+    // ==========================================================
+    // USERS
+    // ==========================================================
 
     if (hasPermission(permissions.users))
       const PageNodeModel(
@@ -366,7 +435,10 @@ Future<void> getPages() async {
         page: ViewAllUsers(),
       ),
 
-    // ================= ACCOUNT MANAGEMENT =================
+    // ==========================================================
+    // FINANCES
+    // ==========================================================
+
     if (hasPermission(permissions.finances))
       const PageNodeModel(
         name: AppLanguageKeys.finances,
@@ -375,7 +447,10 @@ Future<void> getPages() async {
         page: ViewAllProvidersAccountManagement(),
       ),
 
-    // ================= ADVERTISEMENTS =================
+    // ==========================================================
+    // BANNERS
+    // ==========================================================
+
     if (hasPermission(permissions.banners))
       const PageNodeModel(
         name: AppLanguageKeys.banners,
@@ -383,15 +458,23 @@ Future<void> getPages() async {
         number: PagesOfAllApp.bannerViewPageNumber,
         page: FirstScreenAdvertisementsAdminSun(),
       ),
-    // ================= REVIEWS / RANKS =================
+
+    // ==========================================================
+    // RANKS
+    // ==========================================================
+
     if (hasPermission(permissions.ranks))
       const PageNodeModel(
-        name: AppLanguageKeys.ranks,
+        name: AppLanguageKeys.reviews,
         image: AppImageKeys.rank,
         number: PagesOfAllApp.ratePageNumber,
         page: ViewAllProviderRates(),
       ),
-    // ================= TECHNICAL SUPPORT =================
+
+    // ==========================================================
+    // TECHNICAL SUPPORT
+    // ==========================================================
+
     if (hasPermission(permissions.support))
       const PageNodeModel(
         name: AppLanguageKeys.technicalSupport,
@@ -400,7 +483,9 @@ Future<void> getPages() async {
         page: TechnicalSupportAdminSun(),
       ),
 
-    // ================= Social Pages & Policies =================
+    // ==========================================================
+    // SOCIAL PAGES - NO PERMISSION
+    // ==========================================================
 
     const PageNodeModel(
       name: AppLanguageKeys.socialPagesAndPoliciesKey,
@@ -408,7 +493,39 @@ Future<void> getPages() async {
       number: PagesOfAllApp.pagesPageNumber,
       page: FirstScreenCommunicationAndPoliciesPages(),
     ),
-    // ================= Logout =================
+
+    // ==========================================================
+    // LOGOUT - NO PERMISSION
+    // ==========================================================
+
+    const PageNodeModel(
+      name: AppLanguageKeys.logoutKey,
+      image: AppImageKeys.logout,
+      number: PagesOfAllApp.logoutPageNumber,
+      page: LogoutDashboard(),
+    ),
+  ];
+}
+List<PageNodeModel> _getAllPages() {
+  return [
+    // ================= My Profile =================
+    const PageNodeModel(
+      name: AppLanguageKeys.myAccount,
+      image: AppImageKeys.users,
+      number: PagesOfAllApp.securityPageNumber,
+      page: FacilityAccount(),
+    ),
+
+    // ================= SOCIAL PAGES =================
+
+    const PageNodeModel(
+      name: AppLanguageKeys.socialPagesAndPoliciesKey,
+      image: AppImageKeys.pages,
+      number: PagesOfAllApp.pagesPageNumber,
+      page: FirstScreenCommunicationAndPoliciesPages(),
+    ),
+
+    // ================= LOGOUT =================
 
     const PageNodeModel(
       name: AppLanguageKeys.logoutKey,

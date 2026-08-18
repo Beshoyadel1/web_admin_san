@@ -20,12 +20,14 @@ class CustomViewAllUsersListWidget extends StatelessWidget {
         this.imageProvider,
         this.joinDate,
         this.lastOrderDate,
+        this.isActive
       });
 
   final String? id,nameProvider,nameButton,joinDate,lastOrderDate;
   final double? spacing;
   final void Function()? onTapViewRates;
   final Uint8List? imageProvider;
+  final bool? isActive;
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
@@ -105,6 +107,47 @@ class CustomViewAllUsersListWidget extends StatelessWidget {
               titleColor: AppColors.greyColor,
               textSizeSubTitle: 14,
               subTitleColor: AppColors.darkColor,
+            ),
+          ),
+          SizedBox(
+            width: 180,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextInAppWidget(
+                  text: AppLanguageKeys.status,
+                  textSize: 12,
+                  fontWeightIndex:
+                  FontSelectionData.mediumFontFamily,
+                  textColor: AppColors.greyColor,
+                ),
+
+                const SizedBox(height: 5),
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isActive == true
+                        ? Colors.green.withOpacity(0.1)
+                        : Colors.red.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextInAppWidget(
+                    text: isActive == true
+                        ? AppLanguageKeys.active
+                        : AppLanguageKeys.inactive,
+                    textSize: 12,
+                    fontWeightIndex:
+                    FontSelectionData.mediumFontFamily,
+                    textColor: isActive == true
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                ),
+              ],
             ),
           ),
 

@@ -95,19 +95,18 @@ class ListDataViewAllApprovedCenters extends StatelessWidget {
 
                         nameProvider:
                         provider.name ?? '',
-
+                        isActive: provider.approval?.isactive,
                         nameButton:
                         AppLanguageKeys.details,
 
                         imageProvider:
                         provider.image,
 
-
                         lastOrderDate: '-',
 
                         orderCount: '0',
 
-                        onTapViewRates: () {
+                        onTapViewRates: () async{
                           final providerId =
                               provider.providerId;
 
@@ -115,7 +114,8 @@ class ListDataViewAllApprovedCenters extends StatelessWidget {
                             return;
                           }
 
-                          Navigator.push(
+
+                          final result =  await Navigator.push(
                             context,
                             NavigateToPageWidget(
                               PageDetailsProvider(
@@ -124,6 +124,10 @@ class ListDataViewAllApprovedCenters extends StatelessWidget {
                               ),
                             ),
                           );
+
+                          if (result == true && context.mounted) {
+                            await context.read<GetApprovedProvidersCubit>().getApprovedProviders();
+                          }
                         },
                       );
                     },

@@ -20,12 +20,14 @@ class CustomViewAllProviderListWidget extends StatelessWidget {
         this.imageProvider,
         this.orderCount,
         this.lastOrderDate,
+        this.isActive
       });
 
   final String? id,nameProvider,nameButton,orderCount,lastOrderDate;
   final double? spacing;
   final void Function()? onTapViewRates;
   final Uint8List? imageProvider;
+  final bool? isActive;
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
@@ -108,6 +110,51 @@ class CustomViewAllProviderListWidget extends StatelessWidget {
             ),
           ),
 
+// =================================================
+          // STATUS
+          // =================================================
+
+          SizedBox(
+            width: 120,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextInAppWidget(
+                  text: AppLanguageKeys.status,
+                  textSize: 12,
+                  fontWeightIndex:
+                  FontSelectionData.mediumFontFamily,
+                  textColor: AppColors.greyColor,
+                ),
+
+                const SizedBox(height: 5),
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isActive == true
+                        ? Colors.green.withOpacity(0.1)
+                        : Colors.red.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextInAppWidget(
+                    text: isActive == true
+                        ? AppLanguageKeys.active
+                        : AppLanguageKeys.inactive,
+                    textSize: 12,
+                    fontWeightIndex:
+                    FontSelectionData.mediumFontFamily,
+                    textColor: isActive == true
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                ),
+              ],
+            ),
+          ),
           SizedBox(
             width: 110,
             child: InkWell(
@@ -141,6 +188,7 @@ class CustomViewAllProviderListWidget extends StatelessWidget {
               ),
             ),
           ),
+
         ],
       ),
     );

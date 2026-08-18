@@ -19,6 +19,7 @@ class CustomViewAllAdminsListWidget extends StatelessWidget {
     this.email,
     this.image,
     this.joinDate,
+    this.isActive, // ADD
     this.onTapDetails,
   });
 
@@ -27,6 +28,8 @@ class CustomViewAllAdminsListWidget extends StatelessWidget {
   final String? phone;
   final String? email;
   final String? joinDate;
+
+  final bool? isActive;
 
   final double? spacing;
 
@@ -75,13 +78,10 @@ class CustomViewAllAdminsListWidget extends StatelessWidget {
               runSpacing: 5,
               children: [
 
-                // IMAGE
                 image != null
                     ? CircleAvatar(
                   radius: 20,
-                  backgroundImage: MemoryImage(
-                    image!,
-                  ),
+                  backgroundImage: MemoryImage(image!),
                 )
                     : const CircleAvatar(
                   radius: 20,
@@ -92,17 +92,14 @@ class CustomViewAllAdminsListWidget extends StatelessWidget {
                   ),
                 ),
 
-                // NAME
                 SizedBox(
                   width: 180,
                   child: TextInAppWidget(
                     text: nameAdmin ?? '###',
                     textSize: 15,
                     fontWeightIndex:
-                    FontSelectionData
-                        .mediumFontFamily,
-                    textColor:
-                    AppColors.blackColor,
+                    FontSelectionData.mediumFontFamily,
+                    textColor: AppColors.blackColor,
                     maxLines: 1,
                   ),
                 ),
@@ -143,18 +140,48 @@ class CustomViewAllAdminsListWidget extends StatelessWidget {
           ),
 
           // =================================================
-          // JOIN DATE
+          // STATUS
           // =================================================
 
           SizedBox(
-            width: 150,
-            child: TitleWithSubTitle(
-              title: AppLanguageKeys.joiningDate,
-              subTitle: joinDate ?? '-',
-              textSizeTitle: 12,
-              titleColor: AppColors.greyColor,
-              textSizeSubTitle: 14,
-              subTitleColor: AppColors.darkColor,
+            width: 120,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextInAppWidget(
+                  text: AppLanguageKeys.status,
+                  textSize: 12,
+                  fontWeightIndex:
+                  FontSelectionData.mediumFontFamily,
+                  textColor: AppColors.greyColor,
+                ),
+
+                const SizedBox(height: 5),
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isActive == true
+                        ? Colors.green.withOpacity(0.1)
+                        : Colors.red.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextInAppWidget(
+                    text: isActive == true
+                        ? AppLanguageKeys.active
+                        : AppLanguageKeys.inactive,
+                    textSize: 12,
+                    fontWeightIndex:
+                    FontSelectionData.mediumFontFamily,
+                    textColor: isActive == true
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -185,10 +212,8 @@ class CustomViewAllAdminsListWidget extends StatelessWidget {
                     text: AppLanguageKeys.details,
                     textSize: 12,
                     fontWeightIndex:
-                    FontSelectionData
-                        .mediumFontFamily,
-                    textColor:
-                    AppColors.orangeColor,
+                    FontSelectionData.mediumFontFamily,
+                    textColor: AppColors.orangeColor,
                   ),
                 ),
               ),

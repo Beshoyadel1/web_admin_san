@@ -19,13 +19,15 @@ class WidgetDesignListCompany extends StatelessWidget {
         this.nameButton,
         this.image,
         this.lastOrderDate,
-        this.joiningDate
+        this.joiningDate,
+        this.isActive
       });
 
   final String? companyId,name,nameButton,lastOrderDate,joiningDate;
   final double? spacing;
   final void Function()? onTabDetails;
   final Uint8List? image;
+  final bool? isActive;
   @override
   Widget build(BuildContext context) {
     return CustomContainer(
@@ -105,6 +107,51 @@ class WidgetDesignListCompany extends StatelessWidget {
               titleColor: AppColors.greyColor,
               textSizeSubTitle: 14,
               subTitleColor: AppColors.darkColor,
+            ),
+          ),
+// =================================================
+          // STATUS
+          // =================================================
+
+          SizedBox(
+            width: 120,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextInAppWidget(
+                  text: AppLanguageKeys.status,
+                  textSize: 12,
+                  fontWeightIndex:
+                  FontSelectionData.mediumFontFamily,
+                  textColor: AppColors.greyColor,
+                ),
+
+                const SizedBox(height: 5),
+
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isActive == true
+                        ? Colors.green.withOpacity(0.1)
+                        : Colors.red.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: TextInAppWidget(
+                    text: isActive == true
+                        ? AppLanguageKeys.active
+                        : AppLanguageKeys.inactive,
+                    textSize: 12,
+                    fontWeightIndex:
+                    FontSelectionData.mediumFontFamily,
+                    textColor: isActive == true
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                ),
+              ],
             ),
           ),
 

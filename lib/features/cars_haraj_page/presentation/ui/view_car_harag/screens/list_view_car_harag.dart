@@ -58,6 +58,7 @@ class ListViewCarHarag extends StatelessWidget {
                         nameButton: AppLanguageKeys.details,
                         image: providers.image,
                         totalCars: providers.totalCars.toString(),
+                        isActive: providers.isActive,
                         lastOrderDate: providers.lastAddedDate != null
                             ? OrderFunctions.formatDateFromDateTime(
                           providers.lastAddedDate,

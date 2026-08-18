@@ -26,6 +26,17 @@ class PageDetailsAdmin extends StatelessWidget {
 
       appBar: AppBar(
         backgroundColor: AppColors.scaffoldColor,
+
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColors.blackColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
+        ),
+
         title: const TextInAppWidget(
           text: AppLanguageKeys.adminDetails,
           textSize: 15,

@@ -41,7 +41,7 @@ class ListDataViewAllProvider extends StatelessWidget {
           return CustomContainer(
             isSelected: false,
             onTap: () {},
-            typeWidget:Column(
+            typeWidget: Column(
               children: [
                 Expanded(
                   child: ListView.separated(
@@ -57,14 +57,15 @@ class ListDataViewAllProvider extends StatelessWidget {
                         nameProvider: provider.name ?? '',
                         nameButton: AppLanguageKeys.details,
                         imageProvider: provider.image,
+                        isActive: provider.isActive,
                         lastOrderDate: provider.lastOrderDate != null
                             ? OrderFunctions.formatDateFromDateTime(
-                          provider.lastOrderDate,
-                        )
+                                provider.lastOrderDate,
+                              )
                             : '-',
                         orderCount: provider.totalOrders.toString(),
-                        onTapViewRates: () {
-                          Navigator.push(
+                        onTapViewRates: () async {
+                          final result =  await Navigator.push(
                             context,
                             NavigateToPageWidget(
                               PageDetailsProvider(
@@ -72,6 +73,12 @@ class ListDataViewAllProvider extends StatelessWidget {
                               ),
                             ),
                           );
+
+                          if (result == true && context.mounted) {
+                            await context
+                                .read<GetAllProvidersCubit>()
+                                .getAllProviders(currentPage: 1);
+                          }
                         },
                       );
                     },
@@ -82,14 +89,13 @@ class ListDataViewAllProvider extends StatelessWidget {
                   totalPages: state.pageCount,
                   onPageChanged: (page) {
                     context.read<GetAllProvidersCubit>().getAllProviders(
-                      currentPage: page,
-                    );
+                          currentPage: page,
+                        );
                   },
                 ),
               ],
             ),
           );
-
         }
 
         return const SizedBox();

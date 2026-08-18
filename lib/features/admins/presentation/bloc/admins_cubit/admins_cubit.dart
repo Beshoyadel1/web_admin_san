@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:web_admin_san/features/admins/data/datasource/get_all_admins_datasource/get_all_admins_datasource.dart';
 import 'package:web_admin_san/features/admins/data/request/get_all_admins_request/get_all_admins_request.dart';
+import 'package:web_admin_san/features/auth_page/data/datasource/create_user_datasource/create_user_repository.dart';
 
 import 'package:web_admin_san/features/auth_page/data/datasource/update_user_datasource/update_user_repository.dart';
 import 'package:web_admin_san/features/auth_page/data/model/create_user_model/admin_details_request.dart';
@@ -25,18 +28,18 @@ class AdminsCubit extends Cubit<AdminsState> {
         phone: request.phone,
         email: request.email,
         password: request.password,
-
-        // Admin
         type: 6,
-
-        adminDetails: const AdminDetailsRequest(),
-        // Required by your signup logic
-        fcmToken: request.fcmToken ?? '',
+        adminDetails: request.adminDetails ?? const AdminDetailsRequest(),
       );
 
-      final result = await updateUserFunction(
+      print('========== CREATE ADMIN REQUEST ==========');
+      print(jsonEncode(createRequest.toJson()));
+      print('==========================================');
+
+      final result = await createUserFunction(
         createUserRequest: createRequest,
       );
+
 
       if (isClosed) return;
 

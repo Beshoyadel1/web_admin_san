@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/snakbar.dart';
 import 'package:web_admin_san/core/theming/colors.dart';
+import 'package:web_admin_san/core/theming/fonts.dart';
 import 'package:web_admin_san/core/theming/text_styles.dart';
 import 'package:web_admin_san/features/admins/presentation/bloc/admins_cubit/admins_cubit.dart';
 import 'package:web_admin_san/features/admins/presentation/bloc/admins_cubit/admins_state.dart';
@@ -19,6 +20,7 @@ import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info
 
 
 import 'package:web_admin_san/features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
+import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 
 class AdminDetailsContent extends StatefulWidget {
   const AdminDetailsContent({
@@ -34,7 +36,7 @@ class _AdminDetailsContentState
     extends State<AdminDetailsContent> {
 
   bool isEditMode = false;
-
+  bool isActive = false;
   final _formKey = GlobalKey<FormState>();
   final idController = TextEditingController();
   final usernameController = TextEditingController();
@@ -44,6 +46,7 @@ class _AdminDetailsContentState
   final jobLatinNameController = TextEditingController();
   final genderController = TextEditingController();
   final ageController = TextEditingController();
+
 
   CreateUserRequest? originalAdmin;
 
@@ -110,7 +113,7 @@ class _AdminDetailsContentState
 
     jobLatinNameController.text =
         admin.adminDetails?.joblatinname ?? '';
-
+    isActive = admin.isActive ?? false;
     final p = admin.adminDetails?.permissions;
 
     if (p != null) {
@@ -179,7 +182,7 @@ class _AdminDetailsContentState
       type: 6,
 
       nationality: admin.nationality,
-      isActive: admin.isActive,
+      isActive: isActive,
       joinDate: admin.joinDate,
       referralCode: admin.referralCode,
       image: admin.image,
@@ -335,7 +338,7 @@ class _AdminDetailsContentState
             // ==================================================
 
             Wrap(
-              spacing: 10,
+              spacing: 15,
               runSpacing: 15,
 
               children: [
@@ -401,8 +404,19 @@ class _AdminDetailsContentState
                   readOnly: !isEditMode,
                   width: 250,
                 ),
+                UserTextFieldWidget(
+                  controller: TextEditingController(
+                    text: OrderFunctions.formatDateFromDateTime(originalAdmin?.joinDate),
+                  ),
+                  text: AppLanguageKeys.joiningDate,
+                  type: UserFieldType.name,
+                  readOnly: true,
+                  width: 250,
+                ),
+                _buildStatus(),
               ],
             ),
+
 
             const SizedBox(height: 30),
 
@@ -561,7 +575,7 @@ class _AdminDetailsContentState
         return AppLanguageKeys.users;
 
       case 'finances':
-        return AppLanguageKeys.finances;
+        return AppLanguageKeys.accountManagement;
 
       case 'packages':
         return AppLanguageKeys.packages;
@@ -570,10 +584,10 @@ class _AdminDetailsContentState
         return AppLanguageKeys.approvals;
 
       case 'ranks':
-        return AppLanguageKeys.ranks;
+        return AppLanguageKeys.reviews;
 
       case 'support':
-        return AppLanguageKeys.support;
+        return AppLanguageKeys.technicalSupport;
 
       case 'admins':
         return AppLanguageKeys.admins;
@@ -593,5 +607,57 @@ class _AdminDetailsContentState
       default:
         return key;
     }
+  }
+  Widget _buildStatus() {
+    return  Column(
+      spacing: 10,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const TextInAppWidget(
+          text: AppLanguageKeys.status,
+          textSize: 15,
+          textColor: AppColors.blackColor,
+          fontWeightIndex: FontSelectionData.regularFontFamily,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10,),
+          decoration: BoxDecoration(
+            color: AppColors.whiteColor,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color
+                  : AppColors.darkGreyColor,
+            ),
+          ),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            runSpacing: 10,
+            alignment: WrapAlignment.start,
+            spacing: 10,
+            children: [
+              Switch(
+                value: isActive,
+                onChanged: !isEditMode
+                    ? null
+                    : (value) {
+                  setState(() {
+                    isActive = value;
+                  });
+                },
+              ),
+              TextInAppWidget(
+                text: isActive
+                    ? AppLanguageKeys.active
+                    : AppLanguageKeys.inactive,
+                textSize: 14,
+                textColor: isActive
+                    ? Colors.green
+                    : Colors.red,
+              ),
+            ],
+          ),
+        )
+      ],
+    );
   }
 }
