@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
+import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/show_delete_confirmation_dialog_in_app.dart';
 import 'package:web_admin_san/features/coupon/presentation/bloc/coupon_cubit/coupon_cubit.dart';
 import 'package:web_admin_san/features/coupon/presentation/bloc/coupon_cubit/coupon_state.dart';
@@ -135,14 +136,10 @@ class ListViewAllCoupons extends StatelessWidget {
 
                             final result = await Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (_) {
-                                  return PageDetailsCoupons(
-                                    couponCode:
-                                    coupon.coupon.couponCode ?? '',
-                                    userId: coupon.providers.first,
-                                  );
-                                },
+                              NavigateToPageWidget(
+                                  PageDetailsCoupons(
+                                    couponId: coupon.coupon.couponId??0,
+                                  )
                               ),
                             );
 

@@ -5,6 +5,14 @@ import '../../../../../../features/coupon/presentation/bloc/coupon_cubit/coupon_
 import '../../../../../../features/coupon/presentation/pages/view_all_coupons/create_coupon_dialog.dart';
 import '../../../../../../features/coupon/presentation/pages/view_all_coupons/list_view_all_coupons.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../core/theming/colors.dart';
+import '../../../../../../features/coupon/presentation/bloc/coupon_cubit/coupon_cubit.dart';
+import '../../../../../../features/coupon/presentation/pages/page_details_coupons/page_details_coupons.dart';
+import '../../../../../../features/coupon/presentation/pages/view_all_coupons/list_view_all_coupons.dart';
+
 class ViewAllCoupons extends StatelessWidget {
   const ViewAllCoupons({
     super.key,
@@ -14,49 +22,33 @@ class ViewAllCoupons extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => CouponCubit()..getAllCoupons(),
-
       child: Builder(
         builder: (context) {
           return Scaffold(
-            backgroundColor:
-            AppColors.scaffoldColor,
+            backgroundColor: AppColors.scaffoldColor,
 
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(20),
-
                 child: RefreshIndicator(
                   color: AppColors.orangeColor,
-
                   onRefresh: () async {
-                    await context
-                        .read<CouponCubit>()
-                        .getAllCoupons();
+                    await context.read<CouponCubit>().getAllCoupons();
                   },
-
                   child: const ListViewAllCoupons(),
                 ),
               ),
             ),
 
-            floatingActionButton:
-            FloatingActionButton(
-              backgroundColor:
-              AppColors.orangeColor,
-
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: AppColors.orangeColor,
               onPressed: () async {
-                final result =
-                await showDialog<bool>(
+                final result = await showDialog<bool>(
                   context: context,
-                  barrierDismissible: false,
-
                   builder: (_) {
                     return BlocProvider.value(
-                      value:
-                      context.read<CouponCubit>(),
-
-                      child:
-                      const CreateCouponDialog(),
+                      value: context.read<CouponCubit>(),
+                      child: const CreateCouponDialog(),
                     );
                   },
                 );
@@ -66,12 +58,9 @@ class ViewAllCoupons extends StatelessWidget {
                 }
 
                 if (result == true) {
-                  await context
-                      .read<CouponCubit>()
-                      .getAllCoupons();
+                  await context.read<CouponCubit>().getAllCoupons();
                 }
               },
-
               child: const Icon(
                 Icons.add,
                 color: Colors.white,

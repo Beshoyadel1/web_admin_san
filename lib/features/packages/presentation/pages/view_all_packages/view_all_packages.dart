@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/packages/presentation/pages/page_details_packages/page_details_packages.dart';
 import 'package:web_admin_san/features/packages/presentation/pages/view_all_packages/create_package_dialog.dart';
 import '../../../../../../features/packages/presentation/pages/view_all_packages/list_view_all_packages.dart';
 import '../../../../../../core/theming/colors.dart';
@@ -36,22 +37,22 @@ class ViewAllPackages extends StatelessWidget {
 
             floatingActionButton: FloatingActionButton(
               backgroundColor: AppColors.orangeColor,
-             // shape: const CircleBorder(),
+
               onPressed: () async {
-                final result = await showDialog<bool>(
-                  context: context,
-                  builder: (_) {
-                    return BlocProvider.value(
+                final result = await Navigator.push<bool>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => BlocProvider.value(
                       value: context.read<PackagesCubit>(),
-                      child: const CreatePackageDialog(),
-                    );
-                  },
+                      child: const PageDetailsPackages(
+                        isCreateMode: true,
+                      ),
+                    ),
+                  ),
                 );
 
                 if (result == true && context.mounted) {
-                  await context
-                      .read<PackagesCubit>()
-                      .getPackages();
+                  await context.read<PackagesCubit>().getPackages();
                 }
               },
 

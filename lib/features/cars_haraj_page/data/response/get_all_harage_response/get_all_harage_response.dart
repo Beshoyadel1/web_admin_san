@@ -1,5 +1,7 @@
 import 'package:web_admin_san/features/cars_haraj_page/data/model/get_all_harage_model/harage_data.dart';
 
+import 'package:web_admin_san/features/cars_haraj_page/data/model/get_all_harage_model/harage_data.dart';
+
 class GetAllHarageResponse {
   final List<HarageData> data;
   final int pageCount;
@@ -16,26 +18,30 @@ class GetAllHarageResponse {
   factory GetAllHarageResponse.fromJson(
       Map<String, dynamic> json,
       ) {
-    final responseData =
-        json['data'] as Map<String, dynamic>? ?? {};
-
     return GetAllHarageResponse(
-      data: (responseData['data'] as List<dynamic>? ?? [])
+      data: json['data'] is List
+          ? (json['data'] as List)
+          .whereType<Map<String, dynamic>>()
           .map(
-            (e) => HarageData.fromJson(
-          e as Map<String, dynamic>,
-        ),
+            (e) => HarageData.fromJson(e),
       )
-          .toList(),
+          .toList()
+          : [],
 
       pageCount:
-      (responseData['pageCount'] ?? 0).toInt(),
+      (json['pageCount'] ?? 0) is num
+          ? (json['pageCount'] ?? 0).toInt()
+          : 0,
 
       totalCount:
-      (responseData['totalCount'] ?? 0).toInt(),
+      (json['totalCount'] ?? 0) is num
+          ? (json['totalCount'] ?? 0).toInt()
+          : 0,
 
       currentPage:
-      (responseData['currentPage'] ?? 1).toInt(),
+      (json['currentPage'] ?? 1) is num
+          ? (json['currentPage'] ?? 1).toInt()
+          : 1,
     );
   }
 }

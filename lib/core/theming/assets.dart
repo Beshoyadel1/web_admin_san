@@ -1,4 +1,6 @@
 class AppImageKeys {
+  static const String warranty = 'assets/images/warranty.png';
+
   static const String approved = 'assets/images/approved.png';
   static const String car = 'assets/images/car.png';
 

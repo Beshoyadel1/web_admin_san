@@ -9,9 +9,9 @@ import '../../../../../../core/pages_widgets/general_widgets/custom_container.da
 import '../../../../../../core/theming/colors.dart';
 
 
-class PageDetailsProvider extends StatelessWidget {
+class PageDetailsProviderHarag extends StatelessWidget {
   final int providerID;
-  const PageDetailsProvider({super.key,required this.providerID});
+  const PageDetailsProviderHarag({super.key,required this.providerID});
 
   @override
   Widget build(BuildContext context) {

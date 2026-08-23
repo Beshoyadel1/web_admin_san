@@ -4,13 +4,11 @@ import '../../../../../../core/theming/colors.dart';
 
 
 class PageDetailsCoupons extends StatelessWidget {
-  final String couponCode;
-  final int userId;
+  final int couponId;
 
   const PageDetailsCoupons({
     super.key,
-    required this.couponCode,
-    required this.userId,
+    required this.couponId,
   });
 
   @override
@@ -30,8 +28,7 @@ class PageDetailsCoupons extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: CouponDataView(
-          couponCode: couponCode,
-          userId: userId,
+          couponId: couponId,
         ),
       ),
     );

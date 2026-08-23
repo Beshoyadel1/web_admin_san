@@ -5,26 +5,33 @@ import 'package:web_admin_san/features/packages/presentation/pages/page_details_
 import '../../../../../../../features/packages/presentation/bloc/packages_cubit/packages_cubit.dart';
 
 class PackageDataContent extends StatelessWidget {
-  final int packageId;
+  final int? packageId;
+  final bool isCreateMode;
 
   const PackageDataContent({
     super.key,
-    required this.packageId,
+    this.packageId,
+    this.isCreateMode = false,
   });
 
   @override
-  Widget build(
-      BuildContext context,
-      ) {
+  Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => PackagesCubit()
-        ..getPackageById(
-          packageId: packageId,
-        ),
+      create: (_) {
+        final cubit = PackagesCubit();
+
+        if (!isCreateMode && packageId != null) {
+          cubit.getPackageById(
+            packageId: packageId!,
+          );
+        }
+
+        return cubit;
+      },
       child: PackageDataView(
         packageId: packageId,
+        isCreateMode: isCreateMode,
       ),
     );
   }
 }
-

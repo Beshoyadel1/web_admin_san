@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/features/packages/presentation/pages/page_details_packages/screens/package_data_content/package_data_view.dart';
-import 'package:web_admin_san/features/packages/presentation/pages/page_details_packages/screens/tabs_widget_details_packages.dart';
-import 'package:web_admin_san/features/providers/data/model/facility_provider_model/facility_model_provider/facility_model_provider.dart';
-import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/facility_tab_provider_cubit/facility_tab_provider_cubit.dart';
-import 'package:web_admin_san/features/providers/presentation/bloc/facility_provider_cubit/facility_tab_provider_cubit/facility_tab_provider_state.dart';
 import '../../../../../../core/theming/colors.dart';
-import '../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 
 
 class PageDetailsPackages extends StatelessWidget {
-  final int packageID;
-  const PageDetailsPackages({super.key,required this.packageID});
+  final int? packageID;
+  final bool isCreateMode;
+
+  const PageDetailsPackages({
+    super.key,
+    this.packageID,
+    this.isCreateMode = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
+      appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -26,9 +26,12 @@ class PageDetailsPackages extends StatelessWidget {
       ),
       backgroundColor: AppColors.scaffoldColor,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: PackageDataContent(packageId: packageID),
-      )
+        padding: const EdgeInsets.all(16),
+        child: PackageDataContent(
+          packageId: packageID,
+          isCreateMode: isCreateMode,
+        ),
+      ),
     );
   }
 }

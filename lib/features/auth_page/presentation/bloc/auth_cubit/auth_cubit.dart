@@ -76,7 +76,6 @@ class AuthCubit extends Cubit<AuthState> {
 
     final apiUser = result.user!;
 
-    // Local user must be exactly the same as API user
     if (!localUser.isSameData(apiUser)) {
       print("INIT => Local user != API user");
 
@@ -84,7 +83,6 @@ class AuthCubit extends Cubit<AuthState> {
       return;
     }
 
-    print("INIT => Local user == API user");
 
     // Connect SignalR
     if (!SignalRService.instance.isConnected) {

@@ -13,6 +13,7 @@ import 'package:web_admin_san/features/packages/presentation/pages/view_all_pack
 import 'package:web_admin_san/features/providers/presentation/pages/view_all_providers/view_all_provider.dart';
 import 'package:web_admin_san/features/rates/presentation/pages/view_all_provider_rates/view_all_provider_rates.dart';
 import 'package:web_admin_san/features/users/presentation/pages/view_all_users/view_all_users.dart';
+import 'package:web_admin_san/features/warranty/presentation/pages/view_all_warranty/view_all_warranty.dart';
 import '../../../core/general_models/pages_model.dart';
 import '../../../core/language/language_constant.dart';
 import '../../../core/theming/assets.dart';
@@ -231,6 +232,8 @@ class PagesOfAllApp {
   static const int viewAllPackagesNumber = 547;
   static const int viewAllCouponNumber = 548;
   static const int viewAllAdminsNumber = 549;
+  static const int viewAllWarrantyNumber = 550;
+
 }
 
 List<PageNodeModel> appPages = [];
@@ -385,6 +388,13 @@ Future<void> getPages() async {
         number: PagesOfAllApp.viewAllApprovedCentersNumber,
         image: AppImageKeys.approved,
         page: ViewAllApprovedCenters(),
+      ),
+    if (hasPermission(permissions.approvals))
+      const PageNodeModel(
+        name: AppLanguageKeys.warranty,
+        number: PagesOfAllApp.viewAllWarrantyNumber,
+        image: AppImageKeys.warranty,
+        page: ViewAllWarranty(),
       ),
 
     // ==========================================================

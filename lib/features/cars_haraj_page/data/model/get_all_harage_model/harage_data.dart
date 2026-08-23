@@ -1,29 +1,61 @@
 import '../../../../../../features/cars_haraj_page/data/model/get_all_harage_model/car_model.dart';
 import '../../../../../../features/cars_haraj_page/data/model/get_all_harage_model/user_model.dart';
+import '../../../../../../features/cars_haraj_page/data/model/get_all_harage_model/harage_status_model.dart';
+import '../../../../../../features/cars_haraj_page/data/model/get_all_harage_model/chat_harag_model.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 
 class HarageData {
   final int? id;
   final int? userid;
   final int? usertype;
+  final int? carid;
+  final int? carbrandid;
+  final int? carmodelid;
+
   final bool? isNew;
   final String? releaseDate;
+
   final int? transmissionType;
   final int? fuelType;
   final int? kilometers;
+
   final String? description;
   final String? addressText;
+
   final num? price;
   final num? cost;
+
+  final int? branchId;
+
   final bool? isSold;
+
+  final int? status;
+
+  final HarageStatusModel? currentStatus;
+
+  final List<HarageStatusModel> statusHistory;
+
   final int? commentsNumber;
   final String? sellDate;
+
   final UserModel? user;
   final CarModel? car;
+
+  final List<Uint8List> images;
+
+  // =========================
+  // CHATS
+  // =========================
+  final List<ChatHaragModel> chats;
 
   HarageData({
     this.id,
     this.userid,
     this.usertype,
+    this.carid,
+    this.carbrandid,
+    this.carmodelid,
     this.isNew,
     this.releaseDate,
     this.transmissionType,
@@ -33,66 +65,115 @@ class HarageData {
     this.addressText,
     this.price,
     this.cost,
+    this.branchId,
     this.isSold,
+    this.status,
+    this.currentStatus,
+    this.statusHistory = const [],
     this.commentsNumber,
     this.sellDate,
     this.user,
     this.car,
+    this.images = const [],
+    this.chats = const [],
   });
 
-  factory HarageData.fromJson(
-      Map<String, dynamic> json) {
-
+  factory HarageData.fromJson(Map<String, dynamic> json) {
     return HarageData(
-      id: json['id'] ?? 0,
+      id: json['id'],
+      userid: json['userid'],
+      usertype: json['usertype'],
 
-      userid: json['userid'] ?? 0,
+      carid: json['carid'],
+      carbrandid: json['carbrandid'],
+      carmodelid: json['carmodelid'],
 
-      usertype: json['usertype'] ?? 0,
+      isNew: json['isnew'],
 
-      isNew: json['isnew'] ?? false,
+      releaseDate: json['releasedate']?.toString(),
 
-      releaseDate:
-      json['releasedate']?.toString() ?? "",
+      transmissionType: json['transmissiontype'],
+      fuelType: json['fueltype'],
+      kilometers: json['kilometers'],
 
-      transmissionType:
-      json['transmissiontype'] ?? 0,
+      description: json['description']?.toString(),
+      addressText: json['addresstext']?.toString(),
 
-      fuelType:
-      json['fueltype'] ?? 0,
+      price: json['price'],
+      cost: json['cost'],
 
-      kilometers:
-      json['kilometers'] ?? 0,
+      branchId: json['branchid'],
 
-      description:
-      json['description']?.toString() ?? "",
+      isSold: json['issold'],
 
-      addressText:
-      json['addresstext']?.toString() ?? "",
+      status: json['status'],
 
-      price: json['price'] ?? 0,
+      // =========================
+      // CURRENT STATUS
+      // =========================
+      currentStatus: json['currentStatus'] is Map<String, dynamic>
+          ? HarageStatusModel.fromJson(
+        json['currentStatus'] as Map<String, dynamic>,
+      )
+          : null,
 
-      cost: json['cost'] ?? 0,
+      // =========================
+      // STATUS HISTORY
+      // =========================
+      statusHistory: json['statusHistory'] is List
+          ? (json['statusHistory'] as List)
+          .whereType<Map<String, dynamic>>()
+          .map(
+            (e) => HarageStatusModel.fromJson(e),
+      )
+          .toList()
+          : [],
 
-      isSold: json['issold'] ?? false,
+      commentsNumber: json['commentsnumber'],
 
-      commentsNumber:
-      json['commentsnumber'] ?? 0,
+      sellDate: json['selldate']?.toString(),
 
-      sellDate:
-      json['selldate']?.toString() ?? "",
-
-      user: json['user'] != null
+      // =========================
+      // USER
+      // =========================
+      user: json['user'] is Map<String, dynamic>
           ? UserModel.fromJson(
-          json['user']
-          as Map<String, dynamic>)
+        json['user'] as Map<String, dynamic>,
+      )
           : null,
 
-      car: json['car'] != null
+      // =========================
+      // CAR
+      // =========================
+      car: json['car'] is Map<String, dynamic>
           ? CarModel.fromJson(
-          json['car']
-          as Map<String, dynamic>)
+        json['car'] as Map<String, dynamic>,
+      )
           : null,
+
+      // =========================
+      // IMAGES
+      // =========================
+      images: json['images'] is List
+          ? (json['images'] as List)
+          .whereType<String>()
+          .map(
+            (image) => base64Decode(image),
+      )
+          .toList()
+          : [],
+
+      // =========================
+      // CHATS
+      // =========================
+      chats: json['chats'] is List
+          ? (json['chats'] as List)
+          .whereType<Map<String, dynamic>>()
+          .map(
+            (e) => ChatHaragModel.fromJson(e),
+      )
+          .toList()
+          : [],
     );
   }
 }

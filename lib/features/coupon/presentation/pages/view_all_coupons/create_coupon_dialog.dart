@@ -540,85 +540,144 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
   Future<void> _selectDate({
     required bool isStart,
   }) async {
-    final DateTime today = DateTime.now();
+    DateTime dateOnly(DateTime date) {
+      return DateTime(
+        date.year,
+        date.month,
+        date.day,
+      );
+    }
+
+    // =========================================================
+    // START DATE
+    // =========================================================
 
     if (isStart) {
-      // =========================================
-      // SELECT START DATE
-      // =========================================
+      final DateTime today = dateOnly(DateTime.now());
 
-      final picked = await showDatePicker(
+      final DateTime initialStartDate = startDate != null
+          ? dateOnly(startDate!)
+          : today;
+
+      final DateTime? pickedStartDate = await showDatePicker(
         context: context,
-        initialDate: startDate ?? today,
+        initialDate: initialStartDate,
         firstDate: DateTime(2020),
         lastDate: DateTime(2100),
       );
 
-      if (picked == null) {
+      if (pickedStartDate == null) {
         return;
       }
 
-      setState(() {
-        startDate = picked;
+      final DateTime newStartDate = dateOnly(pickedStartDate);
 
-        // If the new start date is after
-        // the existing end date, clear end date.
-        if (endDate != null &&
-            endDate!.isBefore(
-              picked,
-            )) {
-          endDate = null;
+      setState(() {
+        startDate = newStartDate;
+
+        // =====================================================
+        // VERY IMPORTANT
+        //
+        // If the current end date is now invalid,
+        // remove it.
+        // =====================================================
+
+        if (endDate != null) {
+          final DateTime currentEndDate = dateOnly(endDate!);
+
+          if (currentEndDate.isBefore(newStartDate)) {
+            endDate = null;
+          } else {
+            endDate = currentEndDate;
+          }
         }
       });
-    } else {
-      // =========================================
-      // SELECT END DATE
-      // =========================================
 
-      // If start date is not selected,
-      // don't allow selecting end date.
-      if (startDate == null) {
-        AppSnackBar.showError(
-          AppLanguageKeys.pleaseSelectStartDate,
-        );
-
-        return;
-      }
-
-      final DateTime firstEndDate = DateTime(
-        startDate!.year,
-        startDate!.month,
-        startDate!.day,
-      );
-
-      final picked = await showDatePicker(
-        context: context,
-
-        // Existing end date if valid,
-        // otherwise start date.
-        initialDate: endDate != null &&
-                !endDate!.isBefore(
-                  firstEndDate,
-                )
-            ? endDate!
-            : firstEndDate,
-
-        // IMPORTANT:
-        // End date cannot be before
-        // start date.
-        firstDate: firstEndDate,
-
-        lastDate: DateTime(2100),
-      );
-
-      if (picked == null) {
-        return;
-      }
-
-      setState(() {
-        endDate = picked;
-      });
+      return;
     }
+
+    // =========================================================
+    // END DATE
+    // =========================================================
+
+    if (startDate == null) {
+      AppSnackBar.showError(
+        AppLanguageKeys.pleaseSelectStartDate,
+      );
+
+      return;
+    }
+
+    // Always get the CURRENT start date.
+    final DateTime currentStartDate = dateOnly(startDate!);
+
+    // =========================================================
+    // IMPORTANT:
+    // If edit mode contains an old invalid end date,
+    // don't allow it to be used.
+    // =========================================================
+
+    DateTime? currentEndDate;
+
+    if (endDate != null) {
+      final DateTime tempEndDate = dateOnly(endDate!);
+
+      if (!tempEndDate.isBefore(currentStartDate)) {
+        currentEndDate = tempEndDate;
+      } else {
+        // Old end date is invalid.
+        // Clear it.
+        setState(() {
+          endDate = null;
+        });
+      }
+    }
+
+    // =========================================================
+    // INITIAL DATE
+    // =========================================================
+
+    final DateTime initialEndDate =
+        currentEndDate ?? currentStartDate;
+
+    // =========================================================
+    // END DATE PICKER
+    // =========================================================
+
+    final DateTime? pickedEndDate = await showDatePicker(
+      context: context,
+
+      // Never allow initial date before start date.
+      initialDate: initialEndDate,
+
+      // THIS IS THE ACTUAL RESTRICTION.
+      // User cannot select anything before startDate.
+      firstDate: currentStartDate,
+
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedEndDate == null) {
+      return;
+    }
+
+    final DateTime newEndDate = dateOnly(pickedEndDate);
+
+    // =========================================================
+    // FINAL SAFETY CHECK
+    // =========================================================
+
+    if (newEndDate.isBefore(currentStartDate)) {
+      AppSnackBar.showError(
+        AppLanguageKeys.endDateMustBeAfterStartDate,
+      );
+
+      return;
+    }
+
+    setState(() {
+      endDate = newEndDate;
+    });
   }
 
   // =========================================================
@@ -910,4 +969,5 @@ class _CreateCouponDialogState extends State<CreateCouponDialog> {
       ],
     );
   }
+
 }

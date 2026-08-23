@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
+import '../../../../../core/language/language_constant.dart';
+import '../../../../../core/theming/text_styles.dart';
 
 import '../../../../../core/theming/colors.dart';
 

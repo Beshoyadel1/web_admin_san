@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/coupon/data/request/get_coupon_statistics_request/get_coupon_statistics_request.dart';
 import 'package:web_admin_san/features/coupon/presentation/pages/page_details_coupons/screens/package_data_content/coupon_statistics_widget.dart';
 import '../../../../../../../core/language/language_constant.dart';
 import '../../../../../../../core/theming/colors.dart';
 import '../../../../../../../core/theming/fonts.dart';
 import '../../../../../../../core/theming/text_styles.dart';
-
 import '../../../../../../../features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
-
 import '../../../../../../../features/coupon/data/model/coupon_model/coupon_model.dart';
 import '../../../../../../../features/coupon/presentation/bloc/coupon_cubit/coupon_cubit.dart';
 import '../../../../../../../features/coupon/presentation/bloc/coupon_cubit/coupon_state.dart';
@@ -16,13 +15,11 @@ import '../../../../../../../features/coupon/presentation/custom_widget/coupon_d
 import '../../../../../../../features/coupon/presentation/custom_widget/coupon_status_widget.dart';
 
 class CouponsDataContent extends StatefulWidget {
-  final String couponCode;
-  final int userId;
+  final int couponId;
 
   const CouponsDataContent({
     super.key,
-    required this.couponCode,
-    required this.userId,
+    required this.couponId,
   });
 
   @override
@@ -43,9 +40,8 @@ class _CouponsDataContentState
       onRefresh: () async {
         _providersRequested = false;
 
-        await context.read<CouponCubit>().getCouponByCode(
-          couponCode: widget.couponCode,
-          userId: widget.userId,
+        await context.read<CouponCubit>().getCouponDetails(
+          couponId: widget.couponId,
         );
       },
 

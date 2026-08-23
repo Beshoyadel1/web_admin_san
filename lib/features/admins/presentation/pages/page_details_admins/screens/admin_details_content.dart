@@ -23,8 +23,13 @@ import 'package:web_admin_san/features/auth_page/presentation/pages/login_page/l
 import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 
 class AdminDetailsContent extends StatefulWidget {
+  final int? adminId;
+  final bool isCreateMode;
+
   const AdminDetailsContent({
     super.key,
+    this.adminId,
+    this.isCreateMode = false,
   });
 
   @override
@@ -32,21 +37,35 @@ class AdminDetailsContent extends StatefulWidget {
       _AdminDetailsContentState();
 }
 
-class _AdminDetailsContentState
-    extends State<AdminDetailsContent> {
+class _AdminDetailsContentState extends State<AdminDetailsContent> {
+  // ============================================================
+  // STATE
+  // ============================================================
 
   bool isEditMode = false;
   bool isActive = false;
+
+
   final _formKey = GlobalKey<FormState>();
+
+  // ============================================================
+  // CONTROLLERS
+  // ============================================================
+
   final idController = TextEditingController();
+
   final usernameController = TextEditingController();
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
+
   final jobNameController = TextEditingController();
   final jobLatinNameController = TextEditingController();
+
   final genderController = TextEditingController();
   final ageController = TextEditingController();
 
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   CreateUserRequest? originalAdmin;
 
@@ -72,16 +91,42 @@ class _AdminDetailsContentState
     'insurance': false,
   };
 
+  // ============================================================
+  // INIT
+  // ============================================================
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Create mode should immediately be editable.
+    if (widget.isCreateMode) {
+      isEditMode = true;
+      isActive = true;
+    }
+  }
+
+  // ============================================================
+  // DISPOSE
+  // ============================================================
+
   @override
   void dispose() {
     idController.dispose();
+
     usernameController.dispose();
     phoneController.dispose();
     emailController.dispose();
+
     jobNameController.dispose();
     jobLatinNameController.dispose();
+
     genderController.dispose();
     ageController.dispose();
+
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+
     super.dispose();
   }
 
@@ -91,16 +136,14 @@ class _AdminDetailsContentState
 
   void _loadAdmin(CreateUserRequest admin) {
     originalAdmin = admin;
-    idController.text=admin.userid.toString();
 
-    usernameController.text =
-        admin.username ?? '';
+    idController.text = admin.userid.toString();
 
-    phoneController.text =
-        admin.phone ?? '';
+    usernameController.text = admin.username ?? '';
 
-    emailController.text =
-        admin.email ?? '';
+    phoneController.text = admin.phone ?? '';
+
+    emailController.text = admin.email ?? '';
 
     genderController.text =
         admin.gender?.toString() ?? '';
@@ -113,7 +156,9 @@ class _AdminDetailsContentState
 
     jobLatinNameController.text =
         admin.adminDetails?.joblatinname ?? '';
+
     isActive = admin.isActive ?? false;
+
     final p = admin.adminDetails?.permissions;
 
     if (p != null) {
@@ -136,7 +181,123 @@ class _AdminDetailsContentState
   }
 
   // ============================================================
-  // UPDATE
+  // CREATE ADMIN
+  // ============================================================
+
+  void _createAdmin() {
+    final username = usernameController.text.trim();
+    final phone = phoneController.text.trim();
+    final email = emailController.text.trim();
+
+    final password = passwordController.text;
+    final confirmPassword = confirmPasswordController.text;
+
+    // ----------------------------------------------------------
+    // VALIDATION
+    // ----------------------------------------------------------
+
+    if (username.isEmpty) {
+      AppSnackBar.showError(
+        AppLanguageKeys.userName,
+      );
+      return;
+    }
+
+    if (email.isEmpty) {
+      AppSnackBar.showError(
+        AppLanguageKeys.email,
+      );
+      return;
+    }
+
+    if (phone.isEmpty) {
+      AppSnackBar.showError(
+        AppLanguageKeys.phoneNumber,
+      );
+      return;
+    }
+
+    if (password.isEmpty) {
+      AppSnackBar.showError(
+        AppLanguageKeys.password,
+      );
+      return;
+    }
+
+    if (confirmPassword.isEmpty) {
+      AppSnackBar.showError(
+        AppLanguageKeys.confirmPasswordKey,
+      );
+      return;
+    }
+
+    if (password != confirmPassword) {
+      AppSnackBar.showError(
+        AppLanguageKeys.passwordsDoNotMatch,
+      );
+      return;
+    }
+
+    // ----------------------------------------------------------
+    // PERMISSIONS
+    // ----------------------------------------------------------
+
+    AdminPermissionsRequest? permissionRequest;
+
+    permissionRequest = AdminPermissionsRequest(
+      adminid: 0,
+
+      statistic: permissions['statistic'] ?? false,
+      orders: permissions['orders'] ?? false,
+      providers: permissions['providers'] ?? false,
+      companies: permissions['companies'] ?? false,
+      users: permissions['users'] ?? false,
+      finances: permissions['finances'] ?? false,
+      packages: permissions['packages'] ?? false,
+      approvals: permissions['approvals'] ?? false,
+      ranks: permissions['ranks'] ?? false,
+      support: permissions['support'] ?? false,
+      admins: permissions['admins'] ?? false,
+      banners: permissions['banners'] ?? false,
+      coupons: permissions['coupons'] ?? false,
+      harage: permissions['harage'] ?? false,
+      insurance: permissions['insurance'] ?? false,
+    );
+
+    // ----------------------------------------------------------
+    // REQUEST
+    // ----------------------------------------------------------
+
+    final request = CreateUserRequest(
+      username: username,
+      phone: phone,
+      email: email,
+      password: password,
+      type: 6,
+      isActive: true,
+
+      adminDetails: AdminDetailsRequest(
+        permissions: permissionRequest,
+      ),
+    );
+
+    debugPrint(
+      '========== ADMIN CREATE REQUEST ==========',
+    );
+
+    debugPrint(
+      jsonEncode(
+        request.toJson(),
+      ),
+    );
+
+    context.read<AdminsCubit>().createAdmin(
+      request,
+    );
+  }
+
+  // ============================================================
+  // UPDATE ADMIN
   // ============================================================
 
   void _updateAdmin() {
@@ -168,7 +329,9 @@ class _AdminDetailsContentState
       userid: admin.userid,
 
       username: usernameController.text.trim(),
+
       phone: phoneController.text.trim(),
+
       email: emailController.text.trim(),
 
       gender: int.tryParse(
@@ -182,23 +345,34 @@ class _AdminDetailsContentState
       type: 6,
 
       nationality: admin.nationality,
+
       isActive: isActive,
+
       joinDate: admin.joinDate,
+
       referralCode: admin.referralCode,
+
       image: admin.image,
+
       fcmToken: admin.fcmToken,
+
       currentCarId: admin.currentCarId,
 
       adminDetails: AdminDetailsRequest(
         id: admin.adminDetails?.id,
-        jobname: jobNameController.text.trim(),
-        joblatinname: jobLatinNameController.text.trim(),
+
+        jobname:
+        jobNameController.text.trim(),
+
+        joblatinname:
+        jobLatinNameController.text.trim(),
+
         permissions: permissionRequest,
       ),
     );
 
     debugPrint(
-        '========== ADMIN UPDATE REQUEST =========='
+      '========== ADMIN UPDATE REQUEST ==========',
     );
 
     debugPrint(
@@ -213,7 +387,7 @@ class _AdminDetailsContentState
   }
 
   // ============================================================
-  // CANCEL
+  // CANCEL EDIT
   // ============================================================
 
   void _cancelEdit() {
@@ -234,31 +408,38 @@ class _AdminDetailsContentState
 
   @override
   Widget build(BuildContext context) {
-    return  MultiBlocListener(
+    return MultiBlocListener(
       listeners: [
+        // ======================================================
+        // GET ADMIN
+        // ======================================================
 
-        // ================= GET ADMIN =================
+        if (!widget.isCreateMode)
+          BlocListener<GetUserInfoCubit, GetUserInfoState>(
+            listener: (context, state) {
+              if (state is GetUserInfoSuccess) {
+                setState(() {
+                  _loadAdmin(state.user);
+                });
+              }
 
-        BlocListener<GetUserInfoCubit, GetUserInfoState>(
-          listener: (context, state) {
-            if (state is GetUserInfoSuccess) {
-              setState(() {
-                _loadAdmin(state.user);
-              });
-            }
+              if (state is GetUserInfoError) {
+                AppSnackBar.showError(
+                  state.message,
+                );
+              }
+            },
+          ),
 
-            if (state is GetUserInfoError) {
-              AppSnackBar.showError(
-                state.message,
-              );
-            }
-          },
-        ),
-
-        // ================= UPDATE ADMIN =================
+        // ======================================================
+        // ADMIN ACTIONS
+        // ======================================================
 
         BlocListener<AdminsCubit, AdminsState>(
           listener: (context, state) {
+            // --------------------------------------------------
+            // UPDATE SUCCESS
+            // --------------------------------------------------
 
             if (state is AdminsUpdateSuccess) {
               AppSnackBar.showSuccess(
@@ -268,13 +449,38 @@ class _AdminDetailsContentState
               setState(() {
                 isEditMode = false;
               });
-
-              // Optional:
-              // reload admin after update
-              // context.read<GetUserInfoCubit>().getUserInfo(...);
             }
 
+            // --------------------------------------------------
+            // CREATE SUCCESS
+            // --------------------------------------------------
+
+            if (state is AdminsCreateSuccess) {
+              AppSnackBar.showSuccess(
+                AppLanguageKeys.success,
+              );
+
+              Navigator.pop(
+                context,
+                true,
+              );
+            }
+
+            // --------------------------------------------------
+            // UPDATE ERROR
+            // --------------------------------------------------
+
             if (state is AdminsUpdateError) {
+              AppSnackBar.showError(
+                state.error,
+              );
+            }
+
+            // --------------------------------------------------
+            // CREATE ERROR
+            // --------------------------------------------------
+
+            if (state is AdminsCreateError) {
               AppSnackBar.showError(
                 state.error,
               );
@@ -283,44 +489,67 @@ class _AdminDetailsContentState
         ),
       ],
 
-      child: BlocBuilder<GetUserInfoCubit, GetUserInfoState>(
-        builder: (context, state) {
-
-          if (state is GetUserInfoLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          if (state is GetUserInfoError) {
-            return Center(
-              child: Text(
-                state.message,
-              ),
-            );
-          }
-
-          if (state is GetUserInfoSuccess) {
-            final isUpdating =
-            context.watch<AdminsCubit>().state
-            is AdminsUpdateLoading;
-
-            return _buildContent(
-              isUpdating,
-            );
-          }
-
-          return const SizedBox();
-        },
-      ),
+      child: widget.isCreateMode
+          ? _buildCreateContent()
+          : _buildViewContent(),
     );
   }
 
   // ============================================================
-  // CONTENT
+  // VIEW / EDIT CONTENT
   // ============================================================
 
-  Widget _buildContent(bool isLoading) {
+  Widget _buildViewContent() {
+    return BlocBuilder<GetUserInfoCubit, GetUserInfoState>(
+      builder: (context, state) {
+        if (state is GetUserInfoLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (state is GetUserInfoError) {
+          return Center(
+            child: Text(
+              state.message,
+            ),
+          );
+        }
+
+        if (state is GetUserInfoSuccess) {
+          final isLoading =
+          context.watch<AdminsCubit>().state
+          is AdminsUpdateLoading;
+
+          return _buildEditViewContent(
+            isLoading,
+          );
+        }
+
+        return const SizedBox();
+      },
+    );
+  }
+
+  // ============================================================
+  // CREATE CONTENT
+  // ============================================================
+
+  Widget _buildCreateContent() {
+    final isLoading =
+    context.watch<AdminsCubit>().state
+    is AdminsCreateLoading;
+
+    return _buildCreateForm(
+      isLoading,
+    );
+  }
+
+  // ============================================================
+  // CREATE FORM
+  // ============================================================
+
+  Widget _buildCreateForm(bool isLoading) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
 
@@ -332,7 +561,182 @@ class _AdminDetailsContentState
           CrossAxisAlignment.start,
 
           children: [
+            // ==================================================
+            // BASIC DATA
+            // ==================================================
 
+            Wrap(
+              spacing: 15,
+              runSpacing: 15,
+
+              children: [
+                // USERNAME
+                UserTextFieldWidget(
+                  controller: usernameController,
+                  text: AppLanguageKeys.userName,
+                  type: UserFieldType.name,
+                  readOnly: false,
+                  width: 250,
+                ),
+
+                // EMAIL
+                UserTextFieldWidget(
+                  controller: emailController,
+                  text: AppLanguageKeys.email,
+                  type: UserFieldType.email,
+                  readOnly: false,
+                  width: 250,
+                ),
+
+                // PHONE
+                UserTextFieldWidget(
+                  controller: phoneController,
+                  text: AppLanguageKeys.phoneNumber,
+                  type: UserFieldType.phone,
+                  readOnly: false,
+                  width: 250,
+                ),
+
+                // PASSWORD
+                UserTextFieldWidget(
+                  controller: passwordController,
+                  text: 'Password',
+                  type: UserFieldType.password,
+                  readOnly: false,
+                  width: 250,
+                ),
+
+                // CONFIRM PASSWORD
+                UserTextFieldWidget(
+                  controller: confirmPasswordController,
+                  text: 'Confirm Password',
+                  type: UserFieldType.password,
+                  readOnly: false,
+                  width: 250,
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 30),
+
+
+            // ==================================================
+            // PERMISSIONS
+            // ==================================================
+
+            const SizedBox(height: 25),
+
+            const TextInAppWidget(
+              text: AppLanguageKeys.permissionsKey,
+              textSize: 16,
+              textColor: AppColors.blackColor,
+            ),
+
+            const SizedBox(height: 15),
+
+            _buildCreatePermissions(),
+
+            const SizedBox(height: 30),
+
+            // ==================================================
+            // BUTTONS
+            // ==================================================
+
+            Row(
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                    AppColors.orangeColor,
+                  ),
+
+                  onPressed: isLoading
+                      ? null
+                      : _createAdmin,
+
+                  child: isLoading
+                      ? const SizedBox(
+                    width: 18,
+                    height: 18,
+                    child:
+                    CircularProgressIndicator(
+                      strokeWidth: 2,
+                    ),
+                  )
+                      : const TextInAppWidget(
+                    text: AppLanguageKeys.create,
+                    textSize: 13,
+                    textColor:
+                    AppColors.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ============================================================
+  // ACCESS SWITCH
+  // ============================================================
+
+
+  // ============================================================
+  // CREATE PERMISSIONS
+  // ============================================================
+
+  Widget _buildCreatePermissions() {
+    final entries =
+    permissions.entries.toList();
+
+    return Wrap(
+      spacing: 20,
+      runSpacing: 20,
+
+      children: entries.map((entry) {
+        return CustomAdminPermissionWidget(
+          permissionKey: entry.key,
+
+          text: _permissionName(
+            entry.key,
+          ),
+
+          isChecked: entry.value,
+
+          readOnly: false,
+
+          onTap: () {
+            setState(() {
+              permissions[entry.key] =
+              !(permissions[entry.key] ?? false);
+            });
+          },
+        );
+      }).toList(),
+    );
+  }
+
+  // ============================================================
+  // EDIT / VIEW CONTENT
+  // ============================================================
+
+  Widget _buildEditViewContent(
+      bool isLoading,
+      ) {
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+
+      child: Form(
+        key: _formKey,
+
+        child: Column(
+          crossAxisAlignment:
+          CrossAxisAlignment.start,
+
+          children: [
             // ==================================================
             // BASIC DATA
             // ==================================================
@@ -349,6 +753,7 @@ class _AdminDetailsContentState
                   readOnly: true,
                   width: 250,
                 ),
+
                 UserTextFieldWidget(
                   controller: usernameController,
                   text: AppLanguageKeys.userName,
@@ -404,19 +809,24 @@ class _AdminDetailsContentState
                   readOnly: !isEditMode,
                   width: 250,
                 ),
+
                 UserTextFieldWidget(
                   controller: TextEditingController(
-                    text: OrderFunctions.formatDateFromDateTime(originalAdmin?.joinDate),
+                    text:
+                    OrderFunctions
+                        .formatDateFromDateTime(
+                      originalAdmin?.joinDate,
+                    ),
                   ),
                   text: AppLanguageKeys.joiningDate,
                   type: UserFieldType.name,
                   readOnly: true,
                   width: 250,
                 ),
+
                 _buildStatus(),
               ],
             ),
-
 
             const SizedBox(height: 30),
 
@@ -446,7 +856,6 @@ class _AdminDetailsContentState
 
             Row(
               children: [
-
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
@@ -456,7 +865,6 @@ class _AdminDetailsContentState
                   onPressed: isLoading
                       ? null
                       : () {
-
                     // VIEW -> EDIT
                     if (!isEditMode) {
                       setState(() {
@@ -518,46 +926,69 @@ class _AdminDetailsContentState
   }
 
   // ============================================================
-  // PERMISSIONS UI
+  // VIEW / EDIT PERMISSIONS
   // ============================================================
 
   Widget _buildPermissions() {
-    final entries = permissions.entries.toList();
+    final entries =
+    permissions.entries.toList();
 
     final visiblePermissions = isEditMode
         ? entries
-        : entries.where((entry) => entry.value).toList();
+        : entries
+        .where(
+          (entry) => entry.value,
+    )
+        .toList();
 
     if (visiblePermissions.isEmpty) {
       return const TextInAppWidget(
-        text: AppLanguageKeys.noPermissionsAssigned,
+        text:
+        AppLanguageKeys.noPermissionsAssigned,
         textSize: 13,
-        textColor: AppColors.greyColor,
+        textColor:
+        AppColors.greyColor,
       );
     }
 
     return Wrap(
       spacing: 20,
       runSpacing: 20,
-      children: visiblePermissions.map((entry) {
+
+      children:
+      visiblePermissions.map((entry) {
         return CustomAdminPermissionWidget(
           permissionKey: entry.key,
-          text: _permissionName(entry.key),
+
+          text: _permissionName(
+            entry.key,
+          ),
+
           isChecked: entry.value,
+
           readOnly: !isEditMode,
+
           onTap: () {
             if (!isEditMode) return;
 
             setState(() {
               permissions[entry.key] =
-              !(permissions[entry.key] ?? false);
+              !(permissions[entry.key] ??
+                  false);
             });
           },
         );
       }).toList(),
     );
   }
-  String _permissionName(String key) {
+
+  // ============================================================
+  // PERMISSION NAME
+  // ============================================================
+
+  String _permissionName(
+      String key,
+      ) {
     switch (key) {
       case 'statistic':
         return AppLanguageKeys.statistics;
@@ -608,35 +1039,60 @@ class _AdminDetailsContentState
         return key;
     }
   }
+
+  // ============================================================
+  // STATUS
+  // ============================================================
+
   Widget _buildStatus() {
-    return  Column(
-      spacing: 10,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment:
+      CrossAxisAlignment.start,
+
       children: [
         const TextInAppWidget(
           text: AppLanguageKeys.status,
           textSize: 15,
-          textColor: AppColors.blackColor,
-          fontWeightIndex: FontSelectionData.regularFontFamily,
+          textColor:
+          AppColors.blackColor,
+          fontWeightIndex:
+          FontSelectionData
+              .regularFontFamily,
         ),
+
+        const SizedBox(height: 10),
+
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10,),
+          padding:
+          const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 10,
+          ),
+
           decoration: BoxDecoration(
-            color: AppColors.whiteColor,
-            borderRadius: BorderRadius.circular(10),
+            color:
+            AppColors.whiteColor,
+
+            borderRadius:
+            BorderRadius.circular(10),
+
             border: Border.all(
-              color
-                  : AppColors.darkGreyColor,
+              color:
+              AppColors.darkGreyColor,
             ),
           ),
+
           child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
+            crossAxisAlignment:
+            WrapCrossAlignment.center,
+
             runSpacing: 10,
-            alignment: WrapAlignment.start,
             spacing: 10,
+
             children: [
               Switch(
                 value: isActive,
+
                 onChanged: !isEditMode
                     ? null
                     : (value) {
@@ -645,18 +1101,21 @@ class _AdminDetailsContentState
                   });
                 },
               ),
+
               TextInAppWidget(
                 text: isActive
                     ? AppLanguageKeys.active
                     : AppLanguageKeys.inactive,
+
                 textSize: 14,
+
                 textColor: isActive
                     ? Colors.green
                     : Colors.red,
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

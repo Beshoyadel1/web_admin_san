@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/get_harage_providers_cubit/get_harage_providers_cubit.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/get_harage_providers_cubit/get_harage_providers_state.dart';
+
+import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/harag_cubit/harag_cubit.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/harag_cubit/harag_state.dart';
+
 import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_list_harag.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_harag/page_details_harag.dart';
 import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/page_details_provider_harag.dart';
-import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 import 'package:web_admin_san/features/order_services/presentation/custom_widget/app_pagination.dart';
 
@@ -16,23 +19,25 @@ class ListViewCarHarag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetHarageProvidersCubit, GetHarageProvidersState>(
+    return BlocBuilder<HaragCubit, HaragState>(
       builder: (context, state) {
-        if (state is GetHarageProvidersLoading) {
+        if (state is HaragLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (state is GetHarageProvidersError) {
+
+        if (state is HaragError) {
           return Center(
-            child: Text(
-              state.error,
-            ),
+            child: Text(state.message),
           );
         }
 
-        if (state is GetHarageProvidersSuccess) {
-          if (state.providers.isEmpty) {
+        if (state is HaragSuccess) {
+          final response = state.response;
+          final data = response.data;
+
+          if (data.isEmpty) {
             return const Center(
               child: TextEmptyViewData(),
             );
@@ -45,36 +50,31 @@ class ListViewCarHarag extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.separated(
-                    itemCount: state.providers.length,
-                    separatorBuilder: (_, __) => const SizedBox(
-                      height: 20,
-                    ),
+                    itemCount: data.length,
+                    separatorBuilder: (_, __) {
+                      return const SizedBox(
+                        height: 20,
+                      );
+                    },
                     itemBuilder: (context, index) {
-                      final providers = state.providers[index];
+                      final harag = data[index];
 
                       return WidgetDesignListHarag(
-                        providerId: providers.providerId.toString(),
-                        name: providers.name ?? '',
+                        haragId: harag.id?.toString() ?? '-',
+                        name: harag.user?.getName(context) ?? '-',
                         nameButton: AppLanguageKeys.details,
-                        image: providers.image,
-                        totalCars: providers.totalCars.toString(),
-                        isActive: providers.isActive,
-                        lastOrderDate: providers.lastAddedDate != null
-                            ? OrderFunctions.formatDateFromDateTime(
-                          providers.lastAddedDate,
-                        )
-                            : '-',
-                        joiningDate: providers.joinDate != null
-                            ? OrderFunctions.formatDateFromDateTime(
-                          providers.joinDate,
-                        )
-                            : '-',
+                        image: harag.car?.carImage ?? harag.user?.image,
+                        kilometers: harag.kilometers?.toString() ?? '0',
+                        isNew: harag.isNew,
+                        releaseDate: harag.releaseDate ?? '-',
+                        isSold: harag.isSold,
+                        sellDate: harag.sellDate ?? '-',
                         onTabDetails: () {
                           Navigator.push(
                             context,
                             NavigateToPageWidget(
-                              PageDetailsProvider(
-                                providerID: providers.providerId??5,
+                              PageDetailsHarag(
+                                harageId: harag.id ?? 0,
                               ),
                             ),
                           );
@@ -83,11 +83,16 @@ class ListViewCarHarag extends StatelessWidget {
                     },
                   ),
                 ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+
                 AppPagination(
-                  currentPage: state.currentPage,
-                  totalPages: state.pageCount,
+                  currentPage: response.currentPage,
+                  totalPages: response.pageCount,
                   onPageChanged: (page) {
-                    context.read<GetHarageProvidersCubit>().getAllHarahProviders(
+                    context.read<HaragCubit>().getAllHarages(
                       currentPage: page,
                     );
                   },
@@ -95,7 +100,6 @@ class ListViewCarHarag extends StatelessWidget {
               ],
             ),
           );
-
         }
 
         return const SizedBox();

@@ -10,14 +10,16 @@ import 'package:web_admin_san/features/auth_page/data/request/get_user_inf_reque
 import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info_cubit/get_user_info_cubit.dart';
 
 class PageDetailsAdmin extends StatelessWidget {
-  final int adminId;
+  final int? adminId;
 
   const PageDetailsAdmin({
     super.key,
-    required this.adminId,
+    this.adminId,
   });
 
   static const int adminUserType = 6;
+
+  bool get isCreateMode => adminId == null;
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +28,19 @@ class PageDetailsAdmin extends StatelessWidget {
 
       appBar: AppBar(
         backgroundColor: AppColors.scaffoldColor,
-
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
             color: AppColors.blackColor,
           ),
           onPressed: () {
-            Navigator.pop(context, true);
+            Navigator.pop(context,true);
           },
         ),
-
-        title: const TextInAppWidget(
-          text: AppLanguageKeys.adminDetails,
+        title: TextInAppWidget(
+          text: isCreateMode
+              ? AppLanguageKeys.create
+              : AppLanguageKeys.adminDetails,
           textSize: 15,
           textColor: AppColors.blackColor,
         ),
@@ -46,22 +48,27 @@ class PageDetailsAdmin extends StatelessWidget {
 
       body: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (_) => GetUserInfoCubit()
-              ..getUserInfo(
-                request: GetUserInfoRequest(
-                  userId: adminId,
-                  userType: adminUserType,
+
+          if (!isCreateMode)
+            BlocProvider(
+              create: (_) => GetUserInfoCubit()
+                ..getUserInfo(
+                  request: GetUserInfoRequest(
+                    userId: adminId!,
+                    userType: adminUserType,
+                  ),
                 ),
-              ),
-          ),
+            ),
 
           BlocProvider(
             create: (_) => AdminsCubit(),
           ),
         ],
 
-        child: const AdminDetailsContent(),
+        child: AdminDetailsContent(
+          adminId: adminId,
+          isCreateMode: isCreateMode,
+        ),
       ),
     );
   }

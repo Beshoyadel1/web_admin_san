@@ -7,25 +7,22 @@ import 'package:web_admin_san/features/packages/presentation/pages/page_details_
 import '../../../../../../../features/packages/presentation/bloc/packages_cubit/packages_cubit.dart';
 
 class CouponDataView extends StatelessWidget {
-  final String couponCode;
-  final int userId;
+  final int couponId;
 
   const CouponDataView({
     super.key,
-    required this.couponCode,
-    required this.userId,
+    required this.couponId,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => CouponCubit()
-        ..getCouponByCode(
-          couponCode: couponCode,
-          userId: userId,
+        ..getCouponDetails(
+          couponId:couponId
         ),
       child: CouponsDataContent(
-        couponCode: couponCode, userId: userId,
+        couponId: couponId,
       ),
     );
   }

@@ -102,3 +102,11 @@ class CouponFailure extends CouponState {
     required this.message,
   });
 }
+class CouponGetDetailsSuccess extends CouponState {
+  final CouponWithProviderModel coupon;
+
+  const CouponGetDetailsSuccess({
+    required this.coupon,
+  });
+}
+

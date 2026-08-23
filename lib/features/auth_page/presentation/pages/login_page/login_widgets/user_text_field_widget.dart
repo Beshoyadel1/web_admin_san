@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
-import '../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
 import '../../../../../../core/language/language_constant.dart';
 import '../../../../../../core/theming/text_styles.dart';
 import '../../../../../../core/pages_widgets/text_form_field_widget.dart';
@@ -28,194 +25,203 @@ class UserTextFieldWidget extends StatelessWidget {
     this.type = UserFieldType.normal,
     this.readOnly = false,
     this.width,
+    this.height = 40,
     this.maxLines,
-
-    // NEW
     this.borderColor,
     this.fillColor,
     this.focusedBorderColor,
+
+    // ⭐ New
+    this.digitOnly = false,
   });
 
   final TextEditingController controller;
   final String? text;
   final UserFieldType type;
   final bool readOnly;
+
   final double? width;
+  final double? height;
   final int? maxLines;
 
-  // NEW
   final Color? borderColor;
   final Color? fillColor;
   final Color? focusedBorderColor;
 
+  final bool digitOnly;
+
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = MediaQuery.of(context).size.width < 600;
+    final bool isMobile =
+        MediaQuery.of(context).size.width < 600;
 
-    final Color finalBorderColor =
-        borderColor ?? AppColors.darkGreyColor;
-
-    final Color finalFillColor =
-        fillColor ?? AppColors.whiteColor;
-
-    final Color finalFocusedBorderColor =
-        focusedBorderColor ?? finalBorderColor;
+    final fieldHeight = height ?? 40;
 
     Widget child;
 
-    // ============================================================
-    // PHONE
-    // ============================================================
+    switch (type) {
+      case UserFieldType.phone:
+        if (readOnly) {
+          child = TextFormFieldWidget(
+            textFormController: controller,
+            text: text ?? "",
+            isColumn: true,
+            readOnly: true,
+            textSize: 16,
+            borderColor:
+            borderColor ?? AppColors.darkGreyColor,
+            fillColor:
+            fillColor ?? AppColors.whiteColor,
+            textFormHeight: fieldHeight,
+            maxLines: 1,
+            isDigit: true,
+          );
+        } else {
+          child = PhoneTextField(
+            controller: controller,
+            aboveText: text,
+            height: fieldHeight,
+            borderColor:
+            borderColor ?? AppColors.darkGreyColor,
+            fillColor:
+            fillColor ?? AppColors.whiteColor,
+            focusedBorderColor:
+            focusedBorderColor ??
+                borderColor ??
+                AppColors.darkGreyColor,
+          );
+        }
+        break;
 
-    if (type == UserFieldType.phone) {
-      if (readOnly) {
+    // =========================================================
+    // GENDER
+    // =========================================================
+      case UserFieldType.gender:
+        child = GenderField(
+          controller: controller,
+          text: text,
+          readOnly: readOnly,
+          borderColor:
+          borderColor ?? AppColors.darkGreyColor,
+          fillColor:
+          fillColor ?? AppColors.whiteColor,
+        );
+        break;
+
+    // =========================================================
+    // PASSWORD
+    // =========================================================
+      case UserFieldType.password:
         child = TextFormFieldWidget(
           textFormController: controller,
           text: text ?? "",
           isColumn: true,
-          readOnly: true,
+          readOnly: readOnly,
           textSize: 16,
-          borderColor: finalBorderColor,
-          fillColor: finalFillColor,
-          textFormHeight: maxLines != null && maxLines! > 1
-              ? 120
-              : 35,
+          borderColor:
+          borderColor ?? AppColors.darkGreyColor,
+          fillColor:
+          fillColor ?? AppColors.whiteColor,
+          textFormHeight: fieldHeight,
+          maxLines: 1,
+          isDigit: false,
+          obscureText: true,
+        );
+        break;
+
+    // =========================================================
+    // NUMBER
+    // =========================================================
+      case UserFieldType.number:
+        child = TextFormFieldWidget(
+          textFormController: controller,
+          text: text ?? "",
+          isColumn: true,
+          readOnly: readOnly,
+          textSize: 16,
+          borderColor:
+          borderColor ?? AppColors.darkGreyColor,
+          fillColor:
+          fillColor ?? AppColors.whiteColor,
+          textFormHeight: fieldHeight,
+          maxLines: 1,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          isDigit: true,
+        );
+        break;
+
+    // =========================================================
+    // EMAIL
+    // =========================================================
+      case UserFieldType.email:
+        child = TextFormFieldWidget(
+          textFormController: controller,
+          text: text ?? "",
+          isColumn: true,
+          readOnly: readOnly,
+          textSize: 16,
+          borderColor:
+          borderColor ?? AppColors.darkGreyColor,
+          fillColor:
+          fillColor ?? AppColors.whiteColor,
+          textFormHeight: fieldHeight,
+          maxLines: 1,
+          isDigit: false,
+        );
+        break;
+
+    // =========================================================
+    // NAME
+    // =========================================================
+      case UserFieldType.name:
+        child = TextFormFieldWidget(
+          textFormController: controller,
+          text: text ?? "",
+          isColumn: true,
+          readOnly: readOnly,
+          textSize: 16,
+          borderColor:
+          borderColor ?? AppColors.darkGreyColor,
+          fillColor:
+          fillColor ?? AppColors.whiteColor,
+          textFormHeight: fieldHeight,
+          maxLines: 1,
+          isDigit: false,
+        );
+        break;
+
+    // =========================================================
+    // NORMAL
+    // =========================================================
+      case UserFieldType.normal:
+        child = TextFormFieldWidget(
+          textFormController: controller,
+          text: text ?? "",
+          isColumn: true,
+          readOnly: readOnly,
+          textSize: 16,
+          borderColor:
+          borderColor ?? AppColors.darkGreyColor,
+          fillColor:
+          fillColor ?? AppColors.whiteColor,
+          textFormHeight: fieldHeight,
           maxLines: maxLines ?? 1,
+          inputFormatters: digitOnly
+              ? [
+            FilteringTextInputFormatter.digitsOnly,
+          ]
+              : null,
+          isDigit: digitOnly,
         );
-      } else {
-        child = PhoneTextField(
-          controller: controller,
-          aboveText: text,
-          borderColor: finalBorderColor,
-          fillColor: finalFillColor,
-          focusedBorderColor: finalFocusedBorderColor,
-        );
-      }
-    }
-
-    // ============================================================
-    // GENDER
-    // ============================================================
-
-    else if (type == UserFieldType.gender) {
-      child = GenderField(
-        controller: controller,
-        text: text,
-        readOnly: readOnly,
-        borderColor: finalBorderColor,
-        fillColor: finalFillColor,
-      );
-    }
-
-    // ============================================================
-    // PASSWORD
-    // ============================================================
-
-    else if (type == UserFieldType.password) {
-      child = BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          final cubit = context.read<AuthCubit>();
-
-          final isConfirm =
-              text == AppLanguageKeys.confirmPasswordKey;
-
-          final isVisible = isConfirm
-              ? cubit.isConfirmPasswordVisible
-              : cubit.isPasswordVisible;
-
-          return TextFormFieldWidget(
-            textFormController: controller,
-            text: text ?? "",
-            isColumn: true,
-            readOnly: readOnly,
-            textSize: 16,
-
-            // COLORS
-            borderColor: finalBorderColor,
-            fillColor: finalFillColor,
-
-            obscureText: !isVisible,
-
-            textFormHeight:
-            maxLines != null && maxLines! > 1 ? 120 : 35,
-
-            maxLines: maxLines ?? 1,
-
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return AppLanguageKeys.enterYourData;
-              }
-
-              return null;
-            },
-
-            suffixIcon: isVisible
-                ? Icons.visibility
-                : Icons.visibility_off,
-
-            suffixOnPressed: () {
-              if (isConfirm) {
-                cubit.toggleConfirmPasswordVisibility();
-              } else {
-                cubit.togglePasswordVisibility();
-              }
-            },
-          );
-        },
-      );
-    }
-
-    // ============================================================
-    // NORMAL / EMAIL / NAME / NUMBER
-    // ============================================================
-
-    else {
-      child = TextFormFieldWidget(
-        textFormController: controller,
-        text: text ?? "",
-        isColumn: true,
-        readOnly: readOnly,
-        textSize: 16,
-
-        // COLORS
-        borderColor: finalBorderColor,
-        fillColor: finalFillColor,
-
-        textFormHeight:
-        maxLines != null && maxLines! > 1 ? 120 : 35,
-
-        maxLines: maxLines ?? 1,
-
-        isDigit: type == UserFieldType.number,
-
-        validator: (value) {
-          if (value == null || value.trim().isEmpty) {
-            return AppLanguageKeys.enterYourData;
-          }
-
-          if (type == UserFieldType.email) {
-            final emailRegex = RegExp(
-              r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-            );
-
-            if (!emailRegex.hasMatch(value.trim())) {
-              return "invalid_email";
-            }
-          }
-
-          if (type == UserFieldType.number) {
-            if (!RegExp(r'^\d+$').hasMatch(value.trim())) {
-              return "invalid_number";
-            }
-          }
-
-          return null;
-        },
-      );
+        break;
     }
 
     return SizedBox(
-      width: width ?? (isMobile ? double.infinity : 500),
+      width: isMobile
+          ? double.infinity
+          : (width ?? 500),
       child: child,
     );
   }
@@ -337,7 +343,7 @@ class PhoneTextField extends StatelessWidget {
     required this.controller,
     this.aboveText,
     this.isReadOnly = false,
-
+    this.height,
     // NEW
     this.borderColor = AppColors.darkGreyColor,
     this.fillColor = AppColors.whiteColor,
@@ -347,6 +353,7 @@ class PhoneTextField extends StatelessWidget {
   final TextEditingController controller;
   final String? aboveText;
   final bool isReadOnly;
+  final double? height;
 
   final Color borderColor;
   final Color fillColor;
@@ -354,9 +361,19 @@ class PhoneTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // الرقم الموجود بالفعل في controller
+    final String phoneValue = controller.text.trim();
+
+    // IntlPhoneField يحتاج + في initialValue
+    final String? initialPhone = phoneValue.isEmpty
+        ? null
+        : phoneValue.startsWith('+')
+        ? phoneValue
+        : '+$phoneValue';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
         if (aboveText != null)
           Padding(
             padding: const EdgeInsets.only(bottom: 6),
@@ -367,8 +384,10 @@ class PhoneTextField extends StatelessWidget {
           ),
 
         SizedBox(
-          height: 60,
+          height: (height!+20),
           child: IntlPhoneField(
+            initialValue: initialPhone,
+
             initialCountryCode: 'SA',
             disableLengthCheck: false,
             readOnly: isReadOnly,
@@ -416,7 +435,6 @@ class PhoneTextField extends StatelessWidget {
 
             flagsButtonPadding: const EdgeInsets.only(left: 6, right: 4),
             dropdownIconPosition: IconPosition.trailing,
-
             dropdownIcon: const Icon(Icons.arrow_drop_down, size: 18),
 
             onChanged: isReadOnly

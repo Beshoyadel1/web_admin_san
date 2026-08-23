@@ -41,9 +41,9 @@ class WidgetDesignListCoupon extends StatelessWidget {
     return DateTime.now().isAfter(endDate!);
   }
 
-  bool get canOpenDetails {
-    return isActive == true && !isExpired;
-  }
+  // bool get canOpenDetails {
+  //   return isActive == true && !isExpired;
+  // }
 
   String _formatDate(DateTime? date) {
     if (date == null) return '---';
@@ -163,7 +163,6 @@ class WidgetDesignListCoupon extends StatelessWidget {
 // =========================================
 
           _detailsButton(
-            canOpenDetails: canOpenDetails,
             onTap: onTapDetails,
           ),
 
@@ -256,18 +255,14 @@ class WidgetDesignListCoupon extends StatelessWidget {
     );
   }
   Widget _detailsButton({
-    required bool canOpenDetails,
     required VoidCallback? onTap,
     String? nameButton,
   }) {
-    final Color buttonColor = canOpenDetails
-        ? AppColors.orangeColor
-        : AppColors.greyColor;
 
     return SizedBox(
       width: 110,
       child: InkWell(
-        onTap: canOpenDetails ? onTap : null,
+        onTap: onTap,
         borderRadius: BorderRadius.circular(20),
         child: Container(
           padding: const EdgeInsets.symmetric(
@@ -278,7 +273,7 @@ class WidgetDesignListCoupon extends StatelessWidget {
             color: AppColors.whiteColor,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: buttonColor,
+              color: AppColors.orangeColor,
             ),
           ),
           child: Center(
@@ -286,7 +281,7 @@ class WidgetDesignListCoupon extends StatelessWidget {
               text: nameButton ?? AppLanguageKeys.details,
               textSize: 12,
               fontWeightIndex: FontSelectionData.mediumFontFamily,
-              textColor: buttonColor,
+              textColor: AppColors.orangeColor,
             ),
           ),
         ),

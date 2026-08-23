@@ -19,6 +19,25 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String previousOrdersAndMaintenance =
+      'previousOrdersAndMaintenance';
+  static const String carInvoiceDetails = 'carInvoiceDetails';
+  static const String noInvoices = 'noInvoices';
+  static const String invoiceItem = 'invoiceItem';
+  static const String carServicesStatistics = 'carServicesStatistics';
+  static const String totalInvoices = 'totalInvoices';
+  static const String fuelConsumptionRate = 'fuelConsumptionRate';
+  static const String fuel = 'fuel';
+  static const String consumptionSaving = 'consumptionSaving';
+  static const String sellDate = 'sellDate';
+  static const String kilometers = 'kilometers';
+  static const String selectDurationType = 'selectDurationType';
+  static const String day = 'day';
+  static const String month = 'month';
+  static const String year = 'year';
+  static const String warranty = 'warranty';
+  static const String durationType = 'durationType';
+  static const String durationValue = 'durationValue';
   static const String orders = 'orders';
   static const String providers = 'providers';
   static const String finances = 'finances';
@@ -37,6 +56,8 @@ class AppLanguageKeys {
   static const String couponInformation = 'couponInformation';
   static const String date = 'date';
   static const String status = 'status';
+  static const String saleStatus = 'saleStatus';
+  static const String condition = 'condition';
   static const String selectDate = 'selectDate';
   static const String endDateCannotBeBeforeStartDate =
       'endDateCannotBeBeforeStartDate';

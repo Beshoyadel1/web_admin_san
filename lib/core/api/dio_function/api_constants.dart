@@ -41,6 +41,24 @@ class ApiConfig {
 }
 
 class ApiLink {
+
+  static const String getCarDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.car}/GetCarDetails";
+
+  static const String getAllHarages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetAllHarages";
+  static const String getHarageDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetHarageDetails";
+
+  static const String updateApprovalInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/UpdateApprovalInfo";
+  static const String createApprovalInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/CreateApprovalInfo";
+  //warranty
+  static const String getApprovalInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/GetApprovalInfo";
+  static const String getApprovalInfoById =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/GetApprovalInfoById";
 //admin
   static const String getAllAdmins =
       "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllAdmins";
@@ -391,6 +409,9 @@ class ApiLink {
       "${ApiConfig.baseUrlApi}/${ApiConfig.car}/GetCar";
   static const String getCouponByCode =
       "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/GetCouponByCode";
+  static const String getCouponDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/GetCouponDetails";
+
   static const String getStaticsForCoupon =
       "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/GetStaticsForCoupon";
   static const String uploadCoupon =
@@ -646,4 +667,30 @@ class WalletTransactionType {
 class DiscountType{
   static const int fixedAmount = 1;
   static const int percentage = 2;
+}
+
+class DurationType {
+  static const int month = 1;
+  static const int year = 2;
+
+  static const List<DurationTypeItem> all = [
+    DurationTypeItem(
+      id: month,
+      name: AppLanguageKeys.month,
+    ),
+    DurationTypeItem(
+      id: year,
+      name: AppLanguageKeys.year,
+    ),
+  ];
+}
+
+class DurationTypeItem {
+  final int id;
+  final String name;
+
+  const DurationTypeItem({
+    required this.id,
+    required this.name,
+  });
 }

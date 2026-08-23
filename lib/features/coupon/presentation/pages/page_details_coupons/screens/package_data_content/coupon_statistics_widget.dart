@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:web_admin_san/core/language/language_constant.dart';
 import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
 import 'package:web_admin_san/core/theming/text_styles.dart';
 import 'package:web_admin_san/features/coupon/data/model/statistic_item/statistic_item.dart';
 import 'package:web_admin_san/features/coupon/presentation/bloc/coupon_cubit/coupon_cubit.dart';

@@ -6,11 +6,13 @@ import 'package:web_admin_san/features/coupon/data/datasource/create_coupon_data
 import 'package:web_admin_san/features/coupon/data/datasource/delete_coupon_datasource/delete_coupon_datasource.dart';
 import 'package:web_admin_san/features/coupon/data/datasource/get_all_coupons_datasource/get_all_coupons_datasource.dart';
 import 'package:web_admin_san/features/coupon/data/datasource/get_coupon_by_code_datasource/get_coupon_by_code_datasource.dart';
+import 'package:web_admin_san/features/coupon/data/datasource/get_coupon_details_datasource/get_coupon_details_datasource.dart';
 import 'package:web_admin_san/features/coupon/data/datasource/get_coupon_statistics_datasource/get_coupon_statistics_datasource.dart';
 import 'package:web_admin_san/features/coupon/data/datasource/update_coupon_datasource/update_coupon_datasource.dart';
 import 'package:web_admin_san/features/coupon/data/model/coupon_model/coupon_model.dart';
 import 'package:web_admin_san/features/coupon/data/request/delete_coupon_request/delete_coupon_request.dart';
 import 'package:web_admin_san/features/coupon/data/request/get_coupon_by_code_request/get_coupon_by_code_request.dart';
+import 'package:web_admin_san/features/coupon/data/request/get_coupon_details_request/get_coupon_details_request.dart';
 import 'package:web_admin_san/features/coupon/data/request/get_coupon_statistics_request/get_coupon_statistics_request.dart';
 import 'package:web_admin_san/features/coupon/presentation/bloc/coupon_cubit/coupon_state.dart';
 
@@ -68,7 +70,79 @@ class CouponCubit extends Cubit<CouponState> {
       );
     }
   }
+  Future<void> getCouponDetails({
+    required int couponId,
+  }) async {
+    if (isClosed) return;
 
+    if (couponId <= 0) {
+      emit(
+        const CouponFailure(
+          message: 'Coupon ID is required',
+        ),
+      );
+      return;
+    }
+
+    emit(
+      const CouponLoading(),
+    );
+
+    try {
+      // =========================================
+      // COUPON DETAILS
+      // =========================================
+
+      final result = await getCouponDetailsFunction(
+        request: GetCouponDetailsRequest(
+          couponId: couponId,
+        ),
+      );
+
+      if (isClosed) return;
+
+      currentCoupon = result;
+
+      emit(
+        CouponGetDetailsSuccess(
+          coupon: result,
+        ),
+      );
+
+      if (isClosed) return;
+
+      // =========================================
+      // STATISTICS
+      // =========================================
+
+      await getCouponStatistics(
+        request: GetCouponStatisticsRequest(
+          couponId: couponId,
+        ),
+      );
+
+      if (isClosed) return;
+
+      // =========================================
+      // PROVIDERS
+      // =========================================
+
+      await getProvidersInfo(
+        providerIds: result.providers,
+      );
+    } catch (e) {
+      if (isClosed) return;
+
+      emit(
+        CouponFailure(
+          message: e.toString().replaceFirst(
+            'Exception: ',
+            '',
+          ),
+        ),
+      );
+    }
+  }
   Future<void> deleteCoupon({
     required int couponId,
   }) async {
