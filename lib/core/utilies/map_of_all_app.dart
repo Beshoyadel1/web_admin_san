@@ -244,13 +244,6 @@ Future<void> getPages() async {
   final user = await AuthLocalStorage.getUser();
   final permissions = user?.adminDetails?.permissions;
 
-  // ============================================================
-  // NO PERMISSIONS OBJECT
-  // ============================================================
-  //
-  // لو الـ permissions object نفسه غير موجود
-  // اعتبره Full Access.
-  //
   if (permissions == null) {
     appPages = _getAllPages();
     return;

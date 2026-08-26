@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
-import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
-import 'package:web_admin_san/features/warranty/presentation/bloc/warranty_cubit.dart';
-import 'package:web_admin_san/features/warranty/presentation/bloc/warranty_state.dart';
-import 'package:web_admin_san/features/warranty/presentation/custom_widget/widget_design_list_warranty.dart';
-import 'package:web_admin_san/features/warranty/presentation/pages/page_details_warranty/page_details_warranty.dart';
+import '../../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
+import '../../../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
+import '../../../../../../../../features/warranty/presentation/bloc/warranty_cubit.dart';
+import '../../../../../../../../features/warranty/presentation/bloc/warranty_state.dart';
+import '../../../../../../../../features/warranty/presentation/custom_widget/widget_design_list_warranty.dart';
+import '../../../../../../../../features/warranty/presentation/pages/page_details_warranty/page_details_warranty.dart';
 
 class ListViewAllWarranty extends StatelessWidget {
   const ListViewAllWarranty({

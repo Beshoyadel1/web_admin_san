@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
-import 'package:web_admin_san/core/api/dio_function/dio_controller.dart';
-import 'package:web_admin_san/core/api/dio_function/failures.dart';
-import 'package:web_admin_san/features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
-import 'package:web_admin_san/features/cars_haraj_page/data/request/get_car_details_request/get_car_details_request.dart';
+import '../../../../../../../core/api/dio_function/api_constants.dart';
+import '../../../../../../../core/api/dio_function/dio_controller.dart';
+import '../../../../../../../core/api/dio_function/failures.dart';
+import '../../../../../../../features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
+import '../../../../../../../features/cars_haraj_page/data/request/get_car_details_request/get_car_details_request.dart';
 
 Future<GetCarDetailsModel> getCarDetailsFunction({
   required GetCarDetailsRequest request,

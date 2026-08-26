@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:web_admin_san/features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
-
-import 'package:web_admin_san/features/cars_haraj_page/data/response/get_all_harage_response/get_all_harage_response.dart';
-import 'package:web_admin_san/features/cars_haraj_page/data/response/get_harage_details_response/get_harage_details_response.dart';
+import '../../../../../../../features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
+import '../../../../../../../features/cars_haraj_page/data/response/get_all_harage_response/get_all_harage_response.dart';
+import '../../../../../../../features/cars_haraj_page/data/response/get_harage_details_response/get_harage_details_response.dart';
 
 abstract class HaragState extends Equatable {
   final int currentPage;

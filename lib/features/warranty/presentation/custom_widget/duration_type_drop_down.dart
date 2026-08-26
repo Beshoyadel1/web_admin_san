@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
+import '../../../../../../../../core/api/dio_function/api_constants.dart';
+import '../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../core/theming/text_styles.dart';
 
 class DurationTypeDropdown extends StatelessWidget {
   final int? selectedDurationTypeId;

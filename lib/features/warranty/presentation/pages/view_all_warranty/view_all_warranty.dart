@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/features/warranty/presentation/bloc/warranty_cubit.dart';
-import 'package:web_admin_san/features/warranty/presentation/pages/page_details_warranty/page_details_warranty.dart';
-import 'package:web_admin_san/features/warranty/presentation/pages/view_all_warranty/list_view_all_warranty.dart';
+import '../../../../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
+import '../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../features/warranty/presentation/bloc/warranty_cubit.dart';
+import '../../../../../../../../features/warranty/presentation/pages/page_details_warranty/page_details_warranty.dart';
+import '../../../../../../../../features/warranty/presentation/pages/view_all_warranty/list_view_all_warranty.dart';
 
 class ViewAllWarranty extends StatelessWidget {
   const ViewAllWarranty({

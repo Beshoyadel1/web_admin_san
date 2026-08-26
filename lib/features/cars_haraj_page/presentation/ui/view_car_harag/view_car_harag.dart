@@ -23,7 +23,7 @@ class ViewCarHarag extends StatelessWidget {
               child: RefreshIndicator(
                 color: AppColors.orangeColor,
                 onRefresh: () async {
-                  await context.read<HaragCubit>().refresh();
+                  await context.read<HaragCubit>().getAllHarages(currentPage: 1);
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(20),

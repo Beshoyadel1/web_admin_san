@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
-import 'package:web_admin_san/core/language/language.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
+import '../../../../../../../../core/api/dio_function/api_constants.dart';
+import '../../../../../../../../core/language/language.dart';
+import '../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
 
 class DurationTypeView extends StatelessWidget {
   final int? durationTypeId;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
+import '../../../../../../../../core/api/dio_function/api_constants.dart';
+import '../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../core/theming/fonts.dart';
+import '../../../../../../../../core/theming/text_styles.dart';
+import '../../../../../../../../features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
 
 class WidgetDesignListWarranty extends StatelessWidget {
   final int? warrantyId;

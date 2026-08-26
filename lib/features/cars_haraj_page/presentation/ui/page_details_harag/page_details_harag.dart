@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
-
-import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/harag_cubit/harag_cubit.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/harag_cubit/harag_state.dart';
-import 'package:web_admin_san/features/cars_haraj_page/data/model/get_all_harage_model/chat_harag_model.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_harag/list_view_page_details_harag.dart';
+import '../../../../../../../core/theming/colors.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/bloc/harag_cubit/harag_cubit.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/ui/page_details_harag/list_view_page_details_harag.dart';
 
 class PageDetailsHarag extends StatelessWidget {
   const PageDetailsHarag({

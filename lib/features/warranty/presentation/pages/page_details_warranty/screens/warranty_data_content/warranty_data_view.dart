@@ -1,21 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/snakbar.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
-
-import 'package:web_admin_san/features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
-import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
-
-import 'package:web_admin_san/features/warranty/data/model/warranty_model/warranty_model.dart';
-import 'package:web_admin_san/features/warranty/presentation/bloc/warranty_cubit.dart';
-import 'package:web_admin_san/features/warranty/presentation/bloc/warranty_state.dart';
-import 'package:web_admin_san/features/warranty/presentation/custom_widget/duration_type_drop_down.dart';
-import 'package:web_admin_san/features/warranty/presentation/custom_widget/duration_type_view.dart';
+import '../../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
+import '../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../core/theming/fonts.dart';
+import '../../../../../../../../core/theming/text_styles.dart';
+import '../../../../../../../../features/auth_page/presentation/pages/login_page/login_widgets/user_text_field_widget.dart';
+import '../../../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
+import '../../../../../../../../features/warranty/data/model/warranty_model/warranty_model.dart';
+import '../../../../../../../../features/warranty/presentation/bloc/warranty_cubit.dart';
+import '../../../../../../../../features/warranty/presentation/bloc/warranty_state.dart';
+import '../../../../../../../../features/warranty/presentation/custom_widget/duration_type_drop_down.dart';
+import '../../../../../../../../features/warranty/presentation/custom_widget/duration_type_view.dart';
 
 class WarrantyDataView extends StatefulWidget {
   final bool isCreateMode;

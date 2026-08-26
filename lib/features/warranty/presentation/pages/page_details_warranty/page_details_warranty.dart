@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:web_admin_san/core/theming/colors.dart';
-
-import 'package:web_admin_san/features/warranty/presentation/pages/page_details_warranty/screens/warranty_data_content/warranty_data_content.dart';
+import '../../../../../../../../core/theming/colors.dart';
+import '../../../../../../../../features/warranty/presentation/pages/page_details_warranty/screens/warranty_data_content/warranty_data_content.dart';
 
 class PageDetailsWarranty extends StatelessWidget {
   final int? warrantyId;

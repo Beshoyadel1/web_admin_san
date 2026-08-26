@@ -1,14 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:web_admin_san/features/warranty/data/datasource/create_approval_info_datasource/create_approval_info_datasource.dart';
-import 'package:web_admin_san/features/warranty/data/datasource/get_approval_info_by_id_datasource/get_approval_info_by_id_datasource.dart';
-import 'package:web_admin_san/features/warranty/data/datasource/get_approvals_datasource/get_approvals_datasource.dart';
-import 'package:web_admin_san/features/warranty/data/datasource/update_approval_info_datasource/update_approval_info_datasource.dart';
-
-import 'package:web_admin_san/features/warranty/data/model/warranty_model/warranty_model.dart';
-
-import 'package:web_admin_san/features/warranty/data/request/get_approval_info_by_id_request/get_approval_info_by_id_request.dart';
-
+import '../../../../../../../../features/warranty/data/datasource/create_approval_info_datasource/create_approval_info_datasource.dart';
+import '../../../../../../../../features/warranty/data/datasource/get_approval_info_by_id_datasource/get_approval_info_by_id_datasource.dart';
+import '../../../../../../../../features/warranty/data/datasource/get_approvals_datasource/get_approvals_datasource.dart';
+import '../../../../../../../../features/warranty/data/datasource/update_approval_info_datasource/update_approval_info_datasource.dart';
+import '../../../../../../../../features/warranty/data/model/warranty_model/warranty_model.dart';
+import '../../../../../../../../features/warranty/data/request/get_approval_info_by_id_request/get_approval_info_by_id_request.dart';
 import 'warranty_state.dart';
 
 class WarrantyCubit extends Cubit<WarrantyState> {

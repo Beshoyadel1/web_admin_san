@@ -1,36 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
-import 'package:web_admin_san/features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/harag_cubit/harag_cubit.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/harag_cubit/harag_state.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_chats_harag.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_description_harag.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_details_data_harag_car.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_fuel_consumption_car.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_images_harag.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_recent_invoices_car.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_service_stats_Car.dart';
-import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/harag_cubit/harag_cubit.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/bloc/harag_cubit/harag_state.dart';
-
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_chats_harag.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_description_harag.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_details_data_harag_car.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_fuel_consumption_car.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_images_harag.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_recent_invoices_car.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/widget_design_service_stats_Car.dart';
-
-import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
+import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../core/theming/fonts.dart';
+import '../../../../../../../core/theming/text_styles.dart';
+import '../../../../../../../features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/bloc/harag_cubit/harag_cubit.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/bloc/harag_cubit/harag_state.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_chats_harag.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_description_harag.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_details_data_harag_car.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_fuel_consumption_car.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_images_harag.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_recent_invoices_car.dart';
+import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_service_stats_Car.dart';
+import '../../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
+import '../../../../../../../core/language/language_constant.dart';
 
 class ListViewPageDetailsHarag extends StatelessWidget {
   final int harageId;

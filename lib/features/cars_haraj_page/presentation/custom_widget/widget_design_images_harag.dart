@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/features/cars_haraj_page/data/model/get_all_harage_model/harage_data.dart';
+import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../features/cars_haraj_page/data/model/get_all_harage_model/harage_data.dart';
 
 class WidgetDesignImagesHarag extends StatelessWidget {
   const WidgetDesignImagesHarag({

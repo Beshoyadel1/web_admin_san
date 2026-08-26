@@ -1,4 +1,4 @@
-import 'package:web_admin_san/features/warranty/data/model/warranty_model/warranty_model.dart';
+import '../../../../../../../../features/warranty/data/model/warranty_model/warranty_model.dart';
 
 abstract class WarrantyState {
   const WarrantyState();

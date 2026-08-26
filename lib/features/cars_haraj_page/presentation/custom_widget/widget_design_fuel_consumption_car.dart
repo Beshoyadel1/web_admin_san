@@ -1,14 +1,12 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/pages_widgets/general_widgets/custom_container.dart';
-
-import 'package:web_admin_san/features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
-import 'package:flutter/material.dart';
-import 'package:web_admin_san/core/language/language_constant.dart';
-import 'package:web_admin_san/core/theming/colors.dart';
-import 'package:web_admin_san/core/theming/fonts.dart';
-import 'package:web_admin_san/core/theming/text_styles.dart';
+import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
+import '../../../../../../../features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
+import '../../../../../../../core/language/language_constant.dart';
+import '../../../../../../../core/theming/colors.dart';
+import '../../../../../../../core/theming/fonts.dart';
+import '../../../../../../../core/theming/text_styles.dart';
 
 class WidgetDesignFuelConsumptionCar extends StatelessWidget {
   final FuelConsumptionModel? fuelConsumption;

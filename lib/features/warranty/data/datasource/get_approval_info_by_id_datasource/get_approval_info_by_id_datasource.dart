@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
-import 'package:web_admin_san/core/api/dio_function/dio_controller.dart';
-import 'package:web_admin_san/core/api/dio_function/failures.dart';
-import 'package:web_admin_san/features/warranty/data/model/warranty_model/warranty_model.dart';
-import 'package:web_admin_san/features/warranty/data/request/get_approval_info_by_id_request/get_approval_info_by_id_request.dart';
+import '../../../../../../../../core/api/dio_function/api_constants.dart';
+import '../../../../../../../../core/api/dio_function/dio_controller.dart';
+import '../../../../../../../../core/api/dio_function/failures.dart';
+import '../../../../../../../../features/warranty/data/model/warranty_model/warranty_model.dart';
+import '../../../../../../../../features/warranty/data/request/get_approval_info_by_id_request/get_approval_info_by_id_request.dart';
 
 Future<WarrantyModel> getApprovalInfoByIdFunction({
   required GetApprovalInfoByIdRequest request,
