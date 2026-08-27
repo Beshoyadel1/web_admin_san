@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/button_edit_delete_setting_widget.dart';
+import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_with_container_status.dart';
+import '../../../../../../../../../core/language/language_cubit/language_cubit.dart';
+import '../../../../../../../../../core/pages_widgets/general_widgets/show_delete_confirmation_dialog_in_app.dart';
+import '../../../../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
+import '../../../../../../../../../features/cars_haraj_page/data/model/get_all_harage_model/harage_data.dart';
+import '../../../../../../../../../features/cars_haraj_page/presentation/ui/cars_haraj_statistics_page/screens/create_harag_dialog.dart';
 import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../../core/theming/fonts.dart';
 import '../../../../../../../core/theming/text_styles.dart';
 import '../../../../../../../features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
 import '../../../../../../../features/cars_haraj_page/presentation/bloc/harag_cubit/harag_cubit.dart';
 import '../../../../../../../features/cars_haraj_page/presentation/bloc/harag_cubit/harag_state.dart';
-import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_chats_harag.dart';
-import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_description_harag.dart';
-import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_details_data_harag_car.dart';
-import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_fuel_consumption_car.dart';
-import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_images_harag.dart';
-import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_recent_invoices_car.dart';
-import '../../../../../../../features/cars_haraj_page/presentation/custom_widget/widget_design_service_stats_Car.dart';
+import '../../custom_widget/widget_design_chats_harag.dart';
+import '../../custom_widget/widget_design_description_harag.dart';
+import '../../custom_widget/widget_design_details_data_harag_car.dart';
+import '../../custom_widget/widget_design_fuel_consumption_car.dart';
+import '../../custom_widget/widget_design_images_harag.dart';
+import '../../custom_widget/widget_design_recent_invoices_car.dart';
+import '../../custom_widget/widget_design_service_stats_Car.dart';
 import '../../../../../../../features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 import '../../../../../../../core/language/language_constant.dart';
 
@@ -103,70 +110,131 @@ class ListViewPageDetailsHarag extends StatelessWidget {
 
   Widget _buildDesktop(
       BuildContext context,
-      dynamic harage,
+      HarageData harage,
       GetCarDetailsModel? carDetails,
       ) {
+    final isArabic =
+        LanguageCubit.get(context).isAllAppLanguageArabic;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // ==========================================================
+        // EDIT / DELETE
+        // ==========================================================
+
+        Align(
+          alignment: isArabic
+              ? Alignment.centerLeft
+              : Alignment.centerRight,
+          child: Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            alignment: isArabic
+                ? WrapAlignment.start
+                : WrapAlignment.end,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              ButtonEditDeleteSettingWidget(
+                onTap: () async {
+                  final haragCubit =
+                  context.read<HaragCubit>();
+
+                  final result = await showDialog<bool>(
+                    context: context,
+                    builder: (_) => BlocProvider.value(
+                      value: haragCubit,
+                      child: CreateHaragDialog(
+                        car: harage,
+                      ),
+                    ),
+                  );
+
+                  if (result == true && context.mounted) {
+                    await haragCubit.getHarageDetails(
+                      harageId: harage.id!,
+                    );
+                  }
+                },
+              ),
+
+              // ButtonEditDeleteSettingWidget(
+              //   isDelete: true,
+              //   onTap: () async {
+              //     final haragCubit = context.read<HaragCubit>();
+              //
+              //     final confirmed =
+              //     await showDeleteConfirmationDialogInApp(context);
+              //
+              //     if (confirmed != true || !context.mounted) {
+              //       return;
+              //     }
+              //
+              //     await haragCubit.deleteHarage(
+              //       harageId: harage.id!,
+              //     );
+              //
+              //     if (context.mounted) {
+              //       AppSnackBar.showSuccess(AppLanguageKeys.success);
+              //       Navigator.pop(context, true);
+              //     }
+              //   },
+              // ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 15),
+
+        // ==========================================================
         // HARAG DETAILS + CHAT
         // ==========================================================
 
-        CustomContainer(isSelected: false, onTap: (){},typeWidget: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 3,
-              child: Column(
-                children: [
-                  WidgetDesignDetailsDataHaragCar(
-                    harage: harage,
-                  ),
+        CustomContainer(
+          isSelected: false,
+          onTap: () {},
+          typeWidget: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: [
+                    WidgetDesignDetailsDataHaragCar(
+                      harage: harage,
+                    ),
 
-                  const SizedBox(
-                    height: 20,
-                  ),
+                    const SizedBox(height: 20),
 
-                  WidgetDesignDescriptionHarag(
-                    harage: harage,
-                  ),
+                    WidgetDesignDescriptionHarag(
+                      harage: harage,
+                    ),
 
-                  const SizedBox(
-                    height: 15,
-                  ),
+                    const SizedBox(height: 15),
 
-                  WidgetDesignImagesHarag(
-                    harage: harage,
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(
-              width: 20,
-            ),
-
-            Expanded(
-              flex: 1,
-              child: SizedBox(
-                height: 550,
-                child: WidgetDesignChatsHarag(
-                  harage: harage,
+                    WidgetDesignImagesHarag(
+                      harage: harage,
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
-        ),),
 
-        // ==========================================================
-        // CAR STATISTICS
-        // ==========================================================
+              const SizedBox(width: 20),
+
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  height: 550,
+                  child: WidgetDesignChatsHarag(
+                    harage: harage,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
 
         if (carDetails != null) ...[
-          const SizedBox(
-            height: 35,
-          ),
+          const SizedBox(height: 35),
 
           _buildCarServicesSection(
             context,
@@ -289,36 +357,94 @@ class ListViewPageDetailsHarag extends StatelessWidget {
 
   Widget _buildMobile(
       BuildContext context,
-      dynamic harage,
+      HarageData harage,
       GetCarDetailsModel? carDetails,
       ) {
+    final isArabic =
+        LanguageCubit.get(context).isAllAppLanguageArabic;
     return Column(
-      crossAxisAlignment:
-      CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        Align(
+          alignment: isArabic
+              ? Alignment.centerLeft
+              : Alignment.centerRight,
+          child: Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            alignment: isArabic
+                ? WrapAlignment.start
+                : WrapAlignment.end,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              ButtonEditDeleteSettingWidget(
+                onTap: () async {
+                  final haragCubit =
+                  context.read<HaragCubit>();
+
+                  final result = await showDialog<bool>(
+                    context: context,
+                    builder: (_) => BlocProvider.value(
+                      value: haragCubit,
+                      child: CreateHaragDialog(
+                        car: harage,
+                      ),
+                    ),
+                  );
+
+                  if (result == true && context.mounted) {
+                    await haragCubit.getHarageDetails(
+                      harageId: harage.id!,
+                    );
+                  }
+                },
+              ),
+
+              // ButtonEditDeleteSettingWidget(
+              //   isDelete: true,
+              //   onTap: () async {
+              //     final haragCubit = context.read<HaragCubit>();
+              //
+              //     final confirmed =
+              //     await showDeleteConfirmationDialogInApp(context);
+              //
+              //     if (confirmed != true || !context.mounted) {
+              //       return;
+              //     }
+              //
+              //     await haragCubit.deleteHarage(
+              //       harageId: harage.id!,
+              //     );
+              //
+              //     if (context.mounted) {
+              //       AppSnackBar.showSuccess(AppLanguageKeys.success);
+              //       Navigator.pop(context, true);
+              //     }
+              //   },
+              // ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 15),
+
         WidgetDesignDetailsDataHaragCar(
           harage: harage,
         ),
 
-        const SizedBox(
-          height: 15,
-        ),
+        const SizedBox(height: 15),
 
         WidgetDesignDescriptionHarag(
           harage: harage,
         ),
 
-        const SizedBox(
-          height: 15,
-        ),
+        const SizedBox(height: 15),
 
         WidgetDesignImagesHarag(
           harage: harage,
         ),
 
-        const SizedBox(
-          height: 15,
-        ),
+        const SizedBox(height: 15),
 
         SizedBox(
           height: 450,
@@ -328,9 +454,7 @@ class ListViewPageDetailsHarag extends StatelessWidget {
         ),
 
         if (carDetails != null) ...[
-          const SizedBox(
-            height: 25,
-          ),
+          const SizedBox(height: 25),
 
           _buildCarServicesSection(
             context,

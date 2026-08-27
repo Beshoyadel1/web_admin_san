@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/features/store_page/model/facility_model/facility_model.dart';
+import 'package:web_admin_san/features/store_page/presentation/pages/store_widgets/facility_account/tabs/facility_data_content.dart';
 
 import '../../../../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
 import '../../../../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
@@ -48,16 +49,8 @@ class FacilityAccountCheck extends StatelessWidget {
                         CustomContainer(
                           containerWidth: double.infinity,
                           isSelected: false,
-                          border: const Border(
-                            top: BorderSide(color: AppColors.lightGreyColor),
-                            left: BorderSide(color: AppColors.lightGreyColor),
-                            right: BorderSide(color: AppColors.lightGreyColor),
-                          ),
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                          ),
                           typeWidget: Column(
+                            spacing: 10,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const TextInAppWidget(
@@ -66,18 +59,7 @@ class FacilityAccountCheck extends StatelessWidget {
                                 fontWeightIndex:
                                 FontSelectionData.mediumFontFamily,
                               ),
-                              const SizedBox(height: 10),
-                              const TabsWidget(),
-                              const SizedBox(height: 30),
-
-                              facilityTabs[
-                              context
-                                  .read<FacilityTabCubit>()
-                                  .selectedIndex]
-                                  .content,
-
-                              const SizedBox(height: 40),
-
+                              const FacilityDataContent(),
                               Row(
                                 children: [
                                   Expanded(
@@ -85,7 +67,7 @@ class FacilityAccountCheck extends StatelessWidget {
                                       isSelected: false,
                                       onTap: () {
                                         print("🔘 CHECK BUTTON CLICKED");
-                                          context.read<AuthCubit>().reCheckFacility();
+                                        context.read<AuthCubit>().reCheckFacility();
                                       },
                                       containerColor:
                                       AppColors.orangeColor,

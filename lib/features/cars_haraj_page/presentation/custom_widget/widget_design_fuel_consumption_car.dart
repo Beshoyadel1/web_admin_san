@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../../features/cars_haraj_page/data/model/get_car_details_model/get_car_details_model.dart';
@@ -47,20 +46,14 @@ class WidgetDesignFuelConsumptionCar extends StatelessWidget {
               painter: _FuelGaugePainter(
                 percentage: percentage,
               ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 20,
-                  ),
-                  child: TextInAppWidget(
-                    text:
-                    '${percentage.toStringAsFixed(0)}%',
-                    textSize: 22,
-                    fontWeightIndex:
-                    FontSelectionData.boldFontFamily,
-                    textColor: AppColors.greyColor,
-                  ),
+              child: Center(
+                child: TextInAppWidget(
+                  text: '${percentage.toStringAsFixed(0)}%',
+                  textSize: 22,
+                  fontWeightIndex:
+                  FontSelectionData.boldFontFamily,
+                  textColor: AppColors.greyColor,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
@@ -199,47 +192,51 @@ class _FuelGaugePainter extends CustomPainter {
       ) {
     final center = Offset(
       size.width / 2,
-      size.height - 15,
+      size.height / 2,
     );
 
     final radius =
-        math.min(size.width, size.height) - 35;
+        math.min(size.width, size.height) / 2 - 15;
 
     final rect = Rect.fromCircle(
       center: center,
       radius: radius,
     );
 
+    // ==========================================================
+    // BACKGROUND CIRCLE
+    // ==========================================================
+
     final backgroundPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 18
       ..strokeCap = StrokeCap.round
-      ..color = Colors.grey.shade400;
+      ..color = Colors.grey.shade300;
+
+    canvas.drawArc(
+      rect,
+      -math.pi / 2,
+      math.pi * 2,
+      false,
+      backgroundPaint,
+    );
+
+    // ==========================================================
+    // PROGRESS CIRCLE
+    // ==========================================================
 
     final valuePaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 18
       ..strokeCap = StrokeCap.round
-      ..color = const Color(0xFFFF7A45);
-
-    const startAngle = math.pi;
-
-    const totalAngle = math.pi;
-
-    canvas.drawArc(
-      rect,
-      startAngle,
-      totalAngle,
-      false,
-      backgroundPaint,
-    );
+      ..color = AppColors.orangeColor;
 
     final valueAngle =
-        totalAngle * (percentage / 100);
+        (math.pi * 2) * (percentage / 100);
 
     canvas.drawArc(
       rect,
-      startAngle,
+      -math.pi / 2,
       valueAngle,
       false,
       valuePaint,

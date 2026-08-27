@@ -1,35 +1,36 @@
 import 'dart:convert';
-
-import '../../../../../../features/cars_haraj_page/data/request/update_harage_request/update_harage_request.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import '../../../../../../../../../core/api/dio_function/failures.dart';
+import '../../../../../../../../../features/cars_haraj_page/data/request/create_update_harage_request/create_update_harage_request.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
-import '../../../../../core/api/dio_function/dio_controller.dart';
-import '../../../../../core/language/language_constant.dart';
 import '../../../../../core/pages_widgets/general_widgets/snakbar.dart';
+import '../../../../../core/api/dio_function/dio_controller.dart';
 
 
 Future<void> createHarageFunction({
-  required UpdateHarageRequest updateHarageRequest,
+  required CreateUpdateHarageRequest createUpdateHarageRequest,
 }) async {
   try {
-    String jsonString = jsonEncode(updateHarageRequest.toJson());
+    final jsonString = json.encode(
+      createUpdateHarageRequest.toCreateJson(),
+    );
 
-    print("REQUEST:");
-    print(jsonString);
 
-    final response = await Network.postDataWithBody(
+   await Network.postDataWithBody(
       jsonString,
       ApiLink.createHarage,
     );
 
-    print("RESPONSE:");
-    print(response.data);
-
-    AppSnackBar.showSuccess(
-      AppLanguageKeys.createHarageSuccessfully,
-    );
   } catch (e) {
-    print(e);
+    debugPrint('CREATE ERROR: $e');
+
+    AppSnackBar.showError(
+      e is DioException
+          ? responseOfStatusCode(e.response?.statusCode)
+          : e.toString(),
+    );
+
     rethrow;
   }
 }
-

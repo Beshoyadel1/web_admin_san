@@ -1,8 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
 import '../../../../../../core/theming/fonts.dart';
-import '../../../../../../features/cars_haraj_page/presentation/custom_widget/title_with_sub_title.dart';
 import '../../../../../../core/language/language_constant.dart';
 import '../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../core/theming/colors.dart';
@@ -23,6 +22,7 @@ class WidgetDesignListHarag extends StatelessWidget {
     this.isSold,
     this.onTabDetails,
     this.spacing,
+    this.isDemoData=false
   });
 
   final String? haragId;
@@ -31,8 +31,8 @@ class WidgetDesignListHarag extends StatelessWidget {
   final String? kilometers;
   final String? releaseDate;
   final String? sellDate;
-
   final double? spacing;
+  final bool isDemoData;
 
   final void Function()? onTabDetails;
 
@@ -74,62 +74,66 @@ class WidgetDesignListHarag extends StatelessWidget {
             ),
           ),
 
+
           // USER
-          SizedBox(
-            width: 250,
-            child: Wrap(
-              spacing: 5,
-              runSpacing: 5,
+          if(!isDemoData)
+            SizedBox(
+              width: 250,
+              child: Wrap(
+                spacing: 5,
+                runSpacing: 5,
 
-              crossAxisAlignment:
-              WrapCrossAlignment.center,
+                crossAxisAlignment:
+                WrapCrossAlignment.center,
 
-              children: [
-                image != null
-                    ? CircleAvatar(
-                  radius: 20,
-                  backgroundImage:
-                  MemoryImage(image!),
-                )
-                    : const CircleAvatar(
-                  radius: 20,
-                  backgroundColor:
-                  Colors.red,
-                ),
-
-                SizedBox(
-                  width: 180,
-                  child: TextInAppWidget(
-                    text: name ?? '###',
-                    textSize: 15,
-                    fontWeightIndex:
-                    FontSelectionData
-                        .mediumFontFamily,
-                    textColor:
-                    AppColors.blackColor,
-                    maxLines: 1,
+                children: [
+                  image != null
+                      ? CircleAvatar(
+                    radius: 20,
+                    backgroundImage:
+                    MemoryImage(image!),
+                  )
+                      : const CircleAvatar(
+                    radius: 20,
+                    backgroundColor:
+                    Colors.red,
                   ),
-                ),
-              ],
+
+                  SizedBox(
+                    width: 180,
+                    child: TextInAppWidget(
+                      text: name ?? '###',
+                      textSize: 15,
+                      fontWeightIndex:
+                      FontSelectionData
+                          .mediumFontFamily,
+                      textColor:
+                      AppColors.blackColor,
+                      maxLines: 1,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+
 
           // KILOMETERS
-          SizedBox(
-            width: 120,
-            child: TitleWithSubTitle(
-              title:
-              AppLanguageKeys.kilometers,
-              subTitle:
-              kilometers ?? '0',
-              textSizeTitle: 12,
-              titleColor:
-              AppColors.greyColor,
-              textSizeSubTitle: 14,
-              subTitleColor:
-              AppColors.darkColor,
+          if(!isDemoData)
+            SizedBox(
+              width: 120,
+              child: TitleWithSubTitle(
+                title:
+                AppLanguageKeys.kilometers,
+                subTitle:
+                kilometers ?? '0',
+                textSizeTitle: 12,
+                titleColor:
+                AppColors.greyColor,
+                textSizeSubTitle: 14,
+                subTitleColor:
+                AppColors.darkColor,
+              ),
             ),
-          ),
 
           // RELEASE DATE
           SizedBox(

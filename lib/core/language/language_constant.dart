@@ -16,9 +16,16 @@ class AppLanguageKeys {
   static const String rejectedByProvider = 'rejectedByProvider';
   static const String cancelledByUser = 'cancelledByUser';
   static const String unknownType = 'unknownType';
+  static const String acceptOrder = 'acceptOrder';
   //end//
 
   //others//
+  static const String created = 'created';
+  static const String pending = 'pending';
+  static const String deleted = 'deleted';
+  static const String noComment = 'noComment';
+  static const String comment = 'comment';
+  static const String currentStatus = 'currentStatus';
   static const String previousOrdersAndMaintenance =
       'previousOrdersAndMaintenance';
   static const String carInvoiceDetails = 'carInvoiceDetails';

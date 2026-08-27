@@ -60,6 +60,7 @@ class ListDataViewAllProvidersAccountManagement extends StatelessWidget {
                         id: provider.providerId.toString(),
                         nameProvider: provider.name ?? '',
                         nameButton: AppLanguageKeys.details,
+                        isActive:provider.isActive,
                         imageProvider: provider.image,
                         lastOrderDate: provider.lastOrderDate != null
                             ? OrderFunctions.formatDateFromDateTime(

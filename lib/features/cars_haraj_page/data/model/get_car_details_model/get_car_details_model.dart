@@ -61,7 +61,7 @@ class CarInfoModel {
   final Uint8List? licenceImage;
   final String? name;
   final CarBrandModel? brand;
-  final CarModelDataModel? model;
+  final CarModelBrandDataModel? model;
 
   CarInfoModel({
     this.id,
@@ -96,7 +96,7 @@ class CarInfoModel {
           ? CarBrandModel.fromJson(json['brand'])
           : null,
       model: json['model'] != null
-          ? CarModelDataModel.fromJson(json['model'])
+          ? CarModelBrandDataModel.fromJson(json['model'])
           : null,
     );
   }
@@ -129,19 +129,19 @@ class CarBrandModel {
   }
 }
 
-class CarModelDataModel {
+class CarModelBrandDataModel {
   final int? carModelId;
   final String? modelName;
   final Uint8List? image;
 
-  CarModelDataModel({
+  CarModelBrandDataModel({
     this.carModelId,
     this.modelName,
     this.image,
   });
 
-  factory CarModelDataModel.fromJson(Map<String, dynamic> json) {
-    return CarModelDataModel(
+  factory CarModelBrandDataModel.fromJson(Map<String, dynamic> json) {
+    return CarModelBrandDataModel(
       carModelId: json['carmodelid'],
       modelName: json['modelname'],
       image: json['image'] is List

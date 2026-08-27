@@ -41,7 +41,8 @@ class ApiConfig {
 }
 
 class ApiLink {
-
+  static const String changeHarageStatus =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/ChangeHarageStatus";
   static const String getCarDetails =
       "${ApiConfig.baseUrlApi}/${ApiConfig.car}/GetCarDetails";
 
@@ -418,6 +419,8 @@ class ApiLink {
       "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/UploadCoupon";
 }
 
+
+
 class NotificationTopic {
   static const String customer = "customer";
 
@@ -693,4 +696,10 @@ class DurationTypeItem {
     required this.id,
     required this.name,
   });
+}
+class HarageStatus {
+  static const int created = 1;
+  static const int pending = 2;
+  static const int sold = 3;
+  static const int deleted = 4;
 }

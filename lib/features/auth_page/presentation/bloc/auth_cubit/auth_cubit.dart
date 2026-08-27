@@ -76,12 +76,12 @@ class AuthCubit extends Cubit<AuthState> {
 
     final apiUser = result.user!;
 
-    if (!localUser.isSameData(apiUser)) {
-      print("INIT => Local user != API user");
-
-      await _forceLogout();
-      return;
-    }
+    // if (!localUser.isSameData(apiUser)) {
+    //   print("INIT => Local user != API user");
+    //
+    //   await _forceLogout();
+    //   return;
+    // }
 
 
     // Connect SignalR

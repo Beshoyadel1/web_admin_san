@@ -1,29 +1,43 @@
 import 'package:dio/dio.dart';
-
-import '../../../../../../features/cars_haraj_page/data/request/get_user_harages_request/get_user_harages_request.dart';
-import '../../../../../../features/cars_haraj_page/data/response/get_all_harage_response/get_all_harage_response.dart';
+import '../../../../../../../../../features/cars_haraj_page/data/request/get_user_harages_request/get_user_harages_request.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/api/dio_function/dio_controller.dart';
 import '../../../../../core/api/dio_function/failures.dart';
+import '../../../../../../features/cars_haraj_page/data/response/get_user_harages_response/get_user_harages_response.dart';
 
-Future<GetAllHarageResponse> getUserHaragesFunction({
-  required GetUserHaragesRequest request,
+
+Future<GetUserHaragesResponse?> getUserHaragesFunction({
+  required GetUserHaragesRequest getUserHaragesRequest,
 }) async {
   try {
     final response = await Network.postDataWithBodyAndParams(
       {},
-      request.toJson(),
+      getUserHaragesRequest.toJson(),
       ApiLink.getUserHarages,
     );
 
-    return GetAllHarageResponse.fromJson(
-      response.data,
+    final responseData = response.data;
+
+    final bool success = responseData['success'] ?? false;
+
+    if (!success) {
+      throw Exception(
+        responseData['message'] ?? 'Something went wrong',
+      );
+    }
+
+    return GetUserHaragesResponse.fromJson(
+      responseData,
     );
   } catch (e) {
-    throw Exception(
-      e is DioException
-          ? responseOfStatusCode(e.response?.statusCode)
-          : e.toString(),
-    );
+    if (e is DioException) {
+      throw Exception(
+        responseOfStatusCode(
+          e.response?.statusCode,
+        ),
+      );
+    }
+
+    rethrow;
   }
 }

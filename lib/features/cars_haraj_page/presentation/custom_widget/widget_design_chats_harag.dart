@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
+import '../../../../../../../../../features/cars_haraj_page/presentation/bloc/harag_cubit/harag_cubit.dart';
 import '../../../../../../../core/language/language_constant.dart';
 import '../../../../../../../core/pages_widgets/general_widgets/custom_container.dart';
 import '../../../../../../../core/theming/colors.dart';
@@ -74,79 +77,202 @@ class WidgetDesignChatsHarag extends StatelessWidget {
             chat.toUserName ??
             '---';
 
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.whiteColor,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.greyColor.withOpacity(.2),
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onTap: () {
+        // _showSendMessageDialog(
+        //   context,
+        //   chat,
+        // );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppColors.whiteColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: AppColors.greyColor.withOpacity(.2),
+          ),
+        ),
+        child: Row(
+          children: [
+            image != null
+                ? CircleAvatar(
+              radius: 22,
+              backgroundImage: MemoryImage(image),
+            )
+                : const CircleAvatar(
+              radius: 22,
+              child: Icon(
+                Icons.person_outline,
+              ),
+            ),
+
+            const SizedBox(width: 10),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
+                children: [
+                  TextInAppWidget(
+                    text: userName,
+                    textSize: 14,
+                    fontWeightIndex:
+                    FontSelectionData.mediumFontFamily,
+                    textColor: AppColors.darkColor,
+                    maxLines: 1,
+                  ),
+
+                  const SizedBox(height: 5),
+
+                  TextInAppWidget(
+                    text: chat.lastMessage ?? '---',
+                    textSize: 12,
+                    fontWeightIndex:
+                    FontSelectionData.regularFontFamily,
+                    textColor: AppColors.greyColor,
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+            ),
+
+            if ((chat.notViewedCount ?? 0) > 0)
+              Container(
+                width: 22,
+                height: 22,
+                decoration: const BoxDecoration(
+                  color: Colors.orange,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: TextInAppWidget(
+                    text: '${chat.notViewedCount}',
+                    textSize: 10,
+                    fontWeightIndex:
+                    FontSelectionData.mediumFontFamily,
+                    textColor: AppColors.whiteColor,
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
-      child: Row(
-        children: [
-          image != null
-              ? CircleAvatar(
-            radius: 22,
-            backgroundImage: MemoryImage(image),
-          )
-              : const CircleAvatar(
-            radius: 22,
-            child: Icon(
-              Icons.person_outline,
-            ),
+    );
+  }
+  void _showSendMessageDialog(
+      BuildContext context,
+      ChatHaragModel chat,
+      ) {
+    final messageController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
           ),
 
-          const SizedBox(width: 10),
+          // =====================================================
+          // TITLE
+          // =====================================================
 
-          Expanded(
-            child: Column(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
-              children: [
-                TextInAppWidget(
-                  text: userName,
-                  textSize: 14,
-                  fontWeightIndex:
-                  FontSelectionData.mediumFontFamily,
-                  textColor: AppColors.darkColor,
-                  maxLines: 1,
-                ),
-
-                const SizedBox(height: 5),
-
-                TextInAppWidget(
-                  text: chat.lastMessage ?? '---',
-                  textSize: 12,
-                  fontWeightIndex:
-                  FontSelectionData.regularFontFamily,
-                  textColor: AppColors.greyColor,
-                  maxLines: 1,
-                ),
-              ],
-            ),
+          title: const TextInAppWidget(
+            text: AppLanguageKeys.sendUsMessage,
+            textSize: 20,
+            fontWeightIndex: FontSelectionData.boldFontFamily,
+            textColor: AppColors.darkColor,
+            isTextCenter: true,
           ),
 
-          if ((chat.notViewedCount ?? 0) > 0)
-            Container(
-              width: 22,
-              height: 22,
-              decoration: const BoxDecoration(
-                color: Colors.orange,
-                shape: BoxShape.circle,
+          // =====================================================
+          // MESSAGE
+          // =====================================================
+
+          content: TextField(
+            controller: messageController,
+            maxLines: 4,
+            decoration: InputDecoration(
+              hintText: AppLanguageKeys.writeComment,
+              hintStyle: const TextStyle(
+                color: AppColors.greyColor,
               ),
-              child: Center(
-                child: TextInAppWidget(
-                  text: '${chat.notViewedCount}',
-                  textSize: 10,
-                  fontWeightIndex:
-                  FontSelectionData.mediumFontFamily,
-                  textColor: AppColors.whiteColor,
+              filled: true,
+              fillColor: AppColors.greyColor.withOpacity(.08),
+              contentPadding: const EdgeInsets.all(14),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(
+                  color: AppColors.orangeColor,
                 ),
               ),
             ),
-        ],
-      ),
+          ),
+
+          // =====================================================
+          // ACTIONS
+          // =====================================================
+
+          actions: [
+            // CANCEL
+            TextButton(
+              onPressed: () {
+                Navigator.pop(dialogContext);
+              },
+              child: const TextInAppWidget(
+                text: AppLanguageKeys.cancel,
+                textSize: 14,
+                textColor: AppColors.greyColor,
+              ),
+            ),
+
+            // SEND
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.orangeColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onPressed: () {
+                final message =
+                messageController.text.trim();
+
+                if (message.isEmpty) {
+                  return;
+                }
+
+                context.read<HaragCubit>().sendMessage(
+                  toUser: chat.toUser ?? chat.fromUser ?? 0,
+                  toUserType:
+                  chat.toUserType ??
+                      chat.fromUserType ??
+                      0,
+                  message: message,
+                  harageId: chat.harageId ?? 0,
+                );
+                AppSnackBar.showSuccess(AppLanguageKeys.success);
+                Navigator.pop(dialogContext);
+              },
+              child: const TextInAppWidget(
+                text: AppLanguageKeys.send,
+                textSize: 14,
+                textColor: AppColors.whiteColor,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

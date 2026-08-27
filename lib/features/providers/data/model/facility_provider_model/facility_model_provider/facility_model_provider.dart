@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_admin_san/features/auth_page/data/request/get_user_inf_request/get_user_info_datasource.dart';
 import 'package:web_admin_san/features/auth_page/presentation/bloc/get_user_info_cubit/get_user_info_cubit.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/screens/car_haraj_orders_page/car_haraj_orders_page.dart';
-import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/page_details_provider_harag/screens/cars_haraj_statistics_page/cars_haraj_statistics_page.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/car_haraj_orders_page/car_haraj_orders_page.dart';
+import 'package:web_admin_san/features/cars_haraj_page/presentation/ui/cars_haraj_statistics_page/cars_haraj_statistics_page.dart';
 import 'package:web_admin_san/features/company/presentation/bloc/get_company_cars_with_drivers_cubit/get_company_cars_with_drivers_cubit.dart';
 import 'package:web_admin_san/features/company/presentation/bloc/get_company_drivers_cubit/get_company_drivers_cubit.dart';
 import 'package:web_admin_san/features/company/presentation/pages/page_details_companies/screens/cars_companies/cars_companies.dart';
@@ -89,13 +89,13 @@ List<FacilityModelProvider> facilityTabsProvidersHarag(int providerID) => [
       FacilityModelProvider(
         title: AppLanguageKeys.statistics,
         content: CarsHarajStatisticsPage(
-          providerID: providerID,
+          providerId: providerID,
         ),
       ),
       FacilityModelProvider(
         title: AppLanguageKeys.allOrders,
         content: CarHarajOrdersPage(
-          providerID: providerID,
+          userId: providerID,
         ),
       ),
     ];
