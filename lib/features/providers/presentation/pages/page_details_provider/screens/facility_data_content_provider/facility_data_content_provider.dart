@@ -13,7 +13,7 @@ import 'package:web_admin_san/features/internal_services/presentation/cubit/orde
 import 'package:web_admin_san/features/providers/presentation/custom_widget/read_only_image_card.dart';
 import 'package:web_admin_san/features/providers/presentation/pages/page_details_provider/screens/facility_data_content_provider/provider_approval_switch.dart';
 
-class FacilityDataContentProvider extends StatelessWidget {
+class FacilityDataContentProvider extends StatefulWidget {
   final int providerID;
 
   const FacilityDataContentProvider({
@@ -22,48 +22,267 @@ class FacilityDataContentProvider extends StatelessWidget {
   });
 
   @override
+  State<FacilityDataContentProvider> createState() =>
+      _FacilityDataContentProviderState();
+}
+
+class _FacilityDataContentProviderState
+    extends State<FacilityDataContentProvider> {
+
+  // ============================================================
+  // CONTROLLERS
+  // ============================================================
+
+  final idController =
+  TextEditingController();
+
+  final userNameController =
+  TextEditingController();
+
+  final nationalityController =
+  TextEditingController();
+
+  final phoneController =
+  TextEditingController();
+
+  final emailController =
+  TextEditingController();
+
+  final genderController =
+  TextEditingController();
+
+  final ageController =
+  TextEditingController();
+
+  final joinDateController =
+  TextEditingController();
+
+  final facilityNameController =
+  TextEditingController();
+
+  final facilityNameEnController =
+  TextEditingController();
+
+  final crController =
+  TextEditingController();
+
+  final vatNoController =
+  TextEditingController();
+
+  final nationalAddressController =
+  TextEditingController();
+
+  final approvalIdController =
+  TextEditingController();
+
+  final approvalStartDateController =
+  TextEditingController();
+
+  final approvalEndDateController =
+  TextEditingController();
+
+  // ============================================================
+  // UPDATE CONTROLLERS
+  // ============================================================
+
+  void _setUserData(dynamic user) {
+    idController.text =
+        user.userid?.toString() ?? '';
+
+    userNameController.text =
+        user.username ?? '';
+
+    nationalityController.text =
+        user.nationality ?? '';
+
+    phoneController.text =
+        user.phone ?? '';
+
+    emailController.text =
+        user.email ?? '';
+
+    genderController.text =
+    user.gender == 0
+        ? AppLanguageKeys.male
+        : AppLanguageKeys.female;
+
+    ageController.text =
+        user.age?.toString() ?? '';
+
+    joinDateController.text =
+    user.joinDate != null
+        ? OrderFunctions.formatDateFromDateTime(
+      user.joinDate!,
+    )
+        : '';
+
+    // ==========================================================
+    // PROVIDER DATA
+    // ==========================================================
+
+    facilityNameController.text =
+        user.providerDetails?.name ?? '';
+
+    facilityNameEnController.text =
+        user.providerDetails?.latinname ?? '';
+
+    crController.text =
+        user.providerDetails?.cr ?? '';
+
+    vatNoController.text =
+        user.providerDetails?.vatno ?? '';
+
+    nationalAddressController.text =
+        user.providerDetails?.nationaladdress ?? '';
+
+    // ==========================================================
+    // APPROVAL DATA
+    // ==========================================================
+
+    final approval =
+        user.providerDetails?.approvalInfo;
+
+    if (user.providerDetails?.isApproved == true &&
+        approval != null) {
+
+      approvalIdController.text =
+          approval.approvalinfoid?.toString() ?? '';
+
+      approvalStartDateController.text =
+      approval.approvalstartdate != null
+          ? OrderFunctions.formatDateFromDateTime(
+        approval.approvalstartdate!,
+      )
+          : '';
+
+      approvalEndDateController.text =
+      approval.approvalenddate != null
+          ? OrderFunctions.formatDateFromDateTime(
+        approval.approvalenddate!,
+      )
+          : '';
+    } else {
+      approvalIdController.clear();
+      approvalStartDateController.clear();
+      approvalEndDateController.clear();
+    }
+  }
+
+  // ============================================================
+  // DISPOSE
+  // ============================================================
+
+  @override
+  void dispose() {
+    idController.dispose();
+    userNameController.dispose();
+    nationalityController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+    genderController.dispose();
+    ageController.dispose();
+    joinDateController.dispose();
+    facilityNameController.dispose();
+    facilityNameEnController.dispose();
+    crController.dispose();
+    vatNoController.dispose();
+    nationalAddressController.dispose();
+    approvalIdController.dispose();
+    approvalStartDateController.dispose();
+    approvalEndDateController.dispose();
+
+    super.dispose();
+  }
+
+  // ============================================================
+  // BUILD
+  // ============================================================
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => GetUserInfoCubit()
+          create: (_) =>
+          GetUserInfoCubit()
             ..getUserInfo(
               request: GetUserInfoRequest(
-                userId: providerID,
+                userId: widget.providerID,
                 userType: 4,
               ),
             ),
         ),
+
         BlocProvider(
-          create: (_) => ToggleProviderApprovalStatusCubit(),
+          create: (_) =>
+              ToggleProviderApprovalStatusCubit(),
         ),
       ],
+
       child: Builder(
         builder: (context) {
           return RefreshIndicator(
             color: AppColors.orangeColor,
+
             onRefresh: () async {
-              await context.read<GetUserInfoCubit>().getUserInfo(
-                    request: GetUserInfoRequest(
-                      userId: providerID,
-                      userType: 4,
-                    ),
-                  );
+              await context
+                  .read<GetUserInfoCubit>()
+                  .getUserInfo(
+                request: GetUserInfoRequest(
+                  userId: widget.providerID,
+                  userType: 4,
+                ),
+              );
             },
+
             child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: BlocBuilder<GetUserInfoCubit, GetUserInfoState>(
-                builder: (context, state) {
-                  if (state is GetUserInfoLoading) {
+              physics:
+              const AlwaysScrollableScrollPhysics(),
+
+              padding:
+              const EdgeInsets.only(
+                bottom: 20,
+              ),
+
+              child:
+              BlocConsumer<
+                  GetUserInfoCubit,
+                  GetUserInfoState
+              >(
+                listener: (context, state) {
+                  if (state
+                  is GetUserInfoSuccess) {
+                    _setUserData(
+                      state.user,
+                    );
+                  }
+                },
+
+                builder: (
+                    context,
+                    state,
+                    ) {
+                  // ==================================================
+                  // LOADING
+                  // ==================================================
+
+                  if (state
+                  is GetUserInfoLoading) {
                     return const SizedBox(
                       height: 500,
                       child: Center(
-                        child: CircularProgressIndicator(),
+                        child:
+                        CircularProgressIndicator(),
                       ),
                     );
                   }
 
-                  if (state is GetUserInfoError) {
+                  // ==================================================
+                  // ERROR
+                  // ==================================================
+
+                  if (state
+                  is GetUserInfoError) {
                     return SizedBox(
                       height: 500,
                       child: Center(
@@ -74,199 +293,515 @@ class FacilityDataContentProvider extends StatelessWidget {
                     );
                   }
 
-                  if (state is GetUserInfoSuccess) {
-                    final user = state.user;
+                  // ==================================================
+                  // SUCCESS
+                  // ==================================================
 
-                    final vatNoController = TextEditingController(
-                      text: user.providerDetails?.vatno ?? '',
-                    );
+                  if (state
+                  is GetUserInfoSuccess) {
+                    final user =
+                        state.user;
 
-                    final crController = TextEditingController(
-                      text: user.providerDetails?.cr ?? '',
-                    );
-
-                    final idController = TextEditingController(
-                      text: user.userid?.toString() ?? '',
-                    );
-
-                    final userNameController = TextEditingController(
-                      text: user.username ?? '',
-                    );
-
-                    final phoneController = TextEditingController(
-                      text: user.phone ?? '',
-                    );
-
-                    final emailController = TextEditingController(
-                      text: user.email ?? '',
-                    );
-
-                    final genderController = TextEditingController(
-                      text: user.gender == 0 ? AppLanguageKeys.male : AppLanguageKeys.female,
-                    );
-
-                    final ageController = TextEditingController(
-                      text: user.age?.toString() ?? '',
-                    );
-
-                    final nationalAddressController = TextEditingController(
-                      text: user.providerDetails?.nationaladdress ?? '',
-                    );
-
-                    final joinDateController = TextEditingController(
-                      text: user.joinDate != null
-                          ? OrderFunctions.formatDateFromDateTime(
-                              user.joinDate!,
-                            )
-                          : '',
-                    );
+                    final isApproved =
+                        user.providerDetails
+                            ?.isApproved ==
+                            true;
 
                     return Column(
-                      spacing: 20,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.start,
+
                       children: [
-                        // =========================
+
+                        // ==================================================
                         // USER HEADER
-                        // =========================
+                        // ==================================================
 
                         Wrap(
                           spacing: 20,
                           runSpacing: 10,
-                          crossAxisAlignment: WrapCrossAlignment.center,
+                          crossAxisAlignment:
+                          WrapCrossAlignment.center,
+
                           children: [
-                            // User Image
+
+                            // ----------------------------------------------
+                            // USER IMAGE + NAME
+                            // ----------------------------------------------
+
                             Wrap(
                               spacing: 10,
-                              crossAxisAlignment: WrapCrossAlignment.center,
+                              crossAxisAlignment:
+                              WrapCrossAlignment.center,
+
                               children: [
-                                user.image != null
+
+                                user.image !=
+                                    null
                                     ? CircleAvatar(
-                                        radius: 20,
-                                        backgroundImage: MemoryImage(
-                                          user.image!,
-                                        ),
-                                      )
+                                  radius: 20,
+                                  backgroundImage:
+                                  MemoryImage(
+                                    user.image!,
+                                  ),
+                                )
                                     : const CircleAvatar(
-                                        radius: 20,
-                                      ),
+                                  radius: 20,
+                                ),
+
                                 TextInAppWidget(
-                                  text: user.username ?? '',
-                                  textSize: 15,
+                                  text:
+                                  user.username ??
+                                      '',
+                                  textSize:
+                                  15,
                                   fontWeightIndex:
-                                      FontSelectionData.mediumFontFamily,
-                                  textColor: AppColors.blackColor,
+                                  FontSelectionData
+                                      .mediumFontFamily,
+                                  textColor:
+                                  AppColors
+                                      .blackColor,
                                 ),
                               ],
                             ),
 
-                            // =========================
+                            // ----------------------------------------------
                             // APPROVAL SWITCH
-                            // =========================
+                            // ----------------------------------------------
 
                             ProviderApprovalSwitch(
-                              providerId: providerID,
-                              isApproved: user.providerDetails?.isApproved ?? false,
+                              providerId:
+                              widget.providerID,
+                              isApproved:
+                              isApproved,
                             ),
                           ],
                         ),
 
-                        // =========================
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        // ==================================================
                         // PERSONAL DATA
-                        // =========================
+                        // ==================================================
 
                         const TextInAppWidget(
-                          text: AppLanguageKeys.personalData,
+                          text:
+                          AppLanguageKeys
+                              .personalData,
                           textSize: 15,
-                          fontWeightIndex: FontSelectionData.mediumFontFamily,
-                          textColor: AppColors.orangeColor,
+                          fontWeightIndex:
+                          FontSelectionData
+                              .mediumFontFamily,
+                          textColor:
+                          AppColors
+                              .orangeColor,
+                        ),
+
+                        const SizedBox(
+                          height: 10,
                         ),
 
                         Wrap(
                           spacing: 10,
                           runSpacing: 10,
+
                           children: [
+
+                            // ----------------------------------------------
+                            // ID
+                            // ----------------------------------------------
+
                             UserTextFieldWidget(
-                              controller: idController,
-                              text: AppLanguageKeys.identity,
-                              readOnly: true,
-                              width: 250,
+                              controller:
+                              idController,
+                              text:
+                              AppLanguageKeys
+                                  .identity,
+                              readOnly:
+                              true,
+                              width:
+                              250,
                             ),
+
+                            // ----------------------------------------------
+                            // USERNAME
+                            // ----------------------------------------------
+
                             UserTextFieldWidget(
-                              controller: userNameController,
-                              text: AppLanguageKeys.userName,
-                              readOnly: true,
-                              width: 250,
+                              controller:
+                              userNameController,
+                              text:
+                              AppLanguageKeys
+                                  .userName,
+                              readOnly:
+                              true,
+                              width:
+                              250,
                             ),
+
+                            // ----------------------------------------------
+                            // NATIONALITY
+                            // ----------------------------------------------
+
                             UserTextFieldWidget(
-                              controller: phoneController,
-                              text: AppLanguageKeys.phoneNumber,
-                              readOnly: true,
-                              width: 250,
+                              controller:
+                              nationalityController,
+                              text:
+                              AppLanguageKeys
+                                  .nationality,
+                              readOnly:
+                              true,
+                              width:
+                              250,
                             ),
+
+                            // ----------------------------------------------
+                            // PHONE
+                            // ----------------------------------------------
+
                             UserTextFieldWidget(
-                              controller: emailController,
-                              text: AppLanguageKeys.email,
-                              readOnly: true,
-                              width: 250,
+                              controller:
+                              phoneController,
+                              text:
+                              AppLanguageKeys
+                                  .phoneNumber,
+                              readOnly:
+                              true,
+                              width:
+                              250,
                             ),
+
+                            // ----------------------------------------------
+                            // EMAIL
+                            // ----------------------------------------------
+
                             UserTextFieldWidget(
-                              controller: genderController,
-                              text: AppLanguageKeys.gender,
-                              readOnly: true,
-                              width: 250,
+                              controller:
+                              emailController,
+                              text:
+                              AppLanguageKeys
+                                  .email,
+                              readOnly:
+                              true,
+                              width:
+                              250,
                             ),
+
+                            // ----------------------------------------------
+                            // AGE
+                            // ----------------------------------------------
+
                             UserTextFieldWidget(
-                              controller: ageController,
-                              text: AppLanguageKeys.age,
-                              readOnly: true,
-                              width: 250,
+                              controller:
+                              ageController,
+                              text:
+                              AppLanguageKeys
+                                  .age,
+                              readOnly:
+                              true,
+                              width:
+                              250,
                             ),
+
+                            // ----------------------------------------------
+                            // GENDER
+                            // ----------------------------------------------
+
                             UserTextFieldWidget(
-                              controller: nationalAddressController,
-                              text: AppLanguageKeys.branchNationalAddress,
-                              readOnly: true,
-                              width: 250,
+                              controller:
+                              genderController,
+                              text:
+                              AppLanguageKeys
+                                  .gender,
+                              readOnly:
+                              true,
+                              width:
+                              250,
                             ),
+
+                            // ----------------------------------------------
+                            // JOIN DATE
+                            // ----------------------------------------------
+
                             UserTextFieldWidget(
-                              controller: joinDateController,
-                              text: AppLanguageKeys.joiningDate,
-                              readOnly: true,
-                              width: 250,
-                            ),
-                            UserTextFieldWidget(
-                              controller: vatNoController,
-                              text: AppLanguageKeys.taxNumber,
-                              readOnly: true,
-                              width: 250,
-                            ),
-                            UserTextFieldWidget(
-                              controller: crController,
-                              text: AppLanguageKeys.commercialRecordKey,
-                              readOnly: true,
-                              width: 250,
+                              controller:
+                              joinDateController,
+                              text:
+                              AppLanguageKeys
+                                  .joiningDate,
+                              readOnly:
+                              true,
+                              width:
+                              250,
                             ),
                           ],
                         ),
 
-                        // =========================
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        // ==================================================
+                        // FACILITY DATA
+                        // ==================================================
+
+                        const TextInAppWidget(
+                          text:
+                          AppLanguageKeys
+                              .facilityData,
+                          textSize: 15,
+                          fontWeightIndex:
+                          FontSelectionData
+                              .mediumFontFamily,
+                          textColor:
+                          AppColors
+                              .orangeColor,
+                        ),
+
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        Wrap(
+                          spacing: 10,
+                          runSpacing: 10,
+
+                          children: [
+
+                            // ----------------------------------------------
+                            // FACILITY NAME
+                            // ----------------------------------------------
+
+                            UserTextFieldWidget(
+                              controller:
+                              facilityNameController,
+                              text:
+                              AppLanguageKeys
+                                  .facilityName,
+                              readOnly:
+                              true,
+                              width:
+                              250,
+                            ),
+
+                            // ----------------------------------------------
+                            // FACILITY NAME EN
+                            // ----------------------------------------------
+
+                            UserTextFieldWidget(
+                              controller:
+                              facilityNameEnController,
+                              text:
+                              AppLanguageKeys
+                                  .facilityNameEn,
+                              readOnly:
+                              true,
+                              width:
+                              250,
+                            ),
+
+                            // ----------------------------------------------
+                            // COMMERCIAL RECORD
+                            // ----------------------------------------------
+
+                            UserTextFieldWidget(
+                              controller:
+                              crController,
+                              text:
+                              AppLanguageKeys
+                                  .commercialRecordKey,
+                              readOnly:
+                              true,
+                              width:
+                              250,
+                            ),
+
+                            // ----------------------------------------------
+                            // VAT
+                            // ----------------------------------------------
+
+                            UserTextFieldWidget(
+                              controller:
+                              vatNoController,
+                              text:
+                              AppLanguageKeys
+                                  .taxNumber,
+                              readOnly:
+                              true,
+                              width:
+                              250,
+                            ),
+
+                            // ----------------------------------------------
+                            // NATIONAL ADDRESS
+                            // ----------------------------------------------
+
+                            UserTextFieldWidget(
+                              controller:
+                              nationalAddressController,
+                              text:
+                              AppLanguageKeys
+                                  .branchNationalAddress,
+                              readOnly:
+                              true,
+                              width:
+                              250,
+                            ),
+                          ],
+                        ),
+
+                        // ==================================================
+                        // APPROVAL INFORMATION
+                        // ==================================================
+
+                        if (isApproved) ...[
+                          const SizedBox(
+                            height: 20,
+                          ),
+
+                          const TextInAppWidget(
+                            text:
+                            AppLanguageKeys
+                                .approvalInfo,
+                            textSize: 15,
+                            fontWeightIndex:
+                            FontSelectionData
+                                .mediumFontFamily,
+                            textColor:
+                            AppColors
+                                .orangeColor,
+                          ),
+
+                          const SizedBox(
+                            height: 10,
+                          ),
+
+                          Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+
+                            children: [
+
+                              // --------------------------------------------
+                              // APPROVAL ID
+                              // --------------------------------------------
+
+                              UserTextFieldWidget(
+                                controller:
+                                approvalIdController,
+                                text:
+                                AppLanguageKeys
+                                    .approvalInfoId,
+                                readOnly:
+                                true,
+                                width:
+                                250,
+                              ),
+
+                              // --------------------------------------------
+                              // START DATE
+                              // --------------------------------------------
+
+                              UserTextFieldWidget(
+                                controller:
+                                approvalStartDateController,
+                                text:
+                                AppLanguageKeys
+                                    .approvalStartDate,
+                                readOnly:
+                                true,
+                                width:
+                                250,
+                              ),
+
+                              // --------------------------------------------
+                              // END DATE
+                              // --------------------------------------------
+
+                              UserTextFieldWidget(
+                                controller:
+                                approvalEndDateController,
+                                text:
+                                AppLanguageKeys
+                                    .approvalEndDate,
+                                readOnly:
+                                true,
+                                width:
+                                250,
+                              ),
+                            ],
+                          ),
+                        ],
+
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        // ==================================================
                         // DOCUMENTS
-                        // =========================
+                        // ==================================================
+
+                        const TextInAppWidget(
+                          text:
+                          AppLanguageKeys
+                              .documents,
+                          textSize: 15,
+                          fontWeightIndex:
+                          FontSelectionData
+                              .mediumFontFamily,
+                          textColor:
+                          AppColors
+                              .orangeColor,
+                        ),
+
+                        const SizedBox(
+                          height: 10,
+                        ),
 
                         Wrap(
                           spacing: 20,
                           runSpacing: 20,
+
                           children: [
+
+                            // ----------------------------------------------
+                            // OWNER / PROFILE
+                            // ----------------------------------------------
+
                             ReadOnlyImageCard(
-                              title: AppLanguageKeys.ownerIdKey,
-                              image: user.image,
+                              title:
+                              AppLanguageKeys
+                                  .ownerIdKey,
+                              image:
+                              user.image,
                             ),
+
+                            // ----------------------------------------------
+                            // COMMERCIAL RECORD
+                            // ----------------------------------------------
+
                             ReadOnlyImageCard(
-                              title: AppLanguageKeys.commercialRecordKey,
-                              image: user.providerDetails?.crimage,
+                              title:
+                              AppLanguageKeys
+                                  .commercialRecordKey,
+                              image:
+                              user.providerDetails
+                                  ?.crimage,
                             ),
+
+                            // ----------------------------------------------
+                            // TAX NUMBER
+                            // ----------------------------------------------
+
                             ReadOnlyImageCard(
-                              title: AppLanguageKeys.taxNumber,
-                              image: user.providerDetails?.vatnoimage,
+                              title:
+                              AppLanguageKeys
+                                  .taxNumber,
+                              image:
+                              user.providerDetails
+                                  ?.vatnoimage,
                             ),
                           ],
                         ),

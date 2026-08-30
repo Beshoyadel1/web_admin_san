@@ -20,6 +20,12 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String facilityData = 'facilityData';
+  static const String approvalInfo = 'approvalInfo';
+  static const String approvalInfoId = 'approvalInfoId';
+  static const String approvalStartDate = 'approvalStartDate';
+  static const String approvalEndDate = 'approvalEndDate';
+  static const String documents = 'documents';
   static const String created = 'created';
   static const String pending = 'pending';
   static const String deleted = 'deleted';

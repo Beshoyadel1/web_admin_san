@@ -33,6 +33,12 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.facilityData: 'بيانات المنشأة',
+      AppLanguageKeys.approvalInfo: 'معلومات الاعتماد',
+      AppLanguageKeys.approvalInfoId: 'رقم معلومات الاعتماد',
+      AppLanguageKeys.approvalStartDate: 'تاريخ بداية الاعتماد',
+      AppLanguageKeys.approvalEndDate: 'تاريخ انتهاء الاعتماد',
+      AppLanguageKeys.documents: 'المستندات',
       AppLanguageKeys.created: 'مُنشأ',
       AppLanguageKeys.pending: 'معلق',
       AppLanguageKeys.deleted: 'محذوف',
@@ -1497,6 +1503,12 @@ class AppLocalizations {
       AppLanguageKeys.acceptOrder: 'Accept Order',
       //END//
       //others//
+      AppLanguageKeys.facilityData: 'بيانات المنشأة',
+      AppLanguageKeys.approvalInfo: 'معلومات الاعتماد',
+      AppLanguageKeys.approvalInfoId: 'رقم معلومات الاعتماد',
+      AppLanguageKeys.approvalStartDate: 'تاريخ بداية الاعتماد',
+      AppLanguageKeys.approvalEndDate: 'تاريخ انتهاء الاعتماد',
+      AppLanguageKeys.documents: 'المستندات',
       AppLanguageKeys.created: 'Created',
       AppLanguageKeys.pending: 'Pending',
       AppLanguageKeys.deleted: 'Deleted',

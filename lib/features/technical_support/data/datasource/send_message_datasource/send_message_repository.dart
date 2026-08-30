@@ -8,7 +8,11 @@ import '../../../../../core/api/dio_function/failures.dart';
 
 Future<void> sendMessageFunction({required SendMessageRequest sendMessageRequest}) async {
   try {
-    String jsonString = json.encode(sendMessageRequest.toJson());
+    final body =
+    sendMessageRequest.toJson();
+
+    final jsonString =
+    jsonEncode(body);
 
     await Network.postDataWithBody(
       jsonString,

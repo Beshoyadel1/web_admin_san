@@ -41,6 +41,9 @@ class ApiConfig {
 }
 
 class ApiLink {
+
+  static const String getHarageChat =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetHarageChat";
   static const String changeHarageStatus =
       "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/ChangeHarageStatus";
   static const String getCarDetails =
