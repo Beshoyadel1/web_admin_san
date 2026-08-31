@@ -15,6 +15,45 @@ import 'get_all_providers_state.dart';
 class GetAllProvidersCubit extends Cubit<GetAllProvidersState> {
   GetAllProvidersCubit() : super(GetAllProvidersInitial());
 
+
+  void updateProviderInList(GetAllProvidersModels updatedProvider) {
+    if (isClosed) return;
+
+    final currentState = state;
+
+    if (currentState is! GetAllProvidersSuccess) {
+      return;
+    }
+
+    final providers =
+    List<GetAllProvidersModels>.from(currentState.providers);
+
+    final index = providers.indexWhere(
+          (provider) =>
+      provider.providerId == updatedProvider.providerId,
+    );
+
+    if (index == -1) {
+      return;
+    }
+
+    // Replace old provider with updated provider
+    providers[index] = updatedProvider;
+
+    // Keep approval data
+    final providerApproval =
+    Map<int, bool>.from(currentState.providerApproval);
+
+    emit(
+      GetAllProvidersSuccess(
+        providers: providers,
+        providerApproval: providerApproval,
+        currentPage: currentState.currentPage,
+        pageCount: currentState.pageCount,
+        totalCount: currentState.totalCount,
+      ),
+    );
+  }
   Future<void> getAllProviders({
     required int currentPage,
   }) async {

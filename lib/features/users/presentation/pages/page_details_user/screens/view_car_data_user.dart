@@ -31,20 +31,6 @@ class ViewCarDataUser extends StatelessWidget {
         BlocBuilder<UserDetailsCubit, UserDetailsState>(
           builder: (context, state) {
 
-            if (state is UserDetailsLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            if (state is UserDetailsFailure) {
-              return Center(
-                child: Text(
-                  state.error,
-                ),
-              );
-            }
-
             if (state is UserDetailsSuccess) {
               final cars = state.data.cars;
 

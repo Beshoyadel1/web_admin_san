@@ -6,6 +6,7 @@ import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_pag
 import 'package:web_admin_san/features/internal_services/presentation/cubit/order_funcations/order_functions.dart';
 import 'package:web_admin_san/features/internal_services/presentation/pages/internal_orders/custom_widget/text_empty_view_data.dart';
 import 'package:web_admin_san/features/order_services/presentation/custom_widget/app_pagination.dart';
+import 'package:web_admin_san/features/providers/data/model/get_all_providers_models/get_all_providers_models/get_all_providers_models.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/get_all_providers_cubit/get_all_providers_cubit.dart';
 import 'package:web_admin_san/features/providers/presentation/bloc/get_all_providers_cubit/get_all_providers_state.dart';
 import 'package:web_admin_san/features/providers/presentation/custom_widget/custom_view_all_provider_list_widget.dart';
@@ -65,7 +66,7 @@ class ListDataViewAllProvider extends StatelessWidget {
                             : '-',
                         orderCount: provider.totalOrders.toString(),
                         onTapViewRates: () async {
-                          final result =  await Navigator.push(
+                          final updatedProvider = await Navigator.push(
                             context,
                             NavigateToPageWidget(
                               PageDetailsProvider(
@@ -74,10 +75,12 @@ class ListDataViewAllProvider extends StatelessWidget {
                             ),
                           );
 
-                          if (result == true && context.mounted) {
-                            await context
+                          if (updatedProvider != null && context.mounted) {
+                            context
                                 .read<GetAllProvidersCubit>()
-                                .getAllProviders(currentPage: 1);
+                                .updateProviderInList(
+                              updatedProvider as GetAllProvidersModels,
+                            );
                           }
                         },
                       );

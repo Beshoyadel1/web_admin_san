@@ -20,6 +20,15 @@ class AppLanguageKeys {
   //end//
 
   //others//
+  static const String verificationCodeSent = 'verificationCodeSent';
+  static const String failedToSendVerificationCode =
+      'failedToSendVerificationCode';
+  static const String phoneNumberNotFoundForThisAccount =
+      'phoneNumberNotFoundForThisAccount';
+  static const String phoneNumberNotFound = 'phoneNumberNotFound';
+  static const String codeSentTo = 'codeSentTo';
+  static const String pleaseEnterYourEmail = 'pleaseEnterYourEmail';
+  static const String yourEmailIsEmpty = 'yourEmailIsEmpty';
   static const String facilityData = 'facilityData';
   static const String approvalInfo = 'approvalInfo';
   static const String approvalInfoId = 'approvalInfoId';

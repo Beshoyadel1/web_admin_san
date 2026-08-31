@@ -33,6 +33,16 @@ class AppLocalizations {
       //END//
 
       //others//
+      AppLanguageKeys.verificationCodeSent: 'تم إرسال رمز التحقق',
+      AppLanguageKeys.failedToSendVerificationCode:
+      'فشل إرسال رمز التحقق',
+      AppLanguageKeys.phoneNumberNotFoundForThisAccount:
+      'رقم الهاتف غير موجود لهذا الحساب',
+      AppLanguageKeys.phoneNumberNotFound:
+      'رقم الهاتف غير موجود',
+      AppLanguageKeys.codeSentTo: 'تم إرسال الرمز إلى',
+      AppLanguageKeys.pleaseEnterYourEmail: 'يرجى إدخال بريدك الإلكتروني',
+      AppLanguageKeys.yourEmailIsEmpty: 'البريد الإلكتروني فارغ',
       AppLanguageKeys.facilityData: 'بيانات المنشأة',
       AppLanguageKeys.approvalInfo: 'معلومات الاعتماد',
       AppLanguageKeys.approvalInfoId: 'رقم معلومات الاعتماد',
@@ -1503,12 +1513,22 @@ class AppLocalizations {
       AppLanguageKeys.acceptOrder: 'Accept Order',
       //END//
       //others//
-      AppLanguageKeys.facilityData: 'بيانات المنشأة',
-      AppLanguageKeys.approvalInfo: 'معلومات الاعتماد',
-      AppLanguageKeys.approvalInfoId: 'رقم معلومات الاعتماد',
-      AppLanguageKeys.approvalStartDate: 'تاريخ بداية الاعتماد',
-      AppLanguageKeys.approvalEndDate: 'تاريخ انتهاء الاعتماد',
-      AppLanguageKeys.documents: 'المستندات',
+      AppLanguageKeys.verificationCodeSent: 'Verification code sent',
+      AppLanguageKeys.failedToSendVerificationCode:
+      'Failed to send verification code',
+      AppLanguageKeys.phoneNumberNotFoundForThisAccount:
+      'Phone number not found for this account',
+      AppLanguageKeys.phoneNumberNotFound:
+      'Phone number not found',
+      AppLanguageKeys.codeSentTo: 'Code sent to',
+      AppLanguageKeys.pleaseEnterYourEmail: 'Please enter your email',
+      AppLanguageKeys.yourEmailIsEmpty: 'Your email is empty',
+      AppLanguageKeys.facilityData: 'Facility Data',
+      AppLanguageKeys.approvalInfo: 'Approval Information',
+      AppLanguageKeys.approvalInfoId: 'Approval Info ID',
+      AppLanguageKeys.approvalStartDate: 'Approval Start Date',
+      AppLanguageKeys.approvalEndDate: 'Approval End Date',
+      AppLanguageKeys.documents: 'Documents',
       AppLanguageKeys.created: 'Created',
       AppLanguageKeys.pending: 'Pending',
       AppLanguageKeys.deleted: 'Deleted',
