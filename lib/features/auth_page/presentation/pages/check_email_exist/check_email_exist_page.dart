@@ -16,7 +16,6 @@ import '../../../../../core/theming/fonts.dart';
 import '../../../../../core/theming/text_styles.dart';
 import '../../../../../core/utilies/map_of_all_app.dart';
 
-
 class CheckEmailExistPage extends StatefulWidget {
   const CheckEmailExistPage({super.key});
 
@@ -80,31 +79,32 @@ class _CheckEmailExistPageState extends State<CheckEmailExistPage> {
                                   textColor: AppColors.darkColor,
                                   textSize: 20,
                                   fontWeightIndex:
-                                  FontSelectionData.semiBoldFontFamily,
+                                      FontSelectionData.semiBoldFontFamily,
                                 ),
-
                                 UserTextFieldWidget(
                                   type: UserFieldType.email,
                                   controller: emailController,
                                 ),
-
-
                                 BlocConsumer<AuthCubit, AuthState>(
                                   listenWhen: (previous, current) =>
-                                  current is CheckIfUserExistOrNotSuccess ||
-                                      current is CheckIfUserExistOrNotNotFound ||
+                                      current is CheckIfUserExistOrNotSuccess ||
+                                      current
+                                          is CheckIfUserExistOrNotNotFound ||
                                       current is CheckIfUserExistOrNotError,
-
                                   listener: (context, state) {
                                     if (state is CheckIfUserExistOrNotSuccess) {
                                       final cubit = context.read<AuthCubit>();
 
-                                      print("=================================");
+                                      print(
+                                          "=================================");
                                       print("OTP PAGE NAVIGATION");
-                                      print("EMAIL => ${cubit.verificationEmail}");
-                                      print("PHONE => ${cubit.verificationPhone}");
+                                      print(
+                                          "EMAIL => ${cubit.verificationEmail}");
+                                      print(
+                                          "PHONE => ${cubit.verificationPhone}");
                                       print("OTP => ${cubit.otpCode}");
-                                      print("=================================");
+                                      print(
+                                          "=================================");
 
                                       final email = cubit.verificationEmail;
 
@@ -122,14 +122,16 @@ class _CheckEmailExistPageState extends State<CheckEmailExistPage> {
                                             value: cubit,
                                             child: OtpPage(
                                               email: email,
-                                              purpose: OtpPurpose.forgotPassword,
+                                              purpose:
+                                                  OtpPurpose.forgotPassword,
                                             ),
                                           ),
                                         ),
                                       );
                                     }
 
-                                    if (state is CheckIfUserExistOrNotNotFound) {
+                                    if (state
+                                        is CheckIfUserExistOrNotNotFound) {
                                       AppSnackBar.showError(
                                         AppLanguageKeys.userNotFound,
                                       );
@@ -141,58 +143,62 @@ class _CheckEmailExistPageState extends State<CheckEmailExistPage> {
                                       );
                                     }
                                   },
-
                                   builder: (context, state) {
                                     final bool isLoading =
-                                    state is CheckIfUserExistOrNotLoading;
+                                        state is CheckIfUserExistOrNotLoading;
 
                                     return LoginButtonWidget(
                                       text: AppLanguageKeys.send,
                                       isLoading: isLoading,
-
                                       onPressed: isLoading
                                           ? null
                                           : () {
-                                        // ==========================================
-                                        // 1. GET EMAIL
-                                        // ==========================================
+                                              // ==========================================
+                                              // 1. GET EMAIL
+                                              // ==========================================
 
-                                        final email =
-                                        emailController.text.trim();
+                                              final email =
+                                                  emailController.text.trim();
 
-                                        // ==========================================
-                                        // 2. CHECK EMPTY
-                                        // ==========================================
+                                              // ==========================================
+                                              // 2. CHECK EMPTY
+                                              // ==========================================
 
-                                        if (email.isEmpty) {
-                                          AppSnackBar.showError(
-                                            AppLanguageKeys.yourEmailIsEmpty,
-                                          );
-                                          return;
-                                        }
+                                              if (email.isEmpty) {
+                                                AppSnackBar.showError(
+                                                  AppLanguageKeys
+                                                      .yourEmailIsEmpty,
+                                                );
+                                                return;
+                                              }
 
-                                        // ==========================================
-                                        // 3. CHECK GMAIL FORMAT
-                                        // ==========================================
+                                              // ==========================================
+                                              // 3. CHECK GMAIL FORMAT
+                                              // ==========================================
 
-                                        final emailRegex = RegExp(
-                                          r'^[a-zA-Z0-9._%+-]+@gmail\.com$',
-                                        );
+                                              final emailRegex = RegExp(
+                                                r'^[a-zA-Z0-9._%+-]+@gmail\.com$',
+                                              );
 
-                                        if (!emailRegex.hasMatch(email)) {
-                                          AppSnackBar.showError(
-                                            AppLanguageKeys.pleaseEnterValidEmail,
-                                          );
-                                          return;
-                                        }
+                                              if (!emailRegex.hasMatch(email)) {
+                                                AppSnackBar.showError(
+                                                  AppLanguageKeys
+                                                      .pleaseEnterValidEmail,
+                                                );
+                                                return;
+                                              }
 
-
-                                        context
-                                            .read<AuthCubit>()
-                                            .checkIfUserExistOrNot(
-                                          email: email,
-                                        );
-                                      },
+                                              context
+                                                  .read<AuthCubit>()
+                                                  .checkIfUserExistOrNot(
+                                                    email: email,
+                                                    isArabic:
+                                                        Localizations.localeOf(
+                                                              context,
+                                                            ).languageCode ==
+                                                            'ar',
+                                                  );
+                                            },
                                     );
                                   },
                                 ),

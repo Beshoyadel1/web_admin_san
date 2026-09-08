@@ -27,7 +27,6 @@ import '../../../../../features/auth_page/domain/validate/facility_validator.dar
 import '../../../../../features/auth_page/presentation/pages/change_password/change_password_page.dart';
 import 'auth_state.dart';
 
-
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
@@ -85,7 +84,6 @@ class AuthCubit extends Cubit<AuthState> {
     //   return;
     // }
 
-
     // Connect SignalR
     if (!SignalRService.instance.isConnected) {
       await SignalRService.instance.connect(
@@ -105,6 +103,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     emit(AuthUnauthenticated());
   }
+
   Future<void> login(LoginRequest request) async {
     emit(AuthLoginLoading());
 
@@ -150,6 +149,7 @@ class AuthCubit extends Cubit<AuthState> {
       Navigator.pop(context);
     }
   }
+
   Future<void> reCheckFacility() async {
     final user = await AuthLocalStorage.getUser();
 
@@ -173,8 +173,8 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> _checkFacilityCompletion(
-      CreateUserRequest user,
-      ) async {
+    CreateUserRequest user,
+  ) async {
     final result = FacilityValidator.validate(
       user: user,
     );
@@ -192,16 +192,13 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-
-
   static Future<void> saveUserFromRequest(CreateUserRequest request) async {
     await AuthLocalStorage.saveUser(request);
   }
 
-
   Future<void> updateUser(
-      CreateUserRequest request,
-      ) async {
+    CreateUserRequest request,
+  ) async {
     if (isClosed) return;
 
     emit(AuthUpdateLoading());
@@ -225,57 +222,29 @@ class AuthCubit extends Cubit<AuthState> {
 
       final mergedProvider = newProvider != null
           ? ProviderDetailsRequest(
-        id: newProvider.id ?? oldProvider?.id,
-        name: newProvider.name ?? oldProvider?.name,
-        latinname:
-        newProvider.latinname ?? oldProvider?.latinname,
-        description:
-        newProvider.description ?? oldProvider?.description,
-        latindesc:
-        newProvider.latindesc ?? oldProvider?.latindesc,
-        provid:
-        newProvider.provid ?? oldProvider?.provid,
-        cr: newProvider.cr ?? oldProvider?.cr,
-        vatno:
-        newProvider.vatno ?? oldProvider?.vatno,
-        packageid:
-        newProvider.packageid ?? oldProvider?.packageid,
-
-        subscriptionstartdate:
-        newProvider.subscriptionstartdate ??
-            oldProvider?.subscriptionstartdate,
-
-        subscriptionenddate:
-        newProvider.subscriptionenddate ??
-            oldProvider?.subscriptionenddate,
-
-        iban:
-        newProvider.iban ?? oldProvider?.iban,
-
-        nationaladdress:
-        newProvider.nationaladdress ??
-            oldProvider?.nationaladdress,
-
-        crimage:
-        newProvider.crimage ??
-            oldProvider?.crimage,
-
-        vatnoimage:
-        newProvider.vatnoimage ??
-            oldProvider?.vatnoimage,
-
-        ibanimage:
-        newProvider.ibanimage ??
-            oldProvider?.ibanimage,
-
-        isApproved:
-        newProvider.isApproved ??
-            oldProvider?.isApproved,
-
-        approvalInfo:
-        newProvider.approvalInfo ??
-            oldProvider?.approvalInfo,
-      )
+              id: newProvider.id ?? oldProvider?.id,
+              name: newProvider.name ?? oldProvider?.name,
+              latinname: newProvider.latinname ?? oldProvider?.latinname,
+              description: newProvider.description ?? oldProvider?.description,
+              latindesc: newProvider.latindesc ?? oldProvider?.latindesc,
+              provid: newProvider.provid ?? oldProvider?.provid,
+              cr: newProvider.cr ?? oldProvider?.cr,
+              vatno: newProvider.vatno ?? oldProvider?.vatno,
+              packageid: newProvider.packageid ?? oldProvider?.packageid,
+              subscriptionstartdate: newProvider.subscriptionstartdate ??
+                  oldProvider?.subscriptionstartdate,
+              subscriptionenddate: newProvider.subscriptionenddate ??
+                  oldProvider?.subscriptionenddate,
+              iban: newProvider.iban ?? oldProvider?.iban,
+              nationaladdress:
+                  newProvider.nationaladdress ?? oldProvider?.nationaladdress,
+              crimage: newProvider.crimage ?? oldProvider?.crimage,
+              vatnoimage: newProvider.vatnoimage ?? oldProvider?.vatnoimage,
+              ibanimage: newProvider.ibanimage ?? oldProvider?.ibanimage,
+              isApproved: newProvider.isApproved ?? oldProvider?.isApproved,
+              approvalInfo:
+                  newProvider.approvalInfo ?? oldProvider?.approvalInfo,
+            )
           : oldProvider;
 
       // ================= ADMIN MERGE =================
@@ -285,50 +254,31 @@ class AuthCubit extends Cubit<AuthState> {
 
       final mergedAdmin = newAdmin != null
           ? AdminDetailsRequest(
-        id: newAdmin.id ?? oldAdmin?.id,
-        jobname:
-        newAdmin.jobname ?? oldAdmin?.jobname,
-        joblatinname:
-        newAdmin.joblatinname ??
-            oldAdmin?.joblatinname,
-        permissions:
-        newAdmin.permissions ??
-            oldAdmin?.permissions,
-      )
+              id: newAdmin.id ?? oldAdmin?.id,
+              jobname: newAdmin.jobname ?? oldAdmin?.jobname,
+              joblatinname: newAdmin.joblatinname ?? oldAdmin?.joblatinname,
+              permissions: newAdmin.permissions ?? oldAdmin?.permissions,
+            )
           : oldAdmin;
 
       // ================= API REQUEST =================
 
       final mergedRequest = CreateUserRequest(
         userid: oldUser.userid,
-        username:
-        request.username ?? oldUser.username,
-        phone:
-        request.phone ?? oldUser.phone,
-        email:
-        request.email ?? oldUser.email,
-        password:
-        request.password ?? oldUser.password,
-        age:
-        request.age ?? oldUser.age,
-        gender:
-        request.gender ?? oldUser.gender,
-        type:
-        oldUser.type,
-        nationality:
-        request.nationality ?? oldUser.nationality,
-        isActive:
-        request.isActive ?? oldUser.isActive,
-        joinDate:
-        request.joinDate ?? oldUser.joinDate,
-        referralCode:
-        request.referralCode ?? oldUser.referralCode,
-        image:
-        request.image ?? oldUser.image,
-        fcmToken:
-        request.fcmToken ?? oldUser.fcmToken,
-        currentCarId:
-        request.currentCarId ?? oldUser.currentCarId,
+        username: request.username ?? oldUser.username,
+        phone: request.phone ?? oldUser.phone,
+        email: request.email ?? oldUser.email,
+        password: request.password ?? oldUser.password,
+        age: request.age ?? oldUser.age,
+        gender: request.gender ?? oldUser.gender,
+        type: oldUser.type,
+        nationality: request.nationality ?? oldUser.nationality,
+        isActive: request.isActive ?? oldUser.isActive,
+        joinDate: request.joinDate ?? oldUser.joinDate,
+        referralCode: request.referralCode ?? oldUser.referralCode,
+        image: request.image ?? oldUser.image,
+        fcmToken: request.fcmToken ?? oldUser.fcmToken,
+        currentCarId: request.currentCarId ?? oldUser.currentCarId,
         providerDetails: mergedProvider,
         adminDetails: mergedAdmin,
         companyDetails: request.companyDetails ?? oldUser.companyDetails,
@@ -372,7 +322,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-
   String? verificationEmail;
   String? verificationPhone;
 
@@ -382,19 +331,37 @@ class AuthCubit extends Cubit<AuthState> {
   int secondsRemaining = 30;
 
   bool isOtpError = false;
+  bool isOtpVerifying = false;
+  bool isOtpResending = false;
+  bool _isPasswordResetOtp = false;
+  bool _isOtpMessageArabic = false;
 
-  void generateOtp() {
+  String _generateOtpCode() {
     final random = Random();
+    return (1000 + random.nextInt(9000)).toString();
+  }
 
-    otpCode = (1000 + random.nextInt(9000)).toString();
+  static String passwordResetOtpMessage({
+    required String otp,
+    required bool isArabic,
+  }) {
+    if (isArabic) {
+      return 'مرحبا بكم في صان، الرمز الخاص بكم لتغيير كلمة المرور هو $otp';
+    }
 
-    print("🔐 OTP CODE => $otpCode");
+    return 'Welcome to San, your password reset code is $otp';
+  }
 
-    startTimer();
+  String _otpMessage(String otp) {
+    if (_isPasswordResetOtp) {
+      return passwordResetOtpMessage(
+        otp: otp,
+        isArabic: _isOtpMessageArabic,
+      );
+    }
 
-    isOtpError = false;
-
-    emit(AuthOtpGenerated());
+    return 'Your verification code is: $otp. '
+        'Please do not share this code with anyone.';
   }
 
   void startTimer() {
@@ -406,13 +373,14 @@ class AuthCubit extends Cubit<AuthState> {
 
     _timer = Timer.periodic(
       const Duration(seconds: 1),
-          (timer) {
+      (timer) {
         if (isClosed) {
           timer.cancel();
           return;
         }
 
-        if (secondsRemaining <= 0) {
+        if (secondsRemaining <= 1) {
+          secondsRemaining = 0;
           timer.cancel();
 
           emit(AuthOtpExpired());
@@ -440,6 +408,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> validateOtp(String code) async {
     if (isClosed) return;
+    if (isOtpVerifying) return;
 
     final enteredOtp = code.trim();
 
@@ -448,7 +417,7 @@ class AuthCubit extends Cubit<AuthState> {
 
       emit(
         AuthOtpError(
-          AppLanguageKeys.badRequestError,
+          AppLanguageKeys.expired,
         ),
       );
 
@@ -484,7 +453,6 @@ class AuthCubit extends Cubit<AuthState> {
     // ==========================================
 
     isOtpError = false;
-    _timer?.cancel();
 
     // SIGNUP
     if (_pendingSignup != null) {
@@ -493,11 +461,13 @@ class AuthCubit extends Cubit<AuthState> {
     }
 
     // FORGOT PASSWORD
+    _timer?.cancel();
     emit(AuthOtpSuccess());
   }
 
   Future<void> resendOtp() async {
     if (isClosed) return;
+    if (isOtpResending) return;
 
     final phone = verificationPhone;
 
@@ -510,40 +480,40 @@ class AuthCubit extends Cubit<AuthState> {
       return;
     }
 
+    final newOtp = _generateOtpCode();
+    final message = _otpMessage(newOtp);
+
     isOtpError = false;
-
-    // Generate NEW OTP
-    generateOtp();
-
-    final message =
-        'Your verification code is: $otpCode. '
-        'Please do not share this code with anyone.';
+    isOtpResending = true;
+    emit(AuthOtpResendLoading());
 
     print("=================================");
     print("📤 RESEND OTP");
     print("📱 PHONE => $phone");
-    print("🔐 NEW OTP => $otpCode");
+    print("🔐 NEW OTP => $newOtp");
     print("💬 MESSAGE => $message");
     print("=================================");
 
     try {
-      final result =
-      await sendVerificationCodeFunction(
-        request: SendVerificationCodeRequest(
-          user: phone,
-          message: message,
-        ),
+      final result = await _sendOtpToPhoneVariations(
+        phone: phone,
+        message: message,
       );
 
       if (isClosed) return;
 
       if (result) {
+        otpCode = newOtp;
+        isOtpResending = false;
+        startTimer();
+
         print("✅ NEW OTP SENT SUCCESSFULLY");
 
         emit(
           AuthOtpResendSuccess(),
         );
       } else {
+        isOtpResending = false;
         print("❌ NEW OTP SEND FAILED");
 
         emit(
@@ -555,6 +525,7 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       if (isClosed) return;
 
+      isOtpResending = false;
       print("❌ RESEND OTP ERROR => $e");
 
       emit(
@@ -575,23 +546,23 @@ class AuthCubit extends Cubit<AuthState> {
     phoneNumber = phone;
     emit(AuthInitial());
   }
+
   Future<bool> sendOtp({
     required String email,
     required String phone,
+    bool isPasswordReset = false,
+    bool isArabic = false,
   }) async {
     if (isClosed) return false;
 
     verificationEmail = email.trim();
     verificationPhone = phone.trim();
 
-    final random = Random();
+    _isPasswordResetOtp = isPasswordReset;
+    _isOtpMessageArabic = isArabic;
 
-    final newOtp =
-    (1000 + random.nextInt(9000)).toString();
-
-    final message =
-        'Your verification code is: $newOtp. '
-        'Please do not share this code with anyone.';
+    final newOtp = _generateOtpCode();
+    final message = _otpMessage(newOtp);
 
     try {
       final sent = await _sendOtpToPhoneVariations(
@@ -620,6 +591,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> checkIfUserExistOrNot({
     required String email,
+    required bool isArabic,
   }) async {
     if (isClosed) return;
 
@@ -632,8 +604,7 @@ class AuthCubit extends Cubit<AuthState> {
       print("CHECK USER EMAIL => $email");
       print("=================================");
 
-      final result =
-      await checkIfUserExistOrNotFunction(
+      final result = await checkIfUserExistOrNotFunction(
         request: CheckIfUserExistOrNotRequest(
           user: email,
           type: UserType.adminUser,
@@ -687,6 +658,8 @@ class AuthCubit extends Cubit<AuthState> {
       final sent = await sendOtp(
         email: email,
         phone: phone,
+        isPasswordReset: true,
+        isArabic: isArabic,
       );
 
       if (isClosed) return;
@@ -721,7 +694,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-
   List<String> _getPhoneVariations(String phone) {
     final original = phone.trim();
 
@@ -744,6 +716,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     return phones.toSet().toList();
   }
+
   Future<bool> _sendOtpToPhoneVariations({
     required String phone,
     required String message,
@@ -759,8 +732,7 @@ class AuthCubit extends Cubit<AuthState> {
         "📤 TRY OTP => $phoneNumber",
       );
 
-      final result =
-      await sendVerificationCodeFunction(
+      final result = await sendVerificationCodeFunction(
         request: SendVerificationCodeRequest(
           user: phoneNumber,
           message: message,
@@ -878,8 +850,7 @@ class AuthCubit extends Cubit<AuthState> {
       print('EMAIL => $email');
       print('=================================');
 
-      final existingUsers =
-      await checkIfUserExistOrNotFunction(
+      final existingUsers = await checkIfUserExistOrNotFunction(
         request: CheckIfUserExistOrNotRequest(
           user: email,
           type: UserType.adminUser,
@@ -997,8 +968,10 @@ class AuthCubit extends Cubit<AuthState> {
       );
     }
   }
+
   Future<void> completeSignupAfterOtp() async {
     if (isClosed) return;
+    if (isOtpVerifying) return;
 
     final request = _pendingSignup;
 
@@ -1011,7 +984,8 @@ class AuthCubit extends Cubit<AuthState> {
       return;
     }
 
-    emit(AuthSignupLoading());
+    isOtpVerifying = true;
+    emit(AuthOtpVerificationLoading());
 
     try {
       final result = await createUserFunction(
@@ -1021,6 +995,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (isClosed) return;
 
       if (!result.success) {
+        isOtpVerifying = false;
         emit(
           AuthSignupError(
             result.message,
@@ -1030,6 +1005,8 @@ class AuthCubit extends Cubit<AuthState> {
       }
 
       _pendingSignup = null;
+      isOtpVerifying = false;
+      _timer?.cancel();
 
       emit(
         AuthSignupCompleted(
@@ -1039,6 +1016,7 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       if (isClosed) return;
 
+      isOtpVerifying = false;
       emit(
         AuthSignupError(
           e.toString(),
@@ -1057,10 +1035,15 @@ class AuthCubit extends Cubit<AuthState> {
     return emailRegex.hasMatch(email);
   }
 
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
+  }
+
 // =========================================================
 // SIGNUP EMPLOYEE
 // Check Email + Phone -> Create User
 // NO OTP
 // =========================================================
-
 }

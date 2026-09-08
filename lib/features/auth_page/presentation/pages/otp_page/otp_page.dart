@@ -12,7 +12,6 @@ import '../../../../../../core/theming/fonts.dart';
 import '../../../../../../core/theming/text_styles.dart';
 import '../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_state.dart';
 
-
 enum OtpPurpose {
   forgotPassword,
   signup,
@@ -32,16 +31,15 @@ class OtpPage extends StatefulWidget {
   State<OtpPage> createState() => _OtpPageState();
 }
 
-
 class _OtpPageState extends State<OtpPage> {
   final List<TextEditingController> controllers = List.generate(
     4,
-        (_) => TextEditingController(),
+    (_) => TextEditingController(),
   );
 
   final List<FocusNode> focusNodes = List.generate(
     4,
-        (_) => FocusNode(),
+    (_) => FocusNode(),
   );
 
 // =========================================================
@@ -85,7 +83,7 @@ class _OtpPageState extends State<OtpPage> {
     return controllers
         .map(
           (controller) => controller.text,
-    )
+        )
         .join();
   }
 
@@ -167,9 +165,9 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocListener<AuthCubit, AuthState>(
+    return BlocListener<AuthCubit, AuthState>(
       listenWhen: (previous, current) =>
-      current is AuthOtpSuccess ||
+          current is AuthOtpSuccess ||
           current is AuthOtpError ||
           current is AuthSignupCompleted ||
           current is AuthSignupError,
@@ -195,7 +193,6 @@ class _OtpPageState extends State<OtpPage> {
           return;
         }
 
-
         if (state is AuthSignupError) {
           AppSnackBar.showError(
             state.message,
@@ -209,7 +206,7 @@ class _OtpPageState extends State<OtpPage> {
           );
         }
       },
-      child:  Scaffold(
+      child: Scaffold(
         appBar: AppBar(),
         backgroundColor: AppColors.scaffoldColor,
         body: Center(
@@ -249,7 +246,7 @@ class _OtpPageState extends State<OtpPage> {
 
                 BlocBuilder<AuthCubit, AuthState>(
                   buildWhen: (previous, current) =>
-                  current is CheckIfUserExistOrNotSuccess ||
+                      current is CheckIfUserExistOrNotSuccess ||
                       current is AuthOtpGenerated ||
                       current is AuthOtpResendSuccess,
                   builder: (context, state) {
@@ -276,14 +273,14 @@ class _OtpPageState extends State<OtpPage> {
                                 text: AppLanguageKeys.codeSentTo,
                                 textSize: 13,
                                 fontWeightIndex:
-                                FontSelectionData.semiBoldFontFamily,
+                                    FontSelectionData.semiBoldFontFamily,
                                 textColor: AppColors.darkColor,
                               ),
                               TextInAppWidget(
                                 text: phone,
                                 textSize: 13,
                                 fontWeightIndex:
-                                FontSelectionData.semiBoldFontFamily,
+                                    FontSelectionData.semiBoldFontFamily,
                                 textColor: AppColors.darkColor,
                               ),
                             ],
@@ -299,110 +296,115 @@ class _OtpPageState extends State<OtpPage> {
 // OTP INPUTS
 // =================================================
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(
-                    4,
-                        (index) {
-                      return SizedBox(
-                        width: 65,
-                        height: 65,
-                        child: BlocBuilder<AuthCubit, AuthState>(
-                          buildWhen: (previous, current) =>
-                          current is AuthOtpError ||
-                              current is AuthOtpReset,
-                          builder: (context, state) {
-                            final cubit = context.read<AuthCubit>();
+                Directionality(
+                  key: const Key('otp_inputs_directionality'),
+                  textDirection: TextDirection.ltr,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      4,
+                      (index) {
+                        return SizedBox(
+                          width: 65,
+                          height: 65,
+                          child: BlocBuilder<AuthCubit, AuthState>(
+                            buildWhen: (previous, current) =>
+                                current is AuthOtpError ||
+                                current is AuthOtpReset,
+                            builder: (context, state) {
+                              final cubit = context.read<AuthCubit>();
 
-                            return TextField(
-                              controller: controllers[index],
-                              focusNode: focusNodes[index],
-                              keyboardType: TextInputType.number,
-                              textInputAction: TextInputAction.next,
-                              textAlign: TextAlign.center,
-                              maxLength: 1,
-                              style: const TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              decoration: InputDecoration(
-                                counterText: "",
-                                filled: true,
-                                fillColor: AppColors.lightWhiteColor,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.greyColor200,
-                                    width: 2,
+                              return TextField(
+                                controller: controllers[index],
+                                focusNode: focusNodes[index],
+                                textDirection: TextDirection.ltr,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.next,
+                                textAlign: TextAlign.center,
+                                maxLength: 1,
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                decoration: InputDecoration(
+                                  counterText: "",
+                                  filled: true,
+                                  fillColor: AppColors.lightWhiteColor,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: const BorderSide(
+                                      color: AppColors.greyColor200,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: cubit.isOtpError
+                                          ? AppColors.redColor
+                                          : AppColors.greyColor200,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: cubit.isOtpError
+                                          ? AppColors.redColor
+                                          : AppColors.orangeColor,
+                                      width: 2,
+                                    ),
                                   ),
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(
-                                    color: cubit.isOtpError
-                                        ? AppColors.redColor
-                                        : AppColors.greyColor200,
-                                    width: 2,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(
-                                    color: cubit.isOtpError
-                                        ? AppColors.redColor
-                                        : AppColors.orangeColor,
-                                    width: 2,
-                                  ),
-                                ),
-                              ),
-                              onChanged: (value) {
-                                final cubit = context.read<AuthCubit>();
+                                onChanged: (value) {
+                                  final cubit = context.read<AuthCubit>();
 
 // Remove OTP error
-                                cubit.resetOtpError();
+                                  cubit.resetOtpError();
 
 // =================================================
 // ENTERED VALUE
 // =================================================
 
-                                if (value.isNotEmpty) {
-                                  if (index < 3) {
-                                    focusNodes[index + 1].requestFocus();
-                                  } else {
-                                    focusNodes[index].unfocus();
+                                  if (value.isNotEmpty) {
+                                    if (index < 3) {
+                                      focusNodes[index + 1].requestFocus();
+                                    } else {
+                                      focusNodes[index].unfocus();
 
-                                    Future.delayed(
-                                      const Duration(
-                                        milliseconds: 100,
-                                      ),
-                                          () {
-                                        if (!mounted) return;
+                                      Future.delayed(
+                                        const Duration(
+                                          milliseconds: 100,
+                                        ),
+                                        () {
+                                          if (!mounted) return;
 
-                                        final code = getOtp();
+                                          final code = getOtp();
 
-                                        if (code.length == 4) {
-                                          _verifyOtp();
-                                        }
-                                      },
-                                    );
+                                          if (code.length == 4) {
+                                            _verifyOtp();
+                                          }
+                                        },
+                                      );
+                                    }
+
+                                    return;
                                   }
-
-                                  return;
-                                }
 
 // =================================================
 // DELETE
 // =================================================
 
-                                if (index > 0) {
-                                  focusNodes[index - 1].requestFocus();
-                                }
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    },
+                                  if (index > 0) {
+                                    focusNodes[index - 1].requestFocus();
+                                  }
+                                },
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
 
@@ -414,7 +416,7 @@ class _OtpPageState extends State<OtpPage> {
 
                 BlocBuilder<AuthCubit, AuthState>(
                   buildWhen: (previous, current) =>
-                  current is AuthOtpGenerated ||
+                      current is AuthOtpGenerated ||
                       current is AuthOtpTimer ||
                       current is AuthOtpExpired ||
                       current is AuthOtpError ||
@@ -425,7 +427,7 @@ class _OtpPageState extends State<OtpPage> {
 
                     return TextInAppWidget(
                       text:
-                      "00:${cubit.secondsRemaining.toString().padLeft(2, '0')}",
+                          "00:${cubit.secondsRemaining.toString().padLeft(2, '0')}",
                       textSize: 13,
                       fontWeightIndex: FontSelectionData.boldFontFamily,
                       textColor: AppColors.redColor,
@@ -443,9 +445,14 @@ class _OtpPageState extends State<OtpPage> {
                   width: double.infinity,
                   child: BlocBuilder<AuthCubit, AuthState>(
                     buildWhen: (previous, current) =>
-                    current is AuthOtpSuccess ||
-                        current is AuthOtpError,
+                        current is AuthOtpVerificationLoading ||
+                        current is AuthOtpSuccess ||
+                        current is AuthOtpError ||
+                        current is AuthSignupCompleted ||
+                        current is AuthSignupError,
                     builder: (context, state) {
+                      final cubit = context.read<AuthCubit>();
+                      final isLoading = cubit.isOtpVerifying;
 
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -457,14 +464,23 @@ class _OtpPageState extends State<OtpPage> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        onPressed:  _verifyOtp,
-                        child:const TextInAppWidget(
-                          text: AppLanguageKeys.verify,
-                          textSize: 14,
-                          fontWeightIndex:
-                          FontSelectionData.regularFontFamily,
-                          textColor: AppColors.whiteColor,
-                        ),
+                        onPressed: isLoading ? null : _verifyOtp,
+                        child: isLoading
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: AppColors.whiteColor,
+                                ),
+                              )
+                            : const TextInAppWidget(
+                                text: AppLanguageKeys.verify,
+                                textSize: 14,
+                                fontWeightIndex:
+                                    FontSelectionData.regularFontFamily,
+                                textColor: AppColors.whiteColor,
+                              ),
                       );
                     },
                   ),
@@ -478,9 +494,10 @@ class _OtpPageState extends State<OtpPage> {
 
                 BlocBuilder<AuthCubit, AuthState>(
                   buildWhen: (previous, current) =>
-                  current is AuthOtpGenerated ||
+                      current is AuthOtpGenerated ||
                       current is AuthOtpTimer ||
                       current is AuthOtpExpired ||
+                      current is AuthOtpResendLoading ||
                       current is AuthOtpResendSuccess ||
                       current is AuthOtpError,
                   builder: (context, state) {
@@ -499,17 +516,25 @@ class _OtpPageState extends State<OtpPage> {
 // =================================================
 
                     return TextButton(
-                      onPressed: () async {
-                        clearOtp();
+                      onPressed: cubit.isOtpResending
+                          ? null
+                          : () async {
+                              clearOtp();
 
-                        await cubit.resendOtp();
-                      },
-                      child: const TextInAppWidget(
-                        text: AppLanguageKeys.resend,
-                        textSize: 14,
-                        fontWeightIndex: FontSelectionData.boldFontFamily,
-                        textColor: AppColors.blackColor,
-                      ),
+                              await cubit.resendOtp();
+                            },
+                      child: cubit.isOtpResending
+                          ? const SizedBox(
+                              width: 18,
+                              height: 18,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const TextInAppWidget(
+                              text: AppLanguageKeys.resend,
+                              textSize: 14,
+                              fontWeightIndex: FontSelectionData.boldFontFamily,
+                              textColor: AppColors.blackColor,
+                            ),
                     );
                   },
                 ),
