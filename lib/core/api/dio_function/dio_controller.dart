@@ -20,6 +20,10 @@ class Network {
     return await dio.post(url, options: Options(headers: myHeaders));
   }
 
+  static Future<Response> postDataWithQuery(var jsonQuery, String url) async {
+    return await dio.post(url, queryParameters: jsonQuery, options: Options(headers: myHeaders));
+  }
+
   static Future<Response> putDataWithBody(var jsonData, String url) async {
     return await dio.put(
       url,

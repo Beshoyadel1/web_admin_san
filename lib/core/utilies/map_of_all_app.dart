@@ -21,6 +21,7 @@ import '../../../features/communication_and_policies_pages/presentation/pages/fi
 import '../../../features/logout_dashboard/presentation/first_screen_logout_dashboard/logout_dashboard.dart';
 import '../../../features/store_page/presentation/pages/store_widgets/facility_account/facility_account.dart';
 import '../../../features/technical_support/presentation/pages/technical_support_emp/technical_support_admin_sun.dart';
+import '../../features/cars_brands_page/presentation/page/brands_screen.dart';
 
 class AppStatesApi {
   static const String phoneExist = 'PhoneExist';
@@ -233,6 +234,7 @@ class PagesOfAllApp {
   static const int viewAllCouponNumber = 548;
   static const int viewAllAdminsNumber = 549;
   static const int viewAllWarrantyNumber = 550;
+  static const int carsBrandsNumber = 551;
 
 }
 
@@ -437,6 +439,13 @@ Future<void> getPages() async {
         image: AppImageKeys.users,
         page: ViewAllUsers(),
       ),
+
+    const PageNodeModel(
+      name: AppLanguageKeys.carsBrands,
+      number: PagesOfAllApp.carsBrandsNumber,
+      image: AppImageKeys.wallet,
+      page: BrandsAndModelsScreen(),
+    ),
 
     // ==========================================================
     // FINANCES

@@ -1,0 +1,28 @@
+PODS:
+  - flutter_image_compress_macos (1.0.0):
+    - FlutterMacOS
+  - FlutterMacOS (1.0.0)
+  - location (0.0.1):
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - flutter_image_compress_macos (from `Flutter/ephemeral/.symlinks/plugins/flutter_image_compress_macos/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+  - location (from `Flutter/ephemeral/.symlinks/plugins/location/macos`)
+
+EXTERNAL SOURCES:
+  flutter_image_compress_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_image_compress_macos/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+  location:
+    :path: Flutter/ephemeral/.symlinks/plugins/location/macos
+
+SPEC CHECKSUMS:
+  flutter_image_compress_macos: c26c3c13ea0f28ae6dea4e139b3292e7729f99f1
+  FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
+  location: 7cdb0665bd6577d382b0a343acdadbcb7f964775
+
+PODFILE CHECKSUM: 54d867c82ac51cbd61b565781b9fada492027009
+
+COCOAPODS: 1.16.2

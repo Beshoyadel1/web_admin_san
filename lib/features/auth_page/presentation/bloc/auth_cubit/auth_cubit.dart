@@ -91,7 +91,6 @@ class AuthCubit extends Cubit<AuthState> {
       );
     }
 
-    // Check facility completion
     await _checkFacilityCompletion(apiUser);
   }
 

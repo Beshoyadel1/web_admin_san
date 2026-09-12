@@ -214,24 +214,14 @@ class ApiLink {
       "${ApiConfig.baseUrlApi}/${ApiConfig.tax}/GetAvailableTaxs";
   static const String getPointInfo =
       "${ApiConfig.baseUrlApi}/${ApiConfig.points}/GetPointInfo";
-  static const String createCarBrand =
-      "${ApiConfig.baseUrlApi}/${ApiConfig.carBrand}/CreateCarBrand";
-  static const String createCarModel =
-      "${ApiConfig.baseUrlApi}/${ApiConfig.carModel}/CreateCarModel";
   static const String deleteTax =
       "${ApiConfig.baseUrlApi}/${ApiConfig.tax}/DeleteTax";
   static const String getAllPagesAbout =
       "${ApiConfig.baseUrlApi}/${ApiConfig.about}/GetAllPagesAbout";
-  static const String getCarBrandModels =
-      "${ApiConfig.baseUrlApi}/${ApiConfig.carModel}/GetCarBrandModels";
   static const String getCarBrand =
       "${ApiConfig.baseUrlApi}/${ApiConfig.carBrand}/GetCarBrands";
   static const String getServices =
       "${ApiConfig.baseUrlApi}/${ApiConfig.service}/GetServices";
-  static const String updateCarBrand =
-      "${ApiConfig.baseUrlApi}/${ApiConfig.carBrand}/UpdateCarBrand";
-  static const String updateCarModel =
-      "${ApiConfig.baseUrlApi}/${ApiConfig.carModel}/UpdateCarModel";
   static const String updatePageAbout =
       "${ApiConfig.baseUrlApi}/${ApiConfig.about}/UpdatePageAbout";
   static const String updateTax =
@@ -419,8 +409,14 @@ class ApiLink {
 
   static const String getStaticsForCoupon =
       "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/GetStaticsForCoupon";
-  static const String uploadCoupon =
-      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/UploadCoupon";
+  static const String uploadCoupon = "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/UploadCoupon";
+  static const String getCarBrands = "${ApiConfig.baseUrlApi}/CarBrand/GetCarBrands";
+  static const String createCarBrand = "${ApiConfig.baseUrlApi}/CarBrand/CreateCarBrand";
+  static const String updateCarBrand = "${ApiConfig.baseUrlApi}/CarBrand/UpdateCarBrand";
+  static const String getCarBrandModels = "${ApiConfig.baseUrlApi}/CarModel/GetCarBrandModels";
+  static const String createCarModel = "${ApiConfig.baseUrlApi}/CarModel/CreateCarModel";
+  static const String updateCarModel = "${ApiConfig.baseUrlApi}/CarModel/UpdateCarModel";
+
 }
 
 

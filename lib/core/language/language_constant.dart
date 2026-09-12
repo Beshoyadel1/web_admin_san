@@ -63,6 +63,22 @@ class AppLanguageKeys {
   static const String orders = 'orders';
   static const String providers = 'providers';
   static const String finances = 'finances';
+  static const String carsBrands = 'carsBrands';
+  static const String brands = 'brands';
+  static const String pleaseSelectBrandToViewModels = 'pleaseSelectBrandToViewModels';
+  static const String models = 'models';
+  static const String addModel = 'addModel';
+  static const String noModelsForThisBrandCurrently = 'noModelsForThisBrandCurrently';
+  static const String editModel = 'editModel';
+  static const String addNewModel = 'addNewModel';
+  static const String modelNameExample = 'modelNameExample';
+  static const String cancel = 'cancel';
+  static const String saveChanges = 'saveChanges';
+  static const String add = 'add';
+  static const String editBrandDetails = 'editBrandDetails';
+  static const String addNewBrand = 'addNewBrand';
+  static const String arabicNameExample = 'arabicNameExample';
+  static const String englishNameExample = 'englishNameExample';
   static const String approvals = 'approvals';
   static const String ranks = 'ranks';
   static const String support = 'support';
@@ -914,7 +930,6 @@ class AppLanguageKeys {
   static const String search = 'search';
 
   static const String confirm = 'confirm';
-  static const String cancel = 'cancel';
 
   static const String logout = 'logout_dashboard';
   static const String confirmLogout = 'confirmLogout';
@@ -1008,7 +1023,6 @@ class AppLanguageKeys {
   static const String unifiedPriceForAll = 'unifiedPriceForAll';
   static const String pricePerCategory = 'pricePerCategory';
   static const String sar = 'sar';
-  static const String add = 'add';
   static const String carWash = 'carWash';
   static const String battery = 'battery';
   static const String back = 'back';
