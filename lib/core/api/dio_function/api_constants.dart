@@ -107,6 +107,12 @@ class ApiLink {
 
   static const String getUserNewNotification =
       "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/GetUserNewNotification";
+  static const String subscribeToTopic =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/SubscribeToTopic";
+  static const String unsubscribeFromTopic =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/UnsubscribeFromTopic";
+  static const String updateFcmToken =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/UpdateFcmToken";
   //users
   static const String getDriverDetails =
       "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/GetDriverDetails";
@@ -702,4 +708,12 @@ class HarageStatus {
   static const int pending = 2;
   static const int sold = 3;
   static const int deleted = 4;
+}
+
+class FcmConfig {
+  static const String webVapidKey = String.fromEnvironment(
+    'FCM_WEB_VAPID_KEY',
+    defaultValue:
+        'BG3cqTKmSY0BSiXdMxTcitn7rNvFWiQMrevN0TM1_N6h6DBduRg9XGsrIwDVrUDn-E89Itt0GDBBfRyf3YL_dSU',
+  );
 }

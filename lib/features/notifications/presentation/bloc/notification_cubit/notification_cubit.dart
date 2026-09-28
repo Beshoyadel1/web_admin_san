@@ -1,11 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../core/theming/auth_local_storage.dart';
-import '../../../../../../features/notifications/data/datasource/get_user_new_notification_datasource/get_user_new_notification_datasource.dart';
-import '../../../../../../features/notifications/data/datasource/get_user_notification_datasource/get_user_notification_datasource.dart';
-import '../../../../../../features/notifications/data/datasource/make_notification_viewed_datasource/make_notification_viewed_datasource.dart';
-import '../../../../../../features/notifications/data/model/get_user_new_notification_model/get_user_new_notification_model.dart';
-import '../../../../../../features/notifications/data/request/get_user_new_notification_request/get_user_new_notification_request.dart';
-import '../../../../../../features/notifications/presentation/bloc/notification_cubit/notification_state.dart';
+import 'package:web_admin_san/core/api/dio_function/api_constants.dart';
+import 'package:web_admin_san/core/theming/auth_local_storage.dart';
+import 'package:web_admin_san/features/notifications/data/datasource/get_user_new_notification_datasource/get_user_new_notification_datasource.dart';
+import 'package:web_admin_san/features/notifications/data/datasource/get_user_notification_datasource/get_user_notification_datasource.dart';
+import 'package:web_admin_san/features/notifications/data/datasource/make_notification_viewed_datasource/make_notification_viewed_datasource.dart';
+import 'package:web_admin_san/features/notifications/data/model/get_user_new_notification_model/get_user_new_notification_model.dart';
+import 'package:web_admin_san/features/notifications/data/request/get_user_new_notification_request/get_user_new_notification_request.dart';
+import 'package:web_admin_san/features/notifications/presentation/bloc/notification_cubit/notification_state.dart';
 
 class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit() : super(NotificationInitial());
@@ -40,8 +41,9 @@ class NotificationCubit extends Cubit<NotificationState> {
     try {
       final user = await AuthLocalStorage.getUser();
 
-      if (user == null) {
-        safeEmit(NotificationError("User not found"));
+      if (user == null || user.userid == null || user.userid == 0) {
+        notifications = [];
+        safeEmit(NotificationSuccess(notifications));
         return;
       }
 
@@ -49,41 +51,27 @@ class NotificationCubit extends Cubit<NotificationState> {
 
       final userResponse = await getUserNotificationFunction(
         request: GetUserNewNotificationRequest(
-          userId: user.userid ?? 0,
-          userType: user.type ?? 0,
+          userId: user.userid!,
+          userType: user.type ?? UserType.adminUser,
           pageNumber: _pageNumber,
           pageSize: _pageSize,
         ),
       );
 
-      final globalResponse = await getUserNotificationFunction(
-        request: GetUserNewNotificationRequest(
-          userId: 0,
-          userType: user.type ?? 0,
-          pageNumber: _pageNumber,
-          pageSize: _pageSize,
-        ),
-      );
-
-      notifications = [
-        ...userResponse.data,
-        ...globalResponse.data,
-      ];
+      notifications = List<NotificationModel>.from(userResponse.data);
 
       notifications = {
-        for (final item in notifications) item.id!: item,
+        for (final item in notifications)
+          if (item.id != null) item.id!: item,
       }.values.toList();
 
       notifications.sort(
-            (a, b) => b.date!.compareTo(a.date!),
+        (a, b) =>
+            (b.date ?? DateTime.now()).compareTo(a.date ?? DateTime.now()),
       );
 
-      totalCount = userResponse.totalCount + globalResponse.totalCount;
-
-      pageCount = userResponse.pageCount > globalResponse.pageCount
-          ? userResponse.pageCount
-          : globalResponse.pageCount;
-
+      totalCount = userResponse.totalCount;
+      pageCount = userResponse.pageCount;
       hasMore = _pageNumber < pageCount;
 
       safeEmit(NotificationSuccess(notifications));
@@ -100,21 +88,22 @@ class NotificationCubit extends Cubit<NotificationState> {
     try {
       final user = await AuthLocalStorage.getUser();
 
-      if (user == null) {
-        safeEmit(NotificationError("User not found"));
+      if (user == null || user.userid == null || user.userid == 0) {
         return;
       }
 
       newNotification = await getUserNewNotificationFunction(
         request: GetUserNewNotificationRequest(
-          userId: user.userid ?? 0,
-          userType: user.type ?? 0,
+          userId: user.userid!,
+          userType: user.type ?? UserType.adminUser,
         ),
       );
 
       if (isClosed) return;
 
-      safeEmit(NotificationNewSuccess(newNotification!));
+      if (newNotification != null) {
+        safeEmit(NotificationNewSuccess(newNotification!));
+      }
     } catch (e) {
       if (isClosed) return;
       safeEmit(NotificationError(e.toString()));
@@ -127,15 +116,14 @@ class NotificationCubit extends Cubit<NotificationState> {
     try {
       final user = await AuthLocalStorage.getUser();
 
-      if (user == null) {
-        safeEmit(NotificationError("User not found"));
+      if (user == null || user.userid == null || user.userid == 0) {
         return;
       }
 
       await makeNotificationViewedFunction(
         request: GetUserNewNotificationRequest(
-          userId: user.userid ?? 0,
-          userType: user.type ?? 0,
+          userId: user.userid!,
+          userType: user.type ?? UserType.adminUser,
         ),
       );
 
@@ -156,45 +144,37 @@ class NotificationCubit extends Cubit<NotificationState> {
     try {
       final user = await AuthLocalStorage.getUser();
 
-      if (user == null) return;
+      if (user == null || user.userid == null || user.userid == 0) return;
 
       _pageNumber++;
 
       final userResponse = await getUserNotificationFunction(
         request: GetUserNewNotificationRequest(
-          userId: user.userid ?? 0,
-          userType: user.type ?? 0,
-          pageNumber: _pageNumber,
-          pageSize: _pageSize,
-        ),
-      );
-
-      final globalResponse = await getUserNotificationFunction(
-        request: GetUserNewNotificationRequest(
-          userId: 0,
-          userType: user.type ?? 0,
+          userId: user.userid!,
+          userType: user.type ?? UserType.adminUser,
           pageNumber: _pageNumber,
           pageSize: _pageSize,
         ),
       );
 
       notifications.addAll(userResponse.data);
-      notifications.addAll(globalResponse.data);
 
       notifications = {
-        for (final item in notifications) item.id!: item,
+        for (final item in notifications)
+          if (item.id != null) item.id!: item,
       }.values.toList();
 
       notifications.sort(
-            (a, b) => b.date!.compareTo(a.date!),
+        (a, b) =>
+            (b.date ?? DateTime.now()).compareTo(a.date ?? DateTime.now()),
       );
 
       hasMore = _pageNumber < pageCount;
 
       safeEmit(NotificationSuccess(notifications));
+    } catch (_) {
     } finally {
       isLoadingMore = false;
     }
   }
-
 }

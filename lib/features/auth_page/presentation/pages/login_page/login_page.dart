@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:web_admin_san/features/notifications/presentation/pages/signalR_status_bar/signalR_status_bar.dart';
-import '../../../../../core/utilies/map_of_all_app.dart';
 import '../../../../../core/theming/colors.dart';
 import 'login_devices_sizes_widget/login_web_widget.dart';
 
@@ -9,7 +7,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -18,7 +15,6 @@ class LoginPage extends StatelessWidget {
         child: const LoginWebWidget(),
 
       ),
-    //  bottomNavigationBar: const SignalRStatusBar(),
     );
   }
 }

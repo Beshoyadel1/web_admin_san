@@ -3,12 +3,15 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/core/services/fcm_service.dart';
 import 'package:web_admin_san/core/theming/auth_local_storage.dart';
+import 'package:web_admin_san/features/notifications/presentation/bloc/notification_cubit/notification_cubit.dart';
+import 'package:web_admin_san/features/notifications/presentation/bloc/notification_cubit/notification_state.dart';
+import 'package:web_admin_san/main.dart';
 import 'package:web_admin_san/features/auth_page/data/datasource/send_verification_code_datasource/send_verification_code_datasource.dart';
 import 'package:web_admin_san/features/auth_page/data/model/create_user_model/admin_details_request.dart';
 import 'package:web_admin_san/features/auth_page/data/model/create_user_model/provider_details_request.dart';
 import 'package:web_admin_san/features/auth_page/data/request/send_verification_code_request/send_verification_code_request.dart';
-import 'package:web_admin_san/features/notifications/data/datasource/signalr_datasource/signalr_service/signalr_service.dart';
 import '../../../../../core/api/dio_function/api_constants.dart';
 import '../../../../../core/language/language_constant.dart';
 import '../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
@@ -53,6 +56,8 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> init() async {
     emit(AuthLoading());
 
+    unawaited(FcmService.instance.getToken(vapidKey: FcmConfig.webVapidKey));
+
     final localUser = await AuthLocalStorage.getUser();
     final password = await AuthLocalStorage.getPassword();
 
@@ -61,11 +66,14 @@ class AuthCubit extends Cubit<AuthState> {
       return;
     }
 
+    final fcmToken = await FcmService.instance.getToken(vapidKey: FcmConfig.webVapidKey);
+
     final result = await loginFunction(
       loginRequest: LoginRequest(
         user: localUser.email!,
         password: password,
         type: UserType.adminUser,
+        fcmToken: fcmToken.isNotEmpty ? fcmToken : null,
       ),
     );
 
@@ -77,28 +85,43 @@ class AuthCubit extends Cubit<AuthState> {
 
     final apiUser = result.user!;
 
-    // if (!localUser.isSameData(apiUser)) {
-    //   print("INIT => Local user != API user");
-    //
-    //   await _forceLogout();
-    //   return;
-    // }
-
-    // Connect SignalR
-    if (!SignalRService.instance.isConnected) {
-      await SignalRService.instance.connect(
-        hubUrl: ApiLink.notificationHub,
+    // ربط إشعارات FCM للأدمن
+    try {
+      await FcmService.instance.init();
+      await FcmService.instance.syncCurrentToken(
+        userId: apiUser.userid,
+        userType: apiUser.type ?? UserType.adminUser,
       );
+    } catch (e) {
+      debugPrint("FCM Admin Init note: $e");
     }
 
     await _checkFacilityCompletion(apiUser);
+
+    final ctx = navigatorKey.currentContext;
+    if (ctx != null) {
+      try {
+        BlocProvider.of<NotificationCubit>(ctx, listen: false).getUserNotification();
+      } catch (_) {}
+    }
   }
 
   Future<void> _forceLogout() async {
     await AuthLocalStorage.clearUser();
     await AuthLocalStorage.clearPassword();
 
-    await SignalRService.instance.disconnect();
+    try {
+      await FcmService.instance.disconnect();
+    } catch (_) {}
+
+    final ctx = navigatorKey.currentContext;
+    if (ctx != null) {
+      try {
+        final notifCubit = BlocProvider.of<NotificationCubit>(ctx, listen: false);
+        notifCubit.notifications.clear();
+        notifCubit.safeEmit(NotificationSuccess(const []));
+      } catch (_) {}
+    }
 
     emit(AuthUnauthenticated());
   }
@@ -106,8 +129,22 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> login(LoginRequest request) async {
     emit(AuthLoginLoading());
 
+    final fcmToken = await FcmService.instance.getToken(vapidKey: FcmConfig.webVapidKey);
+    final String? tokenToSend = fcmToken.isNotEmpty
+        ? fcmToken
+        : ((request.fcmToken != null && request.fcmToken!.isNotEmpty)
+            ? request.fcmToken
+            : null);
+
+    final effectiveRequest = LoginRequest(
+      user: request.user,
+      password: request.password,
+      type: UserType.adminUser,
+      fcmToken: tokenToSend,
+    );
+
     final result = await loginFunction(
-      loginRequest: request,
+      loginRequest: effectiveRequest,
     );
 
     if (!result.success || result.user == null) {
@@ -124,12 +161,16 @@ class AuthCubit extends Cubit<AuthState> {
     // First login → save API user
     await AuthLocalStorage.saveUser(apiUser);
     // Save password for auto-login after restart
-    await AuthLocalStorage.savePassword(request.password);
+    await AuthLocalStorage.savePassword(effectiveRequest.password);
 
-    if (!SignalRService.instance.isConnected) {
-      await SignalRService.instance.connect(
-        hubUrl: ApiLink.notificationHub,
+    try {
+      await FcmService.instance.init();
+      await FcmService.instance.syncCurrentToken(
+        userId: apiUser.userid,
+        userType: apiUser.type ?? UserType.adminUser,
       );
+    } catch (e) {
+      debugPrint("FCM Admin Init note: $e");
     }
 
     emit(
@@ -139,11 +180,18 @@ class AuthCubit extends Cubit<AuthState> {
     );
 
     await _checkFacilityCompletion(apiUser);
+
+    final ctx = navigatorKey.currentContext;
+    if (ctx != null) {
+      try {
+        BlocProvider.of<NotificationCubit>(ctx, listen: false).getUserNotification();
+      } catch (_) {}
+    }
   }
 
   Future<void> logout(BuildContext context) async {
     emit(AuthLoading());
-    _forceLogout();
+    await _forceLogout();
     if (context.mounted) {
       Navigator.pop(context);
     }

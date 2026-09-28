@@ -1,5 +1,3 @@
-import 'package:web_admin_san/features/notifications/presentation/pages/signalR_status_bar/signalR_status_bar.dart';
-
 import '../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import '../../../../../features/auth_page/presentation/pages/otp_page/otp_page.dart';
 import 'package:flutter/material.dart';

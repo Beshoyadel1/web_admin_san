@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/api/dio_function/api_constants.dart';
+import '../../../../../../core/services/fcm_service.dart';
 import '../../../../../../core/language/language_constant.dart';
 import '../../../../../../core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import '../../../../../../core/pages_widgets/general_widgets/snakbar.dart';
@@ -110,7 +111,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 isLoading: isLoading,
                 onPressed: isLoading
                     ? null
-                    : () {
+                    : () async {
                   final email = userNameController.text.trim();
                   final password = passwordController.text.trim();
                   if (email.isEmpty||password.isEmpty) {
@@ -133,13 +134,18 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                   if (!formKey.currentState!.validate()) return;
 
+                  final fcmToken = await FcmService.instance.getToken(vapidKey: FcmConfig.webVapidKey);
+
                   final loginRequest = LoginRequest(
                     user: userNameController.text.trim(),
                     password: passwordController.text.trim(),
                     type: UserType.adminUser,
+                    fcmToken: fcmToken.isNotEmpty ? fcmToken : null,
                   );
 
-                  context.read<AuthCubit>().login(loginRequest);
+                  if (context.mounted) {
+                    context.read<AuthCubit>().login(loginRequest);
+                  }
                 },
               );
             },

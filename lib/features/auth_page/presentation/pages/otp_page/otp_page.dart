@@ -1,7 +1,6 @@
 import 'package:web_admin_san/core/pages_widgets/general_widgets/navigate_to_page_widget.dart';
 import 'package:web_admin_san/core/pages_widgets/general_widgets/snakbar.dart';
 import 'package:web_admin_san/features/auth_page/presentation/pages/change_password/change_password_page.dart';
-import 'package:web_admin_san/features/notifications/presentation/pages/signalR_status_bar/signalR_status_bar.dart';
 
 import '../../../../../../core/theming/colors.dart';
 import '../../../../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';

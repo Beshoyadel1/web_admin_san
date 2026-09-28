@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Flutter Run Web (Port 3000)",
+      "type": "shell",
+      "command": "flutter run -d chrome --web-port=3000",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Flutter Run Web Server (Port 3000)",
+      "type": "shell",
+      "command": "flutter run -d web-server --web-port=3000 --web-hostname=localhost",
+      "problemMatcher": []
+    }
+  ]
+}

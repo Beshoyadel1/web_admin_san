@@ -20,6 +20,7 @@ import '../../../core/theming/assets.dart';
 import '../../../features/communication_and_policies_pages/presentation/pages/first_screen_communication_and_policies_pages/first_screen_communication_and_policies_pages.dart';
 import '../../../features/logout_dashboard/presentation/first_screen_logout_dashboard/logout_dashboard.dart';
 import '../../../features/store_page/presentation/pages/store_widgets/facility_account/facility_account.dart';
+import '../../../features/technical_support/presentation/pages/admin_chat_page.dart';
 import '../../../features/technical_support/presentation/pages/technical_support_emp/technical_support_admin_sun.dart';
 import '../../features/cars_brands_page/presentation/page/brands_screen.dart';
 
@@ -492,7 +493,7 @@ Future<void> getPages() async {
         name: AppLanguageKeys.technicalSupport,
         image: AppImageKeys.support,
         number: PagesOfAllApp.technicalSupportPageNumber,
-        page: TechnicalSupportAdminSun(),
+        page: AdminChatPage(),
       ),
 
     // ==========================================================

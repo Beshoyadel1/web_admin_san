@@ -1,23 +1,42 @@
-import 'dart:ui';
-import 'package:web_admin_san/core/audio_service/audio_service.dart';
-import 'package:web_admin_san/features/notifications/presentation/bloc/notification_cubit/notification_cubit.dart';
-
-import '../../../features/auth_page/presentation/auth_gate.dart';
-import '../../../features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import '../../../core/cubit/app_cubit/app_cubit.dart';
-import '../../../core/language/language_cubit/language_cubit.dart';
-import '../../../core/language/language_cubit/language_states.dart';
-import '../../../core/theming/colors.dart';
-import '../../../core/language/language.dart';
-import '../../../core/setup_git_it.dart';
+import 'package:web_admin_san/core/audio_service/audio_service.dart';
+import 'package:web_admin_san/core/services/fcm_service.dart';
+import 'package:web_admin_san/firebase_options.dart';
+import 'package:web_admin_san/features/auth_page/presentation/auth_gate.dart';
+import 'package:web_admin_san/features/auth_page/presentation/bloc/auth_cubit/auth_cubit.dart';
+import 'package:web_admin_san/features/notifications/presentation/bloc/notification_cubit/notification_cubit.dart';
+import 'core/cubit/app_cubit/app_cubit.dart';
+import 'core/language/language_cubit/language_cubit.dart';
+import 'core/language/language_cubit/language_states.dart';
+import 'core/language/language.dart';
+import 'core/setup_git_it.dart';
 
+final GlobalKey<ScaffoldState> scaffoldKeyDrawer = GlobalKey<ScaffoldState>();
 final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    if (kIsWeb || (defaultTargetPlatform != TargetPlatform.windows && defaultTargetPlatform != TargetPlatform.linux)) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      if (!kIsWeb) {
+        FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+      }
+    }
+  } catch (e) {
+    debugPrint("Firebase init note: $e");
+  }
+
   setupGetIt();
+
   runApp(
     MultiBlocProvider(
       providers: [
@@ -25,8 +44,7 @@ void main() {
           create: (_) => NotificationCubit()..getUserNotification(),
         ),
         BlocProvider<LanguageCubit>(
-          create: (_) =>
-              getIt<LanguageCubit>()..getLanguageFromSharedPreference(),
+          create: (_) => getIt<LanguageCubit>()..getLanguageFromSharedPreference(),
         ),
         BlocProvider<AuthCubit>(
           create: (_) => AuthCubit()..init(),
@@ -48,20 +66,15 @@ class _MyAppState extends State<MyApp> {
   @override
   void reassemble() {
     super.reassemble();
-
     AudioService.instance.stopNotificationSound();
   }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    print("📱 Screen width = $width");
-
     return BlocProvider(
       create: (BuildContext context) => getIt<AppCubit>(),
       child: BlocBuilder<LanguageCubit, LanguageStates>(
-        buildWhen: (previous, current) =>
-        current is ChangeAllAppLanguageState,
+        buildWhen: (previous, current) => current is ChangeAllAppLanguageState,
         builder: (BuildContext context, state) {
           return MaterialApp(
             navigatorKey: navigatorKey,

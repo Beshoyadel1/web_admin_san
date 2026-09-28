@@ -36,11 +36,18 @@ class ReceiveMessageHandler {
       }
       final context = navigatorKey.currentContext;
 
-      if (context != null) {
+      if (context != null && context.mounted) {
         final appCubit = AppCubit.get(context);
+        final isTechnicalSupportOpen =
+            appCubit.selectedPageIndex == PagesOfAllApp.technicalSupportPageNumber;
 
-        if (appCubit.selectedPageIndex ==
-            PagesOfAllApp.technicalSupportPageNumber) {
+        final incomingSenderId = model.data?.data?.fromUser;
+        final isActiveChatWithSameSender = isTechnicalSupportOpen &&
+            ChatEvents.instance.activeChatUserId != null &&
+            incomingSenderId != null &&
+            ChatEvents.instance.activeChatUserId.toString() == incomingSenderId;
+
+        if (isActiveChatWithSameSender || isTechnicalSupportOpen) {
           return;
         }
       }
