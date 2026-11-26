@@ -1,0 +1,55 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:web_admin_san/generated/locale_keys.g.dart';
+import '../../../../../../core/helpers/themes/fonts.dart';
+import '../../../../../../core/helpers/themes/text_styles.dart';
+import '../../../../../../core/helpers/colors/app_colors.dart';
+
+class ContainerReturnToPageSetting extends StatelessWidget {
+  final String? text;
+  final Color? color;
+  final IconData? icon;
+  final void Function()? onTap;
+
+  const ContainerReturnToPageSetting(
+      {super.key, this.text, this.color, this.onTap, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: 100,
+        padding: const EdgeInsetsGeometry.all(10),
+        decoration: BoxDecoration(
+          color: color ?? AppColors.blackColor44,
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.darkColor.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 5,
+          children: [
+            Icon(
+              icon ?? CupertinoIcons.back,
+              color: AppColors.whiteColor,
+              size: 15,
+            ),
+            TextInAppWidget(
+              text: text ?? LocaleKeys.backToSettings,
+              textSize: 12,
+              fontWeightIndex: FontSelectionData.mediumFontFamily,
+              textColor: AppColors.whiteColor,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

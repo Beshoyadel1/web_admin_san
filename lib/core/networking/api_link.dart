@@ -1,0 +1,746 @@
+import 'dart:ui';
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:web_admin_san/generated/locale_keys.g.dart';
+import '../../../../core/helpers/colors/app_colors.dart';
+
+class ApiConfig {
+  static const String baseUrlApi = "https://api.sanmotorss.com";
+  static const String user = "Users";
+  static const String banner = "Banner";
+  static const String service = "Service";
+  static const String statistics = "Statistics";
+  static const String harage = "Harage";
+  static const String order = "Order";
+  static const String chat = "Chat";
+  static const String product = "Product";
+  static const String rate = "Rate";
+  static const String employeeService = "EmployeeService";
+  static const String coupon = "Coupon";
+  static const String payment = "Payment";
+  static const String wallet = "Wallet";
+  static const String paymentCard = "PaymentCard";
+  static const String about = "About";
+  static const String carBrand = "CarBrand";
+  static const String carModel = "CarModel";
+  static const String tax = "Tax";
+  static const String points = "Points";
+  static const String carGroup = "CarGroup";
+  static const String driver = "Driver";
+  static const String car = "Car";
+  static const String expectedPetrolSpend = "ExpectedPetrolSpend";
+  static const String provService = "ProvService";
+  static const String providerServicePackage = "ProviderServicePackage";
+  static const String packages = "Packages";
+  static const String serviceProvider = "ServiceProvider";
+  static const String workTIme = "WorkTIme";
+  static const String branch = "Branch";
+  static const String adminUsers = "AdminUsers";
+  static const String notification = "Notification";
+  static const String approval = "Approval";
+  static const String adminCar = "AdminCar";
+  static const String settlement = "Settlement";
+  static const String deliverySetting = "DeliverySetting";
+}
+
+class ApiLink {
+  static const String getDeliveryInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.deliverySetting}/GetDeliveryInfo";
+  static const String getDeliverySetting =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.deliverySetting}/GetDeliverySetting";
+  static const String updateDeliverySetting =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.deliverySetting}/UpdateDeliverySetting";
+  static const String getDeliveryOrders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/GetDeliveryOrders";
+  static const String cancelDeliveryOrder =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/CancelDeliveryOrder";
+  static const String getPendingCarRequests =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminCar}/GetPendingRequests";
+  static const String getCarRequestDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminCar}/GetRequestDetails";
+  static const String approveCarRequest =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminCar}/ApproveRequest";
+  static const String rejectCarRequest =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminCar}/RejectRequest";
+  static const String sendVerificationCode =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/SendVerificationCode";
+  static const String getHarageChat =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetHarageChat";
+  static const String changeHarageStatus =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/ChangeHarageStatus";
+  static const String getCarDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.car}/GetCarDetails";
+
+  static const String getAllHarages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetAllHarages";
+  static const String getHarageDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetHarageDetails";
+
+  static const String updateApprovalInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/UpdateApprovalInfo";
+  static const String createApprovalInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/CreateApprovalInfo";
+  //warranty
+  static const String getApprovalInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/GetApprovalInfo";
+  static const String getApprovalInfoById =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/GetApprovalInfoById";
+//admin
+  static const String getAllAdmins =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllAdmins";
+  //Coupons
+  static const String deleteCoupon =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/DeleteCoupon";
+
+  static const String updateCoupon =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/UpdateCoupon";
+
+  static const String createCoupon =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/CreateCoupon";
+
+  static const String getAllCoupons =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/GetAllCoupons";
+
+  static const String deletePackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.packages}/DeletePackage";
+
+  static const String updatePackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.packages}/UpdatePackage";
+
+  static const String createPackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.packages}/CreatePackage";
+  static const String getPackages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.packages}/GetPackages";
+
+  static const String getApprovedProviders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/GetApprovedProviders";
+
+  static const String toggleProviderApprovalStatus =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.approval}/ToggleProviderApprovalStatus";
+  static const String notificationHub = "${ApiConfig.baseUrlApi}/sunStatusHub";
+  static const String makeNotificationViewed =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/MakeNotificationViewed";
+
+  static const String getUserNotification =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/GetUserNotification";
+
+  static const String getUserNewNotification =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/GetUserNewNotification";
+  static const String subscribeToTopic =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/SubscribeToTopic";
+  static const String unsubscribeFromTopic =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.notification}/UnsubscribeFromTopic";
+  static const String updateFcmToken =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/UpdateFcmToken";
+  //users
+  static const String getDriverDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/GetDriverDetails";
+  static const String getCompanyCarsWithDrivers =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/GetCompanyCarsWithDrivers";
+  static const String getAllCompanies =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllCompanies";
+  static const String getHarageProviders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetHarageProviders";
+  static const String getAllUsers =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllUsers";
+  static const String getUserDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetUserDetails";
+
+  //providers
+  static const String getAllProviders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.adminUsers}/GetAllProviders";
+  //User
+  static const String createBanner =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.banner}/CreateBanner";
+  static const String updateBanner =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.banner}/UpdateBanner";
+  static const String deleteBanner =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.banner}/DeleteBanner";
+  //User
+  static const String loginUser =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/LogInUser";
+  static const String createUser =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/CreateUser";
+  static const String changePassword =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/ChangePassword";
+  static const String checkIfUserExist =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/CheckIfUserExist";
+  static const String checkIfUserExistOrNot =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/CheckIfUserExistOrNot";
+  static const String deleteUser =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/DeleteUser";
+  static const String getAppUserInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/GetAppUserInfo";
+  static const String restoreUser =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/RestoreUser";
+  static const String updateUser =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/UpdateUser";
+  static const String getUserInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.user}/getUserInfo";
+
+  //Banner
+  static const String getBanners =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.banner}/GetBanners";
+  static const String uploadBanners =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.banner}/UploadBanners";
+
+  //Chat
+  static const String getOtherMessages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.chat}/GetOtherMessages";
+  static const String getChatMessages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.chat}/GetChatMessages";
+  static const String getUserChats =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.chat}/GetUserChats";
+  static const String getUserProviderMessages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.chat}/GetUserProviderMessages";
+  static const String getWorkTeamChat =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.chat}/GetWorkTeamChat";
+  static const String makeChatViewed =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.chat}/MakeChatViewed";
+  static const String openCloseChat =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.chat}/OpenCloseChat";
+  static const String getSupportConversations =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.chat}/GetSupportConversations";
+  static const String getSupportTickets = getSupportConversations;
+  static const String sendMessage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.chat}/SendMessage";
+
+  //Company Management
+  static const String addCarToGroup =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.carGroup}/AddCarToGroup";
+  static const String addCompanyDriver =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/AddCompanyDriver";
+  static const String createCarGroup =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.carGroup}/CreateCarGroup";
+  static const String deleteCarGroup =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.carGroup}/DeleteCarGroup";
+  static const String deleteCompanyDriver =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/DeleteCompanyDriver";
+  static const String getCarGroups =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.carGroup}/GetCarGroups";
+  static const String getCompanyDrivers =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/GetCompanyDrivers";
+
+  static const String removeCarFromGroup =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.carGroup}/RemoveCarFromGroup";
+  static const String updateCarGroup =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.carGroup}/UpdateCarGroup";
+  static const String updateCompanyDriver =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.driver}/UpdateCompanyDriver";
+
+//Employee Management
+  static const String assignServiceToEmployee =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.employeeService}/AssignServiceToEmployee";
+  static const String getEmployeeServices =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.employeeService}/GetEmployeeServices";
+
+//General Setup And Config
+  static const String addTax =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.tax}/AddTax";
+  static const String getAvailableTaxs =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.tax}/GetAvailableTaxs";
+  static const String getPointInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.points}/GetPointInfo";
+  static const String deleteTax =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.tax}/DeleteTax";
+  static const String getAllPagesAbout =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.about}/GetAllPagesAbout";
+  static const String getCarBrand =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.carBrand}/GetCarBrands";
+  static const String getServices =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.service}/GetServices";
+  static const String updatePageAbout =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.about}/UpdatePageAbout";
+  static const String updateTax =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.tax}/UpdateTax";
+  static const String uploadPointInfo =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.points}/UploadPointInfo";
+
+//Harage
+  static const String createHarage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/CreateHarage";
+  static const String deleteHarage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/DeleteHarage";
+  static const String getAllHarage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetAllHarages";
+
+  static const String getUserHarages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetUserHarages";
+
+  static const String getHarage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/GetHarage";
+  static const String updateHarage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.harage}/UpdateHarage";
+
+//Order
+  static const String cancelOrder =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/CancelOrder";
+  static const String createOrder =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/CreateOrder";
+  static const String getCompanyOrders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/GetCompanyOrders";
+  static const String getOrderDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/GetOrderDetails";
+  static const String getOrders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/GetOrders";
+  static const String getProviderOrders =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/GetProviderOrders";
+  static const String updateOrderOfferStatus =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/UpdateOrderOfferStatus";
+  static const String updateOrderStatus =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.order}/UpdateOrderStatus";
+
+//Payments And Wallet
+  static const String addCard =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.paymentCard}/AddCard";
+  static const String createPayment =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.payment}/CreatePayment";
+  static const String getUserCards =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.paymentCard}/GetUserCards";
+  static const String getWalletBalance =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.payment}/${ApiConfig.wallet}/Balance";
+  static const String getProviderBalanceDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.payment}/GetProviderBalanceDetails";
+  static const String getWalletTransactions =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.payment}/GetWalletTransactions";
+  static const String rechargeWallet =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.payment}/RechargeWallet";
+  static const String removeCard =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.paymentCard}/RemoveCard";
+  static const String setDefaultCard =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.paymentCard}/SetDefaultCard";
+
+  // Settlements
+  static const String getProviderSettlements =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.settlement}/GetProviderSettlements";
+  static const String getSettlementDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.settlement}/GetSettlementDetails";
+  static const String createSettlement =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.settlement}/CreateSettlement";
+
+  //Packages
+  static const String getPackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.packages}/GetPackage";
+//Product
+  static const String createProduct =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.product}/CreateProduct";
+  static const String deleteProduct =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.product}/DeleteProduct";
+  static const String getProduct =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.product}/GetProduct";
+
+  static const String getProductsByCategory =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.product}/GetProductsByCategory";
+
+  static const String getAllProductCategories =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.product}/GetAllProductCategories";
+  static const String getProductsSuitableForCar =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.product}/getProductsSuitableForCar";
+  static const String updateProduct =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.product}/UpdateProduct";
+
+//provider Management
+  static const String createExpectedPetrolSpend =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.expectedPetrolSpend}/CreateExpectedPetrolSpend";
+  static const String addBranch =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.branch}/AddBranch";
+  static const String createProvService =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.provService}/CreateProvService";
+  static const String createServicePackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.providerServicePackage}/CreateServicePackage";
+  static const String deleteExpectedPetrolSpend =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.expectedPetrolSpend}/DeleteExpectedPetrolSpend";
+  static const String deleteProvService =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.provService}/DeleteProvService";
+  static const String deleteProviderWorkTime =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.workTIme}/DeleteProviderWorkTime";
+  static const String deleteServicePackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.providerServicePackage}/DeleteServicePackage";
+  static const String getBranchEmployees =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.branch}/GetBranchEmployees";
+  static const String getProvServices =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.provService}/GetProvServices";
+  static const String getExpectedPetrolSpend =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.expectedPetrolSpend}/GetExpectedPetrolSpend";
+  static const String getProviderBranches =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.branch}/GetProviderBranches";
+  static const String getProviderServicePackages =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.providerServicePackage}/GetProviderServicePackages";
+  static const String getProviderWorkTime =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.workTIme}/GetProviderWorkTime";
+  static const String getServiceProviderDetailsForAppUser =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.serviceProvider}/GetServiceProviderDetailsForAppUser";
+  static const String getServiceProvidersByServiceIdForAppUser =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.serviceProvider}/GetServiceProvidersByServiceIdForAppUser";
+  static const String updateBranch =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.branch}/UpdateBranch";
+  static const String updateExpectedPetrolSpend =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.expectedPetrolSpend}/UpdateExpectedPetrolSpend";
+  static const String updateProvService =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.provService}/UpdateProvService";
+  static const String updateServicePackage =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.providerServicePackage}/UpdateServicePackage";
+  static const String uploadProviderWorkTimes =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.workTIme}/UploadProviderWorkTimes";
+
+  //Rate
+  static const String createRate =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.rate}/CreateRate";
+  static const String deleteRate =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.rate}/DeleteRate";
+  static const String getProviderDetailsRates =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.rate}/GetProviderDetailsRates";
+  static const String getProvidersBasicRate =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.rate}/GetProvidersBasicRate";
+  static const String updateRate =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.rate}/UpdateRate";
+
+  //Service
+  static const String createService =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.service}/CreateService";
+  static const String uploadService =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.service}/UploadService";
+
+//Statistics
+  static const String getAdminDashboardStatistics =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetAdminDashboardStatistics";
+  static const String getAdminSalesAndCommission =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetAdminSalesAndCommission";
+  static const String getAdminMostRequestedServices =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetAdminMostRequestedServices";
+  static const String getCompanyCarGroupChart =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetCompanyCarGroupChart";
+  static const String getCompanyGeneralStatistics =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetCompanyGeneralStatistics";
+  static const String getMaintenanceReport =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetMaintenanceReport";
+  static const String getProviderHarageMonthlySales =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetProviderHarageMonthlySales";
+  static const String getProviderHarageSalesChart =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetProviderHarageSalesChart";
+  static const String getProviderHarageSoldCarsByType =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetProviderHarageSoldCarsByType";
+  static const String getProviderMainServiceStatistics =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetProviderMainServiceStatistics";
+  static const String getProviderOrdersSales =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetProviderOrdersSales";
+  static const String getProviderPetrolBranchesSales =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetProviderPetrolBranchesSales";
+  static const String getProviderPetrolSalesChart =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetProviderPetrolSalesChart";
+  static const String getProviderServiceStatistics =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetProviderServiceStatistics";
+  static const String getProviderTotalRateAndEmployeeAndBalance =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.statistics}/GetProviderTotalRateAndEmployeeAndBalance";
+
+  //Utility And Extras
+  static const String changeCouponStatus =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/ChangeCouponStatus";
+  static const String getCar =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.car}/GetCar";
+  static const String getCouponByCode =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/GetCouponByCode";
+  static const String getCouponDetails =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/GetCouponDetails";
+
+  static const String getStaticsForCoupon =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/GetStaticsForCoupon";
+  static const String uploadCoupon =
+      "${ApiConfig.baseUrlApi}/${ApiConfig.coupon}/UploadCoupon";
+  static const String getCarBrands =
+      "${ApiConfig.baseUrlApi}/CarBrand/GetCarBrands";
+  static const String createCarBrand =
+      "${ApiConfig.baseUrlApi}/CarBrand/CreateCarBrand";
+  static const String updateCarBrand =
+      "${ApiConfig.baseUrlApi}/CarBrand/UpdateCarBrand";
+  static const String getCarBrandModels =
+      "${ApiConfig.baseUrlApi}/CarModel/GetCarBrandModels";
+  static const String createCarModel =
+      "${ApiConfig.baseUrlApi}/CarModel/CreateCarModel";
+  static const String updateCarModel =
+      "${ApiConfig.baseUrlApi}/CarModel/UpdateCarModel";
+}
+
+class NotificationTopic {
+  static const String customer = "customer";
+
+  static const String company = "company";
+
+  static const String driver = "driver";
+
+  static const String provider = "provider";
+
+  static const String employee = "employee";
+
+  static const String admin = "admin";
+}
+
+class NotificationTypes {
+  static const String chat = "chat";
+  static const String newOrder = "new_order";
+  static const String updateOrderStatus = "update_order_status";
+  static const String cancelOrder = "cancel_order";
+  static const String newServiceRequest = "new_service_request";
+  static const String newServiceOffer = "new_service_offer";
+  static const String acceptServiceOffer = "accept_service_offer";
+  static const String transferCarOwnership = "transfer_ownership";
+  static const String supportTicket = "support_ticket";
+  static const String openCloseChat = "open_close_chat";
+}
+
+class SignalRTypes {
+  static const String newOrder = "NewOrder";
+  static const String updateOrderStatus = "UpdateOrderStatus";
+  static const String newServiceRequest = "NewServiceRequest";
+  static const String newServiceOffer = "NewServiceOffer";
+  static const String receiveMessage = "ReceiveMessage";
+  static const String receiveNotification = "ReceiveNotification";
+  static const String openCloseChat = "OpenCloseChat";
+  static const String transferCarOwnership = "TransferCarOwnership";
+}
+
+class UserType {
+  static const int appUser = 1;
+  static const int companyUser = 2;
+  static const int driverUser = 3;
+  static const int providerUser = 4;
+  static const int employeeUser = 5;
+  static const int adminUser = 6;
+}
+
+class FuelTypeModel {
+  final int id;
+  final String name;
+
+  const FuelTypeModel({
+    required this.id,
+    required this.name,
+  });
+}
+
+class FuelTypes {
+  static const FuelTypeModel petrol =
+      FuelTypeModel(id: 1, name: LocaleKeys.petrol);
+
+  static const FuelTypeModel diesel =
+      FuelTypeModel(id: 2, name: LocaleKeys.diesel);
+
+  static const FuelTypeModel electricity =
+      FuelTypeModel(id: 3, name: LocaleKeys.electricity);
+
+  static const FuelTypeModel hybrid =
+      FuelTypeModel(id: 4, name: LocaleKeys.hybrid);
+
+  static const List<FuelTypeModel> all = [
+    petrol,
+    diesel,
+    electricity,
+    hybrid,
+  ];
+}
+
+class OrderStatus {
+  static const int newOrderForCompany = -2;
+  static const int rejectedByCompany = -1;
+  static const int newOrderForProvider = 0;
+  static const int waitingAppointment = 1;
+  static const int employeeInRoad = 2;
+  static const int workInProgress = 3;
+  static const int orderCompleted = 4;
+  static const int rejectedByProvider = 5;
+  static const int cancelledByUser = 6;
+}
+
+class OrderType {
+  static const int New = 1;
+  static const int current = 2;
+  static const int done = 3;
+  static const List<int> newOrders = [
+    OrderStatus.newOrderForProvider,
+    OrderStatus.newOrderForCompany
+  ];
+  static const List<int> currentOrders = [
+    OrderStatus.waitingAppointment,
+    OrderStatus.employeeInRoad,
+    OrderStatus.workInProgress
+  ];
+  static const List<int> doneOrders = [
+    OrderStatus.orderCompleted,
+    OrderStatus.cancelledByUser,
+    OrderStatus.rejectedByProvider,
+  ];
+}
+
+class CategoryConstants {
+  static const int maintenanceAndRepair = 6;
+  static const int oilChange = 7;
+  static const int batteryMaintenance = 8;
+  static const int periodicMaintenance = 9;
+  static const int mobileServices = 10;
+  static const int towingService = 11;
+  static const int roadsideAssistance = 12;
+  static const int interiorParts = 13;
+  static const int oilsAndLubricants = 14;
+  static const int carAccessories = 15;
+  static const int batteryPackage = 16;
+  static const int autoGlass = 17;
+  static const int tires = 18;
+  static const int petrolService = 19;
+}
+
+class MainCategoryConstants {
+  static const int maintenanceAndInternalServicesID = 1;
+  static const int mobileServicesAndTransportationID = 2;
+  static const int carSparePartsID = 3;
+  static const int servicePackagesID = 4;
+  static const int petrolMainID = 5;
+
+  final List<int> maintenanceSubCategories = [
+    CategoryConstants.maintenanceAndRepair,
+    CategoryConstants.oilChange,
+    CategoryConstants.batteryMaintenance,
+    CategoryConstants.periodicMaintenance
+  ];
+
+  final List<int> mobileSubCategories = [
+    CategoryConstants.mobileServices,
+    CategoryConstants.towingService,
+    CategoryConstants.roadsideAssistance
+  ];
+
+  final List<int> sparePartsSubCategories = [
+    CategoryConstants.interiorParts,
+    CategoryConstants.oilsAndLubricants,
+    CategoryConstants.carAccessories,
+    CategoryConstants.batteryPackage,
+    CategoryConstants.autoGlass,
+    CategoryConstants.tires
+  ];
+
+  final List<int> servicePackageSubCategories = [];
+
+  final List<int> petrolSubCategories = [CategoryConstants.petrolService];
+}
+
+Color legendColor(int index) {
+  const colors = [
+    AppColors.brownColor,
+    AppColors.lightBlueColor,
+    AppColors.greenColor,
+    AppColors.orangeColor,
+    AppColors.purpleColor,
+    AppColors.yelloIconLoadingColor,
+    AppColors.redColor,
+    AppColors.cyanColor,
+    AppColors.blackColor
+  ];
+
+  return colors[index % colors.length];
+}
+
+class OfferStatus {
+  static const int newOffer = 0;
+  static const int rejected = 1;
+  static const int accepted = 2;
+  static const int canceled = 3;
+}
+
+class OrderStatusToString {
+  static String toLocalized(int status) {
+    return switch (status) {
+      OrderStatus.newOrderForCompany => LocaleKeys.newOrderForCompany.tr(),
+      OrderStatus.rejectedByCompany => LocaleKeys.rejectedByCompany.tr(),
+      OrderStatus.newOrderForProvider => LocaleKeys.newOrderForProvider.tr(),
+      OrderStatus.waitingAppointment => LocaleKeys.waitingAppointment.tr(),
+      OrderStatus.employeeInRoad => LocaleKeys.employeeInRound.tr(),
+      OrderStatus.workInProgress => LocaleKeys.workInProgress.tr(),
+      OrderStatus.orderCompleted => LocaleKeys.orderCompleted.tr(),
+      OrderStatus.rejectedByProvider => LocaleKeys.rejectedByProvider.tr(),
+      OrderStatus.cancelledByUser => LocaleKeys.cancelledByUser.tr(),
+      _ => LocaleKeys.unknownType.tr(),
+    };
+  }
+
+  static String toArabic(int status) => toLocalized(status);
+
+  static String toEnglish(int status) => toLocalized(status);
+}
+
+class PaymentMethodType {
+  static const int unknown = -1;
+  static const int cash = 0;
+  static const int wallet = 1;
+  static const int mada = 2;
+  static const int visa = 3;
+  static const int applePay = 4;
+  static const int points = 5;
+  static const int savedCard = 6;
+}
+
+class PointsTransactionType {
+  static const int receive = 1;
+  static const int useInOrder = 2;
+  static const int send = 3;
+  static const int exchange = 4;
+}
+
+class TransactionType {
+  static const int refund = 0;
+  static const int acceptWalletBalance = 1;
+  static const int rechargeWallet = 2;
+  static const int acceptSettlement = 3;
+  static const int order = 6;
+  static const int subscription = 7;
+  static const int transferWalletBalance = 8;
+}
+
+class WalletTransactionType {
+  static const bool deposit = true;
+  static const bool withdrawal = false;
+}
+
+class DiscountType {
+  static const int fixedAmount = 1;
+  static const int percentage = 2;
+}
+
+class DurationType {
+  static const int month = 1;
+  static const int year = 2;
+
+  static const List<DurationTypeItem> all = [
+    DurationTypeItem(
+      id: month,
+      name: LocaleKeys.month,
+    ),
+    DurationTypeItem(
+      id: year,
+      name: LocaleKeys.year,
+    ),
+  ];
+}
+
+class DurationTypeItem {
+  final int id;
+  final String name;
+
+  const DurationTypeItem({
+    required this.id,
+    required this.name,
+  });
+}
+
+class HarageStatus {
+  static const int created = 1;
+  static const int pending = 2;
+  static const int sold = 3;
+  static const int deleted = 4;
+}
+
+class FcmConfig {
+  static const String webVapidKey = String.fromEnvironment(
+    'FCM_WEB_VAPID_KEY',
+    defaultValue:
+        'BG3cqTKmSY0BSiXdMxTcitn7rNvFWiQMrevN0TM1_N6h6DBduRg9XGsrIwDVrUDn-E89Itt0GDBBfRyf3YL_dSU',
+  );
+}

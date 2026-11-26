@@ -2,9 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Flutter Run Web (Port 3000)",
+      "label": "Flutter Run Web (Port 5001)",
       "type": "shell",
-      "command": "flutter run -d chrome --web-port=3000",
+      "command": "flutter run -d chrome --web-port=5001",
       "problemMatcher": [],
       "group": {
         "kind": "build",
@@ -12,9 +12,15 @@
       }
     },
     {
-      "label": "Flutter Run Web Server (Port 3000)",
+      "label": "Flutter Run Web Server (Port 5001)",
       "type": "shell",
-      "command": "flutter run -d web-server --web-port=3000 --web-hostname=localhost",
+      "command": "flutter run -d web-server --web-port=5001 --web-hostname=localhost",
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter Build Web (Release)",
+      "type": "shell",
+      "command": "flutter build web --no-tree-shake-icons",
       "problemMatcher": []
     }
   ]

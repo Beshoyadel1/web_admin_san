@@ -1,0 +1,25 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:web_admin_san/feature/order_status_design/data/datasource/update_order_status_datasource/update_order_status_repository.dart';
+import 'package:web_admin_san/feature/order_status_design/view_model/order_status_cubit/order_status_state.dart';
+import '../../data/request/update_order_status_request/update_order_status_request.dart';
+
+class OrderStatusCubit extends Cubit<OrderStatusState> {
+  OrderStatusCubit() : super(OrderStatusInitial());
+
+  Future<void> updateOrderStatus({
+    required UpdateOrderStatusRequest updateOrderStatusRequest,
+  }) async {
+    emit(OrderStatusLoading());
+
+    final bool isSuccess = await updateOrderStatusFunction(
+      updateOrderStatusRequest: updateOrderStatusRequest,
+    );
+
+    if (isSuccess) {
+      emit(OrderStatusSuccess());
+    } else {
+      emit(OrderStatusError("Failed to update order status"));
+    }
+  }
+}

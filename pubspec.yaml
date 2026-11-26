@@ -73,6 +73,7 @@ dependencies:
   # Utilities for UI & Formatting
   shimmer: ^3.0.0
   intl: ^0.20.2
+  web: ^1.1.0
 
 
 dev_dependencies:
@@ -102,6 +103,7 @@ flutter:
     - assets/fonts/
     - assets/images/
     - assets/sounds/
+    - assets/translations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

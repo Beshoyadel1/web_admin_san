@@ -1,0 +1,31 @@
+import 'package:flutter/cupertino.dart';
+
+import 'package:web_admin_san/generated/locale_keys.g.dart';
+import '../../../../../../../../../core/helpers/colors/app_colors.dart';
+import '../../../../../../../../../core/helpers/themes/fonts.dart';
+import '../../../../../../../../../core/helpers/themes/text_styles.dart';
+
+class FirstRowInDataInContainerLastYearSales extends StatelessWidget {
+  const FirstRowInDataInContainerLastYearSales({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      children: [
+        Expanded(
+          child: TextInAppWidget(
+            text: LocaleKeys.lastYearSales,
+            textSize: 15,
+            fontWeightIndex: FontSelectionData.regularFontFamily,
+            textColor: AppColors.blackColor,
+          ),
+        ),
+        // RowNumberCoinWidget(
+        //     numberText: '450' ,
+        //     sizeText: 15,
+        //     imageSrc: AppImageKeys.coin
+        // ),
+      ],
+    );
+  }
+}

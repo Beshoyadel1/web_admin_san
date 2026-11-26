@@ -1,0 +1,29 @@
+import 'package:flutter/cupertino.dart';
+
+import '../../../../../../../../../core/helpers/colors/app_colors.dart';
+import 'package:web_admin_san/feature/internal_services/presentation/pages/internal_orders/first_screen_internal_orders/screens/part_two_screen_first_screen_internal_orders/container_rate_service/data_in_container_rate_service.dart';
+
+class ContainerRateService extends StatelessWidget {
+  const ContainerRateService({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      padding: const EdgeInsetsGeometry.all(10),
+      decoration: BoxDecoration(
+        color: AppColors.whiteColor,
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        border: Border.all(color: AppColors.greyColor.withOpacity(0.3)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.darkColor.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: const DataInContainerRateService(),
+    );
+  }
+}

@@ -1,0 +1,47 @@
+import 'package:dio/dio.dart';
+
+import 'package:web_admin_san/feature/cars_haraj_page/data/model/get_provider_harage_sold_cars_by_type_model/get_provider_harage_sold_cars_by_type_model.dart';
+
+import '../../request/get_provider_harage_sold_cars_by_type_request/get_provider_harage_sold_cars_by_type_request.dart';
+
+import '../../../../../core/networking/api_link.dart';
+import '../../../../../core/networking/network.dart';
+import '../../../../../core/networking/failures.dart';
+
+Future<GetProviderHarageSoldCarsByTypeModel?>
+    getProviderHarageSoldCarsByTypeFunction({
+  required GetProviderHarageSoldCarsByTypeRequest
+      getProviderHarageSoldCarsByTypeRequest,
+}) async {
+  try {
+    final response = await Network.postDataWithBodyAndParams(
+      {},
+      getProviderHarageSoldCarsByTypeRequest.toJson(),
+      ApiLink.getProviderHarageSoldCarsByType,
+    );
+
+    final responseData = response.data;
+
+    final bool success = responseData['success'] ?? false;
+
+    if (!success) {
+      throw Exception(
+        responseData['message'] ?? 'Something went wrong',
+      );
+    }
+
+    return GetProviderHarageSoldCarsByTypeModel.fromJson(
+      responseData,
+    );
+  } catch (e) {
+    if (e is DioException) {
+      throw Exception(
+        responseOfStatusCode(
+          e.response?.statusCode,
+        ),
+      );
+    }
+
+    rethrow;
+  }
+}

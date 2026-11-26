@@ -1,0 +1,39 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/feature/statistics_page/data/request/get_provider_service_statistics_request/get_provider_service_statistics_request.dart';
+import 'package:web_admin_san/feature/providers_page/data/datasource/statistics_providers_datasource/get_provider_service_statistics_data_source/get_provider_service_statistics_repository.dart';
+import 'package:web_admin_san/feature/providers_page/view_model/statistics_providers_cubit/get_provider_service_statistics_cubit/get_provider_service_statistics_state.dart';
+
+class GetProviderServiceStatisticsCubit
+    extends Cubit<GetProviderServiceStatisticsState> {
+  GetProviderServiceStatisticsCubit()
+      : super(GetProviderServiceStatisticsInitial());
+
+  static GetProviderServiceStatisticsCubit get(context) =>
+      BlocProvider.of(context);
+
+  Future<void> getProviderServiceStatistics({
+    required int providerId,
+    DateTime? startDate,
+    DateTime? endDate,
+  }) async {
+    if (isClosed) return;
+
+    emit(GetProviderServiceStatisticsLoading());
+
+    final result = await getProviderServiceStatisticsFunction(
+      request: GetProviderServiceStatisticsRequest(
+        providerId: providerId,
+        startDate: startDate,
+        endDate: endDate,
+      ),
+    );
+
+    if (isClosed) return;
+
+    if (result != null) {
+      emit(GetProviderServiceStatisticsSuccess(result));
+    } else {
+      emit(GetProviderServiceStatisticsError("Error loading data"));
+    }
+  }
+}

@@ -1,0 +1,33 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_admin_san/feature/auth_page/data/model/create_user_model/provider_details_request.dart';
+import 'package:web_admin_san/feature/accounts_management_page/data/datasource/get_provider_balance_details_datasource/get_provider_balance_details_repository.dart';
+import 'package:web_admin_san/feature/accounts_management_page/data/request/get_provider_balance_details_request/get_provider_balance_details_request.dart';
+import 'package:web_admin_san/feature/accounts_management_page/view_model/provider_balances_cubit/provider_balances_state.dart';
+
+class ProviderBalanceCubit extends Cubit<ProviderBalanceState> {
+  ProviderBalanceCubit() : super(ProviderBalanceInitial());
+
+  Future<void> getBalanceDetails(
+      {required ProviderDetailsRequest providerDetailsRequest}) async {
+    emit(ProviderBalanceLoading());
+
+    try {
+      final request = GetProviderBalanceDetailsRequest(
+        providerId: providerDetailsRequest.id ?? 5,
+      );
+
+      final data = await getProviderBalanceDetailsFunction(
+        request: request,
+      );
+
+      if (data == null) {
+        emit(ProviderBalanceError("No data"));
+        return;
+      }
+
+      emit(ProviderBalanceSuccess(data));
+    } catch (e) {
+      emit(ProviderBalanceError(e.toString()));
+    }
+  }
+}

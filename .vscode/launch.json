@@ -2,35 +2,45 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Flutter Web (Chrome - Port 3000)",
+      "name": "Flutter Web (Chrome - Port 5001)",
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart",
       "deviceId": "chrome",
       "args": [
-        "--web-port=3000"
+        "--web-port=5001"
       ]
     },
     {
-      "name": "Flutter Web Server (Port 3000)",
+      "name": "Flutter Web Server (Port 5001)",
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart",
       "deviceId": "web-server",
       "args": [
-        "--web-port=3000",
+        "--web-port=5001",
         "--web-hostname=localhost"
       ]
     },
     {
-      "name": "Flutter Web Release (Port 3000)",
+      "name": "Flutter Web Release (Port 5001)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
       "program": "lib/main.dart",
       "deviceId": "chrome",
       "args": [
-        "--web-port=3000"
+        "--web-port=5001"
+      ]
+    },
+    {
+      "name": "Flutter Web (Edge - Port 5001)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "deviceId": "edge",
+      "args": [
+        "--web-port=5001"
       ]
     }
   ]
